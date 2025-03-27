@@ -61,6 +61,8 @@
     <Build Include="Produtos.sql" />
     <Build Include="Categorias.sql" />
     <Build Include="Fornecedores.sql" />
+    <Build Include="Veiculos.sql" />
+    <Build Include="Clientes.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="DatabaseAutoPecas.refactorlog" />
