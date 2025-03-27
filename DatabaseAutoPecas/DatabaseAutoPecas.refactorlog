@@ -28,4 +28,39 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="PrecoCusto" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="9b46e199-2574-47fb-a4a2-639c33181de7" ChangeDateTime="03/27/2025 00:39:41">
+    <Property Name="ElementName" Value="[dbo].[Produtos].[PrecoCusto]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Produtos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CustoAquisicao" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f2e031c2-e893-4c77-a502-9f480631fe5b" ChangeDateTime="03/27/2025 00:47:30">
+    <Property Name="ElementName" Value="[dbo].[Categorias].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Categorias]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CategoriaID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="7cdaf57c-e4c8-481c-af01-766aa0e0c5c6" ChangeDateTime="03/27/2025 00:54:33">
+    <Property Name="ElementName" Value="[dbo].[FK_Produtos_ToTable]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Produtos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_Produtos_Categoria]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="49cf7ba4-6b26-4c7f-96c6-7f26f210b546" ChangeDateTime="03/27/2025 00:54:35">
+    <Property Name="ElementName" Value="[dbo].[FK_Produtos_Categoria]" />
+    <Property Name="ElementType" Value="SqlForeignKeyConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Produtos]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[FK_Produtos_Categorias]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="f02be6b6-f458-4d6a-8b41-eeee5f398d74" ChangeDateTime="03/27/2025 00:56:25">
+    <Property Name="ElementName" Value="[dbo].[Fornecedores].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Fornecedores]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="FornecedorID" />
+  </Operation>
 </Operations>
