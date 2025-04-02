@@ -38,11 +38,14 @@
             ibtn_Clientes = new FontAwesome.Sharp.IconButton();
             ibtn_Produtos = new FontAwesome.Sharp.IconButton();
             panel_Header = new Panel();
+            icon_Current = new FontAwesome.Sharp.IconPictureBox();
             btn_close = new Button();
             sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
             dragControl1 = new DragControl();
+            lab_Title = new Label();
             panel_Menu.SuspendLayout();
             panel_Header.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)icon_Current).BeginInit();
             SuspendLayout();
             // 
             // panel_Menu
@@ -216,12 +219,25 @@
             // panel_Header
             // 
             panel_Header.BackColor = Color.Black;
+            panel_Header.Controls.Add(lab_Title);
+            panel_Header.Controls.Add(icon_Current);
             panel_Header.Controls.Add(btn_close);
             panel_Header.Dock = DockStyle.Top;
             panel_Header.Location = new Point(222, 0);
             panel_Header.Name = "panel_Header";
             panel_Header.Size = new Size(983, 80);
             panel_Header.TabIndex = 1;
+            // 
+            // icon_Current
+            // 
+            icon_Current.IconChar = FontAwesome.Sharp.IconChar.House;
+            icon_Current.IconColor = Color.White;
+            icon_Current.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            icon_Current.Location = new Point(23, 25);
+            icon_Current.Name = "icon_Current";
+            icon_Current.Size = new Size(32, 32);
+            icon_Current.TabIndex = 3;
+            icon_Current.TabStop = false;
             // 
             // btn_close
             // 
@@ -244,6 +260,16 @@
             // 
             dragControl1.SelectControl = panel_Header;
             // 
+            // lab_Title
+            // 
+            lab_Title.AutoSize = true;
+            lab_Title.ForeColor = Color.White;
+            lab_Title.Location = new Point(57, 28);
+            lab_Title.Name = "lab_Title";
+            lab_Title.Size = new Size(47, 17);
+            lab_Title.TabIndex = 4;
+            lab_Title.Text = "Home";
+            // 
             // TelaInicial
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -259,6 +285,8 @@
             panel_Menu.ResumeLayout(false);
             panel_Menu.PerformLayout();
             panel_Header.ResumeLayout(false);
+            panel_Header.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)icon_Current).EndInit();
             ResumeLayout(false);
         }
 
@@ -276,5 +304,7 @@
         private FontAwesome.Sharp.IconButton ibtn_Veiculos;
         private FontAwesome.Sharp.IconButton ibtn_Clientes;
         private Label btn_Home;
+        private FontAwesome.Sharp.IconPictureBox icon_Current;
+        private Label lab_Title;
     }
 }

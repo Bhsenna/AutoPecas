@@ -35,6 +35,9 @@ namespace Salomao
                 leftBorderBtn.Location = new Point(0, currentBtn.Location.Y);
                 leftBorderBtn.Visible = true;
                 leftBorderBtn.BringToFront();
+                // Icon current form
+                icon_Current.IconChar = currentBtn.IconChar;
+                icon_Current.IconColor = color;
             }
         }
 
@@ -112,6 +115,9 @@ namespace Salomao
         {
             DisableButton();
             leftBorderBtn.Visible = false;
+            icon_Current.IconChar = IconChar.House;
+            icon_Current.IconColor = Color.White;
+            lab_Title.Text = "Home";
         }
     }
 }
