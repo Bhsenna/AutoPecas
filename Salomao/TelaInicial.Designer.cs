@@ -30,13 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaInicial));
             panel_Menu = new Panel();
+            btn_Home = new Label();
             ibtn_Logout = new FontAwesome.Sharp.IconButton();
             ibtn_Config = new FontAwesome.Sharp.IconButton();
             ibtn_Servicos = new FontAwesome.Sharp.IconButton();
             ibtn_Veiculos = new FontAwesome.Sharp.IconButton();
             ibtn_Clientes = new FontAwesome.Sharp.IconButton();
             ibtn_Produtos = new FontAwesome.Sharp.IconButton();
-            label1 = new Label();
             panel_Header = new Panel();
             btn_close = new Button();
             sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
@@ -48,18 +48,31 @@
             // panel_Menu
             // 
             panel_Menu.BackColor = Color.Black;
+            panel_Menu.Controls.Add(btn_Home);
             panel_Menu.Controls.Add(ibtn_Logout);
             panel_Menu.Controls.Add(ibtn_Config);
             panel_Menu.Controls.Add(ibtn_Servicos);
             panel_Menu.Controls.Add(ibtn_Veiculos);
             panel_Menu.Controls.Add(ibtn_Clientes);
             panel_Menu.Controls.Add(ibtn_Produtos);
-            panel_Menu.Controls.Add(label1);
             panel_Menu.Dock = DockStyle.Left;
             panel_Menu.Location = new Point(0, 0);
             panel_Menu.Name = "panel_Menu";
             panel_Menu.Size = new Size(222, 606);
             panel_Menu.TabIndex = 0;
+            // 
+            // btn_Home
+            // 
+            btn_Home.AutoSize = true;
+            btn_Home.Cursor = Cursors.Hand;
+            btn_Home.Font = new Font("Condiment", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btn_Home.ForeColor = Color.White;
+            btn_Home.Location = new Point(4, 7);
+            btn_Home.Name = "btn_Home";
+            btn_Home.Size = new Size(212, 73);
+            btn_Home.TabIndex = 2;
+            btn_Home.Text = "Auto Peças";
+            btn_Home.Click += btn_Home_Click;
             // 
             // ibtn_Logout
             // 
@@ -200,17 +213,6 @@
             ibtn_Produtos.UseVisualStyleBackColor = false;
             ibtn_Produtos.Click += ibtn_Produtos_Click;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Condiment", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(5, 9);
-            label1.Name = "label1";
-            label1.Size = new Size(212, 73);
-            label1.TabIndex = 3;
-            label1.Text = "Auto Peças";
-            // 
             // panel_Header
             // 
             panel_Header.BackColor = Color.Black;
@@ -267,12 +269,12 @@
         private Button btn_close;
         private Microsoft.Data.SqlClient.SqlCommandBuilder sqlCommandBuilder1;
         private DragControl dragControl1;
-        private Label label1;
         private FontAwesome.Sharp.IconButton ibtn_Produtos;
         private FontAwesome.Sharp.IconButton ibtn_Logout;
         private FontAwesome.Sharp.IconButton ibtn_Config;
         private FontAwesome.Sharp.IconButton ibtn_Servicos;
         private FontAwesome.Sharp.IconButton ibtn_Veiculos;
         private FontAwesome.Sharp.IconButton ibtn_Clientes;
+        private Label btn_Home;
     }
 }

@@ -102,5 +102,16 @@ namespace Salomao
         {
             ActivateButton(sender, Color.White);
         }
+
+        private void btn_Home_Click(object sender, EventArgs e)
+        {
+            Reset();
+        }
+
+        private void Reset()
+        {
+            DisableButton();
+            leftBorderBtn.Visible = false;
+        }
     }
 }
