@@ -12,7 +12,7 @@ namespace Gremory
             try
             {
                 string sUsuario = usuario.Text.ToString();
-                string sSenha   = senha  .Text.ToString();
+                string sSenha = senha.Text.ToString();
 
                 //Implementacao para pegar dados do usuario do banco e comparar senha
 
@@ -44,6 +44,11 @@ namespace Gremory
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btn_close_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

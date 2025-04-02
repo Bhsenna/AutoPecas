@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             Entrar = new Button();
             usuario = new TextBox();
             senha = new TextBox();
@@ -35,6 +36,7 @@
             label3 = new Label();
             pictureBox1 = new PictureBox();
             Mensagem = new Label();
+            btn_close = new Button();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
@@ -115,12 +117,31 @@
             Mensagem.TabIndex = 6;
             Mensagem.Visible = false;
             // 
+            // btn_close
+            // 
+            btn_close.AccessibleName = "";
+            btn_close.BackColor = Color.Transparent;
+            btn_close.BackgroundImage = (Image)resources.GetObject("btn_close.BackgroundImage");
+            btn_close.BackgroundImageLayout = ImageLayout.Zoom;
+            btn_close.Cursor = Cursors.Hand;
+            btn_close.FlatAppearance.BorderSize = 0;
+            btn_close.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btn_close.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btn_close.FlatStyle = FlatStyle.Flat;
+            btn_close.Location = new Point(956, -9);
+            btn_close.Name = "btn_close";
+            btn_close.Size = new Size(52, 52);
+            btn_close.TabIndex = 7;
+            btn_close.UseVisualStyleBackColor = false;
+            btn_close.Click += btn_close_Click;
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(999, 544);
+            Controls.Add(btn_close);
             Controls.Add(Mensagem);
             Controls.Add(pictureBox1);
             Controls.Add(label3);
@@ -147,5 +168,6 @@
         private Label label3;
         private PictureBox pictureBox1;
         private Label Mensagem;
+        private Button btn_close;
     }
 }

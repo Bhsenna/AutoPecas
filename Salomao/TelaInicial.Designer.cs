@@ -1,6 +1,6 @@
 ﻿namespace Salomao
 {
-    partial class Form1
+    partial class TelaInicial
     {
         /// <summary>
         ///  Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaInicial));
             panel1 = new Panel();
             button3 = new Button();
             button2 = new Button();
@@ -87,22 +87,25 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(184, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1021, 74);
+            panel2.Size = new Size(1021, 80);
             panel2.TabIndex = 1;
             // 
             // btn_close
             // 
             btn_close.AccessibleName = "";
+            btn_close.BackColor = Color.Transparent;
             btn_close.BackgroundImage = (Image)resources.GetObject("btn_close.BackgroundImage");
             btn_close.BackgroundImageLayout = ImageLayout.Zoom;
             btn_close.Cursor = Cursors.Hand;
             btn_close.FlatAppearance.BorderSize = 0;
+            btn_close.FlatAppearance.MouseDownBackColor = Color.Transparent;
+            btn_close.FlatAppearance.MouseOverBackColor = Color.Transparent;
             btn_close.FlatStyle = FlatStyle.Flat;
-            btn_close.Location = new Point(1059, 12);
+            btn_close.Location = new Point(977, -8);
             btn_close.Name = "btn_close";
-            btn_close.Size = new Size(53, 51);
+            btn_close.Size = new Size(52, 52);
             btn_close.TabIndex = 2;
-            btn_close.UseVisualStyleBackColor = true;
+            btn_close.UseVisualStyleBackColor = false;
             btn_close.Click += btn_close_Click;
             // 
             // Form1
