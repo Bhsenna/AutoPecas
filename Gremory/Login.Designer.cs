@@ -37,7 +37,10 @@
             pictureBox1 = new PictureBox();
             Mensagem = new Label();
             btn_close = new Button();
+            dragControl1 = new DragControl();
+            panel_Drag = new Panel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel_Drag.SuspendLayout();
             SuspendLayout();
             // 
             // Entrar
@@ -118,20 +121,32 @@
             // btn_close
             // 
             btn_close.AccessibleName = "";
-            btn_close.BackColor = Color.Transparent;
+            btn_close.BackColor = SystemColors.Control;
             btn_close.BackgroundImage = (Image)resources.GetObject("btn_close.BackgroundImage");
             btn_close.BackgroundImageLayout = ImageLayout.Zoom;
             btn_close.Cursor = Cursors.Hand;
             btn_close.FlatAppearance.BorderSize = 0;
-            btn_close.FlatAppearance.MouseDownBackColor = Color.Transparent;
-            btn_close.FlatAppearance.MouseOverBackColor = Color.Transparent;
+            btn_close.FlatAppearance.MouseOverBackColor = Color.IndianRed;
             btn_close.FlatStyle = FlatStyle.Flat;
-            btn_close.Location = new Point(956, -9);
+            btn_close.Location = new Point(963, 0);
             btn_close.Name = "btn_close";
-            btn_close.Size = new Size(52, 52);
+            btn_close.Size = new Size(36, 36);
             btn_close.TabIndex = 7;
             btn_close.UseVisualStyleBackColor = false;
             btn_close.Click += btn_close_Click;
+            // 
+            // dragControl1
+            // 
+            dragControl1.SelectControl = panel_Drag;
+            // 
+            // panel_Drag
+            // 
+            panel_Drag.BackColor = SystemColors.Control;
+            panel_Drag.Controls.Add(btn_close);
+            panel_Drag.Location = new Point(0, 0);
+            panel_Drag.Name = "panel_Drag";
+            panel_Drag.Size = new Size(999, 48);
+            panel_Drag.TabIndex = 8;
             // 
             // Login
             // 
@@ -139,7 +154,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(999, 544);
-            Controls.Add(btn_close);
+            Controls.Add(panel_Drag);
             Controls.Add(Mensagem);
             Controls.Add(pictureBox1);
             Controls.Add(stc_senha);
@@ -153,6 +168,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Sitema Login";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel_Drag.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -167,5 +183,7 @@
         private PictureBox pictureBox1;
         private Label Mensagem;
         private Button btn_close;
+        private DragControl dragControl1;
+        private Panel panel_Drag;
     }
 }
