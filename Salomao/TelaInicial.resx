@@ -118,42 +118,29 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btn_maximize.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DwAACw8BkvkDpQAAAENJREFUWEftzrENADAIxED2Xzpp3H8KkIjkq+HlklY6Q5jPuG/HfMb9+0PAnAEG
+        GGCAAQYYYMCHAd2Yz7hvx7y0SdUFFVt9n0FtznMAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="btn_minimize.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DwAACw8BkvkDpQAAAChJREFUSEtjGAWjYBSMAhLAfyoDqLEIABWnGoAaOwpGwSgYBYQBAwMA3ASfYbJY
+        BjcAAAAASUVORK5CYII=
+</value>
+  </data>
   <data name="btn_close.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        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
-        WvUvyOlgBDcpAwoAAAAASUVORK5CYII=
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DwAACw8BkvkDpQAAASRJREFUWEftllkKwkAQRHMFwYC38MfbqzfwwwX0OOOr0C3jEpJZYn7yoEF6uqvK
+        REOahYVPQghb6kitrVUMWitqT+2s1Q9DB0qcqeIQ0jAtcbB2Pwwp7akbD+FCZYdgN9Ya/4UYLA7BTp65
+        w0IscKc2djQIsy2l4CL/KrKYHIKZOuYOAqNDcCbzqwah3NxBaDAEvWnMHQRjgwf1CsHn+Czp95IEwl8h
+        qP+YOxjEhjcroV5rY9MiIzN03m7J5GA2XwCM5rsFMjAj0f3gqLg33ZVA+Mvcjj7P6odAsNfcoacZfwTX
+        +zsiNGjucFY3BALxI3jU45WZ5J2fsJgtxGxZCBZigaxXM3byQjBYbO6wmx6CodlfSvVarhDF5o60THNr
+        rYUFo2mefMj/6elzqn0AAAAASUVORK5CYII=
 </value>
   </data>
   <metadata name="sqlCommandBuilder1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

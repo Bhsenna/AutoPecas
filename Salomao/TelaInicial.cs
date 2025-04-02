@@ -14,7 +14,13 @@ namespace Salomao
             InitializeComponent();
             leftBorderBtn = new Panel();
             leftBorderBtn.Size = new Size(7, 60);
-            panel_Menu.Controls.Add(leftBorderBtn);
+            panel_menu.Controls.Add(leftBorderBtn);
+
+            // Form
+            this.Text = string.Empty;
+            this.ControlBox = false;
+            this.DoubleBuffered = true;
+            this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
         }
 
         private void ActivateButton(object senderBtn, Color color)
@@ -36,8 +42,10 @@ namespace Salomao
                 leftBorderBtn.Visible = true;
                 leftBorderBtn.BringToFront();
                 // Icon current form
-                icon_Current.IconChar = currentBtn.IconChar;
-                icon_Current.IconColor = color;
+                icon_current.IconChar = currentBtn.IconChar;
+                icon_current.IconColor = color;
+
+                lab_title.Text = currentBtn.Text;
             }
         }
 
@@ -61,7 +69,20 @@ namespace Salomao
             Application.Exit();
         }
 
-        private void ibtn_Produtos_Click(object sender, EventArgs e)
+        private void btn_maximize_Click(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Normal)
+                WindowState = FormWindowState.Maximized;
+            else
+                WindowState = FormWindowState.Normal;
+        }
+
+        private void btn_minimize_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
+        private void ibtn_produtos_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, Color.White);
 
@@ -81,32 +102,32 @@ namespace Salomao
             //}
         }
 
-        private void ibtn_Logout_Click(object sender, EventArgs e)
+        private void ibtn_logout_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void ibtn_Clientes_Click(object sender, EventArgs e)
+        private void ibtn_clientes_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, Color.White);
         }
 
-        private void ibtn_Veiculos_Click(object sender, EventArgs e)
+        private void ibtn_veiculos_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, Color.White);
         }
 
-        private void ibtn_Servicos_Click(object sender, EventArgs e)
+        private void ibtn_servicos_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, Color.White);
         }
 
-        private void ibtn_Config_Click(object sender, EventArgs e)
+        private void ibtn_config_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, Color.White);
         }
 
-        private void btn_Home_Click(object sender, EventArgs e)
+        private void btn_home_Click(object sender, EventArgs e)
         {
             Reset();
         }
@@ -115,9 +136,9 @@ namespace Salomao
         {
             DisableButton();
             leftBorderBtn.Visible = false;
-            icon_Current.IconChar = IconChar.House;
-            icon_Current.IconColor = Color.White;
-            lab_Title.Text = "Home";
+            icon_current.IconChar = IconChar.House;
+            icon_current.IconColor = Color.White;
+            lab_title.Text = "Home";
         }
     }
 }
