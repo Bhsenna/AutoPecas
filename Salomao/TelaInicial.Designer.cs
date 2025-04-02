@@ -29,68 +29,197 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaInicial));
-            panel1 = new Panel();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
             panel_Menu = new Panel();
+            ibtn_Logout = new FontAwesome.Sharp.IconButton();
+            ibtn_Config = new FontAwesome.Sharp.IconButton();
+            ibtn_Servicos = new FontAwesome.Sharp.IconButton();
+            ibtn_Veiculos = new FontAwesome.Sharp.IconButton();
+            ibtn_Clientes = new FontAwesome.Sharp.IconButton();
+            ibtn_Produtos = new FontAwesome.Sharp.IconButton();
+            label1 = new Label();
+            panel_Header = new Panel();
             btn_close = new Button();
             sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
             dragControl1 = new DragControl();
-            panel1.SuspendLayout();
             panel_Menu.SuspendLayout();
+            panel_Header.SuspendLayout();
             SuspendLayout();
-            // 
-            // panel1
-            // 
-            panel1.BackColor = Color.DarkSlateBlue;
-            panel1.Controls.Add(button3);
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(button1);
-            panel1.Dock = DockStyle.Left;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(149, 606);
-            panel1.TabIndex = 0;
-            // 
-            // button3
-            // 
-            button3.Location = new Point(35, 181);
-            button3.Name = "button3";
-            button3.Size = new Size(75, 23);
-            button3.TabIndex = 2;
-            button3.Text = "Sair";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(35, 124);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 2;
-            button2.Text = "Estoque";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(35, 75);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 2;
-            button1.Text = "Produtos";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // panel_Menu
             // 
-            panel_Menu.BackColor = Color.BlueViolet;
-            panel_Menu.Controls.Add(btn_close);
-            panel_Menu.Dock = DockStyle.Top;
-            panel_Menu.Location = new Point(149, 0);
+            panel_Menu.BackColor = Color.Black;
+            panel_Menu.Controls.Add(ibtn_Logout);
+            panel_Menu.Controls.Add(ibtn_Config);
+            panel_Menu.Controls.Add(ibtn_Servicos);
+            panel_Menu.Controls.Add(ibtn_Veiculos);
+            panel_Menu.Controls.Add(ibtn_Clientes);
+            panel_Menu.Controls.Add(ibtn_Produtos);
+            panel_Menu.Controls.Add(label1);
+            panel_Menu.Dock = DockStyle.Left;
+            panel_Menu.Location = new Point(0, 0);
             panel_Menu.Name = "panel_Menu";
-            panel_Menu.Size = new Size(1056, 80);
-            panel_Menu.TabIndex = 1;
+            panel_Menu.Size = new Size(222, 606);
+            panel_Menu.TabIndex = 0;
+            // 
+            // ibtn_Logout
+            // 
+            ibtn_Logout.Cursor = Cursors.Hand;
+            ibtn_Logout.FlatAppearance.BorderSize = 0;
+            ibtn_Logout.FlatStyle = FlatStyle.Flat;
+            ibtn_Logout.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ibtn_Logout.ForeColor = Color.White;
+            ibtn_Logout.IconChar = FontAwesome.Sharp.IconChar.SignOut;
+            ibtn_Logout.IconColor = Color.White;
+            ibtn_Logout.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ibtn_Logout.IconSize = 32;
+            ibtn_Logout.ImageAlign = ContentAlignment.MiddleLeft;
+            ibtn_Logout.Location = new Point(3, 487);
+            ibtn_Logout.Name = "ibtn_Logout";
+            ibtn_Logout.Padding = new Padding(10, 0, 20, 0);
+            ibtn_Logout.Size = new Size(216, 60);
+            ibtn_Logout.TabIndex = 9;
+            ibtn_Logout.Text = "Log Out";
+            ibtn_Logout.TextAlign = ContentAlignment.MiddleLeft;
+            ibtn_Logout.TextImageRelation = TextImageRelation.ImageBeforeText;
+            ibtn_Logout.UseVisualStyleBackColor = true;
+            ibtn_Logout.Click += ibtn_Logout_Click;
+            // 
+            // ibtn_Config
+            // 
+            ibtn_Config.Cursor = Cursors.Hand;
+            ibtn_Config.FlatAppearance.BorderSize = 0;
+            ibtn_Config.FlatStyle = FlatStyle.Flat;
+            ibtn_Config.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ibtn_Config.ForeColor = Color.White;
+            ibtn_Config.IconChar = FontAwesome.Sharp.IconChar.Cog;
+            ibtn_Config.IconColor = Color.White;
+            ibtn_Config.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ibtn_Config.IconSize = 32;
+            ibtn_Config.ImageAlign = ContentAlignment.MiddleLeft;
+            ibtn_Config.Location = new Point(3, 424);
+            ibtn_Config.Name = "ibtn_Config";
+            ibtn_Config.Padding = new Padding(10, 0, 20, 0);
+            ibtn_Config.Size = new Size(216, 60);
+            ibtn_Config.TabIndex = 8;
+            ibtn_Config.Text = "Configurações";
+            ibtn_Config.TextAlign = ContentAlignment.MiddleLeft;
+            ibtn_Config.TextImageRelation = TextImageRelation.ImageBeforeText;
+            ibtn_Config.UseVisualStyleBackColor = true;
+            ibtn_Config.Click += ibtn_Config_Click;
+            // 
+            // ibtn_Servicos
+            // 
+            ibtn_Servicos.Cursor = Cursors.Hand;
+            ibtn_Servicos.FlatAppearance.BorderSize = 0;
+            ibtn_Servicos.FlatStyle = FlatStyle.Flat;
+            ibtn_Servicos.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ibtn_Servicos.ForeColor = Color.White;
+            ibtn_Servicos.IconChar = FontAwesome.Sharp.IconChar.Tv;
+            ibtn_Servicos.IconColor = Color.White;
+            ibtn_Servicos.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ibtn_Servicos.IconSize = 32;
+            ibtn_Servicos.ImageAlign = ContentAlignment.MiddleLeft;
+            ibtn_Servicos.Location = new Point(3, 361);
+            ibtn_Servicos.Name = "ibtn_Servicos";
+            ibtn_Servicos.Padding = new Padding(10, 0, 20, 0);
+            ibtn_Servicos.Size = new Size(216, 60);
+            ibtn_Servicos.TabIndex = 7;
+            ibtn_Servicos.Text = "Serviços";
+            ibtn_Servicos.TextAlign = ContentAlignment.MiddleLeft;
+            ibtn_Servicos.TextImageRelation = TextImageRelation.ImageBeforeText;
+            ibtn_Servicos.UseVisualStyleBackColor = true;
+            ibtn_Servicos.Click += ibtn_Servicos_Click;
+            // 
+            // ibtn_Veiculos
+            // 
+            ibtn_Veiculos.Cursor = Cursors.Hand;
+            ibtn_Veiculos.FlatAppearance.BorderSize = 0;
+            ibtn_Veiculos.FlatStyle = FlatStyle.Flat;
+            ibtn_Veiculos.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ibtn_Veiculos.ForeColor = Color.White;
+            ibtn_Veiculos.IconChar = FontAwesome.Sharp.IconChar.CarSide;
+            ibtn_Veiculos.IconColor = Color.White;
+            ibtn_Veiculos.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ibtn_Veiculos.IconSize = 32;
+            ibtn_Veiculos.ImageAlign = ContentAlignment.MiddleLeft;
+            ibtn_Veiculos.Location = new Point(3, 298);
+            ibtn_Veiculos.Name = "ibtn_Veiculos";
+            ibtn_Veiculos.Padding = new Padding(10, 0, 20, 0);
+            ibtn_Veiculos.Size = new Size(216, 60);
+            ibtn_Veiculos.TabIndex = 6;
+            ibtn_Veiculos.Text = "Veículos";
+            ibtn_Veiculos.TextAlign = ContentAlignment.MiddleLeft;
+            ibtn_Veiculos.TextImageRelation = TextImageRelation.ImageBeforeText;
+            ibtn_Veiculos.UseVisualStyleBackColor = true;
+            ibtn_Veiculos.Click += ibtn_Veiculos_Click;
+            // 
+            // ibtn_Clientes
+            // 
+            ibtn_Clientes.Cursor = Cursors.Hand;
+            ibtn_Clientes.FlatAppearance.BorderSize = 0;
+            ibtn_Clientes.FlatStyle = FlatStyle.Flat;
+            ibtn_Clientes.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ibtn_Clientes.ForeColor = Color.White;
+            ibtn_Clientes.IconChar = FontAwesome.Sharp.IconChar.Male;
+            ibtn_Clientes.IconColor = Color.White;
+            ibtn_Clientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ibtn_Clientes.IconSize = 32;
+            ibtn_Clientes.ImageAlign = ContentAlignment.MiddleLeft;
+            ibtn_Clientes.Location = new Point(3, 235);
+            ibtn_Clientes.Name = "ibtn_Clientes";
+            ibtn_Clientes.Padding = new Padding(10, 0, 20, 0);
+            ibtn_Clientes.Size = new Size(216, 60);
+            ibtn_Clientes.TabIndex = 5;
+            ibtn_Clientes.Text = "Clientes";
+            ibtn_Clientes.TextAlign = ContentAlignment.MiddleLeft;
+            ibtn_Clientes.TextImageRelation = TextImageRelation.ImageBeforeText;
+            ibtn_Clientes.UseVisualStyleBackColor = true;
+            ibtn_Clientes.Click += ibtn_Clientes_Click;
+            // 
+            // ibtn_Produtos
+            // 
+            ibtn_Produtos.BackColor = Color.Black;
+            ibtn_Produtos.Cursor = Cursors.Hand;
+            ibtn_Produtos.FlatAppearance.BorderSize = 0;
+            ibtn_Produtos.FlatStyle = FlatStyle.Flat;
+            ibtn_Produtos.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ibtn_Produtos.ForeColor = Color.White;
+            ibtn_Produtos.IconChar = FontAwesome.Sharp.IconChar.Shop;
+            ibtn_Produtos.IconColor = Color.White;
+            ibtn_Produtos.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ibtn_Produtos.IconSize = 32;
+            ibtn_Produtos.ImageAlign = ContentAlignment.MiddleLeft;
+            ibtn_Produtos.Location = new Point(3, 172);
+            ibtn_Produtos.Name = "ibtn_Produtos";
+            ibtn_Produtos.Padding = new Padding(10, 0, 20, 0);
+            ibtn_Produtos.Size = new Size(216, 60);
+            ibtn_Produtos.TabIndex = 4;
+            ibtn_Produtos.Text = "Produtos";
+            ibtn_Produtos.TextAlign = ContentAlignment.MiddleLeft;
+            ibtn_Produtos.TextImageRelation = TextImageRelation.ImageBeforeText;
+            ibtn_Produtos.UseVisualStyleBackColor = false;
+            ibtn_Produtos.Click += ibtn_Produtos_Click;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Condiment", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(5, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(212, 73);
+            label1.TabIndex = 3;
+            label1.Text = "Auto Peças";
+            // 
+            // panel_Header
+            // 
+            panel_Header.BackColor = Color.Black;
+            panel_Header.Controls.Add(btn_close);
+            panel_Header.Dock = DockStyle.Top;
+            panel_Header.Location = new Point(222, 0);
+            panel_Header.Name = "panel_Header";
+            panel_Header.Size = new Size(983, 80);
+            panel_Header.TabIndex = 1;
             // 
             // btn_close
             // 
@@ -102,7 +231,7 @@
             btn_close.FlatAppearance.BorderSize = 0;
             btn_close.FlatAppearance.MouseOverBackColor = Color.IndianRed;
             btn_close.FlatStyle = FlatStyle.Flat;
-            btn_close.Location = new Point(983, 2);
+            btn_close.Location = new Point(947, 0);
             btn_close.Name = "btn_close";
             btn_close.Size = new Size(36, 36);
             btn_close.TabIndex = 2;
@@ -111,34 +240,39 @@
             // 
             // dragControl1
             // 
-            dragControl1.SelectControl = panel_Menu;
+            dragControl1.SelectControl = panel_Header;
             // 
             // TelaInicial
             // 
             AutoScaleMode = AutoScaleMode.None;
-            BackColor = Color.FromArgb(244, 248, 249);
+            BackColor = Color.White;
             ClientSize = new Size(1205, 606);
+            Controls.Add(panel_Header);
             Controls.Add(panel_Menu);
-            Controls.Add(panel1);
             Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             FormBorderStyle = FormBorderStyle.None;
             Name = "TelaInicial";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
-            panel1.ResumeLayout(false);
             panel_Menu.ResumeLayout(false);
+            panel_Menu.PerformLayout();
+            panel_Header.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Panel panel1;
         private Panel panel_Menu;
-        private Button button3;
-        private Button button2;
-        private Button button1;
+        private Panel panel_Header;
         private Button btn_close;
         private Microsoft.Data.SqlClient.SqlCommandBuilder sqlCommandBuilder1;
         private DragControl dragControl1;
+        private Label label1;
+        private FontAwesome.Sharp.IconButton ibtn_Produtos;
+        private FontAwesome.Sharp.IconButton ibtn_Logout;
+        private FontAwesome.Sharp.IconButton ibtn_Config;
+        private FontAwesome.Sharp.IconButton ibtn_Servicos;
+        private FontAwesome.Sharp.IconButton ibtn_Veiculos;
+        private FontAwesome.Sharp.IconButton ibtn_Clientes;
     }
 }
