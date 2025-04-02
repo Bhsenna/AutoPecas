@@ -36,16 +36,6 @@ namespace Gremory
 
             }
         }
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void btn_close_Click(object sender, EventArgs e)
         {
             Application.Exit();
