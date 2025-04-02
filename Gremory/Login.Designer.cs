@@ -32,8 +32,8 @@
             Entrar = new Button();
             usuario = new TextBox();
             senha = new TextBox();
-            label2 = new Label();
-            label3 = new Label();
+            stc_usuario = new Label();
+            stc_senha = new Label();
             pictureBox1 = new PictureBox();
             Mensagem = new Label();
             btn_close = new Button();
@@ -66,7 +66,6 @@
             usuario.Name = "usuario";
             usuario.Size = new Size(249, 24);
             usuario.TabIndex = 1;
-            usuario.TextChanged += textBox1_TextChanged;
             // 
             // senha
             // 
@@ -77,24 +76,23 @@
             senha.TabIndex = 2;
             senha.UseSystemPasswordChar = true;
             // 
-            // label2
+            // stc_usuario
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(682, 137);
-            label2.Name = "label2";
-            label2.Size = new Size(62, 19);
-            label2.TabIndex = 3;
-            label2.Text = "Usuário:";
+            stc_usuario.AutoSize = true;
+            stc_usuario.Location = new Point(682, 137);
+            stc_usuario.Name = "stc_usuario";
+            stc_usuario.Size = new Size(62, 19);
+            stc_usuario.TabIndex = 3;
+            stc_usuario.Text = "Usuário:";
             // 
-            // label3
+            // stc_senha
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(682, 189);
-            label3.Name = "label3";
-            label3.Size = new Size(57, 19);
-            label3.TabIndex = 4;
-            label3.Text = "Senha:";
-            label3.Click += label3_Click;
+            stc_senha.AutoSize = true;
+            stc_senha.Location = new Point(682, 189);
+            stc_senha.Name = "stc_senha";
+            stc_senha.Size = new Size(57, 19);
+            stc_senha.TabIndex = 4;
+            stc_senha.Text = "Senha:";
             // 
             // pictureBox1
             // 
@@ -144,8 +142,8 @@
             Controls.Add(btn_close);
             Controls.Add(Mensagem);
             Controls.Add(pictureBox1);
-            Controls.Add(label3);
-            Controls.Add(label2);
+            Controls.Add(stc_senha);
+            Controls.Add(stc_usuario);
             Controls.Add(senha);
             Controls.Add(usuario);
             Controls.Add(Entrar);
@@ -164,8 +162,8 @@
         private Button Entrar;
         private TextBox usuario;
         private TextBox senha;
-        private Label label2;
-        private Label label3;
+        private Label stc_usuario;
+        private Label stc_senha;
         private PictureBox pictureBox1;
         private Label Mensagem;
         private Button btn_close;
