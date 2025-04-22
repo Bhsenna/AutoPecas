@@ -1,5 +1,6 @@
 using FontAwesome.Sharp;
 using Microsoft.Data.SqlClient;
+using Salomao.Forms;
 
 namespace Salomao
 {
@@ -8,6 +9,7 @@ namespace Salomao
         // Fields
         private IconButton currentBtn;
         private Panel leftBorderBtn;
+        private Form currentChildForm;
 
         public TelaInicial()
         {
@@ -32,10 +34,7 @@ namespace Salomao
                 currentBtn = (IconButton)senderBtn;
                 currentBtn.BackColor = Color.FromArgb(36, 36, 36);
                 currentBtn.ForeColor = color;
-                //currentBtn.TextAlign = ContentAlignment.MiddleCenter;
                 currentBtn.IconColor = color;
-                //currentBtn.TextImageRelation = TextImageRelation.TextBeforeImage;
-                //currentBtn.ImageAlign = ContentAlignment.MiddleRight;
                 // Left border button
                 leftBorderBtn.BackColor = color;
                 leftBorderBtn.Location = new Point(0, currentBtn.Location.Y);
@@ -44,8 +43,6 @@ namespace Salomao
                 // Icon current form
                 icon_current.IconChar = currentBtn.IconChar;
                 icon_current.IconColor = color;
-
-                lab_title.Text = currentBtn.Text;
             }
         }
 
@@ -62,6 +59,25 @@ namespace Salomao
                 currentBtn.ImageAlign = ContentAlignment.MiddleLeft;
 
             }
+        }
+
+        private void openChildForm(Form childForm)
+        {
+            // Open child form
+            if (currentChildForm != null)
+            {
+                currentChildForm.Close();
+            }
+            currentChildForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            panel_desktop.Controls.Add(childForm);
+            panel_desktop.Tag = childForm;
+            childForm.BringToFront();
+            childForm.Show();
+
+            lbl_title.Text = childForm.Text;
         }
 
         private void btn_close_Click(object sender, EventArgs e)
@@ -129,6 +145,10 @@ namespace Salomao
 
         private void btn_home_Click(object sender, EventArgs e)
         {
+            if (currentChildForm != null)
+            {
+                currentChildForm.Close();
+            }
             Reset();
         }
 
@@ -138,7 +158,7 @@ namespace Salomao
             leftBorderBtn.Visible = false;
             icon_current.IconChar = IconChar.House;
             icon_current.IconColor = Color.White;
-            lab_title.Text = "Home";
+            lbl_title.Text = "Home";
         }
     }
 }

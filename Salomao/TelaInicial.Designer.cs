@@ -40,11 +40,13 @@
             panel_header = new Panel();
             btn_maximize = new Button();
             btn_minimize = new Button();
-            lab_title = new Label();
+            lbl_title = new Label();
             icon_current = new FontAwesome.Sharp.IconPictureBox();
             btn_close = new Button();
             sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
             dragControl1 = new DragControl();
+            panel_shadow = new Panel();
+            panel_desktop = new Panel();
             panel_menu.SuspendLayout();
             panel_header.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icon_current).BeginInit();
@@ -223,7 +225,7 @@
             panel_header.BackColor = Color.Black;
             panel_header.Controls.Add(btn_maximize);
             panel_header.Controls.Add(btn_minimize);
-            panel_header.Controls.Add(lab_title);
+            panel_header.Controls.Add(lbl_title);
             panel_header.Controls.Add(icon_current);
             panel_header.Controls.Add(btn_close);
             panel_header.Dock = DockStyle.Top;
@@ -270,15 +272,15 @@
             btn_minimize.UseVisualStyleBackColor = false;
             btn_minimize.Click += btn_minimize_Click;
             // 
-            // lab_title
+            // lbl_title
             // 
-            lab_title.AutoSize = true;
-            lab_title.ForeColor = Color.White;
-            lab_title.Location = new Point(57, 28);
-            lab_title.Name = "lab_title";
-            lab_title.Size = new Size(47, 17);
-            lab_title.TabIndex = 4;
-            lab_title.Text = "Home";
+            lbl_title.AutoSize = true;
+            lbl_title.ForeColor = Color.White;
+            lbl_title.Location = new Point(57, 28);
+            lbl_title.Name = "lbl_title";
+            lbl_title.Size = new Size(47, 17);
+            lbl_title.TabIndex = 4;
+            lbl_title.Text = "Home";
             // 
             // icon_current
             // 
@@ -314,11 +316,31 @@
             // 
             dragControl1.SelectControl = panel_header;
             // 
+            // panel_shadow
+            // 
+            panel_shadow.BackColor = Color.FromArgb(26, 24, 25);
+            panel_shadow.Dock = DockStyle.Top;
+            panel_shadow.Location = new Point(222, 80);
+            panel_shadow.Name = "panel_shadow";
+            panel_shadow.Size = new Size(983, 9);
+            panel_shadow.TabIndex = 2;
+            // 
+            // panel_desktop
+            // 
+            panel_desktop.BackColor = Color.FromArgb(34, 33, 32);
+            panel_desktop.Dock = DockStyle.Fill;
+            panel_desktop.Location = new Point(222, 89);
+            panel_desktop.Name = "panel_desktop";
+            panel_desktop.Size = new Size(983, 517);
+            panel_desktop.TabIndex = 3;
+            // 
             // TelaInicial
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
             ClientSize = new Size(1205, 606);
+            Controls.Add(panel_desktop);
+            Controls.Add(panel_shadow);
             Controls.Add(panel_header);
             Controls.Add(panel_menu);
             Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -348,8 +370,10 @@
         private FontAwesome.Sharp.IconButton ibtn_clientes;
         private Label btn_home;
         private FontAwesome.Sharp.IconPictureBox icon_current;
-        private Label lab_title;
+        private Label lbl_title;
         private Button btn_maximize;
         private Button btn_minimize;
+        private Panel panel_shadow;
+        private Panel panel_desktop;
     }
 }
