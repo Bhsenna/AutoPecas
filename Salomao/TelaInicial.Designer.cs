@@ -373,6 +373,5 @@
         private Button btn_minimize;
         private Panel panel_shadow;
         private Panel panel_desktop;
-        private Cadastros.CadProduto ucProd;
     }
 }

@@ -117,7 +117,12 @@ namespace Salomao
 
         private void ibtn_logout_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            //Voltar pra tela de Login
+            var login = new Login();
+
+            login.Show();
+
+            this.Dispose();
         }
 
         private void ibtn_clientes_Click(object sender, EventArgs e)
