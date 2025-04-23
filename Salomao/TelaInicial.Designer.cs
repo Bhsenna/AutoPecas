@@ -50,6 +50,7 @@
             panel_menu.SuspendLayout();
             panel_header.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icon_current).BeginInit();
+            panel_desktop.SuspendLayout();
             SuspendLayout();
             // 
             // panel_menu
@@ -72,11 +73,11 @@
             // 
             btn_home.AutoSize = true;
             btn_home.Cursor = Cursors.Hand;
-            btn_home.Font = new Font("Condiment", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btn_home.Font = new Font("Microsoft Sans Serif", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btn_home.ForeColor = Color.White;
             btn_home.Location = new Point(4, 7);
             btn_home.Name = "btn_home";
-            btn_home.Size = new Size(212, 73);
+            btn_home.Size = new Size(270, 55);
             btn_home.TabIndex = 2;
             btn_home.Text = "Auto Peças";
             btn_home.Click += btn_home_Click;
@@ -86,7 +87,7 @@
             ibtn_logout.Cursor = Cursors.Hand;
             ibtn_logout.FlatAppearance.BorderSize = 0;
             ibtn_logout.FlatStyle = FlatStyle.Flat;
-            ibtn_logout.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ibtn_logout.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ibtn_logout.ForeColor = Color.White;
             ibtn_logout.IconChar = FontAwesome.Sharp.IconChar.SignOut;
             ibtn_logout.IconColor = Color.White;
@@ -109,7 +110,7 @@
             ibtn_config.Cursor = Cursors.Hand;
             ibtn_config.FlatAppearance.BorderSize = 0;
             ibtn_config.FlatStyle = FlatStyle.Flat;
-            ibtn_config.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ibtn_config.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ibtn_config.ForeColor = Color.White;
             ibtn_config.IconChar = FontAwesome.Sharp.IconChar.Cog;
             ibtn_config.IconColor = Color.White;
@@ -132,7 +133,7 @@
             ibtn_servicos.Cursor = Cursors.Hand;
             ibtn_servicos.FlatAppearance.BorderSize = 0;
             ibtn_servicos.FlatStyle = FlatStyle.Flat;
-            ibtn_servicos.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ibtn_servicos.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ibtn_servicos.ForeColor = Color.White;
             ibtn_servicos.IconChar = FontAwesome.Sharp.IconChar.Tv;
             ibtn_servicos.IconColor = Color.White;
@@ -155,7 +156,7 @@
             ibtn_veiculos.Cursor = Cursors.Hand;
             ibtn_veiculos.FlatAppearance.BorderSize = 0;
             ibtn_veiculos.FlatStyle = FlatStyle.Flat;
-            ibtn_veiculos.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ibtn_veiculos.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ibtn_veiculos.ForeColor = Color.White;
             ibtn_veiculos.IconChar = FontAwesome.Sharp.IconChar.CarSide;
             ibtn_veiculos.IconColor = Color.White;
@@ -178,7 +179,7 @@
             ibtn_clientes.Cursor = Cursors.Hand;
             ibtn_clientes.FlatAppearance.BorderSize = 0;
             ibtn_clientes.FlatStyle = FlatStyle.Flat;
-            ibtn_clientes.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ibtn_clientes.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ibtn_clientes.ForeColor = Color.White;
             ibtn_clientes.IconChar = FontAwesome.Sharp.IconChar.Male;
             ibtn_clientes.IconColor = Color.White;
@@ -202,7 +203,7 @@
             ibtn_produtos.Cursor = Cursors.Hand;
             ibtn_produtos.FlatAppearance.BorderSize = 0;
             ibtn_produtos.FlatStyle = FlatStyle.Flat;
-            ibtn_produtos.Font = new Font("Century Gothic", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ibtn_produtos.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ibtn_produtos.ForeColor = Color.White;
             ibtn_produtos.IconChar = FontAwesome.Sharp.IconChar.Shop;
             ibtn_produtos.IconColor = Color.White;
@@ -278,7 +279,7 @@
             lbl_title.ForeColor = Color.White;
             lbl_title.Location = new Point(57, 28);
             lbl_title.Name = "lbl_title";
-            lbl_title.Size = new Size(47, 17);
+            lbl_title.Size = new Size(44, 16);
             lbl_title.TabIndex = 4;
             lbl_title.Text = "Home";
             // 
@@ -328,6 +329,7 @@
             // panel_desktop
             // 
             panel_desktop.BackColor = Color.FromArgb(34, 33, 32);
+            panel_desktop.Controls.Add(ucProd);
             panel_desktop.Dock = DockStyle.Fill;
             panel_desktop.Location = new Point(222, 89);
             panel_desktop.Name = "panel_desktop";
@@ -343,7 +345,7 @@
             Controls.Add(panel_shadow);
             Controls.Add(panel_header);
             Controls.Add(panel_menu);
-            Font = new Font("Century Gothic", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Name = "TelaInicial";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
@@ -352,6 +354,8 @@
             panel_header.ResumeLayout(false);
             panel_header.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)icon_current).EndInit();
+            panel_desktop.ResumeLayout(false);
+            panel_desktop.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -375,5 +379,6 @@
         private Button btn_minimize;
         private Panel panel_shadow;
         private Panel panel_desktop;
+        private Cadastros.CadProduto ucProd;
     }
 }

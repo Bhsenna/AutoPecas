@@ -1,12 +1,13 @@
 using FontAwesome.Sharp;
 using Microsoft.Data.SqlClient;
-using Salomao.Forms;
+//using Salomao.Forms;
 
 namespace Salomao
 {
     public partial class TelaInicial : Form
     {
         // Fields
+        private UserControl telaAtiva = null;
         private IconButton currentBtn;
         private Panel leftBorderBtn;
         private Form currentChildForm;
@@ -23,6 +24,33 @@ namespace Salomao
             this.ControlBox = false;
             this.DoubleBuffered = true;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+        }
+
+        private void MostrarTela(UserControl novaTela)
+        {
+            // Remove controle anterior
+            if (telaAtiva != null)
+            {
+                panel_desktop.Controls.Remove(telaAtiva);
+                telaAtiva.Dispose();
+            }
+
+            // Configura novo controle
+            panel_desktop.Controls.Add(novaTela);
+
+            novaTela.Dock = DockStyle.Fill;
+            novaTela.BringToFront();
+            novaTela.AutoScroll = true;
+            novaTela.AutoSize = true;
+            novaTela.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            novaTela.BackColor = SystemColors.ActiveBorder;
+            novaTela.Dock = DockStyle.Fill;
+            novaTela.Location = new Point(0, 0);
+            novaTela.Name = "ucProd";
+            novaTela.Size = new Size(900, 500);
+            novaTela.TabIndex = 0;
+
+            telaAtiva = novaTela;
         }
 
         private void ActivateButton(object senderBtn, Color color)
@@ -102,12 +130,15 @@ namespace Salomao
         {
             ActivateButton(sender, Color.White);
 
+            MostrarTela(new Cadastros.CadProduto());
+
             //string connectionString = "Server=localhost\\SQLEXPRESS;Database=AutoPecasDB;Trusted_Connection=True;TrustServerCertificate=True";
 
             //using (SqlConnection connection = new SqlConnection(connectionString))
             //{
             //    try
             //    {
+
             //        connection.Open();
             //        MessageBox.Show("Conexão bem-sucedida");
             //    }
@@ -131,6 +162,8 @@ namespace Salomao
         private void ibtn_veiculos_Click(object sender, EventArgs e)
         {
             ActivateButton(sender, Color.White);
+
+            MostrarTela(new Cadastros.CadVeiculo());
         }
 
         private void ibtn_servicos_Click(object sender, EventArgs e)
