@@ -35,7 +35,6 @@
             lbCategoria = new Label();
             tbCategoria = new TextBox();
             lbCustoAquisicao = new Label();
-            tbCustoAquisicao = new TextBox();
             dataGridView1 = new DataGridView();
             btnGravar = new Button();
             lbMarca = new Label();
@@ -44,7 +43,8 @@
             tbCodigo = new TextBox();
             btnLimpar = new Button();
             lbDescricao = new Label();
-            textBox1 = new TextBox();
+            tbDescricao = new TextBox();
+            tbCustoAquisicao = new DecimalTextbox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -65,7 +65,6 @@
             lbNomeProd.Size = new Size(56, 21);
             lbNomeProd.TabIndex = 1;
             lbNomeProd.Text = "Nome:";
-            lbNomeProd.Click += label1_Click;
             // 
             // lbFornecedor
             // 
@@ -112,16 +111,6 @@
             lbCustoAquisicao.Size = new Size(124, 21);
             lbCustoAquisicao.TabIndex = 7;
             lbCustoAquisicao.Text = "Custo Aquisição:";
-            // 
-            // tbCustoAquisicao
-            // 
-            tbCustoAquisicao.Location = new Point(25, 230);
-            tbCustoAquisicao.MaxLength = 250;
-            tbCustoAquisicao.Name = "tbCustoAquisicao";
-            tbCustoAquisicao.ScrollBars = ScrollBars.Vertical;
-            tbCustoAquisicao.Size = new Size(200, 23);
-            tbCustoAquisicao.TabIndex = 6;
-            tbCustoAquisicao.TextChanged += textBox1_TextChanged;
             // 
             // dataGridView1
             // 
@@ -201,23 +190,31 @@
             lbDescricao.TabIndex = 17;
             lbDescricao.Text = "Descrição:";
             // 
-            // textBox1
+            // tbDescricao
             // 
-            textBox1.Location = new Point(25, 355);
-            textBox1.MaxLength = 1000;
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.ScrollBars = ScrollBars.Vertical;
-            textBox1.Size = new Size(457, 56);
-            textBox1.TabIndex = 16;
+            tbDescricao.Location = new Point(25, 355);
+            tbDescricao.MaxLength = 1000;
+            tbDescricao.Multiline = true;
+            tbDescricao.Name = "tbDescricao";
+            tbDescricao.ScrollBars = ScrollBars.Vertical;
+            tbDescricao.Size = new Size(457, 56);
+            tbDescricao.TabIndex = 16;
+            // 
+            // tbCustoAquisicao
+            // 
+            tbCustoAquisicao.Location = new Point(25, 230);
+            tbCustoAquisicao.Name = "tbCustoAquisicao";
+            tbCustoAquisicao.Size = new Size(200, 23);
+            tbCustoAquisicao.TabIndex = 18;
             // 
             // CadProduto
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
+            Controls.Add(tbCustoAquisicao);
             Controls.Add(lbDescricao);
-            Controls.Add(textBox1);
+            Controls.Add(tbDescricao);
             Controls.Add(btnLimpar);
             Controls.Add(lbCodigo);
             Controls.Add(tbCodigo);
@@ -226,7 +223,6 @@
             Controls.Add(btnGravar);
             Controls.Add(dataGridView1);
             Controls.Add(lbCustoAquisicao);
-            Controls.Add(tbCustoAquisicao);
             Controls.Add(lbCategoria);
             Controls.Add(tbCategoria);
             Controls.Add(lbFornecedor);
@@ -258,6 +254,7 @@
         private TextBox tbCodigo;
         private Button btnLimpar;
         private Label lbDescricao;
-        private TextBox textBox1;
+        private TextBox tbDescricao;
+        private DecimalTextbox tbCustoAquisicao;
     }
 }
