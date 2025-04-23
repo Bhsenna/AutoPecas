@@ -128,6 +128,7 @@
             senha.Size = new Size(250, 24);
             senha.TabIndex = 11;
             senha.UseSystemPasswordChar = true;
+            senha.KeyDown += senha_KeyDown;
             // 
             // usuario
             // 
@@ -137,6 +138,7 @@
             usuario.Name = "usuario";
             usuario.Size = new Size(250, 24);
             usuario.TabIndex = 10;
+            usuario.KeyDown += usuario_KeyDown;
             // 
             // label1
             // 
@@ -158,6 +160,7 @@
             senhaC.Size = new Size(250, 24);
             senhaC.TabIndex = 15;
             senhaC.UseSystemPasswordChar = true;
+            senhaC.KeyDown += senhaC_KeyDown;
             // 
             // btn_register
             // 

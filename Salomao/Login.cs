@@ -90,5 +90,22 @@ namespace Salomao
             this.Dispose();
             return;
         }
+
+        private void usuario_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter) return;
+            e.SuppressKeyPress = true;
+            SelectNextControl(ActiveControl, true, true, true, true);
+        }
+
+        private void senha_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter) return;
+            e.SuppressKeyPress = true;
+            if (btn_login.Enabled)
+            {
+                btn_login.PerformClick();
+            }
+        }
     }
 }

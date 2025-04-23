@@ -51,6 +51,7 @@
             usuario.Name = "usuario";
             usuario.Size = new Size(250, 24);
             usuario.TabIndex = 1;
+            usuario.KeyDown += usuario_KeyDown;
             // 
             // senha
             // 
@@ -61,6 +62,7 @@
             senha.Size = new Size(250, 24);
             senha.TabIndex = 2;
             senha.UseSystemPasswordChar = true;
+            senha.KeyDown += senha_KeyDown;
             // 
             // stc_usuario
             // 
