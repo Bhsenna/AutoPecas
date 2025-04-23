@@ -45,6 +45,7 @@
             lbDescricao = new Label();
             tbDescricao = new TextBox();
             tbCustoAquisicao = new DecimalTextbox();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
@@ -100,7 +101,7 @@
             tbCategoria.MaxLength = 250;
             tbCategoria.Name = "tbCategoria";
             tbCategoria.Size = new Size(200, 23);
-            tbCategoria.TabIndex = 4;
+            tbCategoria.TabIndex = 3;
             // 
             // lbCustoAquisicao
             // 
@@ -115,19 +116,21 @@
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(600, 0);
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Location = new Point(594, 0);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(600, 700);
-            dataGridView1.TabIndex = 8;
+            dataGridView1.Size = new Size(389, 517);
+            dataGridView1.TabIndex = 9;
             // 
             // btnGravar
             // 
+            btnGravar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnGravar.BackColor = Color.FromArgb(0, 123, 255);
             btnGravar.ForeColor = Color.White;
-            btnGravar.Location = new Point(478, 646);
+            btnGravar.Location = new Point(481, 470);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new Size(75, 23);
-            btnGravar.TabIndex = 14;
+            btnGravar.TabIndex = 8;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = false;
             btnGravar.Click += btnGravar_Click;
@@ -149,7 +152,7 @@
             tbMarca.Name = "tbMarca";
             tbMarca.ScrollBars = ScrollBars.Vertical;
             tbMarca.Size = new Size(200, 23);
-            tbMarca.TabIndex = 10;
+            tbMarca.TabIndex = 5;
             // 
             // lbCodigo
             // 
@@ -167,18 +170,20 @@
             tbCodigo.MaxLength = 250;
             tbCodigo.Name = "tbCodigo";
             tbCodigo.Size = new Size(200, 23);
-            tbCodigo.TabIndex = 12;
+            tbCodigo.TabIndex = 1;
             // 
             // btnLimpar
             // 
+            btnLimpar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnLimpar.BackColor = Color.LightGray;
             btnLimpar.ForeColor = Color.Black;
-            btnLimpar.Location = new Point(397, 646);
+            btnLimpar.Location = new Point(400, 470);
             btnLimpar.Name = "btnLimpar";
             btnLimpar.Size = new Size(75, 23);
-            btnLimpar.TabIndex = 15;
+            btnLimpar.TabIndex = 7;
             btnLimpar.Text = "Limpar";
             btnLimpar.UseVisualStyleBackColor = false;
+            btnLimpar.Click += btnLimpar_Click;
             // 
             // lbDescricao
             // 
@@ -198,14 +203,22 @@
             tbDescricao.Name = "tbDescricao";
             tbDescricao.ScrollBars = ScrollBars.Vertical;
             tbDescricao.Size = new Size(457, 56);
-            tbDescricao.TabIndex = 16;
+            tbDescricao.TabIndex = 6;
             // 
             // tbCustoAquisicao
             // 
             tbCustoAquisicao.Location = new Point(25, 230);
             tbCustoAquisicao.Name = "tbCustoAquisicao";
             tbCustoAquisicao.Size = new Size(200, 23);
-            tbCustoAquisicao.TabIndex = 18;
+            tbCustoAquisicao.TabIndex = 4;
+            // 
+            // panel1
+            // 
+            panel1.Dock = DockStyle.Left;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(594, 517);
+            panel1.TabIndex = 19;
             // 
             // CadProduto
             // 
@@ -229,8 +242,9 @@
             Controls.Add(tbFornecedor);
             Controls.Add(lbNomeProd);
             Controls.Add(tbNomeProd);
+            Controls.Add(panel1);
             Name = "CadProduto";
-            Size = new Size(1200, 700);
+            Size = new Size(983, 517);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -245,7 +259,7 @@
         private Label lbCategoria;
         private TextBox tbCategoria;
         private Label lbCustoAquisicao;
-        private TextBox tbCustoAquisicao;
+        private DecimalTextbox tbCustoAquisicao;
         private DataGridView dataGridView1;
         private Button btnGravar;
         private Label lbMarca;
@@ -255,6 +269,6 @@
         private Button btnLimpar;
         private Label lbDescricao;
         private TextBox tbDescricao;
-        private DecimalTextbox tbCustoAquisicao;
+        private Panel panel1;
     }
 }
