@@ -1,5 +1,5 @@
+using System.Diagnostics;
 using FontAwesome.Sharp;
-using Microsoft.Data.SqlClient;
 //using Salomao.Forms;
 
 namespace Salomao
@@ -10,7 +10,6 @@ namespace Salomao
         private UserControl telaAtiva = null;
         private IconButton currentBtn;
         private Panel leftBorderBtn;
-        private Form currentChildForm;
 
         public TelaInicial()
         {
@@ -89,25 +88,6 @@ namespace Salomao
             }
         }
 
-        private void openChildForm(Form childForm)
-        {
-            // Open child form
-            if (currentChildForm != null)
-            {
-                currentChildForm.Close();
-            }
-            currentChildForm = childForm;
-            childForm.TopLevel = false;
-            childForm.FormBorderStyle = FormBorderStyle.None;
-            childForm.Dock = DockStyle.Fill;
-            panel_desktop.Controls.Add(childForm);
-            panel_desktop.Tag = childForm;
-            childForm.BringToFront();
-            childForm.Show();
-
-            lbl_title.Text = childForm.Text;
-        }
-
         private void btn_close_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -128,25 +108,11 @@ namespace Salomao
 
         private void ibtn_produtos_Click(object sender, EventArgs e)
         {
+            if (sender == currentBtn) return;
+
             ActivateButton(sender, Color.White);
 
             MostrarTela(new Cadastros.CadProduto());
-
-            //string connectionString = "Server=localhost\\SQLEXPRESS;Database=AutoPecasDB;Trusted_Connection=True;TrustServerCertificate=True";
-
-            //using (SqlConnection connection = new SqlConnection(connectionString))
-            //{
-            //    try
-            //    {
-
-            //        connection.Open();
-            //        MessageBox.Show("Conexão bem-sucedida");
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        MessageBox.Show($"Erro ao conectar: {ex.Message}");
-            //    }
-            //}
         }
 
         private void ibtn_logout_Click(object sender, EventArgs e)
@@ -156,11 +122,15 @@ namespace Salomao
 
         private void ibtn_clientes_Click(object sender, EventArgs e)
         {
+            if (sender == currentBtn) return;
+
             ActivateButton(sender, Color.White);
         }
 
         private void ibtn_veiculos_Click(object sender, EventArgs e)
         {
+            if (sender == currentBtn) return;
+
             ActivateButton(sender, Color.White);
 
             MostrarTela(new Cadastros.CadVeiculo());
@@ -168,19 +138,25 @@ namespace Salomao
 
         private void ibtn_servicos_Click(object sender, EventArgs e)
         {
+            if (sender == currentBtn) return;
+
             ActivateButton(sender, Color.White);
         }
 
         private void ibtn_config_Click(object sender, EventArgs e)
         {
+            if (sender == currentBtn) return;
+
             ActivateButton(sender, Color.White);
         }
 
         private void btn_home_Click(object sender, EventArgs e)
         {
-            if (currentChildForm != null)
+            // Remove controle anterior
+            if (telaAtiva != null)
             {
-                currentChildForm.Close();
+                panel_desktop.Controls.Remove(telaAtiva);
+                telaAtiva.Dispose();
             }
             Reset();
         }

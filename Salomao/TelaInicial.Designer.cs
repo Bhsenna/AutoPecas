@@ -43,14 +43,12 @@
             lbl_title = new Label();
             icon_current = new FontAwesome.Sharp.IconPictureBox();
             btn_close = new Button();
-            sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
             dragControl1 = new DragControl();
             panel_shadow = new Panel();
             panel_desktop = new Panel();
             panel_menu.SuspendLayout();
             panel_header.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icon_current).BeginInit();
-            panel_desktop.SuspendLayout();
             SuspendLayout();
             // 
             // panel_menu
@@ -73,11 +71,11 @@
             // 
             btn_home.AutoSize = true;
             btn_home.Cursor = Cursors.Hand;
-            btn_home.Font = new Font("Microsoft Sans Serif", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btn_home.Font = new Font("Condiment", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btn_home.ForeColor = Color.White;
             btn_home.Location = new Point(4, 7);
             btn_home.Name = "btn_home";
-            btn_home.Size = new Size(270, 55);
+            btn_home.Size = new Size(212, 73);
             btn_home.TabIndex = 2;
             btn_home.Text = "Auto Peças";
             btn_home.Click += btn_home_Click;
@@ -329,7 +327,6 @@
             // panel_desktop
             // 
             panel_desktop.BackColor = Color.FromArgb(34, 33, 32);
-            panel_desktop.Controls.Add(ucProd);
             panel_desktop.Dock = DockStyle.Fill;
             panel_desktop.Location = new Point(222, 89);
             panel_desktop.Name = "panel_desktop";
@@ -354,8 +351,6 @@
             panel_header.ResumeLayout(false);
             panel_header.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)icon_current).EndInit();
-            panel_desktop.ResumeLayout(false);
-            panel_desktop.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -364,7 +359,6 @@
         private Panel panel_menu;
         private Panel panel_header;
         private Button btn_close;
-        private Microsoft.Data.SqlClient.SqlCommandBuilder sqlCommandBuilder1;
         private DragControl dragControl1;
         private FontAwesome.Sharp.IconButton ibtn_produtos;
         private FontAwesome.Sharp.IconButton ibtn_logout;

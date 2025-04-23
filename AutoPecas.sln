@@ -5,8 +5,6 @@ VisualStudioVersion = 17.13.35919.96
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "Database\Database.sqlproj", "{3096E97E-C8B2-436F-871A-74E5EFE21AFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gremory", "Gremory\Gremory.csproj", "{A440084F-E20F-EE52-AB88-2A0F0DD68856}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Salomao", "Salomao\Salomao.csproj", "{F3CA7AB3-D90A-CB04-7738-153E06C6CF5C}"
 EndProject
 Global
@@ -21,10 +19,6 @@ Global
 		{3096E97E-C8B2-436F-871A-74E5EFE21AFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3096E97E-C8B2-436F-871A-74E5EFE21AFB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3096E97E-C8B2-436F-871A-74E5EFE21AFB}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{A440084F-E20F-EE52-AB88-2A0F0DD68856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A440084F-E20F-EE52-AB88-2A0F0DD68856}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A440084F-E20F-EE52-AB88-2A0F0DD68856}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A440084F-E20F-EE52-AB88-2A0F0DD68856}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F3CA7AB3-D90A-CB04-7738-153E06C6CF5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F3CA7AB3-D90A-CB04-7738-153E06C6CF5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3CA7AB3-D90A-CB04-7738-153E06C6CF5C}.Release|Any CPU.ActiveCfg = Release|Any CPU

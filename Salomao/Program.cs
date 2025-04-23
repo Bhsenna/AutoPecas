@@ -8,11 +8,17 @@ namespace Salomao
         [STAThread]
         static void Main()
         {
+            // Verifica e cria o banco de dados se não existir
+            BancoSQLite.VerificarECriarBanco();
+
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            //Application.Run(new Gremory.Login());
-            Application.Run(new TelaInicial());
+
+            Login login = new Login();
+            login.Show();
+
+            Application.Run();
         }
     }
 }
