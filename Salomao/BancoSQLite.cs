@@ -7,7 +7,7 @@ namespace Salomao
         private static string dbFile = "AutoPecasDB.db";
         private static string connectionString = $"Data Source={dbFile};Version=3;";
 
-        public static void VerificarECriarBanco()
+        public static void CheckAndCreateDB()
         {
             if (!File.Exists(dbFile))
             {
@@ -91,7 +91,7 @@ namespace Salomao
             }
         }
 
-        public static SQLiteConnection ObterConexao()
+        public static SQLiteConnection GetConnection()
         {
             return new SQLiteConnection(connectionString);
         }

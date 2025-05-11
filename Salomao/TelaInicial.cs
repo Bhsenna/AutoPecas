@@ -115,16 +115,6 @@ namespace Salomao
             MostrarTela(new Cadastros.CadProduto());
         }
 
-        private void ibtn_logout_Click(object sender, EventArgs e)
-        {
-            //Voltar pra tela de Login
-            var login = new Login();
-
-            login.Show();
-
-            this.Dispose();
-        }
-
         private void ibtn_clientes_Click(object sender, EventArgs e)
         {
             if (sender == currentBtn) return;
@@ -153,6 +143,16 @@ namespace Salomao
             if (sender == currentBtn) return;
 
             ActivateButton(sender, Color.White);
+        }
+
+        private void ibtn_logout_Click(object sender, EventArgs e)
+        {
+            //Voltar pra tela de Login
+            var login = new Login();
+
+            login.Show();
+
+            this.Dispose();
         }
 
         private void btn_home_Click(object sender, EventArgs e)

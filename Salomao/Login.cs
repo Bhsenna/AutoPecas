@@ -23,17 +23,17 @@ namespace Salomao
         {
             try
             {
-                string sUsuario = usuario.Text.ToString();
-                string sSenha = senha.Text.ToString();
+                string sUsuario = txt_usuario.Text.ToString();
+                string sSenha = txt_senha.Text.ToString();
                 bool erro = false;
 
-                //Implementacao para pegar dados do usuario do banco e comparar senha
-                SQLiteConnection con = BancoSQLite.ObterConexao();
+                //Pega dados do usuario do banco e comparar senha
+                SQLiteConnection connection = BancoSQLite.GetConnection();
 
                 string query = "SELECT SenhaHash, Salt FROM Usuarios WHERE Login = @usuario";
-                SQLiteCommand cmd = new SQLiteCommand(query, con);
+                SQLiteCommand cmd = new SQLiteCommand(query, connection);
                 cmd.Parameters.AddWithValue("@usuario", sUsuario);
-                con.Open();
+                connection.Open();
                 SQLiteDataReader reader = cmd.ExecuteReader();
                 string senhaHash = null;
                 string salt = null;
@@ -42,9 +42,10 @@ namespace Salomao
                     senhaHash = reader["SenhaHash"].ToString();
                     salt = reader["Salt"].ToString();
                 }
-                con.Close();
+                connection.Close();
                 if (senhaHash == null || salt == null)
                 {
+                    //Usuario não foi encontrado
                     erro = true;
                 }
                 else
@@ -69,9 +70,9 @@ namespace Salomao
                 }
                 else
                 {
-                    lbl_mensage.Text = "Usuário ou senha incorretos";
-                    lbl_mensage.Visible = true;
-                    lbl_mensage.ForeColor = Color.Red;
+                    lbl_mensagem.Text = "Usuário ou senha incorretos";
+                    lbl_mensagem.Visible = true;
+                    lbl_mensagem.ForeColor = Color.Red;
                 }
             }
             catch (Exception ex)
@@ -91,14 +92,14 @@ namespace Salomao
             return;
         }
 
-        private void usuario_KeyDown(object sender, KeyEventArgs e)
+        private void txt_usuario_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter) return;
             e.SuppressKeyPress = true;
             SelectNextControl(ActiveControl, true, true, true, true);
         }
 
-        private void senha_KeyDown(object sender, KeyEventArgs e)
+        private void txt_senha_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter) return;
             e.SuppressKeyPress = true;

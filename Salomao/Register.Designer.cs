@@ -35,10 +35,10 @@
             dragControl1 = new DragControl();
             stc_senha = new Label();
             stc_usuario = new Label();
-            senha = new TextBox();
-            usuario = new TextBox();
-            label1 = new Label();
-            senhaC = new TextBox();
+            txt_senha = new TextBox();
+            txt_usuario = new TextBox();
+            stc_confirma = new Label();
+            txt_confirma = new TextBox();
             btn_register = new Button();
             btn_login = new Button();
             panel_Drag.SuspendLayout();
@@ -121,46 +121,46 @@
             // 
             // senha
             // 
-            senha.Anchor = AnchorStyles.None;
-            senha.Cursor = Cursors.IBeam;
-            senha.Location = new Point(50, 145);
-            senha.Name = "senha";
-            senha.Size = new Size(250, 24);
-            senha.TabIndex = 11;
-            senha.UseSystemPasswordChar = true;
-            senha.KeyDown += senha_KeyDown;
+            txt_senha.Anchor = AnchorStyles.None;
+            txt_senha.Cursor = Cursors.IBeam;
+            txt_senha.Location = new Point(50, 145);
+            txt_senha.Name = "senha";
+            txt_senha.Size = new Size(250, 24);
+            txt_senha.TabIndex = 11;
+            txt_senha.UseSystemPasswordChar = true;
+            txt_senha.KeyDown += txt_senha_KeyDown;
             // 
             // usuario
             // 
-            usuario.Anchor = AnchorStyles.None;
-            usuario.Cursor = Cursors.IBeam;
-            usuario.Location = new Point(50, 95);
-            usuario.Name = "usuario";
-            usuario.Size = new Size(250, 24);
-            usuario.TabIndex = 10;
-            usuario.KeyDown += usuario_KeyDown;
+            txt_usuario.Anchor = AnchorStyles.None;
+            txt_usuario.Cursor = Cursors.IBeam;
+            txt_usuario.Location = new Point(50, 95);
+            txt_usuario.Name = "usuario";
+            txt_usuario.Size = new Size(250, 24);
+            txt_usuario.TabIndex = 10;
+            txt_usuario.KeyDown += txt_usuario_KeyDown;
             // 
             // label1
             // 
-            label1.Anchor = AnchorStyles.None;
-            label1.AutoSize = true;
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(50, 175);
-            label1.Name = "label1";
-            label1.Size = new Size(128, 19);
-            label1.TabIndex = 16;
-            label1.Text = "Confirmar Senha:";
+            stc_confirma.Anchor = AnchorStyles.None;
+            stc_confirma.AutoSize = true;
+            stc_confirma.ForeColor = Color.White;
+            stc_confirma.Location = new Point(50, 175);
+            stc_confirma.Name = "label1";
+            stc_confirma.Size = new Size(128, 19);
+            stc_confirma.TabIndex = 16;
+            stc_confirma.Text = "Confirmar Senha:";
             // 
             // senhaC
             // 
-            senhaC.Anchor = AnchorStyles.None;
-            senhaC.Cursor = Cursors.IBeam;
-            senhaC.Location = new Point(50, 195);
-            senhaC.Name = "senhaC";
-            senhaC.Size = new Size(250, 24);
-            senhaC.TabIndex = 15;
-            senhaC.UseSystemPasswordChar = true;
-            senhaC.KeyDown += senhaC_KeyDown;
+            txt_confirma.Anchor = AnchorStyles.None;
+            txt_confirma.Cursor = Cursors.IBeam;
+            txt_confirma.Location = new Point(50, 195);
+            txt_confirma.Name = "senhaC";
+            txt_confirma.Size = new Size(250, 24);
+            txt_confirma.TabIndex = 15;
+            txt_confirma.UseSystemPasswordChar = true;
+            txt_confirma.KeyDown += txt_confirma_KeyDown;
             // 
             // btn_register
             // 
@@ -200,12 +200,12 @@
             ClientSize = new Size(350, 310);
             Controls.Add(btn_login);
             Controls.Add(btn_register);
-            Controls.Add(label1);
-            Controls.Add(senhaC);
+            Controls.Add(stc_confirma);
+            Controls.Add(txt_confirma);
             Controls.Add(stc_senha);
             Controls.Add(stc_usuario);
-            Controls.Add(senha);
-            Controls.Add(usuario);
+            Controls.Add(txt_senha);
+            Controls.Add(txt_usuario);
             Controls.Add(panel_Drag);
             Font = new Font("Century Gothic", 10F);
             FormBorderStyle = FormBorderStyle.None;
@@ -225,10 +225,10 @@
         private DragControl dragControl1;
         private Label stc_senha;
         private Label stc_usuario;
-        private TextBox senha;
-        private TextBox usuario;
-        private Label label1;
-        private TextBox senhaC;
+        private TextBox txt_senha;
+        private TextBox txt_usuario;
+        private Label stc_confirma;
+        private TextBox txt_confirma;
         private Button btn_register;
         private Button btn_login;
     }

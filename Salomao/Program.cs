@@ -9,7 +9,7 @@ namespace Salomao
         static void Main()
         {
             // Verifica e cria o banco de dados se não existir
-            BancoSQLite.VerificarECriarBanco();
+            BancoSQLite.CheckAndCreateDB();
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.

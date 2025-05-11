@@ -26,9 +26,9 @@ namespace Salomao
         {
             try
             {
-                string sUsuario = usuario.Text.ToString();
-                string sSenha = senha.Text.ToString();
-                string sSenhaC = senhaC.Text.ToString();
+                string sUsuario = txt_usuario.Text.ToString();
+                string sSenha = txt_senha.Text.ToString();
+                string sConfirma = txt_confirma.Text.ToString();
 
                 List<string> erros = new List<string>();
 
@@ -38,13 +38,13 @@ namespace Salomao
                 }
                 else
                 {
-                    SQLiteConnection con = BancoSQLite.ObterConexao();
+                    SQLiteConnection connection = BancoSQLite.GetConnection();
 
                     string query = "SELECT COUNT(*) FROM Usuarios WHERE Login = @usuario";
-                    SQLiteCommand cmd = new SQLiteCommand(query, con);
+                    SQLiteCommand cmd = new SQLiteCommand(query, connection);
                     cmd.Parameters.AddWithValue("@usuario", sUsuario);
 
-                    con.Open();
+                    connection.Open();
 
                     int count = Convert.ToInt32(cmd.ExecuteScalar());
 
@@ -53,7 +53,7 @@ namespace Salomao
                         erros.Add("Usuário já existe");
                     }
 
-                    con.Close();
+                    connection.Close();
                 }
 
                 if (!Regex.IsMatch(sSenha, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$"))
@@ -61,7 +61,7 @@ namespace Salomao
                     erros.Add("Senha deve ter entre 8 e 15 caracteres, com pelo menos uma letra maiúscula, uma letra minúscula e um número");
                 }
 
-                if (sSenha != sSenhaC)
+                if (sSenha != sConfirma)
                 {
                     erros.Add("Senhas não conferem");
                 }
@@ -76,16 +76,16 @@ namespace Salomao
                 {
                     string hashPassword = PasswordManager.HashPassword(sSenha, out string salt);
 
-                    SQLiteConnection con = BancoSQLite.ObterConexao();
+                    SQLiteConnection connection = BancoSQLite.GetConnection();
 
                     string query = "INSERT INTO Usuarios (Login, SenhaHash, Salt) VALUES (@usuario, @senha, @salt)";
-                    SQLiteCommand cmd = new SQLiteCommand(query, con);
+                    SQLiteCommand cmd = new SQLiteCommand(query, connection);
                     cmd.Parameters.AddWithValue("@usuario", sUsuario);
                     cmd.Parameters.AddWithValue("@senha", hashPassword);
                     cmd.Parameters.AddWithValue("@salt", salt);
-                    con.Open();
+                    connection.Open();
                     cmd.ExecuteNonQuery();
-                    con.Close();
+                    connection.Close();
 
                     //Abrir tela principal
                     var telaInicial = new TelaInicial();
@@ -113,21 +113,21 @@ namespace Salomao
             return;
         }
 
-        private void usuario_KeyDown(object sender, KeyEventArgs e)
+        private void txt_usuario_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter) return;
             e.SuppressKeyPress = true;
             SelectNextControl(ActiveControl, true, true, true, true);
         }
 
-        private void senha_KeyDown(object sender, KeyEventArgs e)
+        private void txt_senha_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter) return;
             e.SuppressKeyPress = true;
             SelectNextControl(ActiveControl, true, true, true, true);
         }
 
-        private void senhaC_KeyDown(object sender, KeyEventArgs e)
+        private void txt_confirma_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter) return;
             e.SuppressKeyPress = true;

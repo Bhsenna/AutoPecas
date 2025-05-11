@@ -21,7 +21,7 @@ namespace Salomao.Cadastros
 
         private void carregaTabela()
         {
-            SQLiteConnection con = BancoSQLite.ObterConexao();
+            SQLiteConnection con = BancoSQLite.GetConnection();
             string query = "SELECT * FROM Produtos";
             SQLiteCommand cmd = new SQLiteCommand(query, con);
             SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
@@ -57,7 +57,7 @@ namespace Salomao.Cadastros
                 return;
             }
 
-            SQLiteConnection con = BancoSQLite.ObterConexao();
+            SQLiteConnection con = BancoSQLite.GetConnection();
             string query = @"INSERT INTO Produtos
                                 (NomeProduto, CodigoProduto, CustoAquisicao, Marca, Descricao, CategoriaID, FornecedorID)
                             VALUES

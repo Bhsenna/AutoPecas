@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
-            usuario = new TextBox();
-            senha = new TextBox();
+            txt_usuario = new TextBox();
+            txt_senha = new TextBox();
             stc_usuario = new Label();
             stc_senha = new Label();
-            lbl_mensage = new Label();
+            lbl_mensagem = new Label();
             dragControl1 = new DragControl();
             panel_Drag = new Panel();
             btn_minimize = new Button();
@@ -45,24 +45,24 @@
             // 
             // usuario
             // 
-            usuario.Anchor = AnchorStyles.None;
-            usuario.Cursor = Cursors.IBeam;
-            usuario.Location = new Point(50, 115);
-            usuario.Name = "usuario";
-            usuario.Size = new Size(250, 24);
-            usuario.TabIndex = 1;
-            usuario.KeyDown += usuario_KeyDown;
+            txt_usuario.Anchor = AnchorStyles.None;
+            txt_usuario.Cursor = Cursors.IBeam;
+            txt_usuario.Location = new Point(50, 115);
+            txt_usuario.Name = "usuario";
+            txt_usuario.Size = new Size(250, 24);
+            txt_usuario.TabIndex = 1;
+            txt_usuario.KeyDown += txt_usuario_KeyDown;
             // 
             // senha
             // 
-            senha.Anchor = AnchorStyles.None;
-            senha.Cursor = Cursors.IBeam;
-            senha.Location = new Point(50, 165);
-            senha.Name = "senha";
-            senha.Size = new Size(250, 24);
-            senha.TabIndex = 2;
-            senha.UseSystemPasswordChar = true;
-            senha.KeyDown += senha_KeyDown;
+            txt_senha.Anchor = AnchorStyles.None;
+            txt_senha.Cursor = Cursors.IBeam;
+            txt_senha.Location = new Point(50, 165);
+            txt_senha.Name = "senha";
+            txt_senha.Size = new Size(250, 24);
+            txt_senha.TabIndex = 2;
+            txt_senha.UseSystemPasswordChar = true;
+            txt_senha.KeyDown += txt_senha_KeyDown;
             // 
             // stc_usuario
             // 
@@ -86,15 +86,15 @@
             stc_senha.TabIndex = 4;
             stc_senha.Text = "Senha:";
             // 
-            // lbl_mensage
+            // lbl_mensagem
             // 
-            lbl_mensage.Anchor = AnchorStyles.None;
-            lbl_mensage.ForeColor = Color.Red;
-            lbl_mensage.Location = new Point(50, 195);
-            lbl_mensage.Name = "lbl_mensage";
-            lbl_mensage.Size = new Size(250, 19);
-            lbl_mensage.TabIndex = 6;
-            lbl_mensage.Visible = false;
+            lbl_mensagem.Anchor = AnchorStyles.None;
+            lbl_mensagem.ForeColor = Color.Red;
+            lbl_mensagem.Location = new Point(50, 195);
+            lbl_mensagem.Name = "lbl_mensagem";
+            lbl_mensagem.Size = new Size(250, 19);
+            lbl_mensagem.TabIndex = 6;
+            lbl_mensagem.Visible = false;
             // 
             // dragControl1
             // 
@@ -188,11 +188,11 @@
             Controls.Add(btn_register);
             Controls.Add(btn_login);
             Controls.Add(panel_Drag);
-            Controls.Add(lbl_mensage);
+            Controls.Add(lbl_mensagem);
             Controls.Add(stc_senha);
             Controls.Add(stc_usuario);
-            Controls.Add(senha);
-            Controls.Add(usuario);
+            Controls.Add(txt_senha);
+            Controls.Add(txt_usuario);
             Font = new Font("Century Gothic", 10F);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Login";
@@ -204,11 +204,11 @@
         }
 
         #endregion
-        private TextBox usuario;
-        private TextBox senha;
+        private TextBox txt_usuario;
+        private TextBox txt_senha;
         private Label stc_usuario;
         private Label stc_senha;
-        private Label lbl_mensage;
+        private Label lbl_mensagem;
         private DragControl dragControl1;
         private Panel panel_Drag;
         private Button btn_close;
