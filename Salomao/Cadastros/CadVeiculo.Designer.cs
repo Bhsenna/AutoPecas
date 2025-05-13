@@ -28,22 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnLimpar = new Button();
-            lbTitular = new Label();
-            tbTitular = new TextBox();
-            btnGravar = new Button();
             dataGridView1 = new DataGridView();
+            btnLimpar = new Button();
+            btnGravar = new Button();
+            tbTitular = new TextBox();
             tbModelo = new TextBox();
-            lbPlaca = new Label();
             tbPlaca = new TextBox();
             tbMarca = new TextBox();
+            lbTitular = new Label();
+            lbPlaca = new Label();
             lbMarca = new Label();
             lbModelo = new Label();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Location = new Point(594, 0);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(606, 700);
+            dataGridView1.TabIndex = 26;
+            // 
             // btnLimpar
             // 
+            btnLimpar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnLimpar.BackColor = Color.LightGray;
             btnLimpar.ForeColor = Color.Black;
             btnLimpar.Location = new Point(385, 646);
@@ -52,16 +63,20 @@
             btnLimpar.TabIndex = 32;
             btnLimpar.Text = "Limpar";
             btnLimpar.UseVisualStyleBackColor = false;
+            btnLimpar.Click += btnLimpar_Click;
             // 
-            // lbTitular
+            // btnGravar
             // 
-            lbTitular.AutoSize = true;
-            lbTitular.Font = new Font("Segoe UI", 12F);
-            lbTitular.Location = new Point(270, 19);
-            lbTitular.Name = "lbTitular";
-            lbTitular.Size = new Size(57, 21);
-            lbTitular.TabIndex = 30;
-            lbTitular.Text = "Titular:";
+            btnGravar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnGravar.BackColor = Color.FromArgb(0, 123, 255);
+            btnGravar.ForeColor = Color.White;
+            btnGravar.Location = new Point(466, 646);
+            btnGravar.Name = "btnGravar";
+            btnGravar.Size = new Size(75, 23);
+            btnGravar.TabIndex = 31;
+            btnGravar.Text = "Gravar";
+            btnGravar.UseVisualStyleBackColor = false;
+            btnGravar.Click += btnGravar_Click;
             // 
             // tbTitular
             // 
@@ -71,25 +86,6 @@
             tbTitular.Size = new Size(200, 23);
             tbTitular.TabIndex = 29;
             // 
-            // btnGravar
-            // 
-            btnGravar.BackColor = Color.FromArgb(0, 123, 255);
-            btnGravar.ForeColor = Color.White;
-            btnGravar.Location = new Point(466, 646);
-            btnGravar.Name = "btnGravar";
-            btnGravar.Size = new Size(75, 23);
-            btnGravar.TabIndex = 31;
-            btnGravar.Text = "Gravar";
-            btnGravar.UseVisualStyleBackColor = false;
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(600, 0);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(600, 700);
-            dataGridView1.TabIndex = 26;
-            // 
             // tbModelo
             // 
             tbModelo.Location = new Point(13, 171);
@@ -97,16 +93,6 @@
             tbModelo.Name = "tbModelo";
             tbModelo.Size = new Size(200, 23);
             tbModelo.TabIndex = 22;
-            // 
-            // lbPlaca
-            // 
-            lbPlaca.AutoSize = true;
-            lbPlaca.Font = new Font("Segoe UI", 12F);
-            lbPlaca.Location = new Point(13, 19);
-            lbPlaca.Name = "lbPlaca";
-            lbPlaca.Size = new Size(49, 21);
-            lbPlaca.TabIndex = 19;
-            lbPlaca.Text = "Placa:";
             // 
             // tbPlaca
             // 
@@ -123,6 +109,26 @@
             tbMarca.Name = "tbMarca";
             tbMarca.Size = new Size(200, 23);
             tbMarca.TabIndex = 33;
+            // 
+            // lbTitular
+            // 
+            lbTitular.AutoSize = true;
+            lbTitular.Font = new Font("Segoe UI", 12F);
+            lbTitular.Location = new Point(270, 19);
+            lbTitular.Name = "lbTitular";
+            lbTitular.Size = new Size(57, 21);
+            lbTitular.TabIndex = 30;
+            lbTitular.Text = "Titular:";
+            // 
+            // lbPlaca
+            // 
+            lbPlaca.AutoSize = true;
+            lbPlaca.Font = new Font("Segoe UI", 12F);
+            lbPlaca.Location = new Point(13, 19);
+            lbPlaca.Name = "lbPlaca";
+            lbPlaca.Size = new Size(49, 21);
+            lbPlaca.TabIndex = 19;
+            lbPlaca.Text = "Placa:";
             // 
             // lbMarca
             // 
@@ -144,6 +150,15 @@
             lbModelo.TabIndex = 35;
             lbModelo.Text = "Modelo:";
             // 
+            // panel1
+            // 
+            panel1.BackColor = SystemColors.ActiveBorder;
+            panel1.Dock = DockStyle.Left;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(594, 700);
+            panel1.TabIndex = 36;
+            // 
             // CadVeiculo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -159,6 +174,7 @@
             Controls.Add(tbModelo);
             Controls.Add(lbPlaca);
             Controls.Add(tbPlaca);
+            Controls.Add(panel1);
             Name = "CadVeiculo";
             Size = new Size(1200, 700);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
@@ -180,5 +196,6 @@
         private TextBox tbMarca;
         private Label lbMarca;
         private Label lbModelo;
+        private Panel panel1;
     }
 }

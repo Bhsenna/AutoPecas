@@ -138,6 +138,15 @@ namespace Salomao
             ActivateButton(sender, Color.White);
         }
 
+        private void ibtn_categorias_Click(object sender, EventArgs e)
+        {
+            if (sender == currentBtn) return;
+            
+            ActivateButton(sender, Color.White);
+
+            MostrarTela(new Cadastros.CadCategoria());
+        }
+
         private void ibtn_config_Click(object sender, EventArgs e)
         {
             if (sender == currentBtn) return;
