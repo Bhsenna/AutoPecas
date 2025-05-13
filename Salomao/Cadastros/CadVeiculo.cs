@@ -73,6 +73,10 @@ namespace Salomao.Cadastros
                     {
                         MessageBox.Show("Erro ao cadastrar produto: " + ex.Message);
                     }
+                    finally
+                    {
+                        carregaTabela();
+                    }
                 }
             }
         }

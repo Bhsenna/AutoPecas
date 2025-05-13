@@ -39,19 +39,22 @@
             lbPlaca = new Label();
             lbMarca = new Label();
             lbModelo = new Label();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(600, 0);
+            dataGridView1.Dock = DockStyle.Fill;
+            dataGridView1.Location = new Point(594, 0);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(600, 700);
+            dataGridView1.Size = new Size(606, 700);
             dataGridView1.TabIndex = 26;
             // 
             // btnLimpar
             // 
+            btnLimpar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnLimpar.BackColor = Color.LightGray;
             btnLimpar.ForeColor = Color.Black;
             btnLimpar.Location = new Point(385, 646);
@@ -64,6 +67,7 @@
             // 
             // btnGravar
             // 
+            btnGravar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnGravar.BackColor = Color.FromArgb(0, 123, 255);
             btnGravar.ForeColor = Color.White;
             btnGravar.Location = new Point(466, 646);
@@ -146,6 +150,15 @@
             lbModelo.TabIndex = 35;
             lbModelo.Text = "Modelo:";
             // 
+            // panel1
+            // 
+            panel1.BackColor = SystemColors.ActiveBorder;
+            panel1.Dock = DockStyle.Left;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(594, 700);
+            panel1.TabIndex = 36;
+            // 
             // CadVeiculo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -161,6 +174,7 @@
             Controls.Add(tbModelo);
             Controls.Add(lbPlaca);
             Controls.Add(tbPlaca);
+            Controls.Add(panel1);
             Name = "CadVeiculo";
             Size = new Size(1200, 700);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
@@ -182,5 +196,6 @@
         private TextBox tbMarca;
         private Label lbMarca;
         private Label lbModelo;
+        private Panel panel1;
     }
 }
