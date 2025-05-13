@@ -49,18 +49,18 @@
             dataGridView1.Dock = DockStyle.Fill;
             dataGridView1.Location = new Point(594, 0);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(606, 700);
-            dataGridView1.TabIndex = 26;
+            dataGridView1.Size = new Size(389, 517);
+            dataGridView1.TabIndex = 6;
             // 
             // btnLimpar
             // 
             btnLimpar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnLimpar.BackColor = Color.LightGray;
             btnLimpar.ForeColor = Color.Black;
-            btnLimpar.Location = new Point(385, 646);
+            btnLimpar.Location = new Point(400, 470);
             btnLimpar.Name = "btnLimpar";
             btnLimpar.Size = new Size(75, 23);
-            btnLimpar.TabIndex = 32;
+            btnLimpar.TabIndex = 4;
             btnLimpar.Text = "Limpar";
             btnLimpar.UseVisualStyleBackColor = false;
             btnLimpar.Click += btnLimpar_Click;
@@ -70,51 +70,57 @@
             btnGravar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             btnGravar.BackColor = Color.FromArgb(0, 123, 255);
             btnGravar.ForeColor = Color.White;
-            btnGravar.Location = new Point(466, 646);
+            btnGravar.Location = new Point(481, 470);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new Size(75, 23);
-            btnGravar.TabIndex = 31;
+            btnGravar.TabIndex = 5;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = false;
             btnGravar.Click += btnGravar_Click;
             // 
             // tbTitular
             // 
-            tbTitular.Location = new Point(270, 47);
+            tbTitular.ForeColor = Color.FromArgb(55, 65, 81);
+            tbTitular.Location = new Point(282, 47);
             tbTitular.MaxLength = 250;
             tbTitular.Name = "tbTitular";
             tbTitular.Size = new Size(200, 23);
-            tbTitular.TabIndex = 29;
+            tbTitular.TabIndex = 1;
             // 
             // tbModelo
             // 
-            tbModelo.Location = new Point(13, 171);
+            tbModelo.ForeColor = Color.FromArgb(55, 65, 81);
+            tbModelo.Location = new Point(25, 171);
             tbModelo.MaxLength = 250;
             tbModelo.Name = "tbModelo";
             tbModelo.Size = new Size(200, 23);
-            tbModelo.TabIndex = 22;
+            tbModelo.TabIndex = 3;
             // 
             // tbPlaca
             // 
-            tbPlaca.Location = new Point(13, 47);
+            tbPlaca.ForeColor = Color.FromArgb(55, 65, 81);
+            tbPlaca.Location = new Point(25, 47);
             tbPlaca.MaxLength = 250;
             tbPlaca.Name = "tbPlaca";
             tbPlaca.Size = new Size(200, 23);
-            tbPlaca.TabIndex = 18;
+            tbPlaca.TabIndex = 0;
             // 
             // tbMarca
             // 
-            tbMarca.Location = new Point(13, 112);
+            tbMarca.ForeColor = Color.FromArgb(55, 65, 81);
+            tbMarca.Location = new Point(25, 112);
             tbMarca.MaxLength = 250;
             tbMarca.Name = "tbMarca";
             tbMarca.Size = new Size(200, 23);
-            tbMarca.TabIndex = 33;
+            tbMarca.TabIndex = 2;
             // 
             // lbTitular
             // 
             lbTitular.AutoSize = true;
+            lbTitular.BackColor = Color.White;
             lbTitular.Font = new Font("Segoe UI", 12F);
-            lbTitular.Location = new Point(270, 19);
+            lbTitular.ForeColor = Color.Black;
+            lbTitular.Location = new Point(282, 19);
             lbTitular.Name = "lbTitular";
             lbTitular.Size = new Size(57, 21);
             lbTitular.TabIndex = 30;
@@ -123,8 +129,10 @@
             // lbPlaca
             // 
             lbPlaca.AutoSize = true;
+            lbPlaca.BackColor = Color.White;
             lbPlaca.Font = new Font("Segoe UI", 12F);
-            lbPlaca.Location = new Point(13, 19);
+            lbPlaca.ForeColor = Color.Black;
+            lbPlaca.Location = new Point(25, 19);
             lbPlaca.Name = "lbPlaca";
             lbPlaca.Size = new Size(49, 21);
             lbPlaca.TabIndex = 19;
@@ -133,8 +141,10 @@
             // lbMarca
             // 
             lbMarca.AutoSize = true;
+            lbMarca.BackColor = Color.White;
             lbMarca.Font = new Font("Segoe UI", 12F);
-            lbMarca.Location = new Point(13, 88);
+            lbMarca.ForeColor = Color.Black;
+            lbMarca.Location = new Point(25, 88);
             lbMarca.Name = "lbMarca";
             lbMarca.Size = new Size(56, 21);
             lbMarca.TabIndex = 34;
@@ -143,8 +153,10 @@
             // lbModelo
             // 
             lbModelo.AutoSize = true;
+            lbModelo.BackColor = Color.White;
             lbModelo.Font = new Font("Segoe UI", 12F);
-            lbModelo.Location = new Point(13, 147);
+            lbModelo.ForeColor = Color.Black;
+            lbModelo.Location = new Point(25, 147);
             lbModelo.Name = "lbModelo";
             lbModelo.Size = new Size(66, 21);
             lbModelo.TabIndex = 35;
@@ -152,11 +164,11 @@
             // 
             // panel1
             // 
-            panel1.BackColor = SystemColors.ActiveBorder;
+            panel1.BackColor = Color.White;
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(594, 700);
+            panel1.Size = new Size(594, 517);
             panel1.TabIndex = 36;
             // 
             // CadVeiculo
@@ -176,7 +188,7 @@
             Controls.Add(tbPlaca);
             Controls.Add(panel1);
             Name = "CadVeiculo";
-            Size = new Size(1200, 700);
+            Size = new Size(983, 517);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
             PerformLayout();

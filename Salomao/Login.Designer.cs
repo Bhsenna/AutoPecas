@@ -40,25 +40,28 @@
             btn_close = new Button();
             btn_login = new Button();
             btn_register = new Button();
+            stc_title = new Label();
             panel_Drag.SuspendLayout();
             SuspendLayout();
             // 
-            // usuario
+            // txt_usuario
             // 
             txt_usuario.Anchor = AnchorStyles.None;
             txt_usuario.Cursor = Cursors.IBeam;
+            txt_usuario.ForeColor = Color.FromArgb(55, 65, 81);
             txt_usuario.Location = new Point(50, 115);
-            txt_usuario.Name = "usuario";
+            txt_usuario.Name = "txt_usuario";
             txt_usuario.Size = new Size(250, 24);
             txt_usuario.TabIndex = 1;
             txt_usuario.KeyDown += txt_usuario_KeyDown;
             // 
-            // senha
+            // txt_senha
             // 
             txt_senha.Anchor = AnchorStyles.None;
             txt_senha.Cursor = Cursors.IBeam;
+            txt_senha.ForeColor = Color.FromArgb(55, 65, 81);
             txt_senha.Location = new Point(50, 165);
-            txt_senha.Name = "senha";
+            txt_senha.Name = "txt_senha";
             txt_senha.Size = new Size(250, 24);
             txt_senha.TabIndex = 2;
             txt_senha.UseSystemPasswordChar = true;
@@ -68,7 +71,7 @@
             // 
             stc_usuario.Anchor = AnchorStyles.None;
             stc_usuario.AutoSize = true;
-            stc_usuario.ForeColor = Color.White;
+            stc_usuario.ForeColor = Color.Black;
             stc_usuario.Location = new Point(50, 95);
             stc_usuario.Name = "stc_usuario";
             stc_usuario.Size = new Size(62, 19);
@@ -79,7 +82,7 @@
             // 
             stc_senha.Anchor = AnchorStyles.None;
             stc_senha.AutoSize = true;
-            stc_senha.ForeColor = Color.White;
+            stc_senha.ForeColor = Color.Black;
             stc_senha.Location = new Point(50, 145);
             stc_senha.Name = "stc_senha";
             stc_senha.Size = new Size(57, 19);
@@ -102,13 +105,13 @@
             // 
             // panel_Drag
             // 
-            panel_Drag.BackColor = Color.Black;
+            panel_Drag.BackColor = Color.FromArgb(30, 58, 138);
             panel_Drag.Controls.Add(btn_minimize);
             panel_Drag.Controls.Add(btn_close);
             panel_Drag.Dock = DockStyle.Top;
             panel_Drag.Location = new Point(0, 0);
             panel_Drag.Name = "panel_Drag";
-            panel_Drag.Size = new Size(350, 48);
+            panel_Drag.Size = new Size(350, 25);
             panel_Drag.TabIndex = 8;
             // 
             // btn_minimize
@@ -120,7 +123,7 @@
             btn_minimize.BackgroundImageLayout = ImageLayout.Zoom;
             btn_minimize.Cursor = Cursors.Hand;
             btn_minimize.FlatAppearance.BorderSize = 0;
-            btn_minimize.FlatAppearance.MouseOverBackColor = Color.FromArgb(36, 36, 36);
+            btn_minimize.FlatAppearance.MouseOverBackColor = Color.FromArgb(37, 99, 235);
             btn_minimize.FlatStyle = FlatStyle.Flat;
             btn_minimize.ForeColor = Color.Black;
             btn_minimize.Location = new Point(296, 0);
@@ -139,7 +142,7 @@
             btn_close.BackgroundImageLayout = ImageLayout.Zoom;
             btn_close.Cursor = Cursors.Hand;
             btn_close.FlatAppearance.BorderSize = 0;
-            btn_close.FlatAppearance.MouseOverBackColor = Color.FromArgb(36, 36, 36);
+            btn_close.FlatAppearance.MouseOverBackColor = Color.FromArgb(37, 99, 235);
             btn_close.FlatStyle = FlatStyle.Flat;
             btn_close.ForeColor = Color.Black;
             btn_close.Location = new Point(326, 0);
@@ -155,7 +158,7 @@
             btn_login.BackColor = Color.Transparent;
             btn_login.FlatStyle = FlatStyle.Flat;
             btn_login.Font = new Font("Impact", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btn_login.ForeColor = Color.DarkOrchid;
+            btn_login.ForeColor = Color.FromArgb(16, 185, 129);
             btn_login.Location = new Point(190, 217);
             btn_login.Name = "btn_login";
             btn_login.Size = new Size(110, 36);
@@ -170,7 +173,7 @@
             btn_register.BackColor = Color.Transparent;
             btn_register.FlatStyle = FlatStyle.Flat;
             btn_register.Font = new Font("Impact", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btn_register.ForeColor = Color.MediumOrchid;
+            btn_register.ForeColor = Color.FromArgb(37, 99, 235);
             btn_register.Location = new Point(50, 217);
             btn_register.Name = "btn_register";
             btn_register.Size = new Size(120, 36);
@@ -179,12 +182,24 @@
             btn_register.UseVisualStyleBackColor = false;
             btn_register.Click += btn_register_Click;
             // 
+            // stc_title
+            // 
+            stc_title.AutoSize = true;
+            stc_title.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            stc_title.ForeColor = Color.FromArgb(17, 24, 39);
+            stc_title.Location = new Point(133, 45);
+            stc_title.Name = "stc_title";
+            stc_title.Size = new Size(84, 30);
+            stc_title.TabIndex = 11;
+            stc_title.Text = "Log in";
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(34, 33, 35);
+            BackColor = Color.White;
             ClientSize = new Size(350, 310);
+            Controls.Add(stc_title);
             Controls.Add(btn_register);
             Controls.Add(btn_login);
             Controls.Add(panel_Drag);
@@ -215,5 +230,6 @@
         private Button btn_minimize;
         private Button btn_login;
         private Button btn_register;
+        private Label stc_title;
     }
 }

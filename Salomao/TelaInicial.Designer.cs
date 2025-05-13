@@ -53,7 +53,7 @@
             // 
             // panel_menu
             // 
-            panel_menu.BackColor = Color.Black;
+            panel_menu.BackColor = Color.FromArgb(30, 58, 138);
             panel_menu.Controls.Add(btn_home);
             panel_menu.Controls.Add(ibtn_logout);
             panel_menu.Controls.Add(ibtn_config);
@@ -72,7 +72,7 @@
             btn_home.AutoSize = true;
             btn_home.Cursor = Cursors.Hand;
             btn_home.Font = new Font("Condiment", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btn_home.ForeColor = Color.White;
+            btn_home.ForeColor = Color.FromArgb(209, 213, 219);
             btn_home.Location = new Point(4, 7);
             btn_home.Name = "btn_home";
             btn_home.Size = new Size(212, 73);
@@ -86,9 +86,9 @@
             ibtn_logout.FlatAppearance.BorderSize = 0;
             ibtn_logout.FlatStyle = FlatStyle.Flat;
             ibtn_logout.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ibtn_logout.ForeColor = Color.White;
+            ibtn_logout.ForeColor = Color.FromArgb(209, 213, 219);
             ibtn_logout.IconChar = FontAwesome.Sharp.IconChar.SignOut;
-            ibtn_logout.IconColor = Color.White;
+            ibtn_logout.IconColor = Color.FromArgb(209, 213, 219);
             ibtn_logout.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_logout.IconSize = 32;
             ibtn_logout.ImageAlign = ContentAlignment.MiddleLeft;
@@ -109,9 +109,9 @@
             ibtn_config.FlatAppearance.BorderSize = 0;
             ibtn_config.FlatStyle = FlatStyle.Flat;
             ibtn_config.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ibtn_config.ForeColor = Color.White;
+            ibtn_config.ForeColor = Color.FromArgb(209, 213, 219);
             ibtn_config.IconChar = FontAwesome.Sharp.IconChar.Cog;
-            ibtn_config.IconColor = Color.White;
+            ibtn_config.IconColor = Color.FromArgb(209, 213, 219);
             ibtn_config.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_config.IconSize = 32;
             ibtn_config.ImageAlign = ContentAlignment.MiddleLeft;
@@ -132,9 +132,9 @@
             ibtn_servicos.FlatAppearance.BorderSize = 0;
             ibtn_servicos.FlatStyle = FlatStyle.Flat;
             ibtn_servicos.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ibtn_servicos.ForeColor = Color.White;
-            ibtn_servicos.IconChar = FontAwesome.Sharp.IconChar.Tv;
-            ibtn_servicos.IconColor = Color.White;
+            ibtn_servicos.ForeColor = Color.FromArgb(209, 213, 219);
+            ibtn_servicos.IconChar = FontAwesome.Sharp.IconChar.ListSquares;
+            ibtn_servicos.IconColor = Color.FromArgb(209, 213, 219);
             ibtn_servicos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_servicos.IconSize = 32;
             ibtn_servicos.ImageAlign = ContentAlignment.MiddleLeft;
@@ -143,11 +143,11 @@
             ibtn_servicos.Padding = new Padding(10, 0, 20, 0);
             ibtn_servicos.Size = new Size(216, 60);
             ibtn_servicos.TabIndex = 7;
-            ibtn_servicos.Text = "Serviços";
+            ibtn_servicos.Text = "Categorias";
             ibtn_servicos.TextAlign = ContentAlignment.MiddleLeft;
             ibtn_servicos.TextImageRelation = TextImageRelation.ImageBeforeText;
             ibtn_servicos.UseVisualStyleBackColor = true;
-            ibtn_servicos.Click += ibtn_servicos_Click;
+            ibtn_servicos.Click += ibtn_categorias_Click;
             // 
             // ibtn_veiculos
             // 
@@ -155,9 +155,9 @@
             ibtn_veiculos.FlatAppearance.BorderSize = 0;
             ibtn_veiculos.FlatStyle = FlatStyle.Flat;
             ibtn_veiculos.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ibtn_veiculos.ForeColor = Color.White;
+            ibtn_veiculos.ForeColor = Color.FromArgb(209, 213, 219);
             ibtn_veiculos.IconChar = FontAwesome.Sharp.IconChar.CarSide;
-            ibtn_veiculos.IconColor = Color.White;
+            ibtn_veiculos.IconColor = Color.FromArgb(209, 213, 219);
             ibtn_veiculos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_veiculos.IconSize = 32;
             ibtn_veiculos.ImageAlign = ContentAlignment.MiddleLeft;
@@ -178,9 +178,9 @@
             ibtn_clientes.FlatAppearance.BorderSize = 0;
             ibtn_clientes.FlatStyle = FlatStyle.Flat;
             ibtn_clientes.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ibtn_clientes.ForeColor = Color.White;
+            ibtn_clientes.ForeColor = Color.FromArgb(209, 213, 219);
             ibtn_clientes.IconChar = FontAwesome.Sharp.IconChar.Male;
-            ibtn_clientes.IconColor = Color.White;
+            ibtn_clientes.IconColor = Color.FromArgb(209, 213, 219);
             ibtn_clientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_clientes.IconSize = 32;
             ibtn_clientes.ImageAlign = ContentAlignment.MiddleLeft;
@@ -197,14 +197,14 @@
             // 
             // ibtn_produtos
             // 
-            ibtn_produtos.BackColor = Color.Black;
+            ibtn_produtos.BackColor = Color.FromArgb(30, 58, 138);
             ibtn_produtos.Cursor = Cursors.Hand;
             ibtn_produtos.FlatAppearance.BorderSize = 0;
             ibtn_produtos.FlatStyle = FlatStyle.Flat;
             ibtn_produtos.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ibtn_produtos.ForeColor = Color.White;
+            ibtn_produtos.ForeColor = Color.FromArgb(209, 213, 219);
             ibtn_produtos.IconChar = FontAwesome.Sharp.IconChar.Shop;
-            ibtn_produtos.IconColor = Color.White;
+            ibtn_produtos.IconColor = Color.FromArgb(209, 213, 219);
             ibtn_produtos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_produtos.IconSize = 32;
             ibtn_produtos.ImageAlign = ContentAlignment.MiddleLeft;
@@ -221,7 +221,7 @@
             // 
             // panel_header
             // 
-            panel_header.BackColor = Color.Black;
+            panel_header.BackColor = Color.FromArgb(30, 58, 138);
             panel_header.Controls.Add(btn_maximize);
             panel_header.Controls.Add(btn_minimize);
             panel_header.Controls.Add(lbl_title);
@@ -242,9 +242,9 @@
             btn_maximize.BackgroundImageLayout = ImageLayout.Zoom;
             btn_maximize.Cursor = Cursors.Hand;
             btn_maximize.FlatAppearance.BorderSize = 0;
-            btn_maximize.FlatAppearance.MouseOverBackColor = Color.FromArgb(36, 36, 36);
+            btn_maximize.FlatAppearance.MouseOverBackColor = Color.FromArgb(37, 99, 235);
             btn_maximize.FlatStyle = FlatStyle.Flat;
-            btn_maximize.ForeColor = Color.Black;
+            btn_maximize.ForeColor = Color.Transparent;
             btn_maximize.Location = new Point(926, 3);
             btn_maximize.Name = "btn_maximize";
             btn_maximize.Size = new Size(24, 24);
@@ -261,9 +261,9 @@
             btn_minimize.BackgroundImageLayout = ImageLayout.Zoom;
             btn_minimize.Cursor = Cursors.Hand;
             btn_minimize.FlatAppearance.BorderSize = 0;
-            btn_minimize.FlatAppearance.MouseOverBackColor = Color.FromArgb(36, 36, 36);
+            btn_minimize.FlatAppearance.MouseOverBackColor = Color.FromArgb(37, 99, 235);
             btn_minimize.FlatStyle = FlatStyle.Flat;
-            btn_minimize.ForeColor = Color.Black;
+            btn_minimize.ForeColor = Color.Transparent;
             btn_minimize.Location = new Point(896, 3);
             btn_minimize.Name = "btn_minimize";
             btn_minimize.Size = new Size(24, 24);
@@ -274,7 +274,7 @@
             // lbl_title
             // 
             lbl_title.AutoSize = true;
-            lbl_title.ForeColor = Color.White;
+            lbl_title.ForeColor = Color.FromArgb(209, 213, 219);
             lbl_title.Location = new Point(57, 28);
             lbl_title.Name = "lbl_title";
             lbl_title.Size = new Size(44, 16);
@@ -283,8 +283,10 @@
             // 
             // icon_current
             // 
+            icon_current.BackColor = Color.FromArgb(30, 58, 138);
+            icon_current.ForeColor = Color.FromArgb(209, 213, 219);
             icon_current.IconChar = FontAwesome.Sharp.IconChar.House;
-            icon_current.IconColor = Color.White;
+            icon_current.IconColor = Color.FromArgb(209, 213, 219);
             icon_current.IconFont = FontAwesome.Sharp.IconFont.Auto;
             icon_current.Location = new Point(23, 25);
             icon_current.Name = "icon_current";
@@ -301,9 +303,9 @@
             btn_close.BackgroundImageLayout = ImageLayout.Zoom;
             btn_close.Cursor = Cursors.Hand;
             btn_close.FlatAppearance.BorderSize = 0;
-            btn_close.FlatAppearance.MouseOverBackColor = Color.FromArgb(36, 36, 36);
+            btn_close.FlatAppearance.MouseOverBackColor = Color.FromArgb(37, 99, 235);
             btn_close.FlatStyle = FlatStyle.Flat;
-            btn_close.ForeColor = Color.Black;
+            btn_close.ForeColor = Color.Transparent;
             btn_close.Location = new Point(956, 3);
             btn_close.Name = "btn_close";
             btn_close.Size = new Size(24, 24);
@@ -317,7 +319,7 @@
             // 
             // panel_shadow
             // 
-            panel_shadow.BackColor = Color.FromArgb(26, 24, 25);
+            panel_shadow.BackColor = Color.FromArgb(10, 38, 118);
             panel_shadow.Dock = DockStyle.Top;
             panel_shadow.Location = new Point(222, 80);
             panel_shadow.Name = "panel_shadow";
@@ -326,7 +328,7 @@
             // 
             // panel_desktop
             // 
-            panel_desktop.BackColor = Color.FromArgb(34, 33, 32);
+            panel_desktop.BackColor = Color.White;
             panel_desktop.Dock = DockStyle.Fill;
             panel_desktop.Location = new Point(222, 89);
             panel_desktop.Name = "panel_desktop";

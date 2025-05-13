@@ -51,6 +51,7 @@
             // 
             // tbNomeProd
             // 
+            tbNomeProd.ForeColor = Color.FromArgb(55, 65, 81);
             tbNomeProd.Location = new Point(25, 47);
             tbNomeProd.MaxLength = 250;
             tbNomeProd.Name = "tbNomeProd";
@@ -60,7 +61,9 @@
             // lbNomeProd
             // 
             lbNomeProd.AutoSize = true;
+            lbNomeProd.BackColor = Color.White;
             lbNomeProd.Font = new Font("Segoe UI", 12F);
+            lbNomeProd.ForeColor = Color.Black;
             lbNomeProd.Location = new Point(25, 19);
             lbNomeProd.Name = "lbNomeProd";
             lbNomeProd.Size = new Size(56, 21);
@@ -70,7 +73,9 @@
             // lbFornecedor
             // 
             lbFornecedor.AutoSize = true;
+            lbFornecedor.BackColor = Color.White;
             lbFornecedor.Font = new Font("Segoe UI", 12F);
+            lbFornecedor.ForeColor = Color.Black;
             lbFornecedor.Location = new Point(25, 88);
             lbFornecedor.Name = "lbFornecedor";
             lbFornecedor.Size = new Size(92, 21);
@@ -79,6 +84,7 @@
             // 
             // tbFornecedor
             // 
+            tbFornecedor.ForeColor = Color.FromArgb(55, 65, 81);
             tbFornecedor.Location = new Point(25, 112);
             tbFornecedor.MaxLength = 250;
             tbFornecedor.Name = "tbFornecedor";
@@ -88,7 +94,9 @@
             // lbCategoria
             // 
             lbCategoria.AutoSize = true;
+            lbCategoria.BackColor = Color.White;
             lbCategoria.Font = new Font("Segoe UI", 12F);
+            lbCategoria.ForeColor = Color.Black;
             lbCategoria.Location = new Point(25, 147);
             lbCategoria.Name = "lbCategoria";
             lbCategoria.Size = new Size(80, 21);
@@ -97,6 +105,7 @@
             // 
             // tbCategoria
             // 
+            tbCategoria.ForeColor = Color.FromArgb(55, 65, 81);
             tbCategoria.Location = new Point(25, 171);
             tbCategoria.MaxLength = 250;
             tbCategoria.Name = "tbCategoria";
@@ -106,7 +115,9 @@
             // lbCustoAquisicao
             // 
             lbCustoAquisicao.AutoSize = true;
+            lbCustoAquisicao.BackColor = Color.White;
             lbCustoAquisicao.Font = new Font("Segoe UI", 12F);
+            lbCustoAquisicao.ForeColor = Color.Black;
             lbCustoAquisicao.Location = new Point(25, 206);
             lbCustoAquisicao.Name = "lbCustoAquisicao";
             lbCustoAquisicao.Size = new Size(124, 21);
@@ -138,7 +149,9 @@
             // lbMarca
             // 
             lbMarca.AutoSize = true;
+            lbMarca.BackColor = Color.White;
             lbMarca.Font = new Font("Segoe UI", 12F);
+            lbMarca.ForeColor = Color.Black;
             lbMarca.Location = new Point(25, 272);
             lbMarca.Name = "lbMarca";
             lbMarca.Size = new Size(56, 21);
@@ -147,6 +160,7 @@
             // 
             // tbMarca
             // 
+            tbMarca.ForeColor = Color.FromArgb(55, 65, 81);
             tbMarca.Location = new Point(25, 296);
             tbMarca.MaxLength = 250;
             tbMarca.Name = "tbMarca";
@@ -157,7 +171,9 @@
             // lbCodigo
             // 
             lbCodigo.AutoSize = true;
+            lbCodigo.BackColor = Color.White;
             lbCodigo.Font = new Font("Segoe UI", 12F);
+            lbCodigo.ForeColor = Color.Black;
             lbCodigo.Location = new Point(282, 19);
             lbCodigo.Name = "lbCodigo";
             lbCodigo.Size = new Size(63, 21);
@@ -166,6 +182,7 @@
             // 
             // tbCodigo
             // 
+            tbCodigo.ForeColor = Color.FromArgb(55, 65, 81);
             tbCodigo.Location = new Point(282, 47);
             tbCodigo.MaxLength = 250;
             tbCodigo.Name = "tbCodigo";
@@ -188,7 +205,9 @@
             // lbDescricao
             // 
             lbDescricao.AutoSize = true;
+            lbDescricao.BackColor = Color.White;
             lbDescricao.Font = new Font("Segoe UI", 12F);
+            lbDescricao.ForeColor = Color.Black;
             lbDescricao.Location = new Point(25, 331);
             lbDescricao.Name = "lbDescricao";
             lbDescricao.Size = new Size(80, 21);
@@ -197,6 +216,7 @@
             // 
             // tbDescricao
             // 
+            tbDescricao.ForeColor = Color.FromArgb(55, 65, 81);
             tbDescricao.Location = new Point(25, 355);
             tbDescricao.MaxLength = 1000;
             tbDescricao.Multiline = true;
@@ -207,6 +227,7 @@
             // 
             // tbCustoAquisicao
             // 
+            tbCustoAquisicao.ForeColor = Color.FromArgb(55, 65, 81);
             tbCustoAquisicao.Location = new Point(25, 230);
             tbCustoAquisicao.Name = "tbCustoAquisicao";
             tbCustoAquisicao.Size = new Size(200, 23);
@@ -214,6 +235,7 @@
             // 
             // panel1
             // 
+            panel1.BackColor = Color.White;
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";

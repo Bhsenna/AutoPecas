@@ -41,18 +41,19 @@
             txt_confirma = new TextBox();
             btn_register = new Button();
             btn_login = new Button();
+            stc_title = new Label();
             panel_Drag.SuspendLayout();
             SuspendLayout();
             // 
             // panel_Drag
             // 
-            panel_Drag.BackColor = Color.Black;
+            panel_Drag.BackColor = Color.FromArgb(30, 58, 138);
             panel_Drag.Controls.Add(btn_minimize);
             panel_Drag.Controls.Add(btn_close);
             panel_Drag.Dock = DockStyle.Top;
             panel_Drag.Location = new Point(0, 0);
             panel_Drag.Name = "panel_Drag";
-            panel_Drag.Size = new Size(350, 48);
+            panel_Drag.Size = new Size(350, 25);
             panel_Drag.TabIndex = 9;
             // 
             // btn_minimize
@@ -64,7 +65,7 @@
             btn_minimize.BackgroundImageLayout = ImageLayout.Zoom;
             btn_minimize.Cursor = Cursors.Hand;
             btn_minimize.FlatAppearance.BorderSize = 0;
-            btn_minimize.FlatAppearance.MouseOverBackColor = Color.FromArgb(36, 36, 36);
+            btn_minimize.FlatAppearance.MouseOverBackColor = Color.FromArgb(37, 99, 235);
             btn_minimize.FlatStyle = FlatStyle.Flat;
             btn_minimize.ForeColor = Color.Black;
             btn_minimize.Location = new Point(296, 0);
@@ -83,7 +84,7 @@
             btn_close.BackgroundImageLayout = ImageLayout.Zoom;
             btn_close.Cursor = Cursors.Hand;
             btn_close.FlatAppearance.BorderSize = 0;
-            btn_close.FlatAppearance.MouseOverBackColor = Color.FromArgb(36, 36, 36);
+            btn_close.FlatAppearance.MouseOverBackColor = Color.FromArgb(37, 99, 235);
             btn_close.FlatStyle = FlatStyle.Flat;
             btn_close.ForeColor = Color.Black;
             btn_close.Location = new Point(326, 0);
@@ -101,7 +102,7 @@
             // 
             stc_senha.Anchor = AnchorStyles.None;
             stc_senha.AutoSize = true;
-            stc_senha.ForeColor = Color.White;
+            stc_senha.ForeColor = Color.Black;
             stc_senha.Location = new Point(50, 125);
             stc_senha.Name = "stc_senha";
             stc_senha.Size = new Size(57, 19);
@@ -112,51 +113,54 @@
             // 
             stc_usuario.Anchor = AnchorStyles.None;
             stc_usuario.AutoSize = true;
-            stc_usuario.ForeColor = Color.White;
+            stc_usuario.ForeColor = Color.Black;
             stc_usuario.Location = new Point(50, 75);
             stc_usuario.Name = "stc_usuario";
             stc_usuario.Size = new Size(62, 19);
             stc_usuario.TabIndex = 12;
             stc_usuario.Text = "Usuário:";
             // 
-            // senha
+            // txt_senha
             // 
             txt_senha.Anchor = AnchorStyles.None;
             txt_senha.Cursor = Cursors.IBeam;
+            txt_senha.ForeColor = Color.FromArgb(55, 65, 81);
             txt_senha.Location = new Point(50, 145);
-            txt_senha.Name = "senha";
+            txt_senha.Name = "txt_senha";
             txt_senha.Size = new Size(250, 24);
             txt_senha.TabIndex = 11;
             txt_senha.UseSystemPasswordChar = true;
             txt_senha.KeyDown += txt_senha_KeyDown;
             // 
-            // usuario
+            // txt_usuario
             // 
             txt_usuario.Anchor = AnchorStyles.None;
             txt_usuario.Cursor = Cursors.IBeam;
+            txt_usuario.ForeColor = Color.FromArgb(55, 65, 81);
             txt_usuario.Location = new Point(50, 95);
-            txt_usuario.Name = "usuario";
+            txt_usuario.Name = "txt_usuario";
             txt_usuario.Size = new Size(250, 24);
             txt_usuario.TabIndex = 10;
             txt_usuario.KeyDown += txt_usuario_KeyDown;
             // 
-            // label1
+            // stc_confirma
             // 
             stc_confirma.Anchor = AnchorStyles.None;
             stc_confirma.AutoSize = true;
-            stc_confirma.ForeColor = Color.White;
+            stc_confirma.ForeColor = Color.Black;
             stc_confirma.Location = new Point(50, 175);
-            stc_confirma.Name = "label1";
+            stc_confirma.Name = "stc_confirma";
             stc_confirma.Size = new Size(128, 19);
             stc_confirma.TabIndex = 16;
             stc_confirma.Text = "Confirmar Senha:";
             // 
-            // senhaC
+            // txt_confirma
             // 
             txt_confirma.Anchor = AnchorStyles.None;
             txt_confirma.Cursor = Cursors.IBeam;
+            txt_confirma.ForeColor = Color.FromArgb(55, 65, 81);
             txt_confirma.Location = new Point(50, 195);
-            txt_confirma.Name = "senhaC";
+            txt_confirma.Name = "txt_confirma";
             txt_confirma.Size = new Size(250, 24);
             txt_confirma.TabIndex = 15;
             txt_confirma.UseSystemPasswordChar = true;
@@ -168,7 +172,7 @@
             btn_register.BackColor = Color.Transparent;
             btn_register.FlatStyle = FlatStyle.Flat;
             btn_register.Font = new Font("Impact", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btn_register.ForeColor = Color.DarkOrchid;
+            btn_register.ForeColor = Color.FromArgb(16, 185, 129);
             btn_register.Location = new Point(180, 247);
             btn_register.Name = "btn_register";
             btn_register.Size = new Size(120, 36);
@@ -183,7 +187,7 @@
             btn_login.BackColor = Color.Transparent;
             btn_login.FlatStyle = FlatStyle.Flat;
             btn_login.Font = new Font("Impact", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btn_login.ForeColor = Color.MediumOrchid;
+            btn_login.ForeColor = Color.FromArgb(37, 99, 235);
             btn_login.Location = new Point(50, 247);
             btn_login.Name = "btn_login";
             btn_login.Size = new Size(110, 36);
@@ -192,12 +196,24 @@
             btn_login.UseVisualStyleBackColor = false;
             btn_login.Click += btn_login_Click;
             // 
+            // stc_title
+            // 
+            stc_title.AutoSize = true;
+            stc_title.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            stc_title.ForeColor = Color.FromArgb(17, 24, 39);
+            stc_title.Location = new Point(114, 45);
+            stc_title.Name = "stc_title";
+            stc_title.Size = new Size(122, 30);
+            stc_title.TabIndex = 19;
+            stc_title.Text = "Cadastro";
+            // 
             // Register
             // 
             AutoScaleDimensions = new SizeF(8F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(34, 33, 35);
+            BackColor = Color.White;
             ClientSize = new Size(350, 310);
+            Controls.Add(stc_title);
             Controls.Add(btn_login);
             Controls.Add(btn_register);
             Controls.Add(stc_confirma);
@@ -231,5 +247,6 @@
         private TextBox txt_confirma;
         private Button btn_register;
         private Button btn_login;
+        private Label stc_title;
     }
 }

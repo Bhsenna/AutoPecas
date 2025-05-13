@@ -59,7 +59,7 @@ namespace Salomao
                 DisableButton();
                 // Button
                 currentBtn = (IconButton)senderBtn;
-                currentBtn.BackColor = Color.FromArgb(36, 36, 36);
+                currentBtn.BackColor = ColorTranslator.FromHtml("#2563EB");
                 currentBtn.ForeColor = color;
                 currentBtn.IconColor = color;
                 // Left border button
@@ -78,13 +78,13 @@ namespace Salomao
             if (currentBtn != null)
             {
                 // Button
-                currentBtn.BackColor = Color.Black;
-                currentBtn.ForeColor = Color.White;
+                currentBtn.BackColor = ColorTranslator.FromHtml("#1E3A8A");
+                currentBtn.ForeColor = ColorTranslator.FromHtml("#D1D5DB");
                 currentBtn.TextAlign = ContentAlignment.MiddleLeft;
-                currentBtn.IconColor = Color.White;
+                currentBtn.IconColor = ColorTranslator.FromHtml("#D1D5DB");
                 currentBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
                 currentBtn.ImageAlign = ContentAlignment.MiddleLeft;
-
+                currentBtn = null;
             }
         }
 
@@ -131,12 +131,12 @@ namespace Salomao
             MostrarTela(new Cadastros.CadVeiculo());
         }
 
-        private void ibtn_servicos_Click(object sender, EventArgs e)
-        {
-            if (sender == currentBtn) return;
+        //private void ibtn_servicos_Click(object sender, EventArgs e)
+        //{
+        //    if (sender == currentBtn) return;
 
-            ActivateButton(sender, Color.White);
-        }
+        //    ActivateButton(sender, Color.White);
+        //}
 
         private void ibtn_categorias_Click(object sender, EventArgs e)
         {
@@ -180,7 +180,7 @@ namespace Salomao
             DisableButton();
             leftBorderBtn.Visible = false;
             icon_current.IconChar = IconChar.House;
-            icon_current.IconColor = Color.White;
+            icon_current.IconColor = ColorTranslator.FromHtml("#D1D5DB");
             lbl_title.Text = "Home";
         }
     }
