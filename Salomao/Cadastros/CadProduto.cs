@@ -32,24 +32,24 @@ namespace Salomao.Cadastros
 
         private void btnLimpar_Click(object sender, EventArgs e)
         {
-            tbNomeProd.Text = "";
-            tbCodigo.Text = "";
-            tbFornecedor.Text = "";
-            tbCategoria.Text = "";
+            tbNomeProd      .Text = "";
+            tbCodigo        .Text = "";
+            tbFornecedor    .Text = "";
+            tbCategoria     .Text = "";
             tbCustoAquisicao.Text = "";
-            tbMarca.Text = "";
-            tbDescricao.Text = "";
+            tbMarca         .Text = "";
+            tbDescricao     .Text = "";
         }
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
-            String sNome = tbNomeProd.Text;
-            String sCodigo = tbCodigo.Text;
-            String sFornecedor = tbFornecedor.Text;
-            String sCategoria = tbCategoria.Text;
+            String sNome           = tbNomeProd      .Text;
+            String sCodigo         = tbCodigo        .Text;
+            String sFornecedor     = tbFornecedor    .Text;
+            String sCategoria      = tbCategoria     .Text;
             String sCustoAquisicao = tbCustoAquisicao.Text;
-            String sMarca = tbMarca.Text;
-            String sDescricao = tbDescricao.Text;
+            String sMarca          = tbMarca         .Text;
+            String sDescricao      = tbDescricao     .Text;
 
             if (sNome == "" || sCodigo == "" || sFornecedor == "" || sCategoria == "" || sCustoAquisicao == "" || sMarca == "" || sDescricao == "")
             {
@@ -62,26 +62,28 @@ namespace Salomao.Cadastros
                                 (NomeProduto, CodigoProduto, CustoAquisicao, Marca, Descricao, CategoriaID, FornecedorID)
                             VALUES
                                 (@NomeProduto, @CodigoProduto, @CustoAquisicao, @Marca, @Descricao, @Categoria, @Fornecedor)";
+
             SQLiteCommand cmd = new SQLiteCommand(query, con);
-            cmd.Parameters.AddWithValue("@NomeProduto", sNome);
-            cmd.Parameters.AddWithValue("@CodigoProduto", sCodigo);
+            cmd.Parameters.AddWithValue("@NomeProduto"   , sNome          );
+            cmd.Parameters.AddWithValue("@CodigoProduto" , sCodigo        );
             cmd.Parameters.AddWithValue("@CustoAquisicao", sCustoAquisicao);
-            cmd.Parameters.AddWithValue("@Marca", sMarca);
-            cmd.Parameters.AddWithValue("@Descricao", sDescricao);
-            cmd.Parameters.AddWithValue("@Categoria", sCategoria);
-            cmd.Parameters.AddWithValue("@Fornecedor", sFornecedor);
+            cmd.Parameters.AddWithValue("@Marca"         , sMarca         );
+            cmd.Parameters.AddWithValue("@Descricao"     , sDescricao     );
+            cmd.Parameters.AddWithValue("@Categoria"     , sCategoria     );
+            cmd.Parameters.AddWithValue("@Fornecedor"    , sFornecedor    );
             con.Open();
+
             try
             {
                 cmd.ExecuteNonQuery();
 
-                tbNomeProd.Text = "";
-                tbCodigo.Text = "";
-                tbFornecedor.Text = "";
-                tbCategoria.Text = "";
+                tbNomeProd      .Text = "";
+                tbCodigo        .Text = "";
+                tbFornecedor    .Text = "";
+                tbCategoria     .Text = "";
                 tbCustoAquisicao.Text = "";
-                tbMarca.Text = "";
-                tbDescricao.Text = "";
+                tbMarca         .Text = "";
+                tbDescricao     .Text = "";
             }
             catch (Exception ex)
             {

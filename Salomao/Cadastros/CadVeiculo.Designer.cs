@@ -28,19 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnLimpar = new Button();
-            lbTitular = new Label();
-            tbTitular = new TextBox();
-            btnGravar = new Button();
             dataGridView1 = new DataGridView();
+            btnLimpar = new Button();
+            btnGravar = new Button();
+            tbTitular = new TextBox();
             tbModelo = new TextBox();
-            lbPlaca = new Label();
             tbPlaca = new TextBox();
             tbMarca = new TextBox();
+            lbTitular = new Label();
+            lbPlaca = new Label();
             lbMarca = new Label();
             lbModelo = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Location = new Point(600, 0);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(600, 700);
+            dataGridView1.TabIndex = 26;
             // 
             // btnLimpar
             // 
@@ -52,24 +60,7 @@
             btnLimpar.TabIndex = 32;
             btnLimpar.Text = "Limpar";
             btnLimpar.UseVisualStyleBackColor = false;
-            // 
-            // lbTitular
-            // 
-            lbTitular.AutoSize = true;
-            lbTitular.Font = new Font("Segoe UI", 12F);
-            lbTitular.Location = new Point(270, 19);
-            lbTitular.Name = "lbTitular";
-            lbTitular.Size = new Size(57, 21);
-            lbTitular.TabIndex = 30;
-            lbTitular.Text = "Titular:";
-            // 
-            // tbTitular
-            // 
-            tbTitular.Location = new Point(270, 47);
-            tbTitular.MaxLength = 250;
-            tbTitular.Name = "tbTitular";
-            tbTitular.Size = new Size(200, 23);
-            tbTitular.TabIndex = 29;
+            btnLimpar.Click += btnLimpar_Click;
             // 
             // btnGravar
             // 
@@ -81,14 +72,15 @@
             btnGravar.TabIndex = 31;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = false;
+            btnGravar.Click += btnGravar_Click;
             // 
-            // dataGridView1
+            // tbTitular
             // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(600, 0);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(600, 700);
-            dataGridView1.TabIndex = 26;
+            tbTitular.Location = new Point(270, 47);
+            tbTitular.MaxLength = 250;
+            tbTitular.Name = "tbTitular";
+            tbTitular.Size = new Size(200, 23);
+            tbTitular.TabIndex = 29;
             // 
             // tbModelo
             // 
@@ -97,16 +89,6 @@
             tbModelo.Name = "tbModelo";
             tbModelo.Size = new Size(200, 23);
             tbModelo.TabIndex = 22;
-            // 
-            // lbPlaca
-            // 
-            lbPlaca.AutoSize = true;
-            lbPlaca.Font = new Font("Segoe UI", 12F);
-            lbPlaca.Location = new Point(13, 19);
-            lbPlaca.Name = "lbPlaca";
-            lbPlaca.Size = new Size(49, 21);
-            lbPlaca.TabIndex = 19;
-            lbPlaca.Text = "Placa:";
             // 
             // tbPlaca
             // 
@@ -123,6 +105,26 @@
             tbMarca.Name = "tbMarca";
             tbMarca.Size = new Size(200, 23);
             tbMarca.TabIndex = 33;
+            // 
+            // lbTitular
+            // 
+            lbTitular.AutoSize = true;
+            lbTitular.Font = new Font("Segoe UI", 12F);
+            lbTitular.Location = new Point(270, 19);
+            lbTitular.Name = "lbTitular";
+            lbTitular.Size = new Size(57, 21);
+            lbTitular.TabIndex = 30;
+            lbTitular.Text = "Titular:";
+            // 
+            // lbPlaca
+            // 
+            lbPlaca.AutoSize = true;
+            lbPlaca.Font = new Font("Segoe UI", 12F);
+            lbPlaca.Location = new Point(13, 19);
+            lbPlaca.Name = "lbPlaca";
+            lbPlaca.Size = new Size(49, 21);
+            lbPlaca.TabIndex = 19;
+            lbPlaca.Text = "Placa:";
             // 
             // lbMarca
             // 
