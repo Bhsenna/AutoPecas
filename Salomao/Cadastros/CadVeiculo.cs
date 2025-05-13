@@ -51,23 +51,25 @@ namespace Salomao.Cadastros
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
                 con.Open();
-                string query = @"INSERT INTO Veiculos (Placa, Modelo, Marca, ClienteID)
-                         VALUES (@Placa, @Modelo, @Marca, @ClienteID)";
+                string query = @"INSERT INTO Veiculos
+                                    (Placa, Modelo, Marca, ClienteID)
+                                VALUES
+                                    (@Placa,@Modelo,@Marca,@ClienteID)";
 
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 {
-                    cmd.Parameters.AddWithValue("@Placa", sPlaca);
-                    cmd.Parameters.AddWithValue("@Modelo", sModelo);
-                    cmd.Parameters.AddWithValue("@Marca", sMarca);
+                    cmd.Parameters.AddWithValue("@Placa"    , sPlaca);
+                    cmd.Parameters.AddWithValue("@Modelo"   , sModelo);
+                    cmd.Parameters.AddWithValue("@Marca"    , sMarca);
                     cmd.Parameters.AddWithValue("@ClienteID", sTitular);
 
                     try
                     {
                         cmd.ExecuteNonQuery();
                         tbTitular.Clear();
-                        tbModelo.Clear();
-                        tbPlaca.Clear();
-                        tbMarca.Clear();
+                        tbModelo .Clear();
+                        tbPlaca  .Clear();
+                        tbMarca  .Clear();
                     }
                     catch (Exception ex)
                     {
@@ -84,9 +86,9 @@ namespace Salomao.Cadastros
         private void btnLimpar_Click(object sender, EventArgs e)
         {
             tbTitular.Text = "";
-            tbModelo.Text = "";
-            tbPlaca.Text = "";
-            tbMarca.Text = "";
+            tbModelo .Text = "";
+            tbPlaca  .Text = "";
+            tbMarca  .Text = "";
         }
     }
 }

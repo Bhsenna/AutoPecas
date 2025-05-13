@@ -21,24 +21,18 @@ namespace Salomao.Cadastros
 
         private void carregaTabela()
         {
-            SQLiteConnection con = BancoSQLite.GetConnection();
-            string query = "SELECT * FROM Produtos";
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            SQLiteDataAdapter da = new SQLiteDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            dataGridView1.DataSource = dt;
-        }
-
-        private void btnLimpar_Click(object sender, EventArgs e)
-        {
-            tbNomeProd      .Text = "";
-            tbCodigo        .Text = "";
-            tbFornecedor    .Text = "";
-            tbCategoria     .Text = "";
-            tbCustoAquisicao.Text = "";
-            tbMarca         .Text = "";
-            tbDescricao     .Text = "";
+            using (SQLiteConnection con = BancoSQLite.GetConnection())
+            {
+                con.Open();
+                string query = "SELECT * FROM Produtos";
+                using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    dataGridView1.DataSource = dt;
+                }
+            }
         }
 
         private void btnGravar_Click(object sender, EventArgs e)
@@ -57,43 +51,57 @@ namespace Salomao.Cadastros
                 return;
             }
 
-            SQLiteConnection con = BancoSQLite.GetConnection();
-            string query = @"INSERT INTO Produtos
-                                (NomeProduto, CodigoProduto, CustoAquisicao, Marca, Descricao, CategoriaID, FornecedorID)
-                            VALUES
-                                (@NomeProduto, @CodigoProduto, @CustoAquisicao, @Marca, @Descricao, @Categoria, @Fornecedor)";
-
-            SQLiteCommand cmd = new SQLiteCommand(query, con);
-            cmd.Parameters.AddWithValue("@NomeProduto"   , sNome          );
-            cmd.Parameters.AddWithValue("@CodigoProduto" , sCodigo        );
-            cmd.Parameters.AddWithValue("@CustoAquisicao", sCustoAquisicao);
-            cmd.Parameters.AddWithValue("@Marca"         , sMarca         );
-            cmd.Parameters.AddWithValue("@Descricao"     , sDescricao     );
-            cmd.Parameters.AddWithValue("@Categoria"     , sCategoria     );
-            cmd.Parameters.AddWithValue("@Fornecedor"    , sFornecedor    );
-            con.Open();
-
-            try
+            using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                cmd.ExecuteNonQuery();
+                con.Open();
+                string query = @"INSERT INTO Produtos
+                                    (NomeProduto, CodigoProduto, CustoAquisicao, Marca, Descricao, CategoriaID, FornecedorID)
+                                VALUES
+                                    (@NomeProduto,@CodigoProduto,@CustoAquisicao,@Marca,@Descricao, @Categoria, @Fornecedor)";
 
-                tbNomeProd      .Text = "";
-                tbCodigo        .Text = "";
-                tbFornecedor    .Text = "";
-                tbCategoria     .Text = "";
-                tbCustoAquisicao.Text = "";
-                tbMarca         .Text = "";
-                tbDescricao     .Text = "";
+                using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@NomeProduto"   , sNome          );
+                    cmd.Parameters.AddWithValue("@CodigoProduto" , sCodigo        );
+                    cmd.Parameters.AddWithValue("@CustoAquisicao", sCustoAquisicao);
+                    cmd.Parameters.AddWithValue("@Marca"         , sMarca         );
+                    cmd.Parameters.AddWithValue("@Descricao"     , sDescricao     );
+                    cmd.Parameters.AddWithValue("@Categoria"     , sCategoria     );
+                    cmd.Parameters.AddWithValue("@Fornecedor"    , sFornecedor    );
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+
+                        tbNomeProd      .Clear();
+                        tbCodigo        .Clear();
+                        tbFornecedor    .Clear();
+                        tbCategoria     .Clear();
+                        tbCustoAquisicao.Clear();
+                        tbMarca         .Clear();
+                        tbDescricao     .Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Erro ao cadastrar produto: " + ex.Message);
+                    }
+                    finally
+                    {
+                        carregaTabela();
+                    }
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Erro ao cadastrar produto: " + ex.Message);
-            }
-            finally
-            {
-                con.Close();
-                carregaTabela();
-            }
+        }
+
+        private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            tbNomeProd      .Text = "";
+            tbCodigo        .Text = "";
+            tbFornecedor    .Text = "";
+            tbCategoria     .Text = "";
+            tbCustoAquisicao.Text = "";
+            tbMarca         .Text = "";
+            tbDescricao     .Text = "";
         }
     }
 }
