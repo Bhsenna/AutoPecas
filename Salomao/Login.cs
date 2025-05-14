@@ -27,22 +27,27 @@ namespace Salomao
                 string sSenha = txt_senha.Text.ToString();
                 bool erro = false;
 
-                //Pega dados do usuario do banco e comparar senha
-                SQLiteConnection connection = BancoSQLite.GetConnection();
-
-                string query = "SELECT SenhaHash, Salt FROM Usuarios WHERE Login = @usuario";
-                SQLiteCommand cmd = new SQLiteCommand(query, connection);
-                cmd.Parameters.AddWithValue("@usuario", sUsuario);
-                connection.Open();
-                SQLiteDataReader reader = cmd.ExecuteReader();
                 string senhaHash = null;
                 string salt = null;
-                if (reader.Read())
+                //Pega dados do usuario do banco e comparar senha
+                using (SQLiteConnection con = BancoSQLite.GetConnection())
                 {
-                    senhaHash = reader["SenhaHash"].ToString();
-                    salt = reader["Salt"].ToString();
+                    con.Open();
+
+                    string query = "SELECT SenhaHash, Salt FROM Usuarios WHERE Login = @usuario";
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@usuario", sUsuario);
+
+                        SQLiteDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            senhaHash = reader["SenhaHash"].ToString();
+                            salt = reader["Salt"].ToString();
+                        }
+                    }
                 }
-                connection.Close();
+
                 if (senhaHash == null || salt == null)
                 {
                     //Usuario não foi encontrado

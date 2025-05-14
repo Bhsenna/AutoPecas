@@ -38,22 +38,23 @@ namespace Salomao
                 }
                 else
                 {
-                    SQLiteConnection connection = BancoSQLite.GetConnection();
-
-                    string query = "SELECT COUNT(*) FROM Usuarios WHERE Login = @usuario";
-                    SQLiteCommand cmd = new SQLiteCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@usuario", sUsuario);
-
-                    connection.Open();
-
-                    int count = Convert.ToInt32(cmd.ExecuteScalar());
-
-                    if (count > 0)
+                    using (SQLiteConnection con = BancoSQLite.GetConnection())
                     {
-                        erros.Add("Usuário já existe");
-                    }
+                        con.Open();
 
-                    connection.Close();
+                        string query = "SELECT COUNT(*) FROM Usuarios WHERE Login = @usuario";
+                        using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                        {
+                            cmd.Parameters.AddWithValue("@usuario", sUsuario);
+
+                            int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+                            if (count > 0)
+                            {
+                                erros.Add("Usuário já existe");
+                            }
+                        }
+                    }
                 }
 
                 if (!Regex.IsMatch(sSenha, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$"))
@@ -76,16 +77,22 @@ namespace Salomao
                 {
                     string hashPassword = PasswordManager.HashPassword(sSenha, out string salt);
 
-                    SQLiteConnection connection = BancoSQLite.GetConnection();
+                    using (SQLiteConnection con = BancoSQLite.GetConnection())
+                    {
+                        con.Open();
 
-                    string query = "INSERT INTO Usuarios (Login, SenhaHash, Salt) VALUES (@usuario, @senha, @salt)";
-                    SQLiteCommand cmd = new SQLiteCommand(query, connection);
-                    cmd.Parameters.AddWithValue("@usuario", sUsuario);
-                    cmd.Parameters.AddWithValue("@senha", hashPassword);
-                    cmd.Parameters.AddWithValue("@salt", salt);
-                    connection.Open();
-                    cmd.ExecuteNonQuery();
-                    connection.Close();
+                        string query = @"INSERT INTO Usuarios
+                                            (Login, SenhaHash, Salt)
+                                        VALUES
+                                            (@usuario, @senha, @salt)";
+                        using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                        {
+                            cmd.Parameters.AddWithValue("@usuario", sUsuario);
+                            cmd.Parameters.AddWithValue("@senha", hashPassword);
+                            cmd.Parameters.AddWithValue("@salt", salt);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
 
                     //Abrir tela principal
                     var telaInicial = new TelaInicial();
