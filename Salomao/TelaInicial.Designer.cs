@@ -64,7 +64,7 @@
             panel_menu.Dock = DockStyle.Left;
             panel_menu.Location = new Point(0, 0);
             panel_menu.Name = "panel_menu";
-            panel_menu.Size = new Size(222, 606);
+            panel_menu.Size = new Size(222, 681);
             panel_menu.TabIndex = 0;
             // 
             // btn_home
@@ -230,7 +230,7 @@
             panel_header.Dock = DockStyle.Top;
             panel_header.Location = new Point(222, 0);
             panel_header.Name = "panel_header";
-            panel_header.Size = new Size(983, 80);
+            panel_header.Size = new Size(962, 80);
             panel_header.TabIndex = 1;
             // 
             // btn_maximize
@@ -245,7 +245,7 @@
             btn_maximize.FlatAppearance.MouseOverBackColor = Color.FromArgb(37, 99, 235);
             btn_maximize.FlatStyle = FlatStyle.Flat;
             btn_maximize.ForeColor = Color.Transparent;
-            btn_maximize.Location = new Point(926, 3);
+            btn_maximize.Location = new Point(905, 3);
             btn_maximize.Name = "btn_maximize";
             btn_maximize.Size = new Size(24, 24);
             btn_maximize.TabIndex = 6;
@@ -264,7 +264,7 @@
             btn_minimize.FlatAppearance.MouseOverBackColor = Color.FromArgb(37, 99, 235);
             btn_minimize.FlatStyle = FlatStyle.Flat;
             btn_minimize.ForeColor = Color.Transparent;
-            btn_minimize.Location = new Point(896, 3);
+            btn_minimize.Location = new Point(875, 3);
             btn_minimize.Name = "btn_minimize";
             btn_minimize.Size = new Size(24, 24);
             btn_minimize.TabIndex = 5;
@@ -306,7 +306,7 @@
             btn_close.FlatAppearance.MouseOverBackColor = Color.FromArgb(37, 99, 235);
             btn_close.FlatStyle = FlatStyle.Flat;
             btn_close.ForeColor = Color.Transparent;
-            btn_close.Location = new Point(956, 3);
+            btn_close.Location = new Point(935, 3);
             btn_close.Name = "btn_close";
             btn_close.Size = new Size(24, 24);
             btn_close.TabIndex = 2;
@@ -323,7 +323,7 @@
             panel_shadow.Dock = DockStyle.Top;
             panel_shadow.Location = new Point(222, 80);
             panel_shadow.Name = "panel_shadow";
-            panel_shadow.Size = new Size(983, 9);
+            panel_shadow.Size = new Size(962, 9);
             panel_shadow.TabIndex = 2;
             // 
             // panel_desktop
@@ -332,19 +332,20 @@
             panel_desktop.Dock = DockStyle.Fill;
             panel_desktop.Location = new Point(222, 89);
             panel_desktop.Name = "panel_desktop";
-            panel_desktop.Size = new Size(983, 517);
+            panel_desktop.Size = new Size(962, 592);
             panel_desktop.TabIndex = 3;
             // 
             // TelaInicial
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
-            ClientSize = new Size(1205, 606);
+            ClientSize = new Size(1184, 681);
             Controls.Add(panel_desktop);
             Controls.Add(panel_shadow);
             Controls.Add(panel_header);
             Controls.Add(panel_menu);
             Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            MinimumSize = new Size(1200, 720);
             Name = "TelaInicial";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
