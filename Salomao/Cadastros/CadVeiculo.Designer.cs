@@ -41,25 +41,27 @@
             lbModelo = new Label();
             panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // dataGridView1
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(594, 0);
+            dataGridView1.Location = new Point(0, 258);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(389, 517);
+            dataGridView1.Size = new Size(983, 259);
             dataGridView1.TabIndex = 6;
             // 
             // btnLimpar
             // 
-            btnLimpar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnLimpar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnLimpar.BackColor = Color.LightGray;
+            btnLimpar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnLimpar.ForeColor = Color.Black;
-            btnLimpar.Location = new Point(400, 470);
+            btnLimpar.Location = new Point(759, 210);
             btnLimpar.Name = "btnLimpar";
-            btnLimpar.Size = new Size(75, 23);
+            btnLimpar.Size = new Size(100, 36);
             btnLimpar.TabIndex = 4;
             btnLimpar.Text = "Limpar";
             btnLimpar.UseVisualStyleBackColor = false;
@@ -67,12 +69,13 @@
             // 
             // btnGravar
             // 
-            btnGravar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnGravar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnGravar.BackColor = Color.FromArgb(0, 123, 255);
+            btnGravar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnGravar.ForeColor = Color.White;
-            btnGravar.Location = new Point(481, 470);
+            btnGravar.Location = new Point(871, 210);
             btnGravar.Name = "btnGravar";
-            btnGravar.Size = new Size(75, 23);
+            btnGravar.Size = new Size(100, 36);
             btnGravar.TabIndex = 5;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = false;
@@ -90,7 +93,7 @@
             // tbModelo
             // 
             tbModelo.ForeColor = Color.FromArgb(55, 65, 81);
-            tbModelo.Location = new Point(25, 171);
+            tbModelo.Location = new Point(25, 185);
             tbModelo.MaxLength = 250;
             tbModelo.Name = "tbModelo";
             tbModelo.Size = new Size(200, 23);
@@ -108,7 +111,7 @@
             // tbMarca
             // 
             tbMarca.ForeColor = Color.FromArgb(55, 65, 81);
-            tbMarca.Location = new Point(25, 112);
+            tbMarca.Location = new Point(25, 116);
             tbMarca.MaxLength = 250;
             tbMarca.Name = "tbMarca";
             tbMarca.Size = new Size(200, 23);
@@ -156,7 +159,7 @@
             lbModelo.BackColor = Color.White;
             lbModelo.Font = new Font("Segoe UI", 12F);
             lbModelo.ForeColor = Color.Black;
-            lbModelo.Location = new Point(25, 147);
+            lbModelo.Location = new Point(25, 157);
             lbModelo.Name = "lbModelo";
             lbModelo.Size = new Size(66, 21);
             lbModelo.TabIndex = 35;
@@ -165,10 +168,12 @@
             // panel1
             // 
             panel1.BackColor = Color.White;
-            panel1.Dock = DockStyle.Left;
+            panel1.Controls.Add(btnLimpar);
+            panel1.Controls.Add(btnGravar);
+            panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(594, 517);
+            panel1.Size = new Size(983, 258);
             panel1.TabIndex = 36;
             // 
             // CadVeiculo
@@ -178,10 +183,8 @@
             Controls.Add(lbModelo);
             Controls.Add(lbMarca);
             Controls.Add(tbMarca);
-            Controls.Add(btnLimpar);
             Controls.Add(lbTitular);
             Controls.Add(tbTitular);
-            Controls.Add(btnGravar);
             Controls.Add(dataGridView1);
             Controls.Add(tbModelo);
             Controls.Add(lbPlaca);
@@ -190,6 +193,7 @@
             Name = "CadVeiculo";
             Size = new Size(983, 517);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }

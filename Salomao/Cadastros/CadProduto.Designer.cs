@@ -47,6 +47,7 @@
             tbCustoAquisicao = new DecimalTextbox();
             panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // tbNomeProd
@@ -85,7 +86,7 @@
             // tbFornecedor
             // 
             tbFornecedor.ForeColor = Color.FromArgb(55, 65, 81);
-            tbFornecedor.Location = new Point(25, 112);
+            tbFornecedor.Location = new Point(25, 116);
             tbFornecedor.MaxLength = 250;
             tbFornecedor.Name = "tbFornecedor";
             tbFornecedor.Size = new Size(200, 23);
@@ -97,7 +98,7 @@
             lbCategoria.BackColor = Color.White;
             lbCategoria.Font = new Font("Segoe UI", 12F);
             lbCategoria.ForeColor = Color.Black;
-            lbCategoria.Location = new Point(25, 147);
+            lbCategoria.Location = new Point(539, 19);
             lbCategoria.Name = "lbCategoria";
             lbCategoria.Size = new Size(80, 21);
             lbCategoria.TabIndex = 5;
@@ -106,7 +107,7 @@
             // tbCategoria
             // 
             tbCategoria.ForeColor = Color.FromArgb(55, 65, 81);
-            tbCategoria.Location = new Point(25, 171);
+            tbCategoria.Location = new Point(539, 47);
             tbCategoria.MaxLength = 250;
             tbCategoria.Name = "tbCategoria";
             tbCategoria.Size = new Size(200, 23);
@@ -118,7 +119,7 @@
             lbCustoAquisicao.BackColor = Color.White;
             lbCustoAquisicao.Font = new Font("Segoe UI", 12F);
             lbCustoAquisicao.ForeColor = Color.Black;
-            lbCustoAquisicao.Location = new Point(25, 206);
+            lbCustoAquisicao.Location = new Point(539, 88);
             lbCustoAquisicao.Name = "lbCustoAquisicao";
             lbCustoAquisicao.Size = new Size(124, 21);
             lbCustoAquisicao.TabIndex = 7;
@@ -128,19 +129,20 @@
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(594, 0);
+            dataGridView1.Location = new Point(0, 258);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(389, 517);
+            dataGridView1.Size = new Size(983, 259);
             dataGridView1.TabIndex = 9;
             // 
             // btnGravar
             // 
-            btnGravar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnGravar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnGravar.BackColor = Color.FromArgb(0, 123, 255);
+            btnGravar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnGravar.ForeColor = Color.White;
-            btnGravar.Location = new Point(481, 470);
+            btnGravar.Location = new Point(871, 210);
             btnGravar.Name = "btnGravar";
-            btnGravar.Size = new Size(75, 23);
+            btnGravar.Size = new Size(100, 36);
             btnGravar.TabIndex = 8;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = false;
@@ -152,7 +154,7 @@
             lbMarca.BackColor = Color.White;
             lbMarca.Font = new Font("Segoe UI", 12F);
             lbMarca.ForeColor = Color.Black;
-            lbMarca.Location = new Point(25, 272);
+            lbMarca.Location = new Point(282, 88);
             lbMarca.Name = "lbMarca";
             lbMarca.Size = new Size(56, 21);
             lbMarca.TabIndex = 11;
@@ -161,7 +163,7 @@
             // tbMarca
             // 
             tbMarca.ForeColor = Color.FromArgb(55, 65, 81);
-            tbMarca.Location = new Point(25, 296);
+            tbMarca.Location = new Point(282, 116);
             tbMarca.MaxLength = 250;
             tbMarca.Name = "tbMarca";
             tbMarca.ScrollBars = ScrollBars.Vertical;
@@ -191,12 +193,13 @@
             // 
             // btnLimpar
             // 
-            btnLimpar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnLimpar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnLimpar.BackColor = Color.LightGray;
+            btnLimpar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnLimpar.ForeColor = Color.Black;
-            btnLimpar.Location = new Point(400, 470);
+            btnLimpar.Location = new Point(759, 210);
             btnLimpar.Name = "btnLimpar";
-            btnLimpar.Size = new Size(75, 23);
+            btnLimpar.Size = new Size(100, 36);
             btnLimpar.TabIndex = 7;
             btnLimpar.Text = "Limpar";
             btnLimpar.UseVisualStyleBackColor = false;
@@ -208,7 +211,7 @@
             lbDescricao.BackColor = Color.White;
             lbDescricao.Font = new Font("Segoe UI", 12F);
             lbDescricao.ForeColor = Color.Black;
-            lbDescricao.Location = new Point(25, 331);
+            lbDescricao.Location = new Point(25, 157);
             lbDescricao.Name = "lbDescricao";
             lbDescricao.Size = new Size(80, 21);
             lbDescricao.TabIndex = 17;
@@ -217,7 +220,7 @@
             // tbDescricao
             // 
             tbDescricao.ForeColor = Color.FromArgb(55, 65, 81);
-            tbDescricao.Location = new Point(25, 355);
+            tbDescricao.Location = new Point(25, 185);
             tbDescricao.MaxLength = 1000;
             tbDescricao.Multiline = true;
             tbDescricao.Name = "tbDescricao";
@@ -228,7 +231,7 @@
             // tbCustoAquisicao
             // 
             tbCustoAquisicao.ForeColor = Color.FromArgb(55, 65, 81);
-            tbCustoAquisicao.Location = new Point(25, 230);
+            tbCustoAquisicao.Location = new Point(539, 116);
             tbCustoAquisicao.Name = "tbCustoAquisicao";
             tbCustoAquisicao.Size = new Size(200, 23);
             tbCustoAquisicao.TabIndex = 4;
@@ -237,9 +240,20 @@
             // 
             panel1.BackColor = Color.White;
             panel1.Dock = DockStyle.Left;
+            panel1.Controls.Add(lbDescricao);
+            panel1.Controls.Add(tbDescricao);
+            panel1.Controls.Add(tbCustoAquisicao);
+            panel1.Controls.Add(lbCategoria);
+            panel1.Controls.Add(tbCategoria);
+            panel1.Controls.Add(btnGravar);
+            panel1.Controls.Add(btnLimpar);
+            panel1.Controls.Add(lbMarca);
+            panel1.Controls.Add(tbMarca);
+            panel1.Controls.Add(lbCustoAquisicao);
+            panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(594, 517);
+            panel1.Size = new Size(983, 258);
             panel1.TabIndex = 19;
             // 
             // CadProduto
@@ -247,19 +261,9 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            Controls.Add(tbCustoAquisicao);
-            Controls.Add(lbDescricao);
-            Controls.Add(tbDescricao);
-            Controls.Add(btnLimpar);
             Controls.Add(lbCodigo);
             Controls.Add(tbCodigo);
-            Controls.Add(lbMarca);
-            Controls.Add(tbMarca);
-            Controls.Add(btnGravar);
             Controls.Add(dataGridView1);
-            Controls.Add(lbCustoAquisicao);
-            Controls.Add(lbCategoria);
-            Controls.Add(tbCategoria);
             Controls.Add(lbFornecedor);
             Controls.Add(tbFornecedor);
             Controls.Add(lbNomeProd);
@@ -268,6 +272,8 @@
             Name = "CadProduto";
             Size = new Size(983, 517);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }

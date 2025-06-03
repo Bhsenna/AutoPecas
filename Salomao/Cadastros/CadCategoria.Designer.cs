@@ -40,12 +40,14 @@
             // 
             // btnLimpar
             // 
-            btnLimpar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnLimpar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnLimpar.BackColor = Color.LightGray;
+            btnLimpar.FlatAppearance.BorderSize = 0;
+            btnLimpar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnLimpar.ForeColor = Color.Black;
-            btnLimpar.Location = new Point(400, 470);
+            btnLimpar.Location = new Point(759, 210);
             btnLimpar.Name = "btnLimpar";
-            btnLimpar.Size = new Size(75, 23);
+            btnLimpar.Size = new Size(100, 36);
             btnLimpar.TabIndex = 1;
             btnLimpar.Text = "Limpar";
             btnLimpar.UseVisualStyleBackColor = false;
@@ -53,12 +55,14 @@
             // 
             // btnGravar
             // 
-            btnGravar.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnGravar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnGravar.BackColor = Color.FromArgb(0, 123, 255);
+            btnGravar.FlatAppearance.BorderSize = 0;
+            btnGravar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnGravar.ForeColor = Color.White;
-            btnGravar.Location = new Point(481, 470);
+            btnGravar.Location = new Point(871, 210);
             btnGravar.Name = "btnGravar";
-            btnGravar.Size = new Size(75, 23);
+            btnGravar.Size = new Size(100, 36);
             btnGravar.TabIndex = 2;
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = false;
@@ -68,9 +72,9 @@
             // 
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(594, 0);
+            dataGridView1.Location = new Point(0, 258);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(389, 517);
+            dataGridView1.Size = new Size(983, 259);
             dataGridView1.TabIndex = 3;
             // 
             // lbNomeCat
@@ -99,10 +103,10 @@
             panel1.BackColor = Color.White;
             panel1.Controls.Add(btnGravar);
             panel1.Controls.Add(btnLimpar);
-            panel1.Dock = DockStyle.Left;
+            panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(594, 517);
+            panel1.Size = new Size(983, 258);
             panel1.TabIndex = 35;
             // 
             // CadCategoria

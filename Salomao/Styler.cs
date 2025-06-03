@@ -13,7 +13,7 @@ namespace Salomao
             public static void Personalizar(DataGridView grid)
             {
                 grid.BorderStyle = BorderStyle.None;
-                grid.BackgroundColor = ColorTranslator.FromHtml("#FFFFFF");
+                grid.BackgroundColor = ColorTranslator.FromHtml("#D1D5DB");
                 grid.EnableHeadersVisualStyles = false;
 
                 grid.ColumnHeadersDefaultCellStyle.BackColor = ColorTranslator.FromHtml("#1E3A8A");
@@ -47,8 +47,8 @@ namespace Salomao
                 button.Font = new Font("Segoe UI", 10, FontStyle.Bold);
                 button.Height = 36;
                 button.Width = 100;
-                button.Region = System.Drawing.Region.FromHrgn(
-                CreateRoundRectRgn(0, 0, button.Width, button.Height, 8, 8));
+                //button.Region = System.Drawing.Region.FromHrgn(
+                //CreateRoundRectRgn(0, 0, button.Width, button.Height, 8, 8));
             }
             public static void PersonalizaLimpar(Button button)
             {
@@ -59,8 +59,8 @@ namespace Salomao
                 button.Font = new Font("Segoe UI", 10, FontStyle.Bold);
                 button.Height = 36;
                 button.Width = 100;
-                button.Region = System.Drawing.Region.FromHrgn(
-                CreateRoundRectRgn(0, 0, button.Width, button.Height, 8, 8));
+                //button.Region = System.Drawing.Region.FromHrgn(
+                //CreateRoundRectRgn(0, 0, button.Width, button.Height, 8, 8));
             }
 
             [System.Runtime.InteropServices.DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
