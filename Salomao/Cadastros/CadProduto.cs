@@ -17,6 +17,9 @@ namespace Salomao.Cadastros
         {
             InitializeComponent();
             carregaTabela();
+            Styler.GridStyler.Personalizar(dataGridView1);
+            Styler.ButtonStyler.PersonalizaGravar(btnGravar);
+            Styler.ButtonStyler.PersonalizaLimpar(btnLimpar);
         }
 
         private void carregaTabela()
@@ -34,7 +37,6 @@ namespace Salomao.Cadastros
                 }
             }
         }
-
         private void btnGravar_Click(object sender, EventArgs e)
         {
             String sNome           = tbNomeProd      .Text;
