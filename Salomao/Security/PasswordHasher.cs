@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 
-namespace Salomao
+namespace Salomao.Security
 {
     public class PasswordManager
     {

@@ -1,4 +1,5 @@
 using System.Data.SQLite;
+using Salomao.Security;
 
 namespace Salomao
 {
@@ -19,82 +20,62 @@ namespace Salomao
             WindowState = FormWindowState.Minimized;
         }
 
-        private void btn_login_Click(object sender, EventArgs e)
+        private async void btn_login_Click(object sender, EventArgs e)
         {
-            try
+            lbl_mensagem.Visible = false;
+            btn_login.Enabled = false;
+            btn_login.Text = "...";
+
+            await Task.Delay(300); // UX delay simulado
+
+            string usuario = txt_usuario.Text.Trim();
+            string senha = txt_senha.Text;
+
+            if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(senha))
             {
-                string sUsuario = txt_usuario.Text.ToString();
-                string sSenha = txt_senha.Text.ToString();
-                bool erro = false;
-
-                string senhaHash = null;
-                string salt = null;
-                //Pega dados do usuario do banco e comparar senha
-                using (SQLiteConnection con = BancoSQLite.GetConnection())
-                {
-                    string query = "SELECT SenhaHash, Salt FROM Usuarios WHERE Login = @usuario";
-                    using (SQLiteCommand cmd = new SQLiteCommand(query, con))
-                    {
-                        cmd.Parameters.AddWithValue("@usuario", sUsuario);
-
-                        using (SQLiteDataReader reader = cmd.ExecuteReader())
-                        {
-                            if (reader.Read())
-                            {
-                                senhaHash = reader["SenhaHash"].ToString();
-                                salt      = reader["Salt"]     .ToString();
-                            }
-                        }
-                    }
-                }
-
-                if (senhaHash == null || salt == null)
-                {
-                    //Usuario não foi encontrado
-                    erro = true;
-                }
-                else
-                {
-                    //Verifica se a senha informada é igual a senha do banco
-                    if (!PasswordManager.VerifyPassword(sSenha, senhaHash, salt))
-                    {
-                        erro = true;
-                    }
-                }
-
-                //Verifica se o usuario existe
-                if (!erro)
-                {
-                    //Abrir tela principal
-                    var telaInicial = new TelaInicial();
-
-                    telaInicial.Show();
-
-                    this.Dispose();
-                    return;
-                }
-                else
-                {
-                    lbl_mensagem.Text = "Usuário ou senha incorretos";
-                    lbl_mensagem.Visible = true;
-                    lbl_mensagem.ForeColor = Color.Red;
-                }
+                lbl_mensagem.Text = "Preencha usuário e senha.";
+                lbl_mensagem.Visible = true;
+                btn_login.Enabled = true;
+                btn_login.Text = "Logar";
+                return;
             }
-            catch (Exception ex)
+
+            if (LoginService.TentarLogin(usuario, senha, out string msgErro))
             {
-                MessageBox.Show("Falha na aplicação -\n" + ex, "Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                var telaInicial = new TelaInicial();
+                telaInicial.Opacity = 0;
+                telaInicial.Show();
+                var timer = new System.Windows.Forms.Timer { Interval = 10 };
+                timer.Tick += (s, ev) =>
+                {
+                    if (telaInicial.Opacity >= 1) timer.Stop();
+                    telaInicial.Opacity += 0.05;
+                };
+                timer.Start();
+                this.Hide();
             }
+            else
+            {
+                lbl_mensagem.Text = msgErro;
+                lbl_mensagem.Visible = true;
+            }
+
+            btn_login.Enabled = true;
+            btn_login.Text = "Logar";
         }
-
         private void btn_register_Click(object sender, EventArgs e)
         {
             var register = new Register();
-
+            register.Opacity = 0;
             register.Show();
-
-            this.Dispose();
-            return;
+            var timer = new System.Windows.Forms.Timer { Interval = 10 };
+            timer.Tick += (s, ev) =>
+            {
+                if (register.Opacity >= 1) timer.Stop();
+                register.Opacity += 0.05;
+            };
+            timer.Start();
+            this.Close();
         }
 
         private void txt_usuario_KeyDown(object sender, KeyEventArgs e)
