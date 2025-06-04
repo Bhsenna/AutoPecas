@@ -26,7 +26,6 @@ namespace Salomao.Cadastros
         {
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                con.Open();
                 string query = "SELECT * FROM Veiculos";
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
@@ -53,7 +52,6 @@ namespace Salomao.Cadastros
 
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                con.Open();
                 string query = @"INSERT INTO Veiculos
                                     (Placa, Modelo, Marca, ClienteID)
                                 VALUES
@@ -78,10 +76,8 @@ namespace Salomao.Cadastros
                     {
                         MessageBox.Show("Erro ao cadastrar produto: " + ex.Message);
                     }
-                    finally
-                    {
-                        carregaTabela();
-                    }
+
+                    carregaTabela();
                 }
             }
         }

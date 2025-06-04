@@ -93,7 +93,15 @@ namespace Salomao
 
         public static SQLiteConnection GetConnection()
         {
-            return new SQLiteConnection(connectionString);
+            var connection = new SQLiteConnection(connectionString);
+            connection.Open();
+
+            using (var pragmaCmd = new SQLiteCommand("PRAGMA journal_mode=WAL;", connection))
+            {
+                pragmaCmd.ExecuteNonQuery();
+            }
+
+            return connection;
         }
     }
 }

@@ -32,18 +32,18 @@ namespace Salomao
                 //Pega dados do usuario do banco e comparar senha
                 using (SQLiteConnection con = BancoSQLite.GetConnection())
                 {
-                    con.Open();
-
                     string query = "SELECT SenhaHash, Salt FROM Usuarios WHERE Login = @usuario";
                     using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                     {
                         cmd.Parameters.AddWithValue("@usuario", sUsuario);
 
-                        SQLiteDataReader reader = cmd.ExecuteReader();
-                        if (reader.Read())
+                        using (SQLiteDataReader reader = cmd.ExecuteReader())
                         {
-                            senhaHash = reader["SenhaHash"].ToString();
-                            salt = reader["Salt"].ToString();
+                            if (reader.Read())
+                            {
+                                senhaHash = reader["SenhaHash"].ToString();
+                                salt      = reader["Salt"]     .ToString();
+                            }
                         }
                     }
                 }
