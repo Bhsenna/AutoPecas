@@ -27,7 +27,8 @@ namespace Salomao.Cadastros
         {
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                string query = "SELECT * FROM Categorias";
+                string query = @"SELECT NomeCategoria as Nome
+                                 FROM Categorias";
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
                 {

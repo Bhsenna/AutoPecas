@@ -31,7 +31,6 @@
             dataGridView1 = new DataGridView();
             btnLimpar = new Button();
             btnGravar = new Button();
-            tbTitular = new TextBox();
             tbModelo = new TextBox();
             tbPlaca = new TextBox();
             tbMarca = new TextBox();
@@ -40,6 +39,7 @@
             lbMarca = new Label();
             lbModelo = new Label();
             panel1 = new Panel();
+            cbTitular = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -51,7 +51,7 @@
             dataGridView1.Location = new Point(0, 258);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(983, 259);
-            dataGridView1.TabIndex = 6;
+            dataGridView1.TabIndex = 2;
             // 
             // btnLimpar
             // 
@@ -80,15 +80,6 @@
             btnGravar.Text = "Gravar";
             btnGravar.UseVisualStyleBackColor = false;
             btnGravar.Click += btnGravar_Click;
-            // 
-            // tbTitular
-            // 
-            tbTitular.ForeColor = Color.FromArgb(55, 65, 81);
-            tbTitular.Location = new Point(282, 47);
-            tbTitular.MaxLength = 250;
-            tbTitular.Name = "tbTitular";
-            tbTitular.Size = new Size(200, 23);
-            tbTitular.TabIndex = 1;
             // 
             // tbModelo
             // 
@@ -168,34 +159,42 @@
             // panel1
             // 
             panel1.BackColor = Color.White;
+            panel1.Controls.Add(lbPlaca);
+            panel1.Controls.Add(tbPlaca);
+            panel1.Controls.Add(lbMarca);
+            panel1.Controls.Add(tbMarca);
+            panel1.Controls.Add(lbModelo);
+            panel1.Controls.Add(tbModelo);
+            panel1.Controls.Add(lbTitular);
+            panel1.Controls.Add(cbTitular);
             panel1.Controls.Add(btnLimpar);
             panel1.Controls.Add(btnGravar);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(983, 258);
-            panel1.TabIndex = 36;
+            panel1.TabIndex = 1;
+            // 
+            // cbTitular
+            // 
+            cbTitular.FormattingEnabled = true;
+            cbTitular.Location = new Point(282, 47);
+            cbTitular.Name = "cbTitular";
+            cbTitular.Size = new Size(200, 23);
+            cbTitular.TabIndex = 1;
             // 
             // CadVeiculo
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(lbModelo);
-            Controls.Add(lbMarca);
-            Controls.Add(tbMarca);
-            Controls.Add(lbTitular);
-            Controls.Add(tbTitular);
             Controls.Add(dataGridView1);
-            Controls.Add(tbModelo);
-            Controls.Add(lbPlaca);
-            Controls.Add(tbPlaca);
             Controls.Add(panel1);
             Name = "CadVeiculo";
             Size = new Size(983, 517);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -203,7 +202,6 @@
         private TextBox textBox1;
         private Button btnLimpar;
         private Label lbTitular;
-        private TextBox tbTitular;
         private Button btnGravar;
         private DataGridView dataGridView1;
         private TextBox tbModelo;
@@ -213,5 +211,6 @@
         private Label lbMarca;
         private Label lbModelo;
         private Panel panel1;
+        private ComboBox cbTitular;
     }
 }

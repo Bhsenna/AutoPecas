@@ -33,7 +33,6 @@
             lbFornecedor = new Label();
             tbFornecedor = new TextBox();
             lbCategoria = new Label();
-            tbCategoria = new TextBox();
             lbCustoAquisicao = new Label();
             dataGridView1 = new DataGridView();
             btnGravar = new Button();
@@ -46,6 +45,7 @@
             tbDescricao = new TextBox();
             tbCustoAquisicao = new DecimalTextbox();
             panel1 = new Panel();
+            cbCategoria = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -90,7 +90,7 @@
             tbFornecedor.MaxLength = 250;
             tbFornecedor.Name = "tbFornecedor";
             tbFornecedor.Size = new Size(200, 23);
-            tbFornecedor.TabIndex = 2;
+            tbFornecedor.TabIndex = 3;
             // 
             // lbCategoria
             // 
@@ -103,15 +103,6 @@
             lbCategoria.Size = new Size(80, 21);
             lbCategoria.TabIndex = 5;
             lbCategoria.Text = "Categoria:";
-            // 
-            // tbCategoria
-            // 
-            tbCategoria.ForeColor = Color.FromArgb(55, 65, 81);
-            tbCategoria.Location = new Point(539, 47);
-            tbCategoria.MaxLength = 250;
-            tbCategoria.Name = "tbCategoria";
-            tbCategoria.Size = new Size(200, 23);
-            tbCategoria.TabIndex = 3;
             // 
             // lbCustoAquisicao
             // 
@@ -132,7 +123,7 @@
             dataGridView1.Location = new Point(0, 258);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(983, 259);
-            dataGridView1.TabIndex = 9;
+            dataGridView1.TabIndex = 2;
             // 
             // btnGravar
             // 
@@ -168,7 +159,7 @@
             tbMarca.Name = "tbMarca";
             tbMarca.ScrollBars = ScrollBars.Vertical;
             tbMarca.Size = new Size(200, 23);
-            tbMarca.TabIndex = 5;
+            tbMarca.TabIndex = 4;
             // 
             // lbCodigo
             // 
@@ -234,40 +225,47 @@
             tbCustoAquisicao.Location = new Point(539, 116);
             tbCustoAquisicao.Name = "tbCustoAquisicao";
             tbCustoAquisicao.Size = new Size(200, 23);
-            tbCustoAquisicao.TabIndex = 4;
+            tbCustoAquisicao.TabIndex = 5;
             // 
             // panel1
             // 
             panel1.BackColor = Color.White;
-            panel1.Dock = DockStyle.Left;
-            panel1.Controls.Add(lbDescricao);
-            panel1.Controls.Add(tbDescricao);
-            panel1.Controls.Add(tbCustoAquisicao);
+            panel1.Controls.Add(lbNomeProd);
+            panel1.Controls.Add(tbNomeProd);
+            panel1.Controls.Add(lbCodigo);
+            panel1.Controls.Add(tbCodigo);
             panel1.Controls.Add(lbCategoria);
-            panel1.Controls.Add(tbCategoria);
-            panel1.Controls.Add(btnGravar);
-            panel1.Controls.Add(btnLimpar);
+            panel1.Controls.Add(cbCategoria);
+            panel1.Controls.Add(lbFornecedor);
+            panel1.Controls.Add(tbFornecedor);
             panel1.Controls.Add(lbMarca);
             panel1.Controls.Add(tbMarca);
             panel1.Controls.Add(lbCustoAquisicao);
+            panel1.Controls.Add(tbCustoAquisicao);
+            panel1.Controls.Add(lbDescricao);
+            panel1.Controls.Add(tbDescricao);
+            panel1.Controls.Add(btnGravar);
+            panel1.Controls.Add(btnLimpar);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(983, 258);
-            panel1.TabIndex = 19;
+            panel1.TabIndex = 1;
+            // 
+            // cbCategoria
+            // 
+            cbCategoria.FormattingEnabled = true;
+            cbCategoria.Location = new Point(539, 47);
+            cbCategoria.Name = "cbCategoria";
+            cbCategoria.Size = new Size(200, 23);
+            cbCategoria.TabIndex = 2;
             // 
             // CadProduto
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
-            Controls.Add(lbCodigo);
-            Controls.Add(tbCodigo);
             Controls.Add(dataGridView1);
-            Controls.Add(lbFornecedor);
-            Controls.Add(tbFornecedor);
-            Controls.Add(lbNomeProd);
-            Controls.Add(tbNomeProd);
             Controls.Add(panel1);
             Name = "CadProduto";
             Size = new Size(983, 517);
@@ -275,7 +273,6 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -285,7 +282,6 @@
         private Label lbFornecedor;
         private TextBox tbFornecedor;
         private Label lbCategoria;
-        private TextBox tbCategoria;
         private Label lbCustoAquisicao;
         private DecimalTextbox tbCustoAquisicao;
         private DataGridView dataGridView1;
@@ -298,5 +294,6 @@
         private Label lbDescricao;
         private TextBox tbDescricao;
         private Panel panel1;
+        private ComboBox cbCategoria;
     }
 }

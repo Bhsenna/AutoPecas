@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -20,13 +21,40 @@ namespace Salomao.Cadastros
             Styler.GridStyler.Personalizar(dataGridView1);
             Styler.ButtonStyler.PersonalizaGravar(btnGravar);
             Styler.ButtonStyler.PersonalizaLimpar(btnLimpar);
+
+            using (SQLiteConnection con = BancoSQLite.GetConnection())
+            {
+                string query = "SELECT NomeCliente, cast(ClienteID as text) as ClienteID FROM Clientes";
+                using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    DataRow emptyRow = dt.NewRow();
+                    emptyRow["NomeCliente"] = "";
+                    emptyRow["ClienteID"] = "";
+                    dt.Rows.Add(emptyRow);
+
+                    DataView dv = new DataView(dt, "", "NomeCliente", DataViewRowState.CurrentRows);
+
+                    cbTitular.DataSource = dv;
+                    cbTitular.DisplayMember = "NomeCliente";
+                    cbTitular.ValueMember = "ClienteID";
+                }
+            }
         }
 
         private void carregaTabela()
         {
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                string query = "SELECT * FROM Veiculos";
+                string query = @"SELECT Placa as Placa,
+                                        Modelo as Modelo,
+                                        Marca as Marca,
+                                        NomeCliente as Titular
+                                 FROM Veiculos
+                                 LEFT JOIN Clientes ON Clientes.ClienteID = Veiculos.ClienteID";
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
                 {
@@ -39,12 +67,12 @@ namespace Salomao.Cadastros
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
-            String sTitular = tbTitular.Text;
-            String sModelo  = tbModelo .Text;
             String sPlaca   = tbPlaca  .Text;
+            String sModelo  = tbModelo .Text;
             String sMarca   = tbMarca  .Text;
+            String sTitular = cbTitular.SelectedValue?.ToString() ?? "";
 
-            if (sTitular == "" || sPlaca == "")
+            if (sPlaca == "" || sModelo == "" || sMarca == "" || sTitular == "")
             {
                 MessageBox.Show("Preencha todos os campos obrigatórios.");
                 return;
@@ -67,7 +95,8 @@ namespace Salomao.Cadastros
                     try
                     {
                         cmd.ExecuteNonQuery();
-                        tbTitular.Clear();
+
+                        cbTitular.SelectedValue = "";
                         tbModelo .Clear();
                         tbPlaca  .Clear();
                         tbMarca  .Clear();
@@ -76,18 +105,20 @@ namespace Salomao.Cadastros
                     {
                         MessageBox.Show("Erro ao cadastrar produto: " + ex.Message);
                     }
-
-                    carregaTabela();
+                    finally
+                    {
+                        carregaTabela();
+                    }
                 }
             }
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)
         {
-            tbTitular.Text = "";
-            tbModelo .Text = "";
-            tbPlaca  .Text = "";
-            tbMarca  .Text = "";
+            cbTitular.SelectedValue = "";
+            tbModelo .Clear();
+            tbPlaca  .Clear();
+            tbMarca  .Clear();
         }
     }
 }
