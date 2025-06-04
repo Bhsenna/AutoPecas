@@ -14,24 +14,30 @@ namespace Salomao.Security
             mensagemErro = string.Empty;
             try
             {
-                using var con = BancoSQLite.GetConnection();
-                var cmd = new SQLiteCommand("SELECT SenhaHash, Salt FROM Usuarios WHERE Login = @usuario", con);
-                cmd.Parameters.AddWithValue("@usuario", usuario);
-
-                using var reader = cmd.ExecuteReader();
-                if (!reader.Read())
+                using (SQLiteConnection con = BancoSQLite.GetConnection())
                 {
-                    mensagemErro = "Usuário não encontrado.";
-                    return false;
-                }
+                    using (SQLiteCommand cmd = new SQLiteCommand("SELECT SenhaHash, Salt FROM Usuarios WHERE Login = @usuario", con))
+                    {
+                        cmd.Parameters.AddWithValue("@usuario", usuario);
 
-                var hash = reader["SenhaHash"].ToString();
-                var salt = reader["Salt"].ToString();
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            if (!reader.Read())
+                            {
+                                mensagemErro = "Usuário não encontrado.";
+                                return false;
+                            }
 
-                if (!PasswordManager.VerifyPassword(senha, hash, salt))
-                {
-                    mensagemErro = "Senha incorreta.";
-                    return false;
+                            var hash = reader["SenhaHash"].ToString();
+                            var salt = reader["Salt"].ToString();
+
+                            if (!PasswordManager.VerifyPassword(senha, hash, salt))
+                            {
+                                mensagemErro = "Senha incorreta.";
+                                return false;
+                            }
+                        }
+                    }
                 }
 
                 return true;

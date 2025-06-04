@@ -27,7 +27,6 @@ namespace Salomao.Cadastros
         {
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                con.Open();
                 string query = "SELECT * FROM Categorias";
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
@@ -51,7 +50,6 @@ namespace Salomao.Cadastros
 
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                con.Open();
                 string query = @"INSERT INTO Categorias
                                     (NomeCategoria)
                                 VALUES

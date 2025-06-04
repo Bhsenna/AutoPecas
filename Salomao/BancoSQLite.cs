@@ -96,8 +96,15 @@ namespace Salomao
             var connection = new SQLiteConnection(connectionString);
             connection.Open();
 
-            using (var pragmaCmd = new SQLiteCommand("PRAGMA journal_mode=WAL;", connection))
+            // Configurações PRAGMA para o banco de dados
+            using (var pragmaCmd = new SQLiteCommand(connection))
             {
+                // Ativa foreign keys
+                pragmaCmd.CommandText = "PRAGMA foreign_keys = ON;";
+                pragmaCmd.ExecuteNonQuery();
+
+                // Define journal mode como WAL (melhor desempenho e segurança em concorrência)
+                pragmaCmd.CommandText = "PRAGMA journal_mode=WAL;";
                 pragmaCmd.ExecuteNonQuery();
             }
 
