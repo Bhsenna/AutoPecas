@@ -105,13 +105,7 @@ namespace Salomao.Cadastros
                     {
                         cmd.ExecuteNonQuery();
 
-                        tbNomeProd      .Clear();
-                        tbCodigo        .Clear();
-                        tbFornecedor    .Clear();
-                        cbCategoria     .SelectedValue = "";
-                        tbCustoAquisicao.Clear();
-                        tbMarca         .Clear();
-                        tbDescricao     .Clear();
+                        clear();
                     }
                     catch (Exception ex)
                     {
@@ -126,6 +120,11 @@ namespace Salomao.Cadastros
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            clear();
+        }
+
+        private void clear()
         {
             tbNomeProd      .Clear();
             tbCodigo        .Clear();

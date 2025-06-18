@@ -96,14 +96,11 @@ namespace Salomao.Cadastros
                     {
                         cmd.ExecuteNonQuery();
 
-                        cbTitular.SelectedValue = "";
-                        tbModelo .Clear();
-                        tbPlaca  .Clear();
-                        tbMarca  .Clear();
+                        clear();
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Erro ao cadastrar produto: " + ex.Message);
+                        MessageBox.Show("Erro ao cadastrar veículo: " + ex.Message);
                     }
                     finally
                     {
@@ -114,6 +111,10 @@ namespace Salomao.Cadastros
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            clear();
+        }
+        private void clear()
         {
             cbTitular.SelectedValue = "";
             tbModelo .Clear();

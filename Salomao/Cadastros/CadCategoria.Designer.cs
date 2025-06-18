@@ -103,6 +103,8 @@
             panel1.BackColor = Color.White;
             panel1.Controls.Add(btnGravar);
             panel1.Controls.Add(btnLimpar);
+            panel1.Controls.Add(lbNomeCat);
+            panel1.Controls.Add(tbNomeCat);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
@@ -114,8 +116,6 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(dataGridView1);
-            Controls.Add(lbNomeCat);
-            Controls.Add(tbNomeCat);
             Controls.Add(panel1);
             Name = "CadCategoria";
             Size = new Size(983, 517);

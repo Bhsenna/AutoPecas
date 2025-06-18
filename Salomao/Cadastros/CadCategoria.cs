@@ -63,11 +63,11 @@ namespace Salomao.Cadastros
                     try
                     {
                         cmd.ExecuteNonQuery();
-                        tbNomeCat.Clear();
+                        clear();
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Erro ao cadastrar produto: " + ex.Message);
+                        MessageBox.Show("Erro ao cadastrar categoria: " + ex.Message);
                     }
                     finally
                     {
@@ -78,6 +78,10 @@ namespace Salomao.Cadastros
         }
 
         private void btnLimpar_Click(object sender, EventArgs e)
+        {
+            clear();
+        }
+        private void clear()
         {
             tbNomeCat.Clear();
         }

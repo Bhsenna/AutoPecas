@@ -42,9 +42,9 @@ namespace Salomao.Cadastros
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
-            String sNome = tbNomeClient.Text;
-            String sTelefone = tbTelefone.Text;
-            String sEmail = tbEmail.Text;
+            String sNome     = tbNomeClient.Text;
+            String sTelefone = tbTelefone  .Text;
+            String sEmail    = tbEmail     .Text;
 
             if (sNome == "" || sTelefone == "" || sEmail == "")
             {
@@ -62,20 +62,18 @@ namespace Salomao.Cadastros
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@NomeCliente", sNome);
-                    cmd.Parameters.AddWithValue("@Telefone", sTelefone);
-                    cmd.Parameters.AddWithValue("@Email", sEmail);
+                    cmd.Parameters.AddWithValue("@Telefone"   , sTelefone);
+                    cmd.Parameters.AddWithValue("@Email"      , sEmail);
 
                     try
                     {
                         cmd.ExecuteNonQuery();
 
-                        tbNomeClient.Clear();
-                        tbTelefone  .Clear();
-                        tbEmail     .Clear();
+                        clear();
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Erro ao cadastrar produto: " + ex.Message);
+                        MessageBox.Show("Erro ao cadastrar cliente: " + ex.Message);
                     }
                     finally
                     {
@@ -87,9 +85,14 @@ namespace Salomao.Cadastros
 
         private void btnLimpar_Click(object sender, EventArgs e)
         {
+            clear();
+        }
+
+        private void clear()
+        {
             tbNomeClient.Clear();
-            tbTelefone.Clear();
-            tbEmail.Clear();
+            tbTelefone  .Clear();
+            tbEmail     .Clear();
         }
     }
 }
