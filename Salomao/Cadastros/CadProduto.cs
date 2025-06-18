@@ -22,9 +22,16 @@ namespace Salomao.Cadastros
             Styler.ButtonStyler.PersonalizaGravar(btnGravar);
             Styler.ButtonStyler.PersonalizaLimpar(btnLimpar);
 
+            populaCombo(cbCategoria, "Categorias", "NomeCategoria", "CategoriaID");
+            populaCombo(cbFornecedor, "Fornecedores", "NomeFornecedor", "FornecedorID");
+        }
+
+        private void populaCombo(ComboBox comboBox, String tabela, String campoNome, String campoId)
+        {
+
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                string query = "SELECT NomeCategoria, cast(CategoriaID as text) as CategoriaID FROM Categorias";
+                string query = $"SELECT {campoNome} Nome, cast({campoId} as text) as ID FROM {tabela}";
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
                 {
@@ -32,15 +39,15 @@ namespace Salomao.Cadastros
                     da.Fill(dt);
 
                     DataRow emptyRow = dt.NewRow();
-                    emptyRow["NomeCategoria"] = "";
-                    emptyRow["CategoriaID"] = "";
+                    emptyRow["Nome"] = "";
+                    emptyRow["ID"] = "";
                     dt.Rows.Add(emptyRow);
 
-                    DataView dv = new DataView(dt, "", "NomeCategoria", DataViewRowState.CurrentRows);
+                    DataView dv = new DataView(dt, "", "Nome", DataViewRowState.CurrentRows);
 
-                    cbCategoria.DataSource = dv;
-                    cbCategoria.DisplayMember = "NomeCategoria";
-                    cbCategoria.ValueMember = "CategoriaID";
+                    comboBox.DataSource = dv;
+                    comboBox.DisplayMember = "Nome";
+                    comboBox.ValueMember = "ID";
                 }
             }
         }
@@ -56,9 +63,10 @@ namespace Salomao.Cadastros
                                         Marca as Marca,
                                         Descricao as Descrição,
                                         NomeCategoria as Categoria,
-                                        FornecedorID as Fornecedor
+                                        NomeFornecedor as Fornecedor
                                  FROM Produtos
-                                 LEFT JOIN Categorias ON Categorias.CategoriaID = Produtos.CategoriaID";
+                                 LEFT JOIN Categorias ON Categorias.CategoriaID = Produtos.CategoriaID
+                                 LEFT JOIN Fornecedores ON Fornecedores.FornecedorID = Produtos.FornecedorID";
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
                 {
@@ -72,7 +80,7 @@ namespace Salomao.Cadastros
         {
             String sNome           = tbNomeProd      .Text;
             String sCodigo         = tbCodigo        .Text;
-            String sFornecedor     = tbFornecedor    .Text;
+            String sFornecedor     = cbFornecedor    .SelectedValue?.ToString() ?? "";
             String sCategoria      = cbCategoria     .SelectedValue?.ToString() ?? "";
             String sCustoAquisicao = tbCustoAquisicao.Text;
             String sMarca          = tbMarca         .Text;
@@ -128,7 +136,7 @@ namespace Salomao.Cadastros
         {
             tbNomeProd      .Clear();
             tbCodigo        .Clear();
-            tbFornecedor    .Clear();
+            cbFornecedor    .SelectedValue = "";
             cbCategoria     .SelectedValue = "";
             tbCustoAquisicao.Clear();
             tbMarca         .Clear();

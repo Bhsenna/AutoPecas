@@ -31,21 +31,21 @@
             tbNomeProd = new TextBox();
             lbNomeProd = new Label();
             lbFornecedor = new Label();
-            tbFornecedor = new TextBox();
+            cbFornecedor = new ComboBox();
             lbCategoria = new Label();
+            cbCategoria = new ComboBox();
             lbCustoAquisicao = new Label();
-            dataGridView1 = new DataGridView();
-            btnGravar = new Button();
+            tbCustoAquisicao = new DecimalTextbox();
             lbMarca = new Label();
             tbMarca = new TextBox();
             lbCodigo = new Label();
             tbCodigo = new TextBox();
-            btnLimpar = new Button();
             lbDescricao = new Label();
             tbDescricao = new TextBox();
-            tbCustoAquisicao = new DecimalTextbox();
+            btnGravar = new Button();
+            btnLimpar = new Button();
             panel1 = new Panel();
-            cbCategoria = new ComboBox();
+            dataGridView1 = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -83,14 +83,14 @@
             lbFornecedor.TabIndex = 3;
             lbFornecedor.Text = "Fornecedor:";
             // 
-            // tbFornecedor
+            // cbFornecedor
             // 
-            tbFornecedor.ForeColor = Color.FromArgb(55, 65, 81);
-            tbFornecedor.Location = new Point(25, 116);
-            tbFornecedor.MaxLength = 250;
-            tbFornecedor.Name = "tbFornecedor";
-            tbFornecedor.Size = new Size(200, 23);
-            tbFornecedor.TabIndex = 3;
+            cbFornecedor.ForeColor = Color.FromArgb(55, 65, 81);
+            cbFornecedor.Location = new Point(25, 116);
+            cbFornecedor.MaxLength = 250;
+            cbFornecedor.Name = "cbFornecedor";
+            cbFornecedor.Size = new Size(200, 23);
+            cbFornecedor.TabIndex = 3;
             // 
             // lbCategoria
             // 
@@ -237,7 +237,7 @@
             panel1.Controls.Add(lbCategoria);
             panel1.Controls.Add(cbCategoria);
             panel1.Controls.Add(lbFornecedor);
-            panel1.Controls.Add(tbFornecedor);
+            panel1.Controls.Add(cbFornecedor);
             panel1.Controls.Add(lbMarca);
             panel1.Controls.Add(tbMarca);
             panel1.Controls.Add(lbCustoAquisicao);
@@ -277,23 +277,23 @@
 
         #endregion
 
-        private TextBox tbNomeProd;
         private Label lbNomeProd;
+        private TextBox tbNomeProd;
         private Label lbFornecedor;
-        private TextBox tbFornecedor;
+        private ComboBox cbFornecedor;
         private Label lbCategoria;
+        private ComboBox cbCategoria;
         private Label lbCustoAquisicao;
         private DecimalTextbox tbCustoAquisicao;
-        private DataGridView dataGridView1;
-        private Button btnGravar;
         private Label lbMarca;
         private TextBox tbMarca;
         private Label lbCodigo;
         private TextBox tbCodigo;
-        private Button btnLimpar;
         private Label lbDescricao;
         private TextBox tbDescricao;
+        private Button btnGravar;
+        private Button btnLimpar;
         private Panel panel1;
-        private ComboBox cbCategoria;
+        private DataGridView dataGridView1;
     }
 }

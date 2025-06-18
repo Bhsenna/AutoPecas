@@ -22,9 +22,15 @@ namespace Salomao.Cadastros
             Styler.ButtonStyler.PersonalizaGravar(btnGravar);
             Styler.ButtonStyler.PersonalizaLimpar(btnLimpar);
 
+            populaCombo(cbTitular, "Clientes", "NomeCliente", "ClienteID");
+        }
+
+        private void populaCombo(ComboBox comboBox, String tabela, String campoNome, String campoId)
+        {
+
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                string query = "SELECT NomeCliente, cast(ClienteID as text) as ClienteID FROM Clientes";
+                string query = $"SELECT {campoNome} Nome, cast({campoId} as text) as ID FROM {tabela}";
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
                 {
@@ -32,15 +38,15 @@ namespace Salomao.Cadastros
                     da.Fill(dt);
 
                     DataRow emptyRow = dt.NewRow();
-                    emptyRow["NomeCliente"] = "";
-                    emptyRow["ClienteID"] = "";
+                    emptyRow["Nome"] = "";
+                    emptyRow["ID"] = "";
                     dt.Rows.Add(emptyRow);
 
-                    DataView dv = new DataView(dt, "", "NomeCliente", DataViewRowState.CurrentRows);
+                    DataView dv = new DataView(dt, "", "Nome", DataViewRowState.CurrentRows);
 
-                    cbTitular.DataSource = dv;
-                    cbTitular.DisplayMember = "NomeCliente";
-                    cbTitular.ValueMember = "ClienteID";
+                    comboBox.DataSource = dv;
+                    comboBox.DisplayMember = "Nome";
+                    comboBox.ValueMember = "ID";
                 }
             }
         }
