@@ -26,9 +26,9 @@ namespace Salomao.Cadastros
         {
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                string query = @"SELECT NomeCliente as Nome,
-                                        Telefone as Telefone,
-                                        Email as Email
+                string query = @"SELECT Clientes.NomeCliente as Nome,
+                                        Clientes.Telefone as Telefone,
+                                        Clientes.Email as Email
                                  FROM Clientes";
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))

@@ -158,6 +158,15 @@ namespace Salomao
             MostrarTela(new Cadastros.CadFornecedor());
         }
 
+        private void ibtn_servico_Click(object sender, EventArgs e)
+        {
+            if (sender == currentBtn) return;
+
+            ActivateButton(sender, Color.White);
+
+            MostrarTela(new Cadastros.CadServicos());
+        }
+
         private void ibtn_config_Click(object sender, EventArgs e)
         {
             if (sender == currentBtn) return;

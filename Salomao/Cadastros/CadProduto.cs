@@ -56,14 +56,14 @@ namespace Salomao.Cadastros
         {
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                string query = @"SELECT NomeProduto as Nome,
-                                        CodigoProduto as Código,
-                                        CustoAquisicao as Custo,
-                                        Status as Status, 
-                                        Marca as Marca,
-                                        Descricao as Descrição,
-                                        NomeCategoria as Categoria,
-                                        NomeFornecedor as Fornecedor
+                string query = @"SELECT Produtos.NomeProduto as Nome,
+                                        Produtos.CodigoProduto as Código,
+                                        Produtos.CustoAquisicao as Custo,
+                                        Produtos.Status as Status, 
+                                        Produtos.Marca as Marca,
+                                        Produtos.Descricao as Descrição,
+                                        Categorias.NomeCategoria as Categoria,
+                                        Fornecedores.NomeFornecedor as Fornecedor
                                  FROM Produtos
                                  LEFT JOIN Categorias ON Categorias.CategoriaID = Produtos.CategoriaID
                                  LEFT JOIN Fornecedores ON Fornecedores.FornecedorID = Produtos.FornecedorID";

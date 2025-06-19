@@ -1,4 +1,5 @@
 ﻿using System.Data.SQLite;
+using System.Windows.Input;
 
 namespace Salomao
 {
@@ -52,9 +53,20 @@ namespace Salomao
                             FOREIGN KEY (FornecedorID) REFERENCES Fornecedores(FornecedorID)
                         );
 
+                        CREATE TABLE Veiculos (
+                            VeiculoID INTEGER PRIMARY KEY AUTOINCREMENT,
+                            Placa TEXT NOT NULL,
+                            Modelo TEXT NOT NULL,
+                            Marca TEXT NOT NULL,
+                            ClienteID INTEGER,
+                            FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID)
+                        );
+
                         CREATE TABLE Servicos (
                             ServicoID INTEGER PRIMARY KEY AUTOINCREMENT,
-                            MargemLucro REAL NOT NULL
+                            VeiculoID INTEGER NOT NULL,
+                            MargemLucro REAL NOT NULL,
+                            FOREIGN KEY (VeiculoID) REFERENCES Veiculos(VeiculoID)
                         );
 
                         CREATE TABLE ServicoParaProduto (
@@ -69,15 +81,6 @@ namespace Salomao
                             Login TEXT NOT NULL,
                             SenhaHash TEXT NOT NULL,
                             Salt TEXT NOT NULL
-                        );
-
-                        CREATE TABLE Veiculos (
-                            VeiculoID INTEGER PRIMARY KEY AUTOINCREMENT,
-                            Placa TEXT NOT NULL,
-                            Modelo TEXT NOT NULL,
-                            Marca TEXT NOT NULL,
-                            ClienteID INTEGER,
-                            FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID)
                         );
                     ";
 

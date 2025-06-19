@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaInicial));
             panel_menu = new Panel();
+            ibtn_fornecedor = new FontAwesome.Sharp.IconButton();
             btn_home = new Label();
             ibtn_logout = new FontAwesome.Sharp.IconButton();
             ibtn_config = new FontAwesome.Sharp.IconButton();
@@ -46,7 +47,7 @@
             dragControl1 = new DragControl();
             panel_shadow = new Panel();
             panel_desktop = new Panel();
-            ibtn_fornecedor = new FontAwesome.Sharp.IconButton();
+            ibtn_servico = new FontAwesome.Sharp.IconButton();
             panel_menu.SuspendLayout();
             panel_header.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)icon_current).BeginInit();
@@ -55,6 +56,7 @@
             // panel_menu
             // 
             panel_menu.BackColor = Color.FromArgb(30, 58, 138);
+            panel_menu.Controls.Add(ibtn_servico);
             panel_menu.Controls.Add(ibtn_fornecedor);
             panel_menu.Controls.Add(btn_home);
             panel_menu.Controls.Add(ibtn_logout);
@@ -68,6 +70,29 @@
             panel_menu.Name = "panel_menu";
             panel_menu.Size = new Size(222, 681);
             panel_menu.TabIndex = 0;
+            // 
+            // ibtn_fornecedor
+            // 
+            ibtn_fornecedor.Cursor = Cursors.Hand;
+            ibtn_fornecedor.FlatAppearance.BorderSize = 0;
+            ibtn_fornecedor.FlatStyle = FlatStyle.Flat;
+            ibtn_fornecedor.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ibtn_fornecedor.ForeColor = Color.FromArgb(209, 213, 219);
+            ibtn_fornecedor.IconChar = FontAwesome.Sharp.IconChar.ListSquares;
+            ibtn_fornecedor.IconColor = Color.FromArgb(209, 213, 219);
+            ibtn_fornecedor.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ibtn_fornecedor.IconSize = 32;
+            ibtn_fornecedor.ImageAlign = ContentAlignment.MiddleLeft;
+            ibtn_fornecedor.Location = new Point(3, 361);
+            ibtn_fornecedor.Name = "ibtn_fornecedor";
+            ibtn_fornecedor.Padding = new Padding(10, 0, 20, 0);
+            ibtn_fornecedor.Size = new Size(216, 60);
+            ibtn_fornecedor.TabIndex = 8;
+            ibtn_fornecedor.Text = "Fornecedores";
+            ibtn_fornecedor.TextAlign = ContentAlignment.MiddleLeft;
+            ibtn_fornecedor.TextImageRelation = TextImageRelation.ImageBeforeText;
+            ibtn_fornecedor.UseVisualStyleBackColor = true;
+            ibtn_fornecedor.Click += ibtn_fornecedor_Click;
             // 
             // btn_home
             // 
@@ -140,7 +165,7 @@
             ibtn_categorias.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_categorias.IconSize = 32;
             ibtn_categorias.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_categorias.Location = new Point(3, 361);
+            ibtn_categorias.Location = new Point(3, 298);
             ibtn_categorias.Name = "ibtn_categorias";
             ibtn_categorias.Padding = new Padding(10, 0, 20, 0);
             ibtn_categorias.Size = new Size(216, 60);
@@ -163,7 +188,7 @@
             ibtn_veiculos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_veiculos.IconSize = 32;
             ibtn_veiculos.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_veiculos.Location = new Point(3, 298);
+            ibtn_veiculos.Location = new Point(3, 235);
             ibtn_veiculos.Name = "ibtn_veiculos";
             ibtn_veiculos.Padding = new Padding(10, 0, 20, 0);
             ibtn_veiculos.Size = new Size(216, 60);
@@ -186,7 +211,7 @@
             ibtn_clientes.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_clientes.IconSize = 32;
             ibtn_clientes.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_clientes.Location = new Point(3, 235);
+            ibtn_clientes.Location = new Point(3, 172);
             ibtn_clientes.Name = "ibtn_clientes";
             ibtn_clientes.Padding = new Padding(10, 0, 20, 0);
             ibtn_clientes.Size = new Size(216, 60);
@@ -210,7 +235,7 @@
             ibtn_produtos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_produtos.IconSize = 32;
             ibtn_produtos.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_produtos.Location = new Point(3, 172);
+            ibtn_produtos.Location = new Point(3, 109);
             ibtn_produtos.Name = "ibtn_produtos";
             ibtn_produtos.Padding = new Padding(10, 0, 20, 0);
             ibtn_produtos.Size = new Size(216, 60);
@@ -337,28 +362,28 @@
             panel_desktop.Size = new Size(962, 592);
             panel_desktop.TabIndex = 3;
             // 
-            // ibtn_fornecedor
+            // ibtn_servico
             // 
-            ibtn_fornecedor.Cursor = Cursors.Hand;
-            ibtn_fornecedor.FlatAppearance.BorderSize = 0;
-            ibtn_fornecedor.FlatStyle = FlatStyle.Flat;
-            ibtn_fornecedor.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ibtn_fornecedor.ForeColor = Color.FromArgb(209, 213, 219);
-            ibtn_fornecedor.IconChar = FontAwesome.Sharp.IconChar.ListSquares;
-            ibtn_fornecedor.IconColor = Color.FromArgb(209, 213, 219);
-            ibtn_fornecedor.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            ibtn_fornecedor.IconSize = 32;
-            ibtn_fornecedor.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_fornecedor.Location = new Point(3, 424);
-            ibtn_fornecedor.Name = "ibtn_fornecedor";
-            ibtn_fornecedor.Padding = new Padding(10, 0, 20, 0);
-            ibtn_fornecedor.Size = new Size(216, 60);
-            ibtn_fornecedor.TabIndex = 8;
-            ibtn_fornecedor.Text = "Fornecedores";
-            ibtn_fornecedor.TextAlign = ContentAlignment.MiddleLeft;
-            ibtn_fornecedor.TextImageRelation = TextImageRelation.ImageBeforeText;
-            ibtn_fornecedor.UseVisualStyleBackColor = true;
-            ibtn_fornecedor.Click += ibtn_fornecedor_Click;
+            ibtn_servico.Cursor = Cursors.Hand;
+            ibtn_servico.FlatAppearance.BorderSize = 0;
+            ibtn_servico.FlatStyle = FlatStyle.Flat;
+            ibtn_servico.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ibtn_servico.ForeColor = Color.FromArgb(209, 213, 219);
+            ibtn_servico.IconChar = FontAwesome.Sharp.IconChar.ListSquares;
+            ibtn_servico.IconColor = Color.FromArgb(209, 213, 219);
+            ibtn_servico.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            ibtn_servico.IconSize = 32;
+            ibtn_servico.ImageAlign = ContentAlignment.MiddleLeft;
+            ibtn_servico.Location = new Point(3, 424);
+            ibtn_servico.Name = "ibtn_servico";
+            ibtn_servico.Padding = new Padding(10, 0, 20, 0);
+            ibtn_servico.Size = new Size(216, 60);
+            ibtn_servico.TabIndex = 11;
+            ibtn_servico.Text = "Serviços";
+            ibtn_servico.TextAlign = ContentAlignment.MiddleLeft;
+            ibtn_servico.TextImageRelation = TextImageRelation.ImageBeforeText;
+            ibtn_servico.UseVisualStyleBackColor = true;
+            ibtn_servico.Click += ibtn_servico_Click;
             // 
             // TelaInicial
             // 
@@ -402,5 +427,6 @@
         private Panel panel_shadow;
         private Panel panel_desktop;
         private FontAwesome.Sharp.IconButton ibtn_fornecedor;
+        private FontAwesome.Sharp.IconButton ibtn_servico;
     }
 }

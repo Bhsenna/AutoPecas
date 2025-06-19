@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Data.SQLite;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace Salomao.Cadastros
 {
-    public partial class CadVeiculo : UserControl
+    public partial class CadServicos : UserControl
     {
-        public CadVeiculo()
+        public CadServicos()
         {
             InitializeComponent();
             carregaTabela();
@@ -22,7 +22,7 @@ namespace Salomao.Cadastros
             Styler.ButtonStyler.PersonalizaGravar(btnGravar);
             Styler.ButtonStyler.PersonalizaLimpar(btnLimpar);
 
-            populaCombo(cbTitular, "Clientes", "NomeCliente", "ClienteID");
+            populaCombo(cbVeiculo, "Veiculos", "(Placa || ' - ' || Modelo)", "VeiculoID");
         }
 
         private void populaCombo(ComboBox comboBox, String tabela, String campoNome, String campoId)
@@ -55,11 +55,13 @@ namespace Salomao.Cadastros
         {
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                string query = @"SELECT Veiculos.Placa as Placa,
+                string query = @"SELECT Servicos.ServicoID as Servico,
+                                        Veiculos.Placa as Placa,
                                         Veiculos.Modelo as Modelo,
-                                        Veiculos.Marca as Marca,
-                                        Clientes.NomeCliente as Titular
-                                 FROM Veiculos
+                                        Clientes.NomeCliente as Titular,
+                                        Servicos.MargemLucro as Margem
+                                 FROM Servicos
+                                 LEFT JOIN Veiculos ON Veiculos.VeiculoID = Servicos.VeiculoID
                                  LEFT JOIN Clientes ON Clientes.ClienteID = Veiculos.ClienteID";
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
@@ -73,12 +75,10 @@ namespace Salomao.Cadastros
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
-            String sPlaca   = tbPlaca  .Text;
-            String sModelo  = tbModelo .Text;
-            String sMarca   = tbMarca  .Text;
-            String sTitular = cbTitular.SelectedValue?.ToString() ?? "";
+            String sVeiculo = cbVeiculo.SelectedValue?.ToString() ?? "";
+            String sMargem = tbMargem.Text;
 
-            if (sPlaca == "" || sModelo == "" || sMarca == "" || sTitular == "")
+            if (sVeiculo == "" || sMargem == "")
             {
                 MessageBox.Show("Preencha todos os campos obrigatórios.");
                 return;
@@ -86,17 +86,15 @@ namespace Salomao.Cadastros
 
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                string query = @"INSERT INTO Veiculos
-                                    (Placa, Modelo, Marca, ClienteID)
+                string query = @"INSERT INTO Servicos
+                                    (VeiculoID, MargemLucro)
                                 VALUES
-                                    (@Placa,@Modelo,@Marca,@ClienteID)";
+                                    (@VeiculoID,@MargemLucro)";
 
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 {
-                    cmd.Parameters.AddWithValue("@Placa"    , sPlaca);
-                    cmd.Parameters.AddWithValue("@Modelo"   , sModelo);
-                    cmd.Parameters.AddWithValue("@Marca"    , sMarca);
-                    cmd.Parameters.AddWithValue("@ClienteID", sTitular);
+                    cmd.Parameters.AddWithValue("@VeiculoID", sVeiculo);
+                    cmd.Parameters.AddWithValue("@MargemLucro", sMargem);
 
                     try
                     {
@@ -106,7 +104,7 @@ namespace Salomao.Cadastros
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Erro ao cadastrar veículo: " + ex.Message);
+                        MessageBox.Show("Erro ao cadastrar serviço: " + ex.Message);
                     }
                     finally
                     {
@@ -122,10 +120,8 @@ namespace Salomao.Cadastros
         }
         private void clear()
         {
-            cbTitular.SelectedValue = "";
-            tbModelo .Clear();
-            tbPlaca  .Clear();
-            tbMarca  .Clear();
+            cbVeiculo.SelectedValue = "";
+            tbMargem.Clear();
         }
     }
 }

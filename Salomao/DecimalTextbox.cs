@@ -71,5 +71,7 @@ namespace Salomao
                 return decimal.Parse(Text);
             }
         }
+
+        public override string Text => base.Text.Replace(",", ".");
     }
 }
