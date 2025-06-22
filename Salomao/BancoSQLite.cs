@@ -1,5 +1,6 @@
 ﻿using System.Data.SQLite;
 using System.Windows.Input;
+using Salomao.Security;
 
 namespace Salomao
 {
@@ -90,6 +91,47 @@ namespace Salomao
                     }
 
                     MessageBox.Show("Banco de dados criado com sucesso!");
+                }
+            }
+
+            //Valida se usuário existe, caso não, adicionar usuário padrão
+            using (var connection = GetConnection())
+            {
+                string query = "SELECT COUNT(*) FROM Usuarios WHERE Login = 'admin'";
+                using (var command = new SQLiteCommand(query, connection))
+                {
+                    int count = Convert.ToInt32(command.ExecuteScalar());
+                    if (count == 0)
+                    {
+                        string senha = "Auto@Admin";
+                        string hash = PasswordManager.HashPassword(senha, out string salt);
+
+                        string insert = "INSERT INTO Usuarios (Login, SenhaHash, Salt) VALUES (@u, @h, @s)";
+                        using (var cmd = new SQLiteCommand(insert, connection))
+                        {
+                            cmd.Parameters.AddWithValue("@u", "admin");
+                            cmd.Parameters.AddWithValue("@h", hash);
+                            cmd.Parameters.AddWithValue("@s", salt);
+                            cmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void AtualizarSenhaAdminPadrao()
+        {
+            using (var con = GetConnection())
+            {
+                string novaSenha = "Auto@AdminSecurityPassword";
+                string novaHash = PasswordManager.HashPassword(novaSenha, out string novoSalt);
+
+                string query = "UPDATE Usuarios SET SenhaHash = @hash, Salt = @salt WHERE Login = 'admin'";
+                using (var cmd = new SQLiteCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@hash", novaHash);
+                    cmd.Parameters.AddWithValue("@salt", novoSalt);
+                    cmd.ExecuteNonQuery();
                 }
             }
         }
