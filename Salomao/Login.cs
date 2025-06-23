@@ -1,4 +1,5 @@
 using System.Data.SQLite;
+using Salomao.Cadastros;
 using Salomao.Security;
 
 namespace Salomao
@@ -26,7 +27,7 @@ namespace Salomao
             btn_login.Enabled = false;
             btn_login.Text = "...";
 
-            await Task.Delay(300); // UX delay simulado
+            await Task.Delay(300);
 
             string usuario = txt_usuario.Text.Trim();
             string senha = txt_senha.Text;
@@ -40,19 +41,25 @@ namespace Salomao
                 return;
             }
 
-            if (LoginService.TentarLogin(usuario, senha, out string msgErro))
+            bool primeiroLogin;
+            if (LoginService.TentarLogin(usuario, senha, out string msgErro, out primeiroLogin))
             {
-                var telaInicial = new TelaInicial();
-                telaInicial.Opacity = 0;
-                telaInicial.Show();
-                var timer = new System.Windows.Forms.Timer { Interval = 10 };
-                timer.Tick += (s, ev) =>
+                if (primeiroLogin)
                 {
-                    if (telaInicial.Opacity >= 1) timer.Stop();
-                    telaInicial.Opacity += 0.05;
-                };
-                timer.Start();
-                this.Hide();
+                    var cadastroUsuario = new CadUsuarioForcado();
+                    cadastroUsuario.Show();
+
+                    var telaInicial = new TelaInicial();
+                    telaInicial.Show();
+
+                    this.Hide();
+                }
+                else
+                {
+                    var telaInicial = new TelaInicial();
+                    telaInicial.Show();
+                    this.Hide();
+                }
             }
             else
             {
