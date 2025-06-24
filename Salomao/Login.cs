@@ -46,11 +46,8 @@ namespace Salomao
             {
                 if (primeiroLogin)
                 {
-                    var cadastroUsuario = new CadUsuarioForcado();
+                    var cadastroUsuario = new Register();
                     cadastroUsuario.Show();
-
-                    var telaInicial = new TelaInicial();
-                    telaInicial.Show();
 
                     this.Hide();
                 }
@@ -69,20 +66,6 @@ namespace Salomao
 
             btn_login.Enabled = true;
             btn_login.Text = "Logar";
-        }
-        private void btn_register_Click(object sender, EventArgs e)
-        {
-            var register = new Register();
-            register.Opacity = 0;
-            register.Show();
-            var timer = new System.Windows.Forms.Timer { Interval = 10 };
-            timer.Tick += (s, ev) =>
-            {
-                if (register.Opacity >= 1) timer.Stop();
-                register.Opacity += 0.05;
-            };
-            timer.Start();
-            this.Close();
         }
 
         private void txt_usuario_KeyDown(object sender, KeyEventArgs e)

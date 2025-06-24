@@ -40,7 +40,6 @@
             stc_confirma = new Label();
             txt_confirma = new TextBox();
             btn_register = new Button();
-            btn_login = new Button();
             stc_title = new Label();
             panel_Drag.SuspendLayout();
             SuspendLayout();
@@ -173,39 +172,24 @@
             btn_register.FlatStyle = FlatStyle.Flat;
             btn_register.Font = new Font("Impact", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btn_register.ForeColor = Color.FromArgb(16, 185, 129);
-            btn_register.Location = new Point(180, 247);
+            btn_register.Location = new Point(50, 247);
             btn_register.Name = "btn_register";
-            btn_register.Size = new Size(120, 36);
+            btn_register.Size = new Size(250, 36);
             btn_register.TabIndex = 17;
             btn_register.Text = "Cadastrar";
             btn_register.UseVisualStyleBackColor = false;
             btn_register.Click += btn_register_Click;
-            // 
-            // btn_login
-            // 
-            btn_login.Anchor = AnchorStyles.None;
-            btn_login.BackColor = Color.Transparent;
-            btn_login.FlatStyle = FlatStyle.Flat;
-            btn_login.Font = new Font("Impact", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btn_login.ForeColor = Color.FromArgb(37, 99, 235);
-            btn_login.Location = new Point(50, 247);
-            btn_login.Name = "btn_login";
-            btn_login.Size = new Size(110, 36);
-            btn_login.TabIndex = 18;
-            btn_login.Text = "Login";
-            btn_login.UseVisualStyleBackColor = false;
-            btn_login.Click += btn_login_Click;
             // 
             // stc_title
             // 
             stc_title.AutoSize = true;
             stc_title.Font = new Font("Century Gothic", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             stc_title.ForeColor = Color.FromArgb(17, 24, 39);
-            stc_title.Location = new Point(114, 45);
+            stc_title.Location = new Point(35, 45);
             stc_title.Name = "stc_title";
-            stc_title.Size = new Size(122, 30);
+            stc_title.Size = new Size(280, 30);
             stc_title.TabIndex = 19;
-            stc_title.Text = "Cadastro";
+            stc_title.Text = "Altere Usuário e Senha";
             // 
             // Register
             // 
@@ -214,7 +198,6 @@
             BackColor = Color.White;
             ClientSize = new Size(350, 310);
             Controls.Add(stc_title);
-            Controls.Add(btn_login);
             Controls.Add(btn_register);
             Controls.Add(stc_confirma);
             Controls.Add(txt_confirma);
