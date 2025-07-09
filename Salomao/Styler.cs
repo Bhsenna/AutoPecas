@@ -34,6 +34,36 @@ namespace Salomao
                 grid.AllowUserToResizeRows = false;
                 grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             }
+
+            public static void PersonalizarSaldoEstoque(DataGridView grid, double limiteEstoqueBaixo = 5)
+            {
+                Personalizar(grid);
+                // Ajuste automático das colunas
+                grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                // Alinhar colunas numéricas à direita
+                foreach (DataGridViewColumn col in grid.Columns)
+                {
+                    if (col.ValueType == typeof(double) || col.ValueType == typeof(float) || col.ValueType == typeof(decimal) || col.ValueType == typeof(int))
+                        col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+                // Destacar saldo baixo
+                grid.RowPrePaint += (s, e) =>
+                {
+                    var dgv = (DataGridView)s;
+                    if (dgv.Columns.Contains("QuantidadeAtual"))
+                    {
+                        var qtd = dgv.Rows[e.RowIndex].Cells["QuantidadeAtual"].Value;
+                        if (qtd != null && double.TryParse(qtd.ToString(), out double valor) && valor <= limiteEstoqueBaixo)
+                        {
+                            dgv.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#FDE68A"); // Amarelo claro
+                        }
+                        else
+                        {
+                            dgv.Rows[e.RowIndex].DefaultCellStyle.BackColor = System.Drawing.ColorTranslator.FromHtml("#F3F4F6");
+                        }
+                    }
+                };
+            }
         }
 
         public static class ButtonStyler

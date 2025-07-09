@@ -203,5 +203,25 @@ namespace Salomao
             icon_current.IconColor = ColorTranslator.FromHtml("#D1D5DB");
             lbl_title.Text = "Home";
         }
+
+        private void ibtn_atendimentos_Click(object sender, EventArgs e)
+        {
+            if (sender == currentBtn) return;
+            ActivateButton(sender, Color.White);
+            MostrarTela(new Cadastros.CadAtendimento());
+        }
+        private void ibtn_movEstoque_Click(object sender, EventArgs e)
+        {
+            if (sender == currentBtn) return;
+            ActivateButton(sender, Color.White);
+            // Aqui você pode criar e mostrar a tela de movimento de estoque quando ela existir
+            MessageBox.Show("Tela de Movimento de Estoque em desenvolvimento.");
+        }
+        private void ibtn_saldoEstoque_Click(object sender, EventArgs e)
+        {
+            if (sender == currentBtn) return;
+            ActivateButton(sender, Color.White);
+            MostrarTela(new Cadastros.SaldoEstoque());
+        }
     }
 }

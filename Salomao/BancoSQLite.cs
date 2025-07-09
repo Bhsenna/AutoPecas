@@ -77,11 +77,57 @@ namespace Salomao
                             FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID)
                         );
 
+                        CREATE TABLE Atendimentos (
+                            AtendimentoID INTEGER PRIMARY KEY AUTOINCREMENT,
+                            Data DATE NOT NULL,
+                            DataPrestacao DATE NOT NULL,
+                            PrevisaoConclusao DATE,
+                            ClienteID INTEGER NOT NULL,
+                            VeiculoID INTEGER NOT NULL,
+                            ValorSugerido REAL NOT NULL DEFAULT 0,
+                            ValorPraticado REAL NOT NULL DEFAULT 0,
+                            LucroBruto REAL NOT NULL DEFAULT 0,
+                            Observacoes TEXT,
+                            FOREIGN KEY (ClienteID) REFERENCES Clientes(ClienteID),
+                            FOREIGN KEY (VeiculoID) REFERENCES Veiculos(VeiculoID)
+                        );
+
+                        CREATE TABLE AtendimentoServicos (
+                            AtendimentoID INTEGER NOT NULL,
+                            ServicoID INTEGER NOT NULL,
+                            FOREIGN KEY (AtendimentoID) REFERENCES Atendimentos(AtendimentoID),
+                            FOREIGN KEY (ServicoID) REFERENCES Servicos(ServicoID)
+                        );
+
+                        CREATE TABLE AtendimentoProdutos (
+                            AtendimentoID INTEGER NOT NULL,
+                            ProdutoID INTEGER NOT NULL,
+                            FOREIGN KEY (AtendimentoID) REFERENCES Atendimentos(AtendimentoID),
+                            FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID)
+                        );
+
                         CREATE TABLE Usuarios (
                             Id INTEGER PRIMARY KEY AUTOINCREMENT,
                             Login TEXT NOT NULL,
                             SenhaHash TEXT NOT NULL,
                             Salt TEXT NOT NULL
+                        );
+
+                        CREATE TABLE MovimentoEstoque (
+                            MovimentoID INTEGER PRIMARY KEY AUTOINCREMENT,
+                            ProdutoID INTEGER NOT NULL,
+                            DataMovimento DATE NOT NULL,
+                            Quantidade REAL NOT NULL,
+                            TipoMovimento TEXT NOT NULL, -- 'E' para entrada, 'S' para saída
+                            Origem TEXT,
+                            Observacao TEXT,
+                            FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID)
+                        );
+
+                        CREATE TABLE EstoqueAtual (
+                            ProdutoID INTEGER PRIMARY KEY,
+                            QuantidadeAtual REAL NOT NULL DEFAULT 0,
+                            FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID)
                         );
                     ";
 
