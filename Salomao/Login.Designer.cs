@@ -39,7 +39,6 @@
             btn_minimize = new Button();
             btn_close = new Button();
             btn_login = new Button();
-            btn_register = new Button();
             stc_title = new Label();
             panel_Drag.SuspendLayout();
             SuspendLayout();
@@ -159,28 +158,13 @@
             btn_login.FlatStyle = FlatStyle.Flat;
             btn_login.Font = new Font("Impact", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btn_login.ForeColor = Color.FromArgb(16, 185, 129);
-            btn_login.Location = new Point(190, 217);
+            btn_login.Location = new Point(50, 217);
             btn_login.Name = "btn_login";
-            btn_login.Size = new Size(110, 36);
+            btn_login.Size = new Size(250, 36);
             btn_login.TabIndex = 9;
             btn_login.Text = "Logar";
             btn_login.UseVisualStyleBackColor = false;
             btn_login.Click += btn_login_Click;
-            // 
-            // btn_register
-            // 
-            btn_register.Anchor = AnchorStyles.None;
-            btn_register.BackColor = Color.Transparent;
-            btn_register.FlatStyle = FlatStyle.Flat;
-            btn_register.Font = new Font("Impact", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btn_register.ForeColor = Color.FromArgb(37, 99, 235);
-            btn_register.Location = new Point(50, 217);
-            btn_register.Name = "btn_register";
-            btn_register.Size = new Size(120, 36);
-            btn_register.TabIndex = 10;
-            btn_register.Text = "Criar conta";
-            btn_register.UseVisualStyleBackColor = false;
-            btn_register.Click += btn_register_Click;
             // 
             // stc_title
             // 
@@ -200,7 +184,6 @@
             BackColor = Color.White;
             ClientSize = new Size(350, 310);
             Controls.Add(stc_title);
-            Controls.Add(btn_register);
             Controls.Add(btn_login);
             Controls.Add(panel_Drag);
             Controls.Add(lbl_mensagem);
@@ -229,7 +212,6 @@
         private Button btn_close;
         private Button btn_minimize;
         private Button btn_login;
-        private Button btn_register;
         private Label stc_title;
     }
 }

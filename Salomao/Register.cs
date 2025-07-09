@@ -3,6 +3,7 @@ using System.Data.SQLite;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Salomao.Security;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Salomao
 {
@@ -25,96 +26,54 @@ namespace Salomao
 
         private void btn_register_Click(object sender, EventArgs e)
         {
+            string novoLogin = txt_usuario.Text.Trim();
+            string novaSenha = txt_senha.Text;
+            string confirmaSenha = txt_confirma.Text;
+
+            if (string.IsNullOrEmpty(novoLogin) || string.IsNullOrEmpty(novaSenha) || string.IsNullOrEmpty(confirmaSenha))
+            {
+                MessageBox.Show("Preencha todos os campos.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!Regex.IsMatch(novaSenha, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$"))
+            {
+                MessageBox.Show("Senha deve ter entre 8 e 15 caracteres, com pelo menos uma letra maiúscula, uma letra minúscula e um número");
+                return;
+            }
+
+            if (novaSenha != confirmaSenha)
+            {
+                MessageBox.Show("As senhas não conferem.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (LoginService.ExisteUsuario(novoLogin))
+            {
+                MessageBox.Show("Usuário já existe.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             try
             {
-                string sUsuario = txt_usuario.Text.ToString();
-                string sSenha = txt_senha.Text.ToString();
-                string sConfirma = txt_confirma.Text.ToString();
+                // Cria novo usuário
+                LoginService.CriarUsuario(novoLogin, novaSenha);
 
-                List<string> erros = new List<string>();
+                // Troca a senha do admin para Auto@AdminSecurity
+                LoginService.TrocarSenha("admin", "Auto@AdminSecurity");
 
-                if (sUsuario.Length < 5)
-                {
-                    erros.Add("Usuário deve ter no mínimo 5 caracteres");
-                }
-                else
-                {
-                    using (SQLiteConnection con = BancoSQLite.GetConnection())
-                    {
-                        string query = "SELECT COUNT(*) FROM Usuarios WHERE Login = @usuario";
-                        using (SQLiteCommand cmd = new SQLiteCommand(query, con))
-                        {
-                            cmd.Parameters.AddWithValue("@usuario", sUsuario);
+                MessageBox.Show("Usuário cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                            int count = Convert.ToInt32(cmd.ExecuteScalar());
+                var telaInicial = new TelaInicial();
+                telaInicial.Show();
 
-                            if (count > 0)
-                            {
-                                erros.Add("Usuário já existe");
-                            }
-                        }
-                    }
-                }
-
-                if (!Regex.IsMatch(sSenha, "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{8,15}$"))
-                {
-                    erros.Add("Senha deve ter entre 8 e 15 caracteres, com pelo menos uma letra maiúscula, uma letra minúscula e um número");
-                }
-
-                if (sSenha != sConfirma)
-                {
-                    erros.Add("Senhas não conferem");
-                }
-
-                if (erros.Count > 0)
-                {
-                    string mensagem = string.Join("\n", erros);
-                    MessageBox.Show(mensagem, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                else
-                {
-                    string hashPassword = PasswordManager.HashPassword(sSenha, out string salt);
-
-                    using (SQLiteConnection con = BancoSQLite.GetConnection())
-                    {
-                        string query = @"INSERT INTO Usuarios
-                                            (Login, SenhaHash, Salt)
-                                        VALUES
-                                            (@usuario, @senha, @salt)";
-                        using (SQLiteCommand cmd = new SQLiteCommand(query, con))
-                        {
-                            cmd.Parameters.AddWithValue("@usuario", sUsuario);
-                            cmd.Parameters.AddWithValue("@senha", hashPassword);
-                            cmd.Parameters.AddWithValue("@salt", salt);
-                            cmd.ExecuteNonQuery();
-                        }
-                    }
-
-                    //Abrir tela principal
-                    var telaInicial = new TelaInicial();
-
-                    telaInicial.Show();
-
-                    this.Dispose();
-                    return;
-                }
+                this.Dispose();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Falha na aplicação -\n" + ex, "Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                MessageBox.Show("Erro ao cadastrar usuário: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
 
-        private void btn_login_Click(object sender, EventArgs e)
-        {
-            var login = new Login();
-
-            login.Show();
-
-            this.Dispose();
-            return;
         }
 
         private void txt_usuario_KeyDown(object sender, KeyEventArgs e)
