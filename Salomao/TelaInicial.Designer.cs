@@ -59,18 +59,19 @@
             // panel_menu
             // 
             panel_menu.BackColor = Color.FromArgb(30, 58, 138);
-            panel_menu.Controls.Add(ibtn_servico);
-            panel_menu.Controls.Add(ibtn_fornecedor);
+            panel_menu.Controls.Clear();
             panel_menu.Controls.Add(btn_home);
-            panel_menu.Controls.Add(ibtn_logout);
-            panel_menu.Controls.Add(ibtn_config);
-            panel_menu.Controls.Add(ibtn_categorias);
-            panel_menu.Controls.Add(ibtn_veiculos);
-            panel_menu.Controls.Add(ibtn_clientes);
             panel_menu.Controls.Add(ibtn_produtos);
+            panel_menu.Controls.Add(ibtn_fornecedor);
+            panel_menu.Controls.Add(ibtn_clientes);
+            panel_menu.Controls.Add(ibtn_veiculos);
+            panel_menu.Controls.Add(ibtn_categorias);
+            panel_menu.Controls.Add(ibtn_servico);
             panel_menu.Controls.Add(ibtn_atendimentos);
             panel_menu.Controls.Add(ibtn_movEstoque);
             panel_menu.Controls.Add(ibtn_saldoEstoque);
+            panel_menu.Controls.Add(ibtn_config);
+            panel_menu.Controls.Add(ibtn_logout);
             panel_menu.Dock = DockStyle.Left;
             panel_menu.Location = new Point(0, 0);
             panel_menu.Name = "panel_menu";
@@ -125,7 +126,7 @@
             ibtn_logout.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_logout.IconSize = 32;
             ibtn_logout.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_logout.Location = new Point(3, 676);
+            ibtn_logout.Location = new Point(3, 739);
             ibtn_logout.Name = "ibtn_logout";
             ibtn_logout.Padding = new Padding(10, 0, 20, 0);
             ibtn_logout.Size = new Size(216, 60);
@@ -148,7 +149,7 @@
             ibtn_config.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_config.IconSize = 32;
             ibtn_config.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_config.Location = new Point(3, 613);
+            ibtn_config.Location = new Point(3, 676);
             ibtn_config.Name = "ibtn_config";
             ibtn_config.Padding = new Padding(10, 0, 20, 0);
             ibtn_config.Size = new Size(216, 60);
@@ -380,7 +381,7 @@
             ibtn_servico.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_servico.IconSize = 32;
             ibtn_servico.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_servico.Location = new Point(3, 361);
+            ibtn_servico.Location = new Point(3, 424);
             ibtn_servico.Name = "ibtn_servico";
             ibtn_servico.Padding = new Padding(10, 0, 20, 0);
             ibtn_servico.Size = new Size(216, 60);
@@ -403,7 +404,7 @@
             ibtn_atendimentos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_atendimentos.IconSize = 32;
             ibtn_atendimentos.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_atendimentos.Location = new Point(3, 424);
+            ibtn_atendimentos.Location = new Point(3, 487);
             ibtn_atendimentos.Name = "ibtn_atendimentos";
             ibtn_atendimentos.Padding = new Padding(10, 0, 20, 0);
             ibtn_atendimentos.Size = new Size(216, 60);
@@ -426,7 +427,7 @@
             ibtn_movEstoque.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_movEstoque.IconSize = 32;
             ibtn_movEstoque.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_movEstoque.Location = new Point(3, 487);
+            ibtn_movEstoque.Location = new Point(3, 550);
             ibtn_movEstoque.Name = "ibtn_movEstoque";
             ibtn_movEstoque.Padding = new Padding(10, 0, 20, 0);
             ibtn_movEstoque.Size = new Size(216, 60);
@@ -449,7 +450,7 @@
             ibtn_saldoEstoque.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_saldoEstoque.IconSize = 32;
             ibtn_saldoEstoque.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_saldoEstoque.Location = new Point(3, 550);
+            ibtn_saldoEstoque.Location = new Point(3, 613);
             ibtn_saldoEstoque.Name = "ibtn_saldoEstoque";
             ibtn_saldoEstoque.Padding = new Padding(10, 0, 20, 0);
             ibtn_saldoEstoque.Size = new Size(216, 60);

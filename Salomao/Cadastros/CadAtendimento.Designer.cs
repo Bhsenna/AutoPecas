@@ -13,9 +13,9 @@ namespace Salomao.Cadastros
         private System.Windows.Forms.DateTimePicker dtData;
         private System.Windows.Forms.DateTimePicker dtDataPrestacao;
         private System.Windows.Forms.DateTimePicker dtPrevisaoConclusao;
-        private System.Windows.Forms.TextBox tbValorSugerido;
-        private System.Windows.Forms.TextBox tbValorPraticado;
-        private System.Windows.Forms.TextBox tbLucroBruto;
+        private Salomao.DecimalTextbox tbValorSugerido;
+        private Salomao.DecimalTextbox tbValorPraticado;
+        private Salomao.DecimalTextbox tbLucroBruto;
         private System.Windows.Forms.TextBox tbObservacoes;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label lbCliente;
@@ -48,11 +48,11 @@ namespace Salomao.Cadastros
             lbPrevisaoConclusao = new Label();
             dtPrevisaoConclusao = new DateTimePicker();
             lbValorSugerido = new Label();
-            tbValorSugerido = new TextBox();
+            tbValorSugerido = new Salomao.DecimalTextbox();
             lbValorPraticado = new Label();
-            tbValorPraticado = new TextBox();
+            tbValorPraticado = new Salomao.DecimalTextbox();
             lbLucroBruto = new Label();
-            tbLucroBruto = new TextBox();
+            tbLucroBruto = new Salomao.DecimalTextbox();
             lbObservacoes = new Label();
             tbObservacoes = new TextBox();
             btnGravar = new Button();

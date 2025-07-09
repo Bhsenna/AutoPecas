@@ -94,5 +94,96 @@ namespace Salomao.Cadastros
             tbTelefone  .Clear();
             tbEmail     .Clear();
         }
+
+        private int clienteSelecionadoId = -1;
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                tbNomeClient.Text = row.Cells["Nome"].Value?.ToString();
+                tbTelefone.Text = row.Cells["Telefone"].Value?.ToString();
+                tbEmail.Text = row.Cells["Email"].Value?.ToString();
+
+                // Buscar o ID do cliente selecionado
+                using (SQLiteConnection con = BancoSQLite.GetConnection())
+                {
+                    string query = "SELECT ClienteID FROM Clientes WHERE NomeCliente = @NomeCliente";
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@NomeCliente", tbNomeClient.Text);
+                        var result = cmd.ExecuteScalar();
+                        clienteSelecionadoId = result != null ? Convert.ToInt32(result) : -1;
+                    }
+                }
+                CarregarVeiculosDoCliente(clienteSelecionadoId);
+            }
+        }
+
+        private void CarregarVeiculosDoCliente(int clienteId)
+        {
+            using (SQLiteConnection con = BancoSQLite.GetConnection())
+            {
+                string query = @"SELECT Placa, Modelo, Marca FROM Veiculos WHERE ClienteID = @ClienteID";
+                using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@ClienteID", clienteId);
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        dataGridViewVeiculos.DataSource = dt;
+                    }
+                }
+            }
+        }
+
+        private void btnGravarVeiculo_Click(object sender, EventArgs e)
+        {
+            if (clienteSelecionadoId == -1)
+            {
+                MessageBox.Show("Selecione um cliente antes de cadastrar um veículo.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(tbPlaca.Text) || string.IsNullOrWhiteSpace(tbMarca.Text) || string.IsNullOrWhiteSpace(tbModelo.Text))
+            {
+                MessageBox.Show("Preencha todos os campos do veículo.");
+                return;
+            }
+            using (SQLiteConnection con = BancoSQLite.GetConnection())
+            {
+                string query = @"INSERT INTO Veiculos (Placa, Modelo, Marca, ClienteID) VALUES (@Placa, @Modelo, @Marca, @ClienteID)";
+                using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@Placa", tbPlaca.Text);
+                    cmd.Parameters.AddWithValue("@Modelo", tbModelo.Text);
+                    cmd.Parameters.AddWithValue("@Marca", tbMarca.Text);
+                    cmd.Parameters.AddWithValue("@ClienteID", clienteSelecionadoId);
+                    try
+                    {
+                        cmd.ExecuteNonQuery();
+                        LimparVeiculo();
+                        CarregarVeiculosDoCliente(clienteSelecionadoId);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Erro ao cadastrar veículo: " + ex.Message);
+                    }
+                }
+            }
+        }
+
+        private void btnLimparVeiculo_Click(object sender, EventArgs e)
+        {
+            LimparVeiculo();
+        }
+
+        private void LimparVeiculo()
+        {
+            tbPlaca.Clear();
+            tbMarca.Clear();
+            tbModelo.Clear();
+        }
     }
 }

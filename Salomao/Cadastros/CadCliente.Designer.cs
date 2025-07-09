@@ -38,6 +38,16 @@
             tbTelefone = new TextBox();
             btnGravar = new Button();
             btnLimpar = new Button();
+            dataGridViewVeiculos = new DataGridView();
+            panelVeiculo = new Panel();
+            lbPlaca = new Label();
+            lbMarca = new Label();
+            lbModelo = new Label();
+            tbPlaca = new TextBox();
+            tbMarca = new TextBox();
+            tbModelo = new TextBox();
+            btnGravarVeiculo = new Button();
+            btnLimparVeiculo = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -50,6 +60,7 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(983, 259);
             dataGridView1.TabIndex = 20;
+            this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // panel1
             // 
@@ -159,16 +170,120 @@
             btnLimpar.UseVisualStyleBackColor = false;
             btnLimpar.Click += btnLimpar_Click;
             // 
+            // dataGridViewVeiculos
+            // 
+            dataGridViewVeiculos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewVeiculos.Location = new Point(500, 258);
+            dataGridViewVeiculos.Name = "dataGridViewVeiculos";
+            dataGridViewVeiculos.Size = new Size(483, 259);
+            dataGridViewVeiculos.TabIndex = 21;
+            // 
+            // panelVeiculo
+            // 
+            panelVeiculo.BackColor = Color.White;
+            panelVeiculo.Controls.Add(lbPlaca);
+            panelVeiculo.Controls.Add(tbPlaca);
+            panelVeiculo.Controls.Add(lbMarca);
+            panelVeiculo.Controls.Add(tbMarca);
+            panelVeiculo.Controls.Add(lbModelo);
+            panelVeiculo.Controls.Add(tbModelo);
+            panelVeiculo.Controls.Add(btnGravarVeiculo);
+            panelVeiculo.Controls.Add(btnLimparVeiculo);
+            panelVeiculo.Location = new Point(350, 0);
+            panelVeiculo.Name = "panelVeiculo";
+            panelVeiculo.Size = new Size(300, 258);
+            panelVeiculo.TabIndex = 22;
+            // 
+            // lbPlaca
+            // 
+            lbPlaca.AutoSize = true;
+            lbPlaca.Font = new Font("Segoe UI", 12F);
+            lbPlaca.Location = new Point(20, 19);
+            lbPlaca.Name = "lbPlaca";
+            lbPlaca.Size = new Size(49, 21);
+            lbPlaca.TabIndex = 0;
+            lbPlaca.Text = "Placa:";
+            // 
+            // tbPlaca
+            // 
+            tbPlaca.Location = new Point(20, 47);
+            tbPlaca.Name = "tbPlaca";
+            tbPlaca.Size = new Size(200, 23);
+            tbPlaca.TabIndex = 1;
+            // 
+            // lbMarca
+            // 
+            lbMarca.AutoSize = true;
+            lbMarca.Font = new Font("Segoe UI", 12F);
+            lbMarca.Location = new Point(20, 88);
+            lbMarca.Name = "lbMarca";
+            lbMarca.Size = new Size(56, 21);
+            lbMarca.TabIndex = 2;
+            lbMarca.Text = "Marca:";
+            // 
+            // tbMarca
+            // 
+            tbMarca.Location = new Point(20, 116);
+            tbMarca.Name = "tbMarca";
+            tbMarca.Size = new Size(200, 23);
+            tbMarca.TabIndex = 3;
+            // 
+            // lbModelo
+            // 
+            lbModelo.AutoSize = true;
+            lbModelo.Font = new Font("Segoe UI", 12F);
+            lbModelo.Location = new Point(20, 157);
+            lbModelo.Name = "lbModelo";
+            lbModelo.Size = new Size(66, 21);
+            lbModelo.TabIndex = 4;
+            lbModelo.Text = "Modelo:";
+            // 
+            // tbModelo
+            // 
+            tbModelo.Location = new Point(20, 185);
+            tbModelo.Name = "tbModelo";
+            tbModelo.Size = new Size(200, 23);
+            tbModelo.TabIndex = 5;
+            // 
+            // btnGravarVeiculo
+            // 
+            btnGravarVeiculo.BackColor = Color.FromArgb(0, 123, 255);
+            btnGravarVeiculo.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnGravarVeiculo.ForeColor = Color.White;
+            btnGravarVeiculo.Location = new Point(180, 210);
+            btnGravarVeiculo.Name = "btnGravarVeiculo";
+            btnGravarVeiculo.Size = new Size(100, 36);
+            btnGravarVeiculo.TabIndex = 6;
+            btnGravarVeiculo.Text = "Gravar";
+            btnGravarVeiculo.UseVisualStyleBackColor = false;
+            btnGravarVeiculo.Click += new System.EventHandler(this.btnGravarVeiculo_Click);
+            // 
+            // btnLimparVeiculo
+            // 
+            btnLimparVeiculo.BackColor = Color.LightGray;
+            btnLimparVeiculo.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnLimparVeiculo.ForeColor = Color.Black;
+            btnLimparVeiculo.Location = new Point(70, 210);
+            btnLimparVeiculo.Name = "btnLimparVeiculo";
+            btnLimparVeiculo.Size = new Size(100, 36);
+            btnLimparVeiculo.TabIndex = 7;
+            btnLimparVeiculo.Text = "Limpar";
+            btnLimparVeiculo.UseVisualStyleBackColor = false;
+            btnLimparVeiculo.Click += new System.EventHandler(this.btnLimparVeiculo_Click);
+            // 
             // CadCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveBorder;
+            Controls.Add(panelVeiculo);
+            Controls.Add(dataGridViewVeiculos);
             Controls.Add(dataGridView1);
             Controls.Add(panel1);
             Name = "CadCliente";
             Size = new Size(983, 517);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewVeiculos).EndInit();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -186,5 +301,15 @@
         private Label lbTelefone;
         private TextBox tbTelefone;
         private TextBox tbEmail;
+        private System.Windows.Forms.DataGridView dataGridViewVeiculos;
+        private System.Windows.Forms.Panel panelVeiculo;
+        private System.Windows.Forms.Label lbPlaca;
+        private System.Windows.Forms.Label lbMarca;
+        private System.Windows.Forms.Label lbModelo;
+        private System.Windows.Forms.TextBox tbPlaca;
+        private System.Windows.Forms.TextBox tbMarca;
+        private System.Windows.Forms.TextBox tbModelo;
+        private System.Windows.Forms.Button btnGravarVeiculo;
+        private System.Windows.Forms.Button btnLimparVeiculo;
     }
 }
