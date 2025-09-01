@@ -1,5 +1,7 @@
-﻿using System.Data.SQLite;
-using System.Windows.Input;
+﻿using System;
+using System.Data;
+using System.Data.SQLite;
+using System.IO;
 using Salomao.Security;
 
 namespace Salomao
@@ -11,14 +13,19 @@ namespace Salomao
 
         public static void CheckAndCreateDB()
         {
-            if (!File.Exists(dbFile))
+            bool isNewDatabase = !File.Exists(dbFile);
+            
+            if (isNewDatabase)
             {
                 SQLiteConnection.CreateFile(dbFile);
+            }
 
-                using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(connectionString))
+            {
+                connection.Open();
+
+                if (isNewDatabase)
                 {
-                    connection.Open();
-
                     string sql = @"
                         CREATE TABLE Categorias (
                             CategoriaID INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -65,14 +72,15 @@ namespace Salomao
 
                         CREATE TABLE Servicos (
                             ServicoID INTEGER PRIMARY KEY AUTOINCREMENT,
-                            VeiculoID INTEGER NOT NULL,
-                            MargemLucro REAL NOT NULL,
-                            FOREIGN KEY (VeiculoID) REFERENCES Veiculos(VeiculoID)
+                            NomeServico TEXT NOT NULL,
+                            Descricao TEXT,
+                            MargemLucro REAL NOT NULL DEFAULT 0
                         );
 
                         CREATE TABLE ServicoParaProduto (
                             ServicoID INTEGER NOT NULL,
                             ProdutoID INTEGER NOT NULL,
+                            Quantidade REAL NOT NULL DEFAULT 1,
                             FOREIGN KEY (ServicoID) REFERENCES Servicos(ServicoID),
                             FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID)
                         );
@@ -95,15 +103,10 @@ namespace Salomao
                         CREATE TABLE AtendimentoServicos (
                             AtendimentoID INTEGER NOT NULL,
                             ServicoID INTEGER NOT NULL,
+                            Quantidade REAL NOT NULL DEFAULT 1,
+                            ValorUnitario REAL NOT NULL DEFAULT 0,
                             FOREIGN KEY (AtendimentoID) REFERENCES Atendimentos(AtendimentoID),
                             FOREIGN KEY (ServicoID) REFERENCES Servicos(ServicoID)
-                        );
-
-                        CREATE TABLE AtendimentoProdutos (
-                            AtendimentoID INTEGER NOT NULL,
-                            ProdutoID INTEGER NOT NULL,
-                            FOREIGN KEY (AtendimentoID) REFERENCES Atendimentos(AtendimentoID),
-                            FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID)
                         );
 
                         CREATE TABLE Usuarios (
@@ -116,12 +119,14 @@ namespace Salomao
                         CREATE TABLE MovimentoEstoque (
                             MovimentoID INTEGER PRIMARY KEY AUTOINCREMENT,
                             ProdutoID INTEGER NOT NULL,
-                            DataMovimento DATE NOT NULL,
+                            DataMovimento DATETIME NOT NULL,
                             Quantidade REAL NOT NULL,
                             TipoMovimento TEXT NOT NULL, -- 'E' para entrada, 'S' para saída
                             Origem TEXT,
                             Observacao TEXT,
-                            FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID)
+                            AtendimentoID INTEGER NULL,
+                            FOREIGN KEY (ProdutoID) REFERENCES Produtos(ProdutoID),
+                            FOREIGN KEY (AtendimentoID) REFERENCES Atendimentos(AtendimentoID)
                         );
 
                         CREATE TABLE EstoqueAtual (
@@ -136,13 +141,9 @@ namespace Salomao
                         command.ExecuteNonQuery();
                     }
 
-                    MessageBox.Show("Banco de dados criado com sucesso!");
+                    System.Windows.Forms.MessageBox.Show("Banco de dados criado com sucesso!");
                 }
-            }
 
-            //Valida se usuário existe, caso não, adicionar usuário padrão
-            using (var connection = GetConnection())
-            {
                 string query = "SELECT COUNT(*) FROM Usuarios WHERE Login = 'admin'";
                 using (var command = new SQLiteCommand(query, connection))
                 {
@@ -162,6 +163,50 @@ namespace Salomao
                         }
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// Converte o SelectedValue de um ComboBox para int de forma segura
+        /// </summary>
+        public static int GetComboBoxValue(System.Windows.Forms.ComboBox comboBox, int defaultValue = -1)
+        {
+            try
+            {
+                if (comboBox.SelectedValue == null)
+                    return defaultValue;
+
+                if (comboBox.SelectedValue is int)
+                {
+                    return (int)comboBox.SelectedValue;
+                }
+                else if (comboBox.SelectedValue is System.Data.DataRowView drv)
+                {
+                    // Tenta obter o valor da coluna ValueMember
+                    string valueMember = comboBox.ValueMember;
+                    if (!string.IsNullOrEmpty(valueMember) && drv.Row.Table.Columns.Contains(valueMember))
+                    {
+                        return Convert.ToInt32(drv[valueMember]);
+                    }
+                    // Fallback: tenta a primeira coluna numérica
+                    foreach (System.Data.DataColumn col in drv.Row.Table.Columns)
+                    {
+                        if (col.DataType == typeof(int) || col.DataType == typeof(long))
+                        {
+                            return Convert.ToInt32(drv[col.ColumnName]);
+                        }
+                    }
+                }
+                else
+                {
+                    return Convert.ToInt32(comboBox.SelectedValue);
+                }
+
+                return defaultValue;
+            }
+            catch
+            {
+                return defaultValue;
             }
         }
 

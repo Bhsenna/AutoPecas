@@ -171,7 +171,6 @@ namespace Salomao
         {
             if (sender == currentBtn) return;
 
-            ActivateButton(sender, Color.White);
         }
 
         private void ibtn_logout_Click(object sender, EventArgs e)
@@ -214,8 +213,7 @@ namespace Salomao
         {
             if (sender == currentBtn) return;
             ActivateButton(sender, Color.White);
-            // Aqui você pode criar e mostrar a tela de movimento de estoque quando ela existir
-            MessageBox.Show("Tela de Movimento de Estoque em desenvolvimento.");
+            MostrarTela(new Cadastros.MovimentoEstoque());
         }
         private void ibtn_saldoEstoque_Click(object sender, EventArgs e)
         {

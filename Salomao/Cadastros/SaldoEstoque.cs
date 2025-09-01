@@ -1,6 +1,5 @@
 using System;
 using System.Data;
-using System.Data.SQLite;
 using System.Windows.Forms;
 
 namespace Salomao.Cadastros
@@ -10,23 +9,72 @@ namespace Salomao.Cadastros
         public SaldoEstoque()
         {
             InitializeComponent();
-            carregaTabela();
-            Styler.GridStyler.PersonalizarSaldoEstoque(dataGridView1);
+            CarregarTabela();
+            Styler.GridStyler.Personalizar(dataGridView1);
         }
 
-        private void carregaTabela()
+        private void CarregarTabela()
         {
-            using (SQLiteConnection con = BancoSQLite.GetConnection())
+            try
             {
-                string query = @"SELECT P.ProdutoID, P.NomeProduto, E.QuantidadeAtual
-                                 FROM Produtos P
-                                 LEFT JOIN EstoqueAtual E ON E.ProdutoID = P.ProdutoID";
-                using (SQLiteCommand cmd = new SQLiteCommand(query, con))
-                using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
+                dataGridView1.DataSource = EstoqueManager.ObterSaldosEstoque();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao carregar saldos de estoque: " + ex.Message);
+            }
+        }
+
+        private void btnAtualizar_Click(object sender, EventArgs e)
+        {
+            CarregarTabela();
+        }
+
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SaveFileDialog saveDialog = new SaveFileDialog();
+                saveDialog.Filter = "Arquivo CSV (*.csv)|*.csv";
+                saveDialog.FileName = $"SaldoEstoque_{DateTime.Now:yyyyMMdd_HHmmss}.csv";
+
+                if (saveDialog.ShowDialog() == DialogResult.OK)
                 {
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    dataGridView1.DataSource = dt;
+                    ExportarParaCSV(saveDialog.FileName);
+                    MessageBox.Show("Arquivo exportado com sucesso!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro ao exportar arquivo: " + ex.Message);
+            }
+        }
+
+        private void ExportarParaCSV(string fileName)
+        {
+            DataTable dt = (DataTable)dataGridView1.DataSource;
+            
+            using (System.IO.StreamWriter sw = new System.IO.StreamWriter(fileName, false, System.Text.Encoding.UTF8))
+            {
+                // Cabeçalho
+                for (int i = 0; i < dt.Columns.Count; i++)
+                {
+                    sw.Write(dt.Columns[i].ColumnName);
+                    if (i < dt.Columns.Count - 1)
+                        sw.Write(";");
+                }
+                sw.WriteLine();
+
+                // Dados
+                foreach (DataRow row in dt.Rows)
+                {
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        sw.Write(row[i]?.ToString() ?? "");
+                        if (i < dt.Columns.Count - 1)
+                            sw.Write(";");
+                    }
+                    sw.WriteLine();
                 }
             }
         }

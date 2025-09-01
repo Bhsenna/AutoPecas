@@ -2,12 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Salomao.Cadastros
 {
     public partial class CadAtendimento : UserControl
     {
+        private List<DataRow> servicosSelecionados = new List<DataRow>();
+
         public CadAtendimento()
         {
             InitializeComponent();
@@ -17,94 +20,170 @@ namespace Salomao.Cadastros
             Styler.ButtonStyler.PersonalizaLimpar(btnLimpar);
             populaCombo(cbCliente, "Clientes", "NomeCliente", "ClienteID");
             populaCombo(cbVeiculo, "Veiculos", "Placa || ' - ' || Modelo", "VeiculoID");
-            populaCombo(cbServico, "Servicos", "ServicoID", "ServicoID");
-            populaCombo(cbProduto, "Produtos", "NomeProduto", "ProdutoID");
+            populaCombo(cbServico, "Servicos", "NomeServico", "ServicoID");
+            btnAdicionarServico.Click += btnAdicionarServico_Click;
+            btnRemoverServico.Click += btnRemoverServico_Click;
+            AtualizarGridServicos();
         }
 
         private void populaCombo(ComboBox comboBox, String tabela, String campoNome, String campoId)
         {
-            using (SQLiteConnection con = BancoSQLite.GetConnection())
+            try
             {
-                string query = $"SELECT {campoNome} as Nome, {campoId} as ID FROM {tabela}";
-                using (SQLiteCommand cmd = new SQLiteCommand(query, con))
-                using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
+                using (SQLiteConnection con = BancoSQLite.GetConnection())
                 {
-                    DataTable dt = new DataTable();
+                    string query = $"SELECT {campoNome} as Nome, {campoId} as ID FROM {tabela}";
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
 
-                    // Define explicitamente os tipos das colunas
-                    dt.Columns.Add("Nome", typeof(string));
-                    dt.Columns.Add("ID", typeof(int));
+                        // Define explicitamente os tipos das colunas
+                        dt.Columns.Add("Nome", typeof(string));
+                        dt.Columns.Add("ID", typeof(int));
 
-                    da.Fill(dt);
+                        da.Fill(dt);
 
-                    // Adiciona linha vazia no início
-                    DataRow emptyRow = dt.NewRow();
-                    emptyRow["Nome"] = "Selecione...";
-                    emptyRow["ID"] = -1;
-                    dt.Rows.InsertAt(emptyRow, 0);
+                        // Garantir que a coluna ID tenha o tipo correto
+                        if (dt.Columns.Contains("ID"))
+                        {
+                            dt.Columns["ID"].DataType = typeof(int);
+                        }
 
-                    comboBox.DataSource = dt;
-                    comboBox.DisplayMember = "Nome";
-                    comboBox.ValueMember = "ID";
+                        // Adiciona linha vazia no início
+                        DataRow emptyRow = dt.NewRow();
+                        emptyRow["Nome"] = "Selecione...";
+                        emptyRow["ID"] = -1;
+                        dt.Rows.InsertAt(emptyRow, 0);
+
+                        comboBox.DataSource = dt;
+                        comboBox.DisplayMember = "Nome";
+                        comboBox.ValueMember = "ID";
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar dados da tabela {tabela}: {ex.Message}\n\nVerifique se a migração do banco foi executada.", 
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void carregaTabela()
         {
-            using (SQLiteConnection con = BancoSQLite.GetConnection())
+            try
             {
-                string query = @"SELECT A.AtendimentoID, A.Data, A.DataPrestacao, A.PrevisaoConclusao, C.NomeCliente, V.Placa, A.ValorSugerido, A.ValorPraticado, A.LucroBruto, A.Observacoes
-                                 FROM Atendimentos A
-                                 LEFT JOIN Clientes C ON C.ClienteID = A.ClienteID
-                                 LEFT JOIN Veiculos V ON V.VeiculoID = A.VeiculoID";
-                using (SQLiteCommand cmd = new SQLiteCommand(query, con))
-                using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
+                using (SQLiteConnection con = BancoSQLite.GetConnection())
                 {
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    dataGridView1.DataSource = dt;
+                    string query = @"SELECT A.AtendimentoID, A.Data, A.DataPrestacao, A.PrevisaoConclusao, C.NomeCliente, V.Placa, A.ValorSugerido, A.ValorPraticado, A.LucroBruto, A.Observacoes
+                                     FROM Atendimentos A
+                                     LEFT JOIN Clientes C ON C.ClienteID = A.ClienteID
+                                     LEFT JOIN Veiculos V ON V.VeiculoID = A.VeiculoID";
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        da.Fill(dt);
+                        dataGridView1.DataSource = dt;
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar atendimentos: {ex.Message}\n\nVerifique se a migração do banco foi executada.", 
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnGravar_Click(object sender, EventArgs e)
         {
             // Validação básica
-            if ((cbCliente.SelectedValue == null || (int)cbCliente.SelectedValue == -1) ||
-                (cbVeiculo.SelectedValue == null || (int)cbVeiculo.SelectedValue == -1) ||
+            int clienteId = BancoSQLite.GetComboBoxValue(cbCliente, -1);
+            int veiculoId = BancoSQLite.GetComboBoxValue(cbVeiculo, -1);
+            
+            if (clienteId == -1 || veiculoId == -1 ||
                 dtData.Text == "" || dtDataPrestacao.Text == "" || tbValorSugerido.Text == "" || tbValorPraticado.Text == "")
             {
                 MessageBox.Show("Preencha todos os campos obrigatórios.");
                 return;
             }
 
+            if (servicosSelecionados.Count == 0)
+            {
+                MessageBox.Show("Adicione pelo menos um serviço ao atendimento.");
+                return;
+            }
+
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                string query = @"INSERT INTO Atendimentos
-                                    (Data, DataPrestacao, PrevisaoConclusao, ClienteID, VeiculoID, ValorSugerido, ValorPraticado, LucroBruto, Observacoes)
-                                VALUES
-                                    (@Data, @DataPrestacao, @PrevisaoConclusao, @ClienteID, @VeiculoID, @ValorSugerido, @ValorPraticado, @LucroBruto, @Observacoes)";
-
-                using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                using (var transaction = con.BeginTransaction())
                 {
-                    cmd.Parameters.AddWithValue("@Data", dtData.Value.Date);
-                    cmd.Parameters.AddWithValue("@DataPrestacao", dtDataPrestacao.Value.Date);
-                    cmd.Parameters.AddWithValue("@PrevisaoConclusao", dtPrevisaoConclusao.Value.Date);
-                    cmd.Parameters.AddWithValue("@ClienteID", cbCliente.SelectedValue);
-                    cmd.Parameters.AddWithValue("@VeiculoID", cbVeiculo.SelectedValue);
-                    cmd.Parameters.AddWithValue("@ValorSugerido", tbValorSugerido.Text);
-                    cmd.Parameters.AddWithValue("@ValorPraticado", tbValorPraticado.Text);
-                    cmd.Parameters.AddWithValue("@LucroBruto", tbLucroBruto.Text);
-                    cmd.Parameters.AddWithValue("@Observacoes", tbObservacoes.Text);
-
                     try
                     {
-                        cmd.ExecuteNonQuery();
+                        // Insere o atendimento
+                        string query = @"INSERT INTO Atendimentos
+                                            (Data, DataPrestacao, PrevisaoConclusao, ClienteID, VeiculoID, ValorSugerido, ValorPraticado, LucroBruto, Observacoes)
+                                        VALUES
+                                            (@Data, @DataPrestacao, @PrevisaoConclusao, @ClienteID, @VeiculoID, @ValorSugerido, @ValorPraticado, @LucroBruto, @Observacoes)";
+
+                        using (SQLiteCommand cmd = new SQLiteCommand(query, con, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("@Data", dtData.Value.Date);
+                            cmd.Parameters.AddWithValue("@DataPrestacao", dtDataPrestacao.Value.Date);
+                            cmd.Parameters.AddWithValue("@PrevisaoConclusao", dtPrevisaoConclusao.Value.Date);
+                                                cmd.Parameters.AddWithValue("@ClienteID", clienteId);
+                    cmd.Parameters.AddWithValue("@VeiculoID", veiculoId);
+                            cmd.Parameters.AddWithValue("@ValorSugerido", tbValorSugerido.Text);
+                            cmd.Parameters.AddWithValue("@ValorPraticado", tbValorPraticado.Text);
+                            cmd.Parameters.AddWithValue("@LucroBruto", tbLucroBruto.Text);
+                            cmd.Parameters.AddWithValue("@Observacoes", tbObservacoes.Text);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // Obtém o ID do atendimento inserido
+                        long atendimentoId;
+                        using (var cmd = new SQLiteCommand("SELECT last_insert_rowid()", con, transaction))
+                        {
+                            atendimentoId = Convert.ToInt64(cmd.ExecuteScalar());
+                        }
+
+                        // Insere os serviços do atendimento
+                        string queryServicos = @"INSERT INTO AtendimentoServicos
+                                                    (AtendimentoID, ServicoID, Quantidade, ValorUnitario)
+                                                VALUES
+                                                    (@AtendimentoID, @ServicoID, @Quantidade, @ValorUnitario)";
+
+                        using (var cmd = new SQLiteCommand(queryServicos, con, transaction))
+                        {
+                            foreach (DataRow servico in servicosSelecionados)
+                            {
+                                cmd.Parameters.Clear();
+                                cmd.Parameters.AddWithValue("@AtendimentoID", atendimentoId);
+                                cmd.Parameters.AddWithValue("@ServicoID", servico["ServicoID"]);
+                                cmd.Parameters.AddWithValue("@Quantidade", 1); // Quantidade padrão
+                                cmd.Parameters.AddWithValue("@ValorUnitario", CalcularCustoServico(Convert.ToInt32(servico["ServicoID"])));
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+
+                        transaction.Commit();
+
+                        // Processa a baixa automática de estoque
+                        try
+                        {
+                            EstoqueManager.ProcessarBaixaEstoqueAtendimento((int)atendimentoId);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Atendimento registrado, mas houve erro na baixa de estoque: {ex.Message}");
+                        }
+
+                        MessageBox.Show("Atendimento cadastrado com sucesso!");
                         clear();
                     }
                     catch (Exception ex)
                     {
+                        transaction.Rollback();
                         MessageBox.Show("Erro ao cadastrar atendimento: " + ex.Message);
                     }
                     finally
@@ -120,12 +199,117 @@ namespace Salomao.Cadastros
             clear();
         }
 
+        private void btnAdicionarServico_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int servicoId = BancoSQLite.GetComboBoxValue(cbServico, -1);
+                
+                if (servicoId == -1)
+                    return;
+
+                DataRowView drv = cbServico.SelectedItem as DataRowView;
+                if (drv == null)
+                    return;
+
+                if (!servicosSelecionados.Any(r => Convert.ToInt32(r["ServicoID"]) == servicoId))
+                {
+                    servicosSelecionados.Add(drv.Row);
+                    AtualizarGridServicos();
+                    CalcularValores();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao adicionar serviço: {ex.Message}", 
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnRemoverServico_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dataGridServicos.SelectedRows.Count > 0)
+                {
+                    var cellValue = dataGridServicos.SelectedRows[0].Cells["ServicoID"].Value;
+                    int servicoId = Convert.ToInt32(cellValue);
+                    servicosSelecionados.RemoveAll(r => Convert.ToInt32(r["ServicoID"]) == servicoId);
+                    AtualizarGridServicos();
+                    CalcularValores();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao remover serviço: {ex.Message}", 
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void AtualizarGridServicos()
+        {
+            if (servicosSelecionados.Count == 0)
+            {
+                dataGridServicos.DataSource = null;
+                return;
+            }
+
+            var dt = servicosSelecionados[0].Table.Clone();
+            foreach (var row in servicosSelecionados)
+                dt.ImportRow(row);
+            dataGridServicos.DataSource = dt;
+        }
+
+        private void CalcularValores()
+        {
+            if (servicosSelecionados.Count == 0)
+            {
+                tbValorSugerido.Text = "0,00";
+                tbLucroBruto.Text = "0,00";
+                return;
+            }
+
+            decimal custoTotal = 0;
+            decimal lucroTotal = 0;
+
+            foreach (DataRow servico in servicosSelecionados)
+            {
+                decimal margemLucro = Convert.ToDecimal(servico["MargemLucro"]);
+                decimal custoServico = CalcularCustoServico(Convert.ToInt32(servico["ServicoID"]));
+                
+                custoTotal += custoServico;
+                lucroTotal += custoServico * (margemLucro / 100);
+            }
+
+            decimal valorSugerido = custoTotal + lucroTotal;
+            tbValorSugerido.Text = valorSugerido.ToString("N2");
+            tbLucroBruto.Text = lucroTotal.ToString("N2");
+        }
+
+        private decimal CalcularCustoServico(int servicoId)
+        {
+            using (SQLiteConnection con = BancoSQLite.GetConnection())
+            {
+                string query = @"
+                    SELECT SUM(p.CustoAquisicao * sp.Quantidade) as CustoTotal
+                    FROM ServicoParaProduto sp
+                    INNER JOIN Produtos p ON p.ProdutoID = sp.ProdutoID
+                    WHERE sp.ServicoID = @ServicoID";
+
+                using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@ServicoID", servicoId);
+                    var result = cmd.ExecuteScalar();
+                    return result != null ? Convert.ToDecimal(result) : 0;
+                }
+            }
+        }
+
         private void clear()
         {
             cbCliente.SelectedIndex = 0;
             cbVeiculo.SelectedIndex = 0;
             cbServico.SelectedIndex = 0;
-            cbProduto.SelectedIndex = 0;
             dtData.Value = DateTime.Now;
             dtDataPrestacao.Value = DateTime.Now;
             dtPrevisaoConclusao.Value = DateTime.Now;
@@ -133,6 +317,8 @@ namespace Salomao.Cadastros
             tbValorPraticado.Clear();
             tbLucroBruto.Clear();
             tbObservacoes.Clear();
+            servicosSelecionados.Clear();
+            AtualizarGridServicos();
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)

@@ -32,9 +32,11 @@
             btnRemoverProduto = new Button();
             btnAdicionarProduto = new Button();
             cbProdutoServico = new ComboBox();
-            lbVeiculo = new Label();
+            lbNomeServico = new Label();
+            tbNomeServico = new TextBox();
+            lbDescricao = new Label();
+            tbDescricao = new TextBox();
             lbMargem = new Label();
-            cbVeiculo = new ComboBox();
             tbMargem = new DecimalTextbox();
             btnGravar = new Button();
             btnLimpar = new Button();
@@ -56,9 +58,11 @@
             panel1.Controls.Add(btnRemoverProduto);
             panel1.Controls.Add(btnAdicionarProduto);
             panel1.Controls.Add(cbProdutoServico);
-            panel1.Controls.Add(lbVeiculo);
+            panel1.Controls.Add(lbNomeServico);
+            panel1.Controls.Add(tbNomeServico);
+            panel1.Controls.Add(lbDescricao);
+            panel1.Controls.Add(tbDescricao);
             panel1.Controls.Add(lbMargem);
-            panel1.Controls.Add(cbVeiculo);
             panel1.Controls.Add(tbMargem);
             panel1.Controls.Add(btnGravar);
             panel1.Controls.Add(btnLimpar);
@@ -96,17 +100,48 @@
             cbProdutoServico.Size = new Size(250, 23);
             cbProdutoServico.TabIndex = 19;
             // 
-            // lbVeiculo
+            // lbNomeServico
             // 
-            lbVeiculo.AutoSize = true;
-            lbVeiculo.BackColor = Color.White;
-            lbVeiculo.Font = new Font("Segoe UI", 12F);
-            lbVeiculo.ForeColor = Color.Black;
-            lbVeiculo.Location = new Point(25, 19);
-            lbVeiculo.Name = "lbVeiculo";
-            lbVeiculo.Size = new Size(63, 21);
-            lbVeiculo.TabIndex = 1;
-            lbVeiculo.Text = "Veiculo:";
+            lbNomeServico.AutoSize = true;
+            lbNomeServico.BackColor = Color.White;
+            lbNomeServico.Font = new Font("Segoe UI", 12F);
+            lbNomeServico.ForeColor = Color.Black;
+            lbNomeServico.Location = new Point(25, 19);
+            lbNomeServico.Name = "lbNomeServico";
+            lbNomeServico.Size = new Size(120, 21);
+            lbNomeServico.TabIndex = 1;
+            lbNomeServico.Text = "Nome Serviço:";
+            // 
+            // tbNomeServico
+            // 
+            tbNomeServico.ForeColor = Color.FromArgb(55, 65, 81);
+            tbNomeServico.Location = new Point(25, 47);
+            tbNomeServico.MaxLength = 250;
+            tbNomeServico.Name = "tbNomeServico";
+            tbNomeServico.Size = new Size(200, 23);
+            tbNomeServico.TabIndex = 2;
+            // 
+            // lbDescricao
+            // 
+            lbDescricao.AutoSize = true;
+            lbDescricao.BackColor = Color.White;
+            lbDescricao.Font = new Font("Segoe UI", 12F);
+            lbDescricao.ForeColor = Color.Black;
+            lbDescricao.Location = new Point(250, 19);
+            lbDescricao.Name = "lbDescricao";
+            lbDescricao.Size = new Size(80, 21);
+            lbDescricao.TabIndex = 24;
+            lbDescricao.Text = "Descrição:";
+            // 
+            // tbDescricao
+            // 
+            tbDescricao.ForeColor = Color.FromArgb(55, 65, 81);
+            tbDescricao.Location = new Point(250, 47);
+            tbDescricao.MaxLength = 500;
+            tbDescricao.Multiline = true;
+            tbDescricao.Name = "tbDescricao";
+            tbDescricao.Size = new Size(250, 60);
+            tbDescricao.TabIndex = 25;
             // 
             // lbMargem
             // 
@@ -114,25 +149,16 @@
             lbMargem.BackColor = Color.White;
             lbMargem.Font = new Font("Segoe UI", 12F);
             lbMargem.ForeColor = Color.Black;
-            lbMargem.Location = new Point(25, 88);
+            lbMargem.Location = new Point(25, 120);
             lbMargem.Name = "lbMargem";
             lbMargem.Size = new Size(163, 21);
             lbMargem.TabIndex = 3;
             lbMargem.Text = "Margem de Lucro (%):";
             // 
-            // cbVeiculo
-            // 
-            cbVeiculo.ForeColor = Color.FromArgb(55, 65, 81);
-            cbVeiculo.Location = new Point(25, 47);
-            cbVeiculo.MaxLength = 250;
-            cbVeiculo.Name = "cbVeiculo";
-            cbVeiculo.Size = new Size(200, 23);
-            cbVeiculo.TabIndex = 3;
-            // 
             // tbMargem
             // 
             tbMargem.ForeColor = Color.FromArgb(55, 65, 81);
-            tbMargem.Location = new Point(25, 116);
+            tbMargem.Location = new Point(25, 148);
             tbMargem.Name = "tbMargem";
             tbMargem.Size = new Size(200, 23);
             tbMargem.TabIndex = 5;
@@ -246,8 +272,10 @@
         #endregion
 
         private Panel panel1;
-        private Label lbVeiculo;
-        private ComboBox cbVeiculo;
+        private Label lbNomeServico;
+        private TextBox tbNomeServico;
+        private Label lbDescricao;
+        private TextBox tbDescricao;
         private Label lbMargem;
         private DecimalTextbox tbMargem;
         private Button btnGravar;

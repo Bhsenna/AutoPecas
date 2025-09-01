@@ -9,7 +9,9 @@ namespace Salomao.Cadastros
         private System.Windows.Forms.ComboBox cbCliente;
         private System.Windows.Forms.ComboBox cbVeiculo;
         private System.Windows.Forms.ComboBox cbServico;
-        private System.Windows.Forms.ComboBox cbProduto;
+        private System.Windows.Forms.Button btnAdicionarServico;
+        private System.Windows.Forms.Button btnRemoverServico;
+        private System.Windows.Forms.DataGridView dataGridServicos;
         private System.Windows.Forms.DateTimePicker dtData;
         private System.Windows.Forms.DateTimePicker dtDataPrestacao;
         private System.Windows.Forms.DateTimePicker dtPrevisaoConclusao;
@@ -21,7 +23,6 @@ namespace Salomao.Cadastros
         private System.Windows.Forms.Label lbCliente;
         private System.Windows.Forms.Label lbVeiculo;
         private System.Windows.Forms.Label lbServico;
-        private System.Windows.Forms.Label lbProduto;
         private System.Windows.Forms.Label lbData;
         private System.Windows.Forms.Label lbDataPrestacao;
         private System.Windows.Forms.Label lbPrevisaoConclusao;
@@ -39,8 +40,9 @@ namespace Salomao.Cadastros
             cbVeiculo = new ComboBox();
             lbServico = new Label();
             cbServico = new ComboBox();
-            lbProduto = new Label();
-            cbProduto = new ComboBox();
+            btnAdicionarServico = new Button();
+            btnRemoverServico = new Button();
+            dataGridServicos = new DataGridView();
             lbData = new Label();
             dtData = new DateTimePicker();
             lbDataPrestacao = new Label();
@@ -82,8 +84,9 @@ namespace Salomao.Cadastros
             panel1.Controls.Add(cbVeiculo);
             panel1.Controls.Add(lbServico);
             panel1.Controls.Add(cbServico);
-            panel1.Controls.Add(lbProduto);
-            panel1.Controls.Add(cbProduto);
+            panel1.Controls.Add(btnAdicionarServico);
+            panel1.Controls.Add(btnRemoverServico);
+            panel1.Controls.Add(dataGridServicos);
             panel1.Controls.Add(lbData);
             panel1.Controls.Add(dtData);
             panel1.Controls.Add(lbDataPrestacao);
@@ -151,20 +154,29 @@ namespace Salomao.Cadastros
             cbServico.Size = new Size(180, 23);
             cbServico.TabIndex = 5;
             // 
-            // lbProduto
+            // btnAdicionarServico
             // 
-            lbProduto.Location = new Point(20, 55);
-            lbProduto.Name = "lbProduto";
-            lbProduto.Size = new Size(74, 23);
-            lbProduto.TabIndex = 6;
-            lbProduto.Text = "Produto:";
+            btnAdicionarServico.Location = new Point(900, 12);
+            btnAdicionarServico.Name = "btnAdicionarServico";
+            btnAdicionarServico.Size = new Size(100, 23);
+            btnAdicionarServico.TabIndex = 6;
+            btnAdicionarServico.Text = "Adicionar";
             // 
-            // cbProduto
+            // btnRemoverServico
             // 
-            cbProduto.Location = new Point(114, 52);
-            cbProduto.Name = "cbProduto";
-            cbProduto.Size = new Size(180, 23);
-            cbProduto.TabIndex = 7;
+            btnRemoverServico.Location = new Point(900, 41);
+            btnRemoverServico.Name = "btnRemoverServico";
+            btnRemoverServico.Size = new Size(100, 23);
+            btnRemoverServico.TabIndex = 7;
+            btnRemoverServico.Text = "Remover";
+            // 
+            // dataGridServicos
+            // 
+            dataGridServicos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridServicos.Location = new Point(20, 160);
+            dataGridServicos.Name = "dataGridServicos";
+            dataGridServicos.Size = new Size(400, 60);
+            dataGridServicos.TabIndex = 8;
             // 
             // lbData
             // 
