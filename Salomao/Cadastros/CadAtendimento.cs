@@ -32,28 +32,43 @@ namespace Salomao.Cadastros
             {
                 using (SQLiteConnection con = BancoSQLite.GetConnection())
                 {
-                    string query = $"SELECT {campoNome} as Nome, {campoId} as ID FROM {tabela}";
+                    string query;
+                    
+                    // Se for a tabela de serviços, incluir MargemLucro
+                    if (tabela.Equals("Servicos", StringComparison.OrdinalIgnoreCase))
+                    {
+                        query = $"SELECT {campoNome} as Nome, {campoId} as ID, MargemLucro FROM {tabela} ORDER BY {campoNome}";
+                    }
+                    else
+                    {
+                        query = $"SELECT {campoNome} as Nome, {campoId} as ID FROM {tabela} ORDER BY {campoNome}";
+                    }
+                    
                     using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                     using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
                     {
                         DataTable dt = new DataTable();
 
-                        // Define explicitamente os tipos das colunas
+                        // Define explicitamente os tipos das colunas ANTES de preencher
                         dt.Columns.Add("Nome", typeof(string));
                         dt.Columns.Add("ID", typeof(int));
+                        
+                        // Se for serviços, adicionar coluna MargemLucro
+                        if (tabela.Equals("Servicos", StringComparison.OrdinalIgnoreCase))
+                        {
+                            dt.Columns.Add("MargemLucro", typeof(decimal));
+                        }
 
                         da.Fill(dt);
-
-                        // Garantir que a coluna ID tenha o tipo correto
-                        if (dt.Columns.Contains("ID"))
-                        {
-                            dt.Columns["ID"].DataType = typeof(int);
-                        }
 
                         // Adiciona linha vazia no início
                         DataRow emptyRow = dt.NewRow();
                         emptyRow["Nome"] = "Selecione...";
                         emptyRow["ID"] = -1;
+                        if (tabela.Equals("Servicos", StringComparison.OrdinalIgnoreCase))
+                        {
+                            emptyRow["MargemLucro"] = 0;
+                        }
                         dt.Rows.InsertAt(emptyRow, 0);
 
                         comboBox.DataSource = dt;
@@ -64,8 +79,32 @@ namespace Salomao.Cadastros
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao carregar dados da tabela {tabela}: {ex.Message}\n\nVerifique se a migração do banco foi executada.", 
+                MessageBox.Show($"Erro ao carregar dados da tabela {tabela}: {ex.Message}\n\nVerifique se a migração do banco foi executada.",
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+                // Criar DataTable vazio para evitar erros
+                DataTable dt = new DataTable();
+                dt.Columns.Add("Nome", typeof(string));
+                dt.Columns.Add("ID", typeof(int));
+                
+                // Se for serviços, adicionar coluna MargemLucro
+                if (tabela.Equals("Servicos", StringComparison.OrdinalIgnoreCase))
+                {
+                    dt.Columns.Add("MargemLucro", typeof(decimal));
+                }
+                
+                DataRow emptyRow = dt.NewRow();
+                emptyRow["Nome"] = "Nenhum registro disponível";
+                emptyRow["ID"] = -1;
+                if (tabela.Equals("Servicos", StringComparison.OrdinalIgnoreCase))
+                {
+                    emptyRow["MargemLucro"] = 0;
+                }
+                dt.Rows.Add(emptyRow);
+                
+                comboBox.DataSource = dt;
+                comboBox.DisplayMember = "Nome";
+                comboBox.ValueMember = "ID";
             }
         }
 
@@ -90,7 +129,7 @@ namespace Salomao.Cadastros
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao carregar atendimentos: {ex.Message}\n\nVerifique se a migração do banco foi executada.", 
+                MessageBox.Show($"Erro ao carregar atendimentos: {ex.Message}\n\nVerifique se a migração do banco foi executada.",
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -100,7 +139,7 @@ namespace Salomao.Cadastros
             // Validação básica
             int clienteId = BancoSQLite.GetComboBoxValue(cbCliente, -1);
             int veiculoId = BancoSQLite.GetComboBoxValue(cbVeiculo, -1);
-            
+
             if (clienteId == -1 || veiculoId == -1 ||
                 dtData.Text == "" || dtDataPrestacao.Text == "" || tbValorSugerido.Text == "" || tbValorPraticado.Text == "")
             {
@@ -131,8 +170,8 @@ namespace Salomao.Cadastros
                             cmd.Parameters.AddWithValue("@Data", dtData.Value.Date);
                             cmd.Parameters.AddWithValue("@DataPrestacao", dtDataPrestacao.Value.Date);
                             cmd.Parameters.AddWithValue("@PrevisaoConclusao", dtPrevisaoConclusao.Value.Date);
-                                                cmd.Parameters.AddWithValue("@ClienteID", clienteId);
-                    cmd.Parameters.AddWithValue("@VeiculoID", veiculoId);
+                            cmd.Parameters.AddWithValue("@ClienteID", clienteId);
+                            cmd.Parameters.AddWithValue("@VeiculoID", veiculoId);
                             cmd.Parameters.AddWithValue("@ValorSugerido", tbValorSugerido.Text);
                             cmd.Parameters.AddWithValue("@ValorPraticado", tbValorPraticado.Text);
                             cmd.Parameters.AddWithValue("@LucroBruto", tbLucroBruto.Text);
@@ -204,9 +243,12 @@ namespace Salomao.Cadastros
             try
             {
                 int servicoId = BancoSQLite.GetComboBoxValue(cbServico, -1);
-                
+
                 if (servicoId == -1)
+                {
+                    MessageBox.Show("Selecione um serviço para adicionar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return;
+                }
 
                 DataRowView drv = cbServico.SelectedItem as DataRowView;
                 if (drv == null)
@@ -217,11 +259,16 @@ namespace Salomao.Cadastros
                     servicosSelecionados.Add(drv.Row);
                     AtualizarGridServicos();
                     CalcularValores();
+                    MessageBox.Show("Serviço adicionado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Este serviço já foi adicionado ao atendimento.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao adicionar serviço: {ex.Message}", 
+                MessageBox.Show($"Erro ao adicionar serviço: {ex.Message}",
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -241,7 +288,7 @@ namespace Salomao.Cadastros
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao remover serviço: {ex.Message}", 
+                MessageBox.Show($"Erro ao remover serviço: {ex.Message}",
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -276,7 +323,7 @@ namespace Salomao.Cadastros
             {
                 decimal margemLucro = Convert.ToDecimal(servico["MargemLucro"]);
                 decimal custoServico = CalcularCustoServico(Convert.ToInt32(servico["ServicoID"]));
-                
+
                 custoTotal += custoServico;
                 lucroTotal += custoServico * (margemLucro / 100);
             }
@@ -307,9 +354,7 @@ namespace Salomao.Cadastros
 
         private void clear()
         {
-            cbCliente.SelectedIndex = 0;
-            cbVeiculo.SelectedIndex = 0;
-            cbServico.SelectedIndex = 0;
+            ConfigurarComboBoxesSeguro();
             dtData.Value = DateTime.Now;
             dtDataPrestacao.Value = DateTime.Now;
             dtPrevisaoConclusao.Value = DateTime.Now;
@@ -319,6 +364,30 @@ namespace Salomao.Cadastros
             tbObservacoes.Clear();
             servicosSelecionados.Clear();
             AtualizarGridServicos();
+        }
+
+        private void ConfigurarComboBoxesSeguro()
+        {
+            try
+            {
+                if (cbCliente.Items.Count > 0)
+                {
+                    cbCliente.SelectedIndex = 0;
+                }
+                if (cbVeiculo.Items.Count > 0)
+                {
+                    cbVeiculo.SelectedIndex = 0;
+                }
+                if (cbServico.Items.Count > 0)
+                {
+                    cbServico.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log do erro para debug
+                Console.WriteLine($"Erro ao configurar ComboBoxes: {ex.Message}");
+            }
         }
 
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -339,6 +408,11 @@ namespace Salomao.Cadastros
                 cbCliente.SelectedIndex = cbCliente.FindStringExact(row.Cells["NomeCliente"].Value?.ToString());
                 cbVeiculo.SelectedIndex = cbVeiculo.FindString(row.Cells["Placa"].Value?.ToString());
             }
+        }
+
+        private void lbPrevisaoConclusao_Click(object sender, EventArgs e)
+        {
+
         }
     }
 } 

@@ -28,6 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            // Inicialização dos controles
+            mainContainer = new Panel();
+            cardProduto = new Panel();
+            cardGrid = new Panel();
+            cardBotoes = new Panel();
+            
             tbNomeProd = new TextBox();
             lbNomeProd = new Label();
             lbFornecedor = new Label();
@@ -44,239 +50,339 @@
             tbDescricao = new TextBox();
             btnGravar = new Button();
             btnLimpar = new Button();
-            panel1 = new Panel();
             dataGridView1 = new DataGridView();
+            
+            // Labels de título
+            lbTituloProduto = new Label();
+            lbTituloGrid = new Label();
+            
+            // Eventos
+            btnGravar.Click += btnGravar_Click;
+            btnLimpar.Click += btnLimpar_Click;
+            
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            panel1.SuspendLayout();
+            mainContainer.SuspendLayout();
+            cardProduto.SuspendLayout();
+            cardGrid.SuspendLayout();
+            cardBotoes.SuspendLayout();
             SuspendLayout();
+            
             // 
-            // tbNomeProd
+            // mainContainer
             // 
-            tbNomeProd.ForeColor = Color.FromArgb(55, 65, 81);
-            tbNomeProd.Location = new Point(25, 47);
-            tbNomeProd.MaxLength = 250;
-            tbNomeProd.Name = "tbNomeProd";
-            tbNomeProd.Size = new Size(200, 23);
-            tbNomeProd.TabIndex = 0;
+            mainContainer.BackColor = Color.FromArgb(248, 249, 250);
+            mainContainer.Controls.Add(cardGrid);
+            mainContainer.Controls.Add(cardBotoes);
+            mainContainer.Controls.Add(cardProduto);
+            mainContainer.Dock = DockStyle.Fill;
+            mainContainer.Location = new Point(0, 0);
+            mainContainer.Name = "mainContainer";
+            mainContainer.Padding = new Padding(20);
+            mainContainer.Size = new Size(1200, 800);
+            mainContainer.TabIndex = 0;
+            
+            // 
+            // cardProduto
+            // 
+            cardProduto.BackColor = Color.White;
+            cardProduto.Controls.Add(lbTituloProduto);
+            cardProduto.Controls.Add(lbNomeProd);
+            cardProduto.Controls.Add(tbNomeProd);
+            cardProduto.Controls.Add(lbCodigo);
+            cardProduto.Controls.Add(tbCodigo);
+            cardProduto.Controls.Add(lbCategoria);
+            cardProduto.Controls.Add(cbCategoria);
+            cardProduto.Controls.Add(lbFornecedor);
+            cardProduto.Controls.Add(cbFornecedor);
+            cardProduto.Controls.Add(lbMarca);
+            cardProduto.Controls.Add(tbMarca);
+            cardProduto.Controls.Add(lbCustoAquisicao);
+            cardProduto.Controls.Add(tbCustoAquisicao);
+            cardProduto.Controls.Add(lbDescricao);
+            cardProduto.Controls.Add(tbDescricao);
+            cardProduto.Location = new Point(20, 20);
+            cardProduto.Name = "cardProduto";
+            cardProduto.Padding = new Padding(20);
+            cardProduto.Size = new Size(1160, 300);
+            cardProduto.TabIndex = 0;
+            
+            // 
+            // lbTituloProduto
+            // 
+            lbTituloProduto.AutoSize = true;
+            lbTituloProduto.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lbTituloProduto.ForeColor = Color.FromArgb(33, 37, 41);
+            lbTituloProduto.Location = new Point(20, 20);
+            lbTituloProduto.Name = "lbTituloProduto";
+            lbTituloProduto.Size = new Size(150, 25);
+            lbTituloProduto.TabIndex = 0;
+            lbTituloProduto.Text = "📦 Dados do Produto";
+            
             // 
             // lbNomeProd
             // 
             lbNomeProd.AutoSize = true;
-            lbNomeProd.BackColor = Color.White;
-            lbNomeProd.Font = new Font("Segoe UI", 12F);
-            lbNomeProd.ForeColor = Color.Black;
-            lbNomeProd.Location = new Point(25, 19);
+            lbNomeProd.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            lbNomeProd.ForeColor = Color.FromArgb(73, 80, 87);
+            lbNomeProd.Location = new Point(20, 60);
             lbNomeProd.Name = "lbNomeProd";
-            lbNomeProd.Size = new Size(56, 21);
+            lbNomeProd.Size = new Size(50, 19);
             lbNomeProd.TabIndex = 1;
             lbNomeProd.Text = "Nome:";
+            
             // 
-            // lbFornecedor
+            // tbNomeProd
             // 
-            lbFornecedor.AutoSize = true;
-            lbFornecedor.BackColor = Color.White;
-            lbFornecedor.Font = new Font("Segoe UI", 12F);
-            lbFornecedor.ForeColor = Color.Black;
-            lbFornecedor.Location = new Point(25, 88);
-            lbFornecedor.Name = "lbFornecedor";
-            lbFornecedor.Size = new Size(92, 21);
-            lbFornecedor.TabIndex = 3;
-            lbFornecedor.Text = "Fornecedor:";
-            // 
-            // cbFornecedor
-            // 
-            cbFornecedor.ForeColor = Color.FromArgb(55, 65, 81);
-            cbFornecedor.Location = new Point(25, 116);
-            cbFornecedor.MaxLength = 250;
-            cbFornecedor.Name = "cbFornecedor";
-            cbFornecedor.Size = new Size(200, 23);
-            cbFornecedor.TabIndex = 3;
-            // 
-            // lbCategoria
-            // 
-            lbCategoria.AutoSize = true;
-            lbCategoria.BackColor = Color.White;
-            lbCategoria.Font = new Font("Segoe UI", 12F);
-            lbCategoria.ForeColor = Color.Black;
-            lbCategoria.Location = new Point(539, 19);
-            lbCategoria.Name = "lbCategoria";
-            lbCategoria.Size = new Size(80, 21);
-            lbCategoria.TabIndex = 5;
-            lbCategoria.Text = "Categoria:";
-            // 
-            // lbCustoAquisicao
-            // 
-            lbCustoAquisicao.AutoSize = true;
-            lbCustoAquisicao.BackColor = Color.White;
-            lbCustoAquisicao.Font = new Font("Segoe UI", 12F);
-            lbCustoAquisicao.ForeColor = Color.Black;
-            lbCustoAquisicao.Location = new Point(539, 88);
-            lbCustoAquisicao.Name = "lbCustoAquisicao";
-            lbCustoAquisicao.Size = new Size(124, 21);
-            lbCustoAquisicao.TabIndex = 7;
-            lbCustoAquisicao.Text = "Custo Aquisição:";
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(0, 258);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(983, 259);
-            dataGridView1.TabIndex = 2;
-            // 
-            // btnGravar
-            // 
-            btnGravar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnGravar.BackColor = Color.FromArgb(0, 123, 255);
-            btnGravar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnGravar.ForeColor = Color.White;
-            btnGravar.Location = new Point(871, 210);
-            btnGravar.Name = "btnGravar";
-            btnGravar.Size = new Size(100, 36);
-            btnGravar.TabIndex = 8;
-            btnGravar.Text = "Gravar";
-            btnGravar.UseVisualStyleBackColor = false;
-            btnGravar.Click += btnGravar_Click;
-            // 
-            // lbMarca
-            // 
-            lbMarca.AutoSize = true;
-            lbMarca.BackColor = Color.White;
-            lbMarca.Font = new Font("Segoe UI", 12F);
-            lbMarca.ForeColor = Color.Black;
-            lbMarca.Location = new Point(282, 88);
-            lbMarca.Name = "lbMarca";
-            lbMarca.Size = new Size(56, 21);
-            lbMarca.TabIndex = 11;
-            lbMarca.Text = "Marca:";
-            // 
-            // tbMarca
-            // 
-            tbMarca.ForeColor = Color.FromArgb(55, 65, 81);
-            tbMarca.Location = new Point(282, 116);
-            tbMarca.MaxLength = 250;
-            tbMarca.Name = "tbMarca";
-            tbMarca.ScrollBars = ScrollBars.Vertical;
-            tbMarca.Size = new Size(200, 23);
-            tbMarca.TabIndex = 4;
+            tbNomeProd.Font = new Font("Segoe UI", 10F);
+            tbNomeProd.ForeColor = Color.FromArgb(55, 65, 81);
+            tbNomeProd.Location = new Point(20, 85);
+            tbNomeProd.MaxLength = 250;
+            tbNomeProd.Name = "tbNomeProd";
+            tbNomeProd.Size = new Size(250, 25);
+            tbNomeProd.TabIndex = 2;
+            
             // 
             // lbCodigo
             // 
             lbCodigo.AutoSize = true;
-            lbCodigo.BackColor = Color.White;
-            lbCodigo.Font = new Font("Segoe UI", 12F);
-            lbCodigo.ForeColor = Color.Black;
-            lbCodigo.Location = new Point(282, 19);
+            lbCodigo.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            lbCodigo.ForeColor = Color.FromArgb(73, 80, 87);
+            lbCodigo.Location = new Point(300, 60);
             lbCodigo.Name = "lbCodigo";
-            lbCodigo.Size = new Size(63, 21);
-            lbCodigo.TabIndex = 13;
-            lbCodigo.Text = "Codigo:";
+            lbCodigo.Size = new Size(55, 19);
+            lbCodigo.TabIndex = 3;
+            lbCodigo.Text = "Código:";
+            
             // 
             // tbCodigo
             // 
+            tbCodigo.Font = new Font("Segoe UI", 10F);
             tbCodigo.ForeColor = Color.FromArgb(55, 65, 81);
-            tbCodigo.Location = new Point(282, 47);
+            tbCodigo.Location = new Point(300, 85);
             tbCodigo.MaxLength = 250;
             tbCodigo.Name = "tbCodigo";
-            tbCodigo.Size = new Size(200, 23);
-            tbCodigo.TabIndex = 1;
+            tbCodigo.Size = new Size(200, 25);
+            tbCodigo.TabIndex = 4;
+            
             // 
-            // btnLimpar
+            // lbCategoria
             // 
-            btnLimpar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnLimpar.BackColor = Color.LightGray;
-            btnLimpar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnLimpar.ForeColor = Color.Black;
-            btnLimpar.Location = new Point(759, 210);
-            btnLimpar.Name = "btnLimpar";
-            btnLimpar.Size = new Size(100, 36);
-            btnLimpar.TabIndex = 7;
-            btnLimpar.Text = "Limpar";
-            btnLimpar.UseVisualStyleBackColor = false;
-            btnLimpar.Click += btnLimpar_Click;
+            lbCategoria.AutoSize = true;
+            lbCategoria.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            lbCategoria.ForeColor = Color.FromArgb(73, 80, 87);
+            lbCategoria.Location = new Point(530, 60);
+            lbCategoria.Name = "lbCategoria";
+            lbCategoria.Size = new Size(70, 19);
+            lbCategoria.TabIndex = 5;
+            lbCategoria.Text = "Categoria:";
+            
+            // 
+            // cbCategoria
+            // 
+            cbCategoria.Font = new Font("Segoe UI", 10F);
+            cbCategoria.FormattingEnabled = true;
+            cbCategoria.Location = new Point(530, 85);
+            cbCategoria.Name = "cbCategoria";
+            cbCategoria.Size = new Size(200, 25);
+            cbCategoria.TabIndex = 6;
+            cbCategoria.DropDownStyle = ComboBoxStyle.DropDownList;
+            
+            // 
+            // lbFornecedor
+            // 
+            lbFornecedor.AutoSize = true;
+            lbFornecedor.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            lbFornecedor.ForeColor = Color.FromArgb(73, 80, 87);
+            lbFornecedor.Location = new Point(760, 60);
+            lbFornecedor.Name = "lbFornecedor";
+            lbFornecedor.Size = new Size(85, 19);
+            lbFornecedor.TabIndex = 7;
+            lbFornecedor.Text = "Fornecedor:";
+            
+            // 
+            // cbFornecedor
+            // 
+            cbFornecedor.Font = new Font("Segoe UI", 10F);
+            cbFornecedor.ForeColor = Color.FromArgb(55, 65, 81);
+            cbFornecedor.Location = new Point(760, 85);
+            cbFornecedor.MaxLength = 250;
+            cbFornecedor.Name = "cbFornecedor";
+            cbFornecedor.Size = new Size(200, 25);
+            cbFornecedor.TabIndex = 8;
+            cbFornecedor.DropDownStyle = ComboBoxStyle.DropDownList;
+            
+            // 
+            // lbMarca
+            // 
+            lbMarca.AutoSize = true;
+            lbMarca.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            lbMarca.ForeColor = Color.FromArgb(73, 80, 87);
+            lbMarca.Location = new Point(20, 130);
+            lbMarca.Name = "lbMarca";
+            lbMarca.Size = new Size(50, 19);
+            lbMarca.TabIndex = 9;
+            lbMarca.Text = "Marca:";
+            
+            // 
+            // tbMarca
+            // 
+            tbMarca.Font = new Font("Segoe UI", 10F);
+            tbMarca.ForeColor = Color.FromArgb(55, 65, 81);
+            tbMarca.Location = new Point(20, 155);
+            tbMarca.MaxLength = 250;
+            tbMarca.Name = "tbMarca";
+            tbMarca.Size = new Size(250, 25);
+            tbMarca.TabIndex = 10;
+            
+            // 
+            // lbCustoAquisicao
+            // 
+            lbCustoAquisicao.AutoSize = true;
+            lbCustoAquisicao.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            lbCustoAquisicao.ForeColor = Color.FromArgb(73, 80, 87);
+            lbCustoAquisicao.Location = new Point(300, 130);
+            lbCustoAquisicao.Name = "lbCustoAquisicao";
+            lbCustoAquisicao.Size = new Size(115, 19);
+            lbCustoAquisicao.TabIndex = 11;
+            lbCustoAquisicao.Text = "Custo Aquisição:";
+            
+            // 
+            // tbCustoAquisicao
+            // 
+            tbCustoAquisicao.Font = new Font("Segoe UI", 10F);
+            tbCustoAquisicao.ForeColor = Color.FromArgb(55, 65, 81);
+            tbCustoAquisicao.Location = new Point(300, 155);
+            tbCustoAquisicao.Name = "tbCustoAquisicao";
+            tbCustoAquisicao.Size = new Size(200, 25);
+            tbCustoAquisicao.TabIndex = 12;
+            tbCustoAquisicao.TextAlign = HorizontalAlignment.Right;
+            
             // 
             // lbDescricao
             // 
             lbDescricao.AutoSize = true;
-            lbDescricao.BackColor = Color.White;
-            lbDescricao.Font = new Font("Segoe UI", 12F);
-            lbDescricao.ForeColor = Color.Black;
-            lbDescricao.Location = new Point(25, 157);
+            lbDescricao.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            lbDescricao.ForeColor = Color.FromArgb(73, 80, 87);
+            lbDescricao.Location = new Point(20, 200);
             lbDescricao.Name = "lbDescricao";
-            lbDescricao.Size = new Size(80, 21);
-            lbDescricao.TabIndex = 17;
+            lbDescricao.Size = new Size(75, 19);
+            lbDescricao.TabIndex = 13;
             lbDescricao.Text = "Descrição:";
+            
             // 
             // tbDescricao
             // 
+            tbDescricao.Font = new Font("Segoe UI", 10F);
             tbDescricao.ForeColor = Color.FromArgb(55, 65, 81);
-            tbDescricao.Location = new Point(25, 185);
+            tbDescricao.Location = new Point(20, 225);
             tbDescricao.MaxLength = 1000;
             tbDescricao.Multiline = true;
             tbDescricao.Name = "tbDescricao";
             tbDescricao.ScrollBars = ScrollBars.Vertical;
-            tbDescricao.Size = new Size(457, 56);
-            tbDescricao.TabIndex = 6;
+            tbDescricao.Size = new Size(940, 55);
+            tbDescricao.TabIndex = 14;
+            
             // 
-            // tbCustoAquisicao
+            // cardBotoes
             // 
-            tbCustoAquisicao.ForeColor = Color.FromArgb(55, 65, 81);
-            tbCustoAquisicao.Location = new Point(539, 116);
-            tbCustoAquisicao.Name = "tbCustoAquisicao";
-            tbCustoAquisicao.Size = new Size(200, 23);
-            tbCustoAquisicao.TabIndex = 5;
+            cardBotoes.BackColor = Color.Transparent;
+            cardBotoes.Controls.Add(btnGravar);
+            cardBotoes.Controls.Add(btnLimpar);
+            cardBotoes.Location = new Point(20, 340);
+            cardBotoes.Name = "cardBotoes";
+            cardBotoes.Size = new Size(1160, 60);
+            cardBotoes.TabIndex = 1;
+            
             // 
-            // panel1
+            // btnGravar
             // 
-            panel1.BackColor = Color.White;
-            panel1.Controls.Add(lbNomeProd);
-            panel1.Controls.Add(tbNomeProd);
-            panel1.Controls.Add(lbCodigo);
-            panel1.Controls.Add(tbCodigo);
-            panel1.Controls.Add(lbCategoria);
-            panel1.Controls.Add(cbCategoria);
-            panel1.Controls.Add(lbFornecedor);
-            panel1.Controls.Add(cbFornecedor);
-            panel1.Controls.Add(lbMarca);
-            panel1.Controls.Add(tbMarca);
-            panel1.Controls.Add(lbCustoAquisicao);
-            panel1.Controls.Add(tbCustoAquisicao);
-            panel1.Controls.Add(lbDescricao);
-            panel1.Controls.Add(tbDescricao);
-            panel1.Controls.Add(btnGravar);
-            panel1.Controls.Add(btnLimpar);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(983, 258);
-            panel1.TabIndex = 1;
+            btnGravar.BackColor = Color.FromArgb(25, 135, 84);
+            btnGravar.FlatAppearance.BorderSize = 0;
+            btnGravar.FlatStyle = FlatStyle.Flat;
+            btnGravar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnGravar.ForeColor = Color.White;
+            btnGravar.Location = new Point(1050, 15);
+            btnGravar.Name = "btnGravar";
+            btnGravar.Size = new Size(120, 40);
+            btnGravar.TabIndex = 0;
+            btnGravar.Text = "💾 Gravar";
+            btnGravar.UseVisualStyleBackColor = false;
+            
             // 
-            // cbCategoria
+            // btnLimpar
             // 
-            cbCategoria.FormattingEnabled = true;
-            cbCategoria.Location = new Point(539, 47);
-            cbCategoria.Name = "cbCategoria";
-            cbCategoria.Size = new Size(200, 23);
-            cbCategoria.TabIndex = 2;
+            btnLimpar.BackColor = Color.FromArgb(108, 117, 125);
+            btnLimpar.FlatAppearance.BorderSize = 0;
+            btnLimpar.FlatStyle = FlatStyle.Flat;
+            btnLimpar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnLimpar.ForeColor = Color.White;
+            btnLimpar.Location = new Point(920, 15);
+            btnLimpar.Name = "btnLimpar";
+            btnLimpar.Size = new Size(120, 40);
+            btnLimpar.TabIndex = 1;
+            btnLimpar.Text = "🗑️ Limpar";
+            btnLimpar.UseVisualStyleBackColor = false;
+            
+            // 
+            // cardGrid
+            // 
+            cardGrid.BackColor = Color.White;
+            cardGrid.Controls.Add(lbTituloGrid);
+            cardGrid.Controls.Add(dataGridView1);
+            cardGrid.Location = new Point(20, 420);
+            cardGrid.Name = "cardGrid";
+            cardGrid.Padding = new Padding(20);
+            cardGrid.Size = new Size(1160, 360);
+            cardGrid.TabIndex = 2;
+            
+            // 
+            // lbTituloGrid
+            // 
+            lbTituloGrid.AutoSize = true;
+            lbTituloGrid.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lbTituloGrid.ForeColor = Color.FromArgb(33, 37, 41);
+            lbTituloGrid.Location = new Point(20, 20);
+            lbTituloGrid.Name = "lbTituloGrid";
+            lbTituloGrid.Size = new Size(200, 25);
+            lbTituloGrid.TabIndex = 0;
+            lbTituloGrid.Text = "📋 Lista de Produtos";
+            
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.BackgroundColor = Color.FromArgb(248, 249, 250);
+            dataGridView1.BorderStyle = BorderStyle.None;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Font = new Font("Segoe UI", 9F);
+            dataGridView1.Location = new Point(20, 55);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(1120, 285);
+            dataGridView1.TabIndex = 1;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            
             // 
             // CadProduto
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveBorder;
-            Controls.Add(dataGridView1);
-            Controls.Add(panel1);
+            BackColor = Color.FromArgb(248, 249, 250);
+            Controls.Add(mainContainer);
+            Font = new Font("Segoe UI", 9F);
             Name = "CadProduto";
-            Size = new Size(983, 517);
+            Size = new Size(1200, 800);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            mainContainer.ResumeLayout(false);
+            cardProduto.ResumeLayout(false);
+            cardProduto.PerformLayout();
+            cardGrid.ResumeLayout(false);
+            cardGrid.PerformLayout();
+            cardBotoes.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
+        // Controles principais
         private Label lbNomeProd;
         private TextBox tbNomeProd;
         private Label lbFornecedor;
@@ -293,7 +399,16 @@
         private TextBox tbDescricao;
         private Button btnGravar;
         private Button btnLimpar;
-        private Panel panel1;
         private DataGridView dataGridView1;
+        
+        // Cards modernos
+        private Panel mainContainer;
+        private Panel cardProduto;
+        private Panel cardGrid;
+        private Panel cardBotoes;
+        
+        // Labels de título
+        private Label lbTituloProduto;
+        private Label lbTituloGrid;
     }
 }

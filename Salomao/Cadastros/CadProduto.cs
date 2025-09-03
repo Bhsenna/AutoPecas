@@ -28,27 +28,52 @@ namespace Salomao.Cadastros
 
         private void populaCombo(ComboBox comboBox, String tabela, String campoNome, String campoId)
         {
-
-            using (SQLiteConnection con = BancoSQLite.GetConnection())
+            try
             {
-                string query = $"SELECT {campoNome} Nome, cast({campoId} as text) as ID FROM {tabela}";
-                using (SQLiteCommand cmd = new SQLiteCommand(query, con))
-                using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
+                using (SQLiteConnection con = BancoSQLite.GetConnection())
                 {
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
+                    string query = $"SELECT {campoNome} as Nome, {campoId} as ID FROM {tabela} ORDER BY {campoNome}";
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
+                    {
+                        DataTable dt = new DataTable();
+                        
+                        // Define explicitamente os tipos das colunas ANTES de preencher
+                        dt.Columns.Add("Nome", typeof(string));
+                        dt.Columns.Add("ID", typeof(int));
+                        
+                        da.Fill(dt);
 
-                    DataRow emptyRow = dt.NewRow();
-                    emptyRow["Nome"] = "";
-                    emptyRow["ID"] = "";
-                    dt.Rows.Add(emptyRow);
+                        // Adiciona linha vazia no início
+                        DataRow emptyRow = dt.NewRow();
+                        emptyRow["Nome"] = "Selecione...";
+                        emptyRow["ID"] = -1;
+                        dt.Rows.InsertAt(emptyRow, 0);
 
-                    DataView dv = new DataView(dt, "", "Nome", DataViewRowState.CurrentRows);
-
-                    comboBox.DataSource = dv;
-                    comboBox.DisplayMember = "Nome";
-                    comboBox.ValueMember = "ID";
+                        comboBox.DataSource = dt;
+                        comboBox.DisplayMember = "Nome";
+                        comboBox.ValueMember = "ID";
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao carregar dados da tabela {tabela}: {ex.Message}\n\nVerifique se a migração do banco foi executada.",
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+                // Criar DataTable vazio para evitar erros
+                DataTable dt = new DataTable();
+                dt.Columns.Add("Nome", typeof(string));
+                dt.Columns.Add("ID", typeof(int));
+                
+                DataRow emptyRow = dt.NewRow();
+                emptyRow["Nome"] = "Nenhum registro disponível";
+                emptyRow["ID"] = -1;
+                dt.Rows.Add(emptyRow);
+                
+                comboBox.DataSource = dt;
+                comboBox.DisplayMember = "Nome";
+                comboBox.ValueMember = "ID";
             }
         }
 

@@ -28,288 +28,474 @@
         /// </summary>
         private void InitializeComponent()
         {
+            // Inicialização dos controles
+            mainContainer = new Panel();
+            cardCliente = new Panel();
+            cardVeiculo = new Panel();
+            cardGridClientes = new Panel();
+            cardGridVeiculos = new Panel();
+            cardBotoes = new Panel();
+            
             dataGridView1 = new DataGridView();
-            panel1 = new Panel();
+            dataGridViewVeiculos = new DataGridView();
+            btnGravar = new Button();
+            btnLimpar = new Button();
+            btnGravarVeiculo = new Button();
+            btnLimparVeiculo = new Button();
+            
             lbNomeClient = new Label();
             tbNomeClient = new TextBox();
             lbEmail = new Label();
             tbEmail = new TextBox();
             lbTelefone = new Label();
             tbTelefone = new TextBox();
-            btnGravar = new Button();
-            btnLimpar = new Button();
-            dataGridViewVeiculos = new DataGridView();
-            panelVeiculo = new Panel();
+            
             lbPlaca = new Label();
-            lbMarca = new Label();
-            lbModelo = new Label();
             tbPlaca = new TextBox();
+            lbMarca = new Label();
             tbMarca = new TextBox();
+            lbModelo = new Label();
             tbModelo = new TextBox();
-            btnGravarVeiculo = new Button();
-            btnLimparVeiculo = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
-            panel1.SuspendLayout();
-            SuspendLayout();
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Dock = DockStyle.Fill;
-            dataGridView1.Location = new Point(0, 258);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(983, 259);
-            dataGridView1.TabIndex = 20;
+            
+            // Labels de título
+            lbTituloCliente = new Label();
+            lbTituloVeiculo = new Label();
+            lbTituloGridClientes = new Label();
+            lbTituloGridVeiculos = new Label();
+            
+            // Eventos
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.btnGravar.Click += btnGravar_Click;
+            this.btnLimpar.Click += btnLimpar_Click;
+            this.btnGravarVeiculo.Click += new System.EventHandler(this.btnGravarVeiculo_Click);
+            this.btnLimparVeiculo.Click += new System.EventHandler(this.btnLimparVeiculo_Click);
+            
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewVeiculos).BeginInit();
+            mainContainer.SuspendLayout();
+            cardCliente.SuspendLayout();
+            cardVeiculo.SuspendLayout();
+            cardGridClientes.SuspendLayout();
+            cardGridVeiculos.SuspendLayout();
+            cardBotoes.SuspendLayout();
+            SuspendLayout();
+            
             // 
-            // panel1
+            // mainContainer
             // 
-            panel1.BackColor = Color.White;
-            panel1.Controls.Add(lbNomeClient);
-            panel1.Controls.Add(tbNomeClient);
-            panel1.Controls.Add(lbEmail);
-            panel1.Controls.Add(tbEmail);
-            panel1.Controls.Add(lbTelefone);
-            panel1.Controls.Add(tbTelefone);
-            panel1.Controls.Add(btnGravar);
-            panel1.Controls.Add(btnLimpar);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(983, 258);
-            panel1.TabIndex = 21;
+            mainContainer.BackColor = Color.FromArgb(248, 249, 250);
+            mainContainer.Controls.Add(cardGridVeiculos);
+            mainContainer.Controls.Add(cardGridClientes);
+            mainContainer.Controls.Add(cardBotoes);
+            mainContainer.Controls.Add(cardVeiculo);
+            mainContainer.Controls.Add(cardCliente);
+            mainContainer.Dock = DockStyle.Fill;
+            mainContainer.Location = new Point(0, 0);
+            mainContainer.Name = "mainContainer";
+            mainContainer.Padding = new Padding(20);
+            mainContainer.Size = new Size(1200, 800);
+            mainContainer.TabIndex = 0;
+            
+            // 
+            // cardCliente
+            // 
+            cardCliente.BackColor = Color.White;
+            cardCliente.Controls.Add(lbTituloCliente);
+            cardCliente.Controls.Add(lbNomeClient);
+            cardCliente.Controls.Add(tbNomeClient);
+            cardCliente.Controls.Add(lbEmail);
+            cardCliente.Controls.Add(tbEmail);
+            cardCliente.Controls.Add(lbTelefone);
+            cardCliente.Controls.Add(tbTelefone);
+            cardCliente.Location = new Point(20, 20);
+            cardCliente.Name = "cardCliente";
+            cardCliente.Padding = new Padding(20);
+            cardCliente.Size = new Size(580, 200);
+            cardCliente.TabIndex = 0;
+            
+            // 
+            // lbTituloCliente
+            // 
+            lbTituloCliente.AutoSize = true;
+            lbTituloCliente.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lbTituloCliente.ForeColor = Color.FromArgb(33, 37, 41);
+            lbTituloCliente.Location = new Point(20, 20);
+            lbTituloCliente.Name = "lbTituloCliente";
+            lbTituloCliente.Size = new Size(150, 25);
+            lbTituloCliente.TabIndex = 0;
+            lbTituloCliente.Text = "👤 Dados do Cliente";
+            
             // 
             // lbNomeClient
             // 
             lbNomeClient.AutoSize = true;
-            lbNomeClient.BackColor = Color.White;
-            lbNomeClient.Font = new Font("Segoe UI", 12F);
-            lbNomeClient.ForeColor = Color.Black;
-            lbNomeClient.Location = new Point(25, 19);
+            lbNomeClient.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            lbNomeClient.ForeColor = Color.FromArgb(73, 80, 87);
+            lbNomeClient.Location = new Point(20, 60);
             lbNomeClient.Name = "lbNomeClient";
-            lbNomeClient.Size = new Size(56, 21);
-            lbNomeClient.TabIndex = 10;
+            lbNomeClient.Size = new Size(50, 19);
+            lbNomeClient.TabIndex = 1;
             lbNomeClient.Text = "Nome:";
+            
             // 
             // tbNomeClient
             // 
+            tbNomeClient.Font = new Font("Segoe UI", 10F);
             tbNomeClient.ForeColor = Color.FromArgb(55, 65, 81);
-            tbNomeClient.Location = new Point(25, 47);
+            tbNomeClient.Location = new Point(20, 85);
             tbNomeClient.MaxLength = 250;
             tbNomeClient.Name = "tbNomeClient";
-            tbNomeClient.Size = new Size(200, 23);
-            tbNomeClient.TabIndex = 9;
-            // 
-            // lbEmail
-            // 
-            lbEmail.AutoSize = true;
-            lbEmail.BackColor = Color.White;
-            lbEmail.Font = new Font("Segoe UI", 12F);
-            lbEmail.ForeColor = Color.Black;
-            lbEmail.Location = new Point(25, 157);
-            lbEmail.Name = "lbEmail";
-            lbEmail.Size = new Size(57, 21);
-            lbEmail.TabIndex = 39;
-            lbEmail.Text = "E-mail:";
-            // 
-            // tbEmail
-            // 
-            tbEmail.ForeColor = Color.FromArgb(55, 65, 81);
-            tbEmail.Location = new Point(25, 185);
-            tbEmail.MaxLength = 250;
-            tbEmail.Name = "tbEmail";
-            tbEmail.Size = new Size(200, 23);
-            tbEmail.TabIndex = 37;
+            tbNomeClient.Size = new Size(250, 25);
+            tbNomeClient.TabIndex = 2;
+            
             // 
             // lbTelefone
             // 
             lbTelefone.AutoSize = true;
-            lbTelefone.BackColor = Color.White;
-            lbTelefone.Font = new Font("Segoe UI", 12F);
-            lbTelefone.ForeColor = Color.Black;
-            lbTelefone.Location = new Point(25, 88);
+            lbTelefone.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            lbTelefone.ForeColor = Color.FromArgb(73, 80, 87);
+            lbTelefone.Location = new Point(300, 60);
             lbTelefone.Name = "lbTelefone";
-            lbTelefone.Size = new Size(70, 21);
-            lbTelefone.TabIndex = 38;
+            lbTelefone.Size = new Size(65, 19);
+            lbTelefone.TabIndex = 3;
             lbTelefone.Text = "Telefone:";
+            
             // 
             // tbTelefone
             // 
+            tbTelefone.Font = new Font("Segoe UI", 10F);
             tbTelefone.ForeColor = Color.FromArgb(55, 65, 81);
-            tbTelefone.Location = new Point(25, 116);
+            tbTelefone.Location = new Point(300, 85);
             tbTelefone.MaxLength = 250;
             tbTelefone.Name = "tbTelefone";
-            tbTelefone.Size = new Size(200, 23);
-            tbTelefone.TabIndex = 36;
+            tbTelefone.Size = new Size(250, 25);
+            tbTelefone.TabIndex = 4;
+            
             // 
-            // btnGravar
+            // lbEmail
             // 
-            btnGravar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnGravar.BackColor = Color.FromArgb(0, 123, 255);
-            btnGravar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnGravar.ForeColor = Color.White;
-            btnGravar.Location = new Point(871, 210);
-            btnGravar.Name = "btnGravar";
-            btnGravar.Size = new Size(100, 36);
-            btnGravar.TabIndex = 8;
-            btnGravar.Text = "Gravar";
-            btnGravar.UseVisualStyleBackColor = false;
-            btnGravar.Click += btnGravar_Click;
+            lbEmail.AutoSize = true;
+            lbEmail.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            lbEmail.ForeColor = Color.FromArgb(73, 80, 87);
+            lbEmail.Location = new Point(20, 130);
+            lbEmail.Name = "lbEmail";
+            lbEmail.Size = new Size(50, 19);
+            lbEmail.TabIndex = 5;
+            lbEmail.Text = "E-mail:";
+            
             // 
-            // btnLimpar
+            // tbEmail
             // 
-            btnLimpar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnLimpar.BackColor = Color.LightGray;
-            btnLimpar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnLimpar.ForeColor = Color.Black;
-            btnLimpar.Location = new Point(759, 210);
-            btnLimpar.Name = "btnLimpar";
-            btnLimpar.Size = new Size(100, 36);
-            btnLimpar.TabIndex = 7;
-            btnLimpar.Text = "Limpar";
-            btnLimpar.UseVisualStyleBackColor = false;
-            btnLimpar.Click += btnLimpar_Click;
+            tbEmail.Font = new Font("Segoe UI", 10F);
+            tbEmail.ForeColor = Color.FromArgb(55, 65, 81);
+            tbEmail.Location = new Point(20, 155);
+            tbEmail.MaxLength = 250;
+            tbEmail.Name = "tbEmail";
+            tbEmail.Size = new Size(530, 25);
+            tbEmail.TabIndex = 6;
+            
             // 
-            // dataGridViewVeiculos
+            // cardVeiculo
             // 
-            dataGridViewVeiculos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewVeiculos.Location = new Point(500, 258);
-            dataGridViewVeiculos.Name = "dataGridViewVeiculos";
-            dataGridViewVeiculos.Size = new Size(483, 259);
-            dataGridViewVeiculos.TabIndex = 21;
+            cardVeiculo.BackColor = Color.White;
+            cardVeiculo.Controls.Add(lbTituloVeiculo);
+            cardVeiculo.Controls.Add(lbPlaca);
+            cardVeiculo.Controls.Add(tbPlaca);
+            cardVeiculo.Controls.Add(lbMarca);
+            cardVeiculo.Controls.Add(tbMarca);
+            cardVeiculo.Controls.Add(lbModelo);
+            cardVeiculo.Controls.Add(tbModelo);
+            cardVeiculo.Location = new Point(620, 20);
+            cardVeiculo.Name = "cardVeiculo";
+            cardVeiculo.Padding = new Padding(20);
+            cardVeiculo.Size = new Size(560, 200);
+            cardVeiculo.TabIndex = 1;
+            
             // 
-            // panelVeiculo
+            // lbTituloVeiculo
             // 
-            panelVeiculo.BackColor = Color.White;
-            panelVeiculo.Controls.Add(lbPlaca);
-            panelVeiculo.Controls.Add(tbPlaca);
-            panelVeiculo.Controls.Add(lbMarca);
-            panelVeiculo.Controls.Add(tbMarca);
-            panelVeiculo.Controls.Add(lbModelo);
-            panelVeiculo.Controls.Add(tbModelo);
-            panelVeiculo.Controls.Add(btnGravarVeiculo);
-            panelVeiculo.Controls.Add(btnLimparVeiculo);
-            panelVeiculo.Location = new Point(350, 0);
-            panelVeiculo.Name = "panelVeiculo";
-            panelVeiculo.Size = new Size(300, 258);
-            panelVeiculo.TabIndex = 22;
+            lbTituloVeiculo.AutoSize = true;
+            lbTituloVeiculo.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lbTituloVeiculo.ForeColor = Color.FromArgb(33, 37, 41);
+            lbTituloVeiculo.Location = new Point(20, 20);
+            lbTituloVeiculo.Name = "lbTituloVeiculo";
+            lbTituloVeiculo.Size = new Size(150, 25);
+            lbTituloVeiculo.TabIndex = 0;
+            lbTituloVeiculo.Text = "🚗 Dados do Veículo";
+            
             // 
             // lbPlaca
             // 
             lbPlaca.AutoSize = true;
-            lbPlaca.Font = new Font("Segoe UI", 12F);
-            lbPlaca.Location = new Point(20, 19);
+            lbPlaca.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            lbPlaca.ForeColor = Color.FromArgb(73, 80, 87);
+            lbPlaca.Location = new Point(20, 60);
             lbPlaca.Name = "lbPlaca";
-            lbPlaca.Size = new Size(49, 21);
-            lbPlaca.TabIndex = 0;
+            lbPlaca.Size = new Size(45, 19);
+            lbPlaca.TabIndex = 1;
             lbPlaca.Text = "Placa:";
+            
             // 
             // tbPlaca
             // 
-            tbPlaca.Location = new Point(20, 47);
+            tbPlaca.Font = new Font("Segoe UI", 10F);
+            tbPlaca.Location = new Point(20, 85);
             tbPlaca.Name = "tbPlaca";
-            tbPlaca.Size = new Size(200, 23);
-            tbPlaca.TabIndex = 1;
+            tbPlaca.Size = new Size(150, 25);
+            tbPlaca.TabIndex = 2;
+            
             // 
             // lbMarca
             // 
             lbMarca.AutoSize = true;
-            lbMarca.Font = new Font("Segoe UI", 12F);
-            lbMarca.Location = new Point(20, 88);
+            lbMarca.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            lbMarca.ForeColor = Color.FromArgb(73, 80, 87);
+            lbMarca.Location = new Point(200, 60);
             lbMarca.Name = "lbMarca";
-            lbMarca.Size = new Size(56, 21);
-            lbMarca.TabIndex = 2;
+            lbMarca.Size = new Size(50, 19);
+            lbMarca.TabIndex = 3;
             lbMarca.Text = "Marca:";
+            
             // 
             // tbMarca
             // 
-            tbMarca.Location = new Point(20, 116);
+            tbMarca.Font = new Font("Segoe UI", 10F);
+            tbMarca.Location = new Point(200, 85);
             tbMarca.Name = "tbMarca";
-            tbMarca.Size = new Size(200, 23);
-            tbMarca.TabIndex = 3;
+            tbMarca.Size = new Size(150, 25);
+            tbMarca.TabIndex = 4;
+            
             // 
             // lbModelo
             // 
             lbModelo.AutoSize = true;
-            lbModelo.Font = new Font("Segoe UI", 12F);
-            lbModelo.Location = new Point(20, 157);
+            lbModelo.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            lbModelo.ForeColor = Color.FromArgb(73, 80, 87);
+            lbModelo.Location = new Point(380, 60);
             lbModelo.Name = "lbModelo";
-            lbModelo.Size = new Size(66, 21);
-            lbModelo.TabIndex = 4;
+            lbModelo.Size = new Size(60, 19);
+            lbModelo.TabIndex = 5;
             lbModelo.Text = "Modelo:";
+            
             // 
             // tbModelo
             // 
-            tbModelo.Location = new Point(20, 185);
+            tbModelo.Font = new Font("Segoe UI", 10F);
+            tbModelo.Location = new Point(380, 85);
             tbModelo.Name = "tbModelo";
-            tbModelo.Size = new Size(200, 23);
-            tbModelo.TabIndex = 5;
+            tbModelo.Size = new Size(170, 25);
+            tbModelo.TabIndex = 6;
+            
+            // 
+            // cardBotoes
+            // 
+            cardBotoes.BackColor = Color.Transparent;
+            cardBotoes.Controls.Add(btnGravar);
+            cardBotoes.Controls.Add(btnLimpar);
+            cardBotoes.Controls.Add(btnGravarVeiculo);
+            cardBotoes.Controls.Add(btnLimparVeiculo);
+            cardBotoes.Location = new Point(20, 240);
+            cardBotoes.Name = "cardBotoes";
+            cardBotoes.Size = new Size(1160, 60);
+            cardBotoes.TabIndex = 2;
+            
+            // 
+            // btnGravar
+            // 
+            btnGravar.BackColor = Color.FromArgb(25, 135, 84);
+            btnGravar.FlatAppearance.BorderSize = 0;
+            btnGravar.FlatStyle = FlatStyle.Flat;
+            btnGravar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnGravar.ForeColor = Color.White;
+            btnGravar.Location = new Point(20, 15);
+            btnGravar.Name = "btnGravar";
+            btnGravar.Size = new Size(120, 40);
+            btnGravar.TabIndex = 0;
+            btnGravar.Text = "💾 Gravar Cliente";
+            btnGravar.UseVisualStyleBackColor = false;
+            
+            // 
+            // btnLimpar
+            // 
+            btnLimpar.BackColor = Color.FromArgb(108, 117, 125);
+            btnLimpar.FlatAppearance.BorderSize = 0;
+            btnLimpar.FlatStyle = FlatStyle.Flat;
+            btnLimpar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnLimpar.ForeColor = Color.White;
+            btnLimpar.Location = new Point(150, 15);
+            btnLimpar.Name = "btnLimpar";
+            btnLimpar.Size = new Size(120, 40);
+            btnLimpar.TabIndex = 1;
+            btnLimpar.Text = "🗑️ Limpar Cliente";
+            btnLimpar.UseVisualStyleBackColor = false;
+            
             // 
             // btnGravarVeiculo
             // 
-            btnGravarVeiculo.BackColor = Color.FromArgb(0, 123, 255);
-            btnGravarVeiculo.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnGravarVeiculo.BackColor = Color.FromArgb(13, 110, 253);
+            btnGravarVeiculo.FlatAppearance.BorderSize = 0;
+            btnGravarVeiculo.FlatStyle = FlatStyle.Flat;
+            btnGravarVeiculo.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnGravarVeiculo.ForeColor = Color.White;
-            btnGravarVeiculo.Location = new Point(180, 210);
+            btnGravarVeiculo.Location = new Point(300, 15);
             btnGravarVeiculo.Name = "btnGravarVeiculo";
-            btnGravarVeiculo.Size = new Size(100, 36);
-            btnGravarVeiculo.TabIndex = 6;
-            btnGravarVeiculo.Text = "Gravar";
+            btnGravarVeiculo.Size = new Size(120, 40);
+            btnGravarVeiculo.TabIndex = 2;
+            btnGravarVeiculo.Text = "🚗 Gravar Veículo";
             btnGravarVeiculo.UseVisualStyleBackColor = false;
-            btnGravarVeiculo.Click += new System.EventHandler(this.btnGravarVeiculo_Click);
+            
             // 
             // btnLimparVeiculo
             // 
-            btnLimparVeiculo.BackColor = Color.LightGray;
-            btnLimparVeiculo.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnLimparVeiculo.ForeColor = Color.Black;
-            btnLimparVeiculo.Location = new Point(70, 210);
+            btnLimparVeiculo.BackColor = Color.FromArgb(220, 53, 69);
+            btnLimparVeiculo.FlatAppearance.BorderSize = 0;
+            btnLimparVeiculo.FlatStyle = FlatStyle.Flat;
+            btnLimparVeiculo.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnLimparVeiculo.ForeColor = Color.White;
+            btnLimparVeiculo.Location = new Point(430, 15);
             btnLimparVeiculo.Name = "btnLimparVeiculo";
-            btnLimparVeiculo.Size = new Size(100, 36);
-            btnLimparVeiculo.TabIndex = 7;
-            btnLimparVeiculo.Text = "Limpar";
+            btnLimparVeiculo.Size = new Size(120, 40);
+            btnLimparVeiculo.TabIndex = 3;
+            btnLimparVeiculo.Text = "🗑️ Limpar Veículo";
             btnLimparVeiculo.UseVisualStyleBackColor = false;
-            btnLimparVeiculo.Click += new System.EventHandler(this.btnLimparVeiculo_Click);
+            
+            // 
+            // cardGridClientes
+            // 
+            cardGridClientes.BackColor = Color.White;
+            cardGridClientes.Controls.Add(lbTituloGridClientes);
+            cardGridClientes.Controls.Add(dataGridView1);
+            cardGridClientes.Location = new Point(20, 320);
+            cardGridClientes.Name = "cardGridClientes";
+            cardGridClientes.Padding = new Padding(20);
+            cardGridClientes.Size = new Size(580, 220);
+            cardGridClientes.TabIndex = 3;
+            
+            // 
+            // lbTituloGridClientes
+            // 
+            lbTituloGridClientes.AutoSize = true;
+            lbTituloGridClientes.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lbTituloGridClientes.ForeColor = Color.FromArgb(33, 37, 41);
+            lbTituloGridClientes.Location = new Point(20, 20);
+            lbTituloGridClientes.Name = "lbTituloGridClientes";
+            lbTituloGridClientes.Size = new Size(200, 25);
+            lbTituloGridClientes.TabIndex = 0;
+            lbTituloGridClientes.Text = "📋 Lista de Clientes";
+            
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.BackgroundColor = Color.FromArgb(248, 249, 250);
+            dataGridView1.BorderStyle = BorderStyle.None;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Font = new Font("Segoe UI", 9F);
+            dataGridView1.Location = new Point(20, 55);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(540, 145);
+            dataGridView1.TabIndex = 1;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            
+            // 
+            // cardGridVeiculos
+            // 
+            cardGridVeiculos.BackColor = Color.White;
+            cardGridVeiculos.Controls.Add(lbTituloGridVeiculos);
+            cardGridVeiculos.Controls.Add(dataGridViewVeiculos);
+            cardGridVeiculos.Location = new Point(620, 320);
+            cardGridVeiculos.Name = "cardGridVeiculos";
+            cardGridVeiculos.Padding = new Padding(20);
+            cardGridVeiculos.Size = new Size(560, 220);
+            cardGridVeiculos.TabIndex = 4;
+            
+            // 
+            // lbTituloGridVeiculos
+            // 
+            lbTituloGridVeiculos.AutoSize = true;
+            lbTituloGridVeiculos.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lbTituloGridVeiculos.ForeColor = Color.FromArgb(33, 37, 41);
+            lbTituloGridVeiculos.Location = new Point(20, 20);
+            lbTituloGridVeiculos.Name = "lbTituloGridVeiculos";
+            lbTituloGridVeiculos.Size = new Size(200, 25);
+            lbTituloGridVeiculos.TabIndex = 0;
+            lbTituloGridVeiculos.Text = "🚗 Lista de Veículos";
+            
+            // 
+            // dataGridViewVeiculos
+            // 
+            dataGridViewVeiculos.BackgroundColor = Color.FromArgb(248, 249, 250);
+            dataGridViewVeiculos.BorderStyle = BorderStyle.None;
+            dataGridViewVeiculos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewVeiculos.Font = new Font("Segoe UI", 9F);
+            dataGridViewVeiculos.Location = new Point(20, 55);
+            dataGridViewVeiculos.Name = "dataGridViewVeiculos";
+            dataGridViewVeiculos.Size = new Size(520, 145);
+            dataGridViewVeiculos.TabIndex = 1;
+            dataGridViewVeiculos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            
             // 
             // CadCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ActiveBorder;
-            Controls.Add(panelVeiculo);
-            Controls.Add(dataGridViewVeiculos);
-            Controls.Add(dataGridView1);
-            Controls.Add(panel1);
+            BackColor = Color.FromArgb(248, 249, 250);
+            Controls.Add(mainContainer);
+            Font = new Font("Segoe UI", 9F);
             Name = "CadCliente";
-            Size = new Size(983, 517);
+            Size = new Size(1200, 800);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewVeiculos).EndInit();
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            mainContainer.ResumeLayout(false);
+            cardCliente.ResumeLayout(false);
+            cardCliente.PerformLayout();
+            cardVeiculo.ResumeLayout(false);
+            cardVeiculo.PerformLayout();
+            cardGridClientes.ResumeLayout(false);
+            cardGridClientes.PerformLayout();
+            cardGridVeiculos.ResumeLayout(false);
+            cardGridVeiculos.PerformLayout();
+            cardBotoes.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
+        // Controles principais
         private DataGridView dataGridView1;
-        private Panel panel1;
+        private DataGridView dataGridViewVeiculos;
         private Button btnGravar;
         private Button btnLimpar;
+        private Button btnGravarVeiculo;
+        private Button btnLimparVeiculo;
+        
+        // Campos do cliente
         private Label lbNomeClient;
         private TextBox tbNomeClient;
         private Label lbEmail;
+        private TextBox tbEmail;
         private Label lbTelefone;
         private TextBox tbTelefone;
-        private TextBox tbEmail;
-        private System.Windows.Forms.DataGridView dataGridViewVeiculos;
-        private System.Windows.Forms.Panel panelVeiculo;
-        private System.Windows.Forms.Label lbPlaca;
-        private System.Windows.Forms.Label lbMarca;
-        private System.Windows.Forms.Label lbModelo;
-        private System.Windows.Forms.TextBox tbPlaca;
-        private System.Windows.Forms.TextBox tbMarca;
-        private System.Windows.Forms.TextBox tbModelo;
-        private System.Windows.Forms.Button btnGravarVeiculo;
-        private System.Windows.Forms.Button btnLimparVeiculo;
+        
+        // Campos do veículo
+        private Label lbPlaca;
+        private TextBox tbPlaca;
+        private Label lbMarca;
+        private TextBox tbMarca;
+        private Label lbModelo;
+        private TextBox tbModelo;
+        
+        // Cards modernos
+        private Panel mainContainer;
+        private Panel cardCliente;
+        private Panel cardVeiculo;
+        private Panel cardGridClientes;
+        private Panel cardGridVeiculos;
+        private Panel cardBotoes;
+        
+        // Labels de título
+        private Label lbTituloCliente;
+        private Label lbTituloVeiculo;
+        private Label lbTituloGridClientes;
+        private Label lbTituloGridVeiculos;
     }
 }

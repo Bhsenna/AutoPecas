@@ -10,12 +10,12 @@ namespace Salomao.Cadastros
         public MovimentoEstoque()
         {
             InitializeComponent();
-            CarregarTabela();
             Styler.GridStyler.Personalizar(dataGridView1);
             Styler.ButtonStyler.PersonalizaGravar(btnGravar);
             Styler.ButtonStyler.PersonalizaLimpar(btnLimpar);
             PopularComboProdutos();
             ConfigurarFiltros();
+            CarregarTabela();
         }
 
         private void PopularComboProdutos()
@@ -28,13 +28,13 @@ namespace Salomao.Cadastros
                     using (SQLiteDataAdapter da = new SQLiteDataAdapter(query, con))
                     {
                         DataTable dt = new DataTable();
+                        
+                        // Define explicitamente os tipos das colunas ANTES de preencher
+                        dt.Columns.Add("ProdutoID", typeof(int));
+                        dt.Columns.Add("NomeProduto", typeof(string));
+                        dt.Columns.Add("CodigoProduto", typeof(string));
+                        
                         da.Fill(dt);
-
-                        // Garantir que as colunas tenham os tipos corretos
-                        if (dt.Columns.Contains("ProdutoID"))
-                        {
-                            dt.Columns["ProdutoID"].DataType = typeof(int);
-                        }
 
                         DataRow emptyRow = dt.NewRow();
                         emptyRow["ProdutoID"] = -1;
@@ -64,6 +64,26 @@ namespace Salomao.Cadastros
             {
                 MessageBox.Show($"Erro ao carregar produtos: {ex.Message}\n\nVerifique se a migração do banco foi executada.", 
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+                // Criar DataTable vazio para evitar erros
+                DataTable dt = new DataTable();
+                dt.Columns.Add("ProdutoID", typeof(int));
+                dt.Columns.Add("NomeProduto", typeof(string));
+                dt.Columns.Add("CodigoProduto", typeof(string));
+                
+                DataRow emptyRow = dt.NewRow();
+                emptyRow["ProdutoID"] = -1;
+                emptyRow["NomeProduto"] = "Nenhum produto disponível";
+                emptyRow["CodigoProduto"] = "";
+                dt.Rows.Add(emptyRow);
+                
+                cbProduto.DataSource = dt;
+                cbProduto.DisplayMember = "NomeProduto";
+                cbProduto.ValueMember = "ProdutoID";
+                
+                cbProdutoFiltro.DataSource = dt.Copy();
+                cbProdutoFiltro.DisplayMember = "NomeProduto";
+                cbProdutoFiltro.ValueMember = "ProdutoID";
             }
         }
 
@@ -71,7 +91,25 @@ namespace Salomao.Cadastros
         {
             dtDataInicio.Value = DateTime.Now.AddDays(-30);
             dtDataFim.Value = DateTime.Now;
-            cbProdutoFiltro.SelectedIndex = 0;
+            
+            // Configurar ComboBox de forma segura
+            ConfigurarComboBoxSeguro(cbProdutoFiltro);
+        }
+
+        private void ConfigurarComboBoxSeguro(ComboBox comboBox)
+        {
+            try
+            {
+                if (comboBox.Items.Count > 0)
+                {
+                    comboBox.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log do erro para debug
+                Console.WriteLine($"Erro ao configurar ComboBox: {ex.Message}");
+            }
         }
 
         private void CarregarTabela()
@@ -92,6 +130,10 @@ namespace Salomao.Cadastros
             catch (Exception ex)
             {
                 MessageBox.Show("Erro ao carregar movimentos: " + ex.Message);
+                
+                // Criar DataTable vazio
+                DataTable dt = new DataTable();
+                dataGridView1.DataSource = dt;
             }
         }
 
@@ -101,7 +143,7 @@ namespace Salomao.Cadastros
             {
                 try
                 {
-                    int produtoId = (int)cbProduto.SelectedValue;
+                    int produtoId = BancoSQLite.GetComboBoxValue(cbProduto, -1);
                     decimal quantidade = decimal.Parse(tbQuantidade.Text);
                     string tipoMovimento = rbEntrada.Checked ? "E" : "S";
                     string origem = rbEntrada.Checked ? "Entrada Manual" : "Saída Manual";
@@ -129,7 +171,8 @@ namespace Salomao.Cadastros
 
         private bool ValidarCampos()
         {
-            if (cbProduto.SelectedValue == null || (int)cbProduto.SelectedValue == -1)
+            int produtoId = BancoSQLite.GetComboBoxValue(cbProduto, -1);
+            if (produtoId == -1)
             {
                 MessageBox.Show("Selecione um produto.");
                 return false;
@@ -157,10 +200,11 @@ namespace Salomao.Cadastros
 
         private void LimparCampos()
         {
-            cbProduto.SelectedIndex = 0;
+            ConfigurarComboBoxSeguro(cbProduto);
             tbQuantidade.Clear();
             tbObservacao.Clear();
             rbEntrada.Checked = true;
+            lblSaldoAtual.Text = "Saldo Atual: 0,00";
         }
 
         private void btnFiltrar_Click(object sender, EventArgs e)
@@ -194,7 +238,7 @@ namespace Salomao.Cadastros
             {
                 lblSaldoAtual.Text = "Saldo Atual: 0,00";
                 // Opcional: log do erro para debug
-                // Console.WriteLine($"Erro ao obter saldo: {ex.Message}");
+                Console.WriteLine($"Erro ao obter saldo: {ex.Message}");
             }
         }
     }

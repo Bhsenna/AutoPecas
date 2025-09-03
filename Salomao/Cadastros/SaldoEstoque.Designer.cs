@@ -28,91 +28,173 @@ namespace Salomao.Cadastros
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnExportar = new System.Windows.Forms.Button();
-            this.btnAtualizar = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.panel1.SuspendLayout();
-            this.SuspendLayout();
+            // Inicialização dos controles
+            mainContainer = new Panel();
+            cardHeader = new Panel();
+            cardGrid = new Panel();
+            
+            dataGridView1 = new DataGridView();
+            btnExportar = new Button();
+            btnAtualizar = new Button();
+            label1 = new Label();
+            
+            // Labels de título
+            lbTituloHeader = new Label();
+            lbTituloGrid = new Label();
+            
+            // Eventos
+            btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
+            
+            ((System.ComponentModel.ISupportInitialize)(dataGridView1)).BeginInit();
+            mainContainer.SuspendLayout();
+            cardHeader.SuspendLayout();
+            cardGrid.SuspendLayout();
+            SuspendLayout();
+            
             // 
-            // dataGridView1
+            // mainContainer
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 60);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(800, 590);
-            this.dataGridView1.TabIndex = 0;
+            mainContainer.BackColor = Color.FromArgb(248, 249, 250);
+            mainContainer.Controls.Add(cardGrid);
+            mainContainer.Controls.Add(cardHeader);
+            mainContainer.Dock = DockStyle.Fill;
+            mainContainer.Location = new Point(0, 0);
+            mainContainer.Name = "mainContainer";
+            mainContainer.Padding = new Padding(20);
+            mainContainer.Size = new Size(1200, 800);
+            mainContainer.TabIndex = 0;
+            
             // 
-            // panel1
+            // cardHeader
             // 
-            this.panel1.Controls.Add(this.btnExportar);
-            this.panel1.Controls.Add(this.btnAtualizar);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 60);
-            this.panel1.TabIndex = 1;
+            cardHeader.BackColor = Color.White;
+            cardHeader.Controls.Add(lbTituloHeader);
+            cardHeader.Controls.Add(btnExportar);
+            cardHeader.Controls.Add(btnAtualizar);
+            cardHeader.Location = new Point(20, 20);
+            cardHeader.Name = "cardHeader";
+            cardHeader.Padding = new Padding(20);
+            cardHeader.Size = new Size(1160, 100);
+            cardHeader.TabIndex = 0;
+            
             // 
-            // btnExportar
+            // lbTituloHeader
             // 
-            this.btnExportar.Location = new System.Drawing.Point(200, 20);
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(100, 30);
-            this.btnExportar.TabIndex = 2;
-            this.btnExportar.Text = "Exportar CSV";
-            this.btnExportar.UseVisualStyleBackColor = true;
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            lbTituloHeader.AutoSize = true;
+            lbTituloHeader.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lbTituloHeader.ForeColor = Color.FromArgb(33, 37, 41);
+            lbTituloHeader.Location = new Point(20, 20);
+            lbTituloHeader.Name = "lbTituloHeader";
+            lbTituloHeader.Size = new Size(150, 25);
+            lbTituloHeader.TabIndex = 0;
+            lbTituloHeader.Text = "📊 Saldo de Estoque";
+            
             // 
             // btnAtualizar
             // 
-            this.btnAtualizar.Location = new System.Drawing.Point(80, 20);
-            this.btnAtualizar.Name = "btnAtualizar";
-            this.btnAtualizar.Size = new System.Drawing.Size(100, 30);
-            this.btnAtualizar.TabIndex = 1;
-            this.btnAtualizar.Text = "Atualizar";
-            this.btnAtualizar.UseVisualStyleBackColor = true;
-            this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
+            btnAtualizar.BackColor = Color.FromArgb(13, 110, 253);
+            btnAtualizar.FlatAppearance.BorderSize = 0;
+            btnAtualizar.FlatStyle = FlatStyle.Flat;
+            btnAtualizar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnAtualizar.ForeColor = Color.White;
+            btnAtualizar.Location = new Point(1000, 20);
+            btnAtualizar.Name = "btnAtualizar";
+            btnAtualizar.Size = new Size(120, 40);
+            btnAtualizar.TabIndex = 1;
+            btnAtualizar.Text = "🔄 Atualizar";
+            btnAtualizar.UseVisualStyleBackColor = false;
+            
             // 
-            // label1
+            // btnExportar
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(60, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Estoque";
+            btnExportar.BackColor = Color.FromArgb(25, 135, 84);
+            btnExportar.FlatAppearance.BorderSize = 0;
+            btnExportar.FlatStyle = FlatStyle.Flat;
+            btnExportar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnExportar.ForeColor = Color.White;
+            btnExportar.Location = new Point(870, 20);
+            btnExportar.Name = "btnExportar";
+            btnExportar.Size = new Size(120, 40);
+            btnExportar.TabIndex = 2;
+            btnExportar.Text = "📄 Exportar CSV";
+            btnExportar.UseVisualStyleBackColor = false;
+            
+            // 
+            // cardGrid
+            // 
+            cardGrid.BackColor = Color.White;
+            cardGrid.Controls.Add(lbTituloGrid);
+            cardGrid.Controls.Add(dataGridView1);
+            cardGrid.Location = new Point(20, 140);
+            cardGrid.Name = "cardGrid";
+            cardGrid.Padding = new Padding(20);
+            cardGrid.Size = new Size(1160, 640);
+            cardGrid.TabIndex = 1;
+            
+            // 
+            // lbTituloGrid
+            // 
+            lbTituloGrid.AutoSize = true;
+            lbTituloGrid.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lbTituloGrid.ForeColor = Color.FromArgb(33, 37, 41);
+            lbTituloGrid.Location = new Point(20, 20);
+            lbTituloGrid.Name = "lbTituloGrid";
+            lbTituloGrid.Size = new Size(200, 25);
+            lbTituloGrid.TabIndex = 0;
+            lbTituloGrid.Text = "📋 Lista de Produtos";
+            
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.BackgroundColor = Color.FromArgb(248, 249, 250);
+            dataGridView1.BorderStyle = BorderStyle.None;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Font = new Font("Segoe UI", 9F);
+            dataGridView1.Location = new Point(20, 55);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.Size = new Size(1120, 565);
+            dataGridView1.TabIndex = 1;
+            
             // 
             // SaldoEstoque
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.panel1);
-            this.Name = "SaldoEstoque";
-            this.Size = new System.Drawing.Size(800, 650);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(248, 249, 250);
+            Controls.Add(mainContainer);
+            Font = new Font("Segoe UI", 9F);
+            Name = "SaldoEstoque";
+            Size = new Size(1200, 800);
+            ((System.ComponentModel.ISupportInitialize)(dataGridView1)).EndInit();
+            mainContainer.ResumeLayout(false);
+            cardHeader.ResumeLayout(false);
+            cardHeader.PerformLayout();
+            cardGrid.ResumeLayout(false);
+            cardGrid.PerformLayout();
+            ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button btnExportar;
-        private System.Windows.Forms.Button btnAtualizar;
-        private System.Windows.Forms.Label label1;
+        // Controles principais
+        private DataGridView dataGridView1;
+        private Button btnExportar;
+        private Button btnAtualizar;
+        private Label label1;
+        
+        // Cards modernos
+        private Panel mainContainer;
+        private Panel cardHeader;
+        private Panel cardGrid;
+        
+        // Labels de título
+        private Label lbTituloHeader;
+        private Label lbTituloGrid;
     }
 } 

@@ -28,312 +28,499 @@ namespace Salomao.Cadastros
         /// </summary>
         private void InitializeComponent()
         {
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lblSaldoAtual = new System.Windows.Forms.Label();
-            this.tbObservacao = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tbQuantidade = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.rbSaida = new System.Windows.Forms.RadioButton();
-            this.rbEntrada = new System.Windows.Forms.RadioButton();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cbProduto = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btnLimpar = new System.Windows.Forms.Button();
-            this.btnGravar = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.btnLimparFiltros = new System.Windows.Forms.Button();
-            this.btnFiltrar = new System.Windows.Forms.Button();
-            this.cbProdutoFiltro = new System.Windows.Forms.ComboBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.dtDataFim = new System.Windows.Forms.DateTimePicker();
-            this.label6 = new System.Windows.Forms.Label();
-            this.dtDataInicio = new System.Windows.Forms.DateTimePicker();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.SuspendLayout();
+            // Inicialização dos controles
+            mainContainer = new Panel();
+            cardMovimento = new Panel();
+            cardFiltros = new Panel();
+            cardGrid = new Panel();
+            cardBotoes = new Panel();
+            
+            // Controles do movimento
+            lblSaldoAtual = new Label();
+            tbObservacao = new TextBox();
+            label5 = new Label();
+            tbQuantidade = new TextBox();
+            label4 = new Label();
+            rbSaida = new RadioButton();
+            rbEntrada = new RadioButton();
+            label3 = new Label();
+            cbProduto = new ComboBox();
+            label2 = new Label();
+            
+            // Controles dos filtros
+            btnLimparFiltros = new Button();
+            btnFiltrar = new Button();
+            cbProdutoFiltro = new ComboBox();
+            label7 = new Label();
+            dtDataFim = new DateTimePicker();
+            label6 = new Label();
+            dtDataInicio = new DateTimePicker();
+            label1 = new Label();
+            
+            // Controles principais
+            btnLimpar = new Button();
+            btnGravar = new Button();
+            dataGridView1 = new DataGridView();
+            
+            // Labels de título
+            lbTituloMovimento = new Label();
+            lbTituloFiltros = new Label();
+            lbTituloGrid = new Label();
+            
+            // Eventos
+            cbProduto.SelectedIndexChanged += new System.EventHandler(this.cbProduto_SelectedIndexChanged);
+            btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
+            btnGravar.Click += new System.EventHandler(this.btnGravar_Click);
+            btnLimparFiltros.Click += new System.EventHandler(this.btnLimparFiltros_Click);
+            btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
+            
+            mainContainer.SuspendLayout();
+            cardMovimento.SuspendLayout();
+            cardFiltros.SuspendLayout();
+            cardGrid.SuspendLayout();
+            cardBotoes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(dataGridView1)).BeginInit();
+            SuspendLayout();
+            
             // 
-            // groupBox1
+            // mainContainer
             // 
-            this.groupBox1.Controls.Add(this.lblSaldoAtual);
-            this.groupBox1.Controls.Add(this.tbObservacao);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.tbQuantidade);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.rbSaida);
-            this.groupBox1.Controls.Add(this.rbEntrada);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.cbProduto);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.btnLimpar);
-            this.groupBox1.Controls.Add(this.btnGravar);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(400, 300);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Novo Movimento";
+            mainContainer.BackColor = Color.FromArgb(248, 249, 250);
+            mainContainer.Controls.Add(cardGrid);
+            mainContainer.Controls.Add(cardBotoes);
+            mainContainer.Controls.Add(cardFiltros);
+            mainContainer.Controls.Add(cardMovimento);
+            mainContainer.Dock = DockStyle.Fill;
+            mainContainer.Location = new Point(0, 0);
+            mainContainer.Name = "mainContainer";
+            mainContainer.Padding = new Padding(20);
+            mainContainer.Size = new Size(1200, 800);
+            mainContainer.TabIndex = 0;
+            
             // 
-            // lblSaldoAtual
+            // cardMovimento
             // 
-            this.lblSaldoAtual.AutoSize = true;
-            this.lblSaldoAtual.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSaldoAtual.Location = new System.Drawing.Point(120, 50);
-            this.lblSaldoAtual.Name = "lblSaldoAtual";
-            this.lblSaldoAtual.Size = new System.Drawing.Size(89, 15);
-            this.lblSaldoAtual.TabIndex = 11;
-            this.lblSaldoAtual.Text = "Saldo Atual: 0";
+            cardMovimento.BackColor = Color.White;
+            cardMovimento.Controls.Add(lbTituloMovimento);
+            cardMovimento.Controls.Add(lblSaldoAtual);
+            cardMovimento.Controls.Add(tbObservacao);
+            cardMovimento.Controls.Add(label5);
+            cardMovimento.Controls.Add(tbQuantidade);
+            cardMovimento.Controls.Add(label4);
+            cardMovimento.Controls.Add(rbSaida);
+            cardMovimento.Controls.Add(rbEntrada);
+            cardMovimento.Controls.Add(label3);
+            cardMovimento.Controls.Add(cbProduto);
+            cardMovimento.Controls.Add(label2);
+            cardMovimento.Location = new Point(20, 20);
+            cardMovimento.Name = "cardMovimento";
+            cardMovimento.Padding = new Padding(20);
+            cardMovimento.Size = new Size(580, 300);
+            cardMovimento.TabIndex = 0;
+            
             // 
-            // tbObservacao
+            // lbTituloMovimento
             // 
-            this.tbObservacao.Location = new System.Drawing.Point(120, 200);
-            this.tbObservacao.Multiline = true;
-            this.tbObservacao.Name = "tbObservacao";
-            this.tbObservacao.Size = new System.Drawing.Size(250, 60);
-            this.tbObservacao.TabIndex = 10;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(20, 203);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(70, 13);
-            this.label5.TabIndex = 9;
-            this.label5.Text = "Observação:";
-            // 
-            // tbQuantidade
-            // 
-            this.tbQuantidade.Location = new System.Drawing.Point(120, 160);
-            this.tbQuantidade.Name = "tbQuantidade";
-            this.tbQuantidade.Size = new System.Drawing.Size(100, 20);
-            this.tbQuantidade.TabIndex = 8;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(20, 163);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(65, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Quantidade:";
-            // 
-            // rbSaida
-            // 
-            this.rbSaida.AutoSize = true;
-            this.rbSaida.Location = new System.Drawing.Point(180, 120);
-            this.rbSaida.Name = "rbSaida";
-            this.rbSaida.Size = new System.Drawing.Size(53, 17);
-            this.rbSaida.TabIndex = 6;
-            this.rbSaida.Text = "Saída";
-            this.rbSaida.UseVisualStyleBackColor = true;
-            // 
-            // rbEntrada
-            // 
-            this.rbEntrada.AutoSize = true;
-            this.rbEntrada.Checked = true;
-            this.rbEntrada.Location = new System.Drawing.Point(120, 120);
-            this.rbEntrada.Name = "rbEntrada";
-            this.rbEntrada.Size = new System.Drawing.Size(62, 17);
-            this.rbEntrada.TabIndex = 5;
-            this.rbEntrada.TabStop = true;
-            this.rbEntrada.Text = "Entrada";
-            this.rbEntrada.UseVisualStyleBackColor = true;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 122);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(31, 13);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "Tipo:";
-            // 
-            // cbProduto
-            // 
-            this.cbProduto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbProduto.FormattingEnabled = true;
-            this.cbProduto.Location = new System.Drawing.Point(120, 80);
-            this.cbProduto.Name = "cbProduto";
-            this.cbProduto.Size = new System.Drawing.Size(250, 21);
-            this.cbProduto.TabIndex = 3;
-            this.cbProduto.SelectedIndexChanged += new System.EventHandler(this.cbProduto_SelectedIndexChanged);
+            lbTituloMovimento.AutoSize = true;
+            lbTituloMovimento.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lbTituloMovimento.ForeColor = Color.FromArgb(33, 37, 41);
+            lbTituloMovimento.Location = new Point(20, 20);
+            lbTituloMovimento.Name = "lbTituloMovimento";
+            lbTituloMovimento.Size = new Size(200, 25);
+            lbTituloMovimento.TabIndex = 0;
+            lbTituloMovimento.Text = "📦 Novo Movimento";
+            
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(20, 83);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(47, 13);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Produto:";
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            label2.ForeColor = Color.FromArgb(73, 80, 87);
+            label2.Location = new Point(20, 60);
+            label2.Name = "label2";
+            label2.Size = new Size(55, 19);
+            label2.TabIndex = 1;
+            label2.Text = "Produto:";
+            
             // 
-            // btnLimpar
+            // cbProduto
             // 
-            this.btnLimpar.Location = new System.Drawing.Point(200, 270);
-            this.btnLimpar.Name = "btnLimpar";
-            this.btnLimpar.Size = new System.Drawing.Size(75, 23);
-            this.btnLimpar.TabIndex = 1;
-            this.btnLimpar.Text = "Limpar";
-            this.btnLimpar.UseVisualStyleBackColor = true;
-            this.btnLimpar.Click += new System.EventHandler(this.btnLimpar_Click);
+            cbProduto.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbProduto.Font = new Font("Segoe UI", 10F);
+            cbProduto.FormattingEnabled = true;
+            cbProduto.Location = new Point(20, 85);
+            cbProduto.Name = "cbProduto";
+            cbProduto.Size = new Size(250, 25);
+            cbProduto.TabIndex = 2;
+            
             // 
-            // btnGravar
+            // lblSaldoAtual
             // 
-            this.btnGravar.Location = new System.Drawing.Point(120, 270);
-            this.btnGravar.Name = "btnGravar";
-            this.btnGravar.Size = new System.Drawing.Size(75, 23);
-            this.btnGravar.TabIndex = 0;
-            this.btnGravar.Text = "Gravar";
-            this.btnGravar.UseVisualStyleBackColor = true;
-            this.btnGravar.Click += new System.EventHandler(this.btnGravar_Click);
+            lblSaldoAtual.AutoSize = true;
+            lblSaldoAtual.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblSaldoAtual.ForeColor = Color.FromArgb(25, 135, 84);
+            lblSaldoAtual.Location = new Point(300, 88);
+            lblSaldoAtual.Name = "lblSaldoAtual";
+            lblSaldoAtual.Size = new Size(100, 19);
+            lblSaldoAtual.TabIndex = 3;
+            lblSaldoAtual.Text = "Saldo Atual: 0";
+            
             // 
-            // groupBox2
+            // label3
             // 
-            this.groupBox2.Controls.Add(this.btnLimparFiltros);
-            this.groupBox2.Controls.Add(this.btnFiltrar);
-            this.groupBox2.Controls.Add(this.cbProdutoFiltro);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.dtDataFim);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.dtDataInicio);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(430, 12);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(350, 300);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Filtros";
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            label3.ForeColor = Color.FromArgb(73, 80, 87);
+            label3.Location = new Point(20, 130);
+            label3.Name = "label3";
+            label3.Size = new Size(35, 19);
+            label3.TabIndex = 4;
+            label3.Text = "Tipo:";
+            
             // 
-            // btnLimparFiltros
+            // rbEntrada
             // 
-            this.btnLimparFiltros.Location = new System.Drawing.Point(200, 270);
-            this.btnLimparFiltros.Name = "btnLimparFiltros";
-            this.btnLimparFiltros.Size = new System.Drawing.Size(100, 23);
-            this.btnLimparFiltros.TabIndex = 7;
-            this.btnLimparFiltros.Text = "Limpar Filtros";
-            this.btnLimparFiltros.UseVisualStyleBackColor = true;
-            this.btnLimparFiltros.Click += new System.EventHandler(this.btnLimparFiltros_Click);
+            rbEntrada.AutoSize = true;
+            rbEntrada.Checked = true;
+            rbEntrada.Font = new Font("Segoe UI", 10F);
+            rbEntrada.ForeColor = Color.FromArgb(73, 80, 87);
+            rbEntrada.Location = new Point(20, 155);
+            rbEntrada.Name = "rbEntrada";
+            rbEntrada.Size = new Size(70, 22);
+            rbEntrada.TabIndex = 5;
+            rbEntrada.TabStop = true;
+            rbEntrada.Text = "Entrada";
+            rbEntrada.UseVisualStyleBackColor = true;
+            
             // 
-            // btnFiltrar
+            // rbSaida
             // 
-            this.btnFiltrar.Location = new System.Drawing.Point(80, 270);
-            this.btnFiltrar.Name = "btnFiltrar";
-            this.btnFiltrar.Size = new System.Drawing.Size(100, 23);
-            this.btnFiltrar.TabIndex = 6;
-            this.btnFiltrar.Text = "Filtrar";
-            this.btnFiltrar.UseVisualStyleBackColor = true;
-            this.btnFiltrar.Click += new System.EventHandler(this.btnFiltrar_Click);
+            rbSaida.AutoSize = true;
+            rbSaida.Font = new Font("Segoe UI", 10F);
+            rbSaida.ForeColor = Color.FromArgb(73, 80, 87);
+            rbSaida.Location = new Point(100, 155);
+            rbSaida.Name = "rbSaida";
+            rbSaida.Size = new Size(60, 22);
+            rbSaida.TabIndex = 6;
+            rbSaida.Text = "Saída";
+            rbSaida.UseVisualStyleBackColor = true;
+            
             // 
-            // cbProdutoFiltro
+            // label4
             // 
-            this.cbProdutoFiltro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbProdutoFiltro.FormattingEnabled = true;
-            this.cbProdutoFiltro.Location = new System.Drawing.Point(120, 120);
-            this.cbProdutoFiltro.Name = "cbProdutoFiltro";
-            this.cbProdutoFiltro.Size = new System.Drawing.Size(200, 21);
-            this.cbProdutoFiltro.TabIndex = 5;
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            label4.ForeColor = Color.FromArgb(73, 80, 87);
+            label4.Location = new Point(20, 190);
+            label4.Name = "label4";
+            label4.Size = new Size(80, 19);
+            label4.TabIndex = 7;
+            label4.Text = "Quantidade:";
+            
             // 
-            // label7
+            // tbQuantidade
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(20, 123);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(47, 13);
-            this.label7.TabIndex = 4;
-            this.label7.Text = "Produto:";
+            tbQuantidade.Font = new Font("Segoe UI", 10F);
+            tbQuantidade.Location = new Point(20, 215);
+            tbQuantidade.Name = "tbQuantidade";
+            tbQuantidade.Size = new Size(150, 25);
+            tbQuantidade.TabIndex = 8;
+            tbQuantidade.TextAlign = HorizontalAlignment.Right;
+            
             // 
-            // dtDataFim
+            // label5
             // 
-            this.dtDataFim.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtDataFim.Location = new System.Drawing.Point(120, 80);
-            this.dtDataFim.Name = "dtDataFim";
-            this.dtDataFim.Size = new System.Drawing.Size(100, 20);
-            this.dtDataFim.TabIndex = 3;
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            label5.ForeColor = Color.FromArgb(73, 80, 87);
+            label5.Location = new Point(200, 190);
+            label5.Name = "label5";
+            label5.Size = new Size(85, 19);
+            label5.TabIndex = 9;
+            label5.Text = "Observação:";
+            
             // 
-            // label6
+            // tbObservacao
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(20, 83);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(55, 13);
-            this.label6.TabIndex = 2;
-            this.label6.Text = "Data Fim:";
+            tbObservacao.Font = new Font("Segoe UI", 10F);
+            tbObservacao.Location = new Point(200, 215);
+            tbObservacao.Multiline = true;
+            tbObservacao.Name = "tbObservacao";
+            tbObservacao.Size = new Size(350, 60);
+            tbObservacao.TabIndex = 10;
+            tbObservacao.ScrollBars = ScrollBars.Vertical;
+            
             // 
-            // dtDataInicio
+            // cardFiltros
             // 
-            this.dtDataInicio.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtDataInicio.Location = new System.Drawing.Point(120, 40);
-            this.dtDataInicio.Name = "dtDataInicio";
-            this.dtDataInicio.Size = new System.Drawing.Size(100, 20);
-            this.dtDataInicio.TabIndex = 1;
+            cardFiltros.BackColor = Color.White;
+            cardFiltros.Controls.Add(lbTituloFiltros);
+            cardFiltros.Controls.Add(btnLimparFiltros);
+            cardFiltros.Controls.Add(btnFiltrar);
+            cardFiltros.Controls.Add(cbProdutoFiltro);
+            cardFiltros.Controls.Add(label7);
+            cardFiltros.Controls.Add(dtDataFim);
+            cardFiltros.Controls.Add(label6);
+            cardFiltros.Controls.Add(dtDataInicio);
+            cardFiltros.Controls.Add(label1);
+            cardFiltros.Location = new Point(620, 20);
+            cardFiltros.Name = "cardFiltros";
+            cardFiltros.Padding = new Padding(20);
+            cardFiltros.Size = new Size(560, 300);
+            cardFiltros.TabIndex = 1;
+            
+            // 
+            // lbTituloFiltros
+            // 
+            lbTituloFiltros.AutoSize = true;
+            lbTituloFiltros.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lbTituloFiltros.ForeColor = Color.FromArgb(33, 37, 41);
+            lbTituloFiltros.Location = new Point(20, 20);
+            lbTituloFiltros.Name = "lbTituloFiltros";
+            lbTituloFiltros.Size = new Size(120, 25);
+            lbTituloFiltros.TabIndex = 0;
+            lbTituloFiltros.Text = "🔍 Filtros";
+            
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 43);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(65, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Data Início:";
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            label1.ForeColor = Color.FromArgb(73, 80, 87);
+            label1.Location = new Point(20, 60);
+            label1.Name = "label1";
+            label1.Size = new Size(75, 19);
+            label1.TabIndex = 1;
+            label1.Text = "Data Início:";
+            
+            // 
+            // dtDataInicio
+            // 
+            dtDataInicio.Font = new Font("Segoe UI", 10F);
+            dtDataInicio.Format = DateTimePickerFormat.Short;
+            dtDataInicio.Location = new Point(20, 85);
+            dtDataInicio.Name = "dtDataInicio";
+            dtDataInicio.Size = new Size(150, 25);
+            dtDataInicio.TabIndex = 2;
+            
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            label6.ForeColor = Color.FromArgb(73, 80, 87);
+            label6.Location = new Point(200, 60);
+            label6.Name = "label6";
+            label6.Size = new Size(70, 19);
+            label6.TabIndex = 3;
+            label6.Text = "Data Fim:";
+            
+            // 
+            // dtDataFim
+            // 
+            dtDataFim.Font = new Font("Segoe UI", 10F);
+            dtDataFim.Format = DateTimePickerFormat.Short;
+            dtDataFim.Location = new Point(200, 85);
+            dtDataFim.Name = "dtDataFim";
+            dtDataFim.Size = new Size(150, 25);
+            dtDataFim.TabIndex = 4;
+            
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            label7.ForeColor = Color.FromArgb(73, 80, 87);
+            label7.Location = new Point(20, 130);
+            label7.Name = "label7";
+            label7.Size = new Size(55, 19);
+            label7.TabIndex = 5;
+            label7.Text = "Produto:";
+            
+            // 
+            // cbProdutoFiltro
+            // 
+            cbProdutoFiltro.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbProdutoFiltro.Font = new Font("Segoe UI", 10F);
+            cbProdutoFiltro.FormattingEnabled = true;
+            cbProdutoFiltro.Location = new Point(20, 155);
+            cbProdutoFiltro.Name = "cbProdutoFiltro";
+            cbProdutoFiltro.Size = new Size(250, 25);
+            cbProdutoFiltro.TabIndex = 6;
+            
+            // 
+            // btnFiltrar
+            // 
+            btnFiltrar.BackColor = Color.FromArgb(13, 110, 253);
+            btnFiltrar.FlatAppearance.BorderSize = 0;
+            btnFiltrar.FlatStyle = FlatStyle.Flat;
+            btnFiltrar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnFiltrar.ForeColor = Color.White;
+            btnFiltrar.Location = new Point(20, 200);
+            btnFiltrar.Name = "btnFiltrar";
+            btnFiltrar.Size = new Size(100, 35);
+            btnFiltrar.TabIndex = 7;
+            btnFiltrar.Text = "🔍 Filtrar";
+            btnFiltrar.UseVisualStyleBackColor = false;
+            
+            // 
+            // btnLimparFiltros
+            // 
+            btnLimparFiltros.BackColor = Color.FromArgb(108, 117, 125);
+            btnLimparFiltros.FlatAppearance.BorderSize = 0;
+            btnLimparFiltros.FlatStyle = FlatStyle.Flat;
+            btnLimparFiltros.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnLimparFiltros.ForeColor = Color.White;
+            btnLimparFiltros.Location = new Point(130, 200);
+            btnLimparFiltros.Name = "btnLimparFiltros";
+            btnLimparFiltros.Size = new Size(120, 35);
+            btnLimparFiltros.TabIndex = 8;
+            btnLimparFiltros.Text = "🗑️ Limpar Filtros";
+            btnLimparFiltros.UseVisualStyleBackColor = false;
+            
+            // 
+            // cardBotoes
+            // 
+            cardBotoes.BackColor = Color.Transparent;
+            cardBotoes.Controls.Add(btnGravar);
+            cardBotoes.Controls.Add(btnLimpar);
+            cardBotoes.Location = new Point(20, 340);
+            cardBotoes.Name = "cardBotoes";
+            cardBotoes.Size = new Size(1160, 60);
+            cardBotoes.TabIndex = 2;
+            
+            // 
+            // btnGravar
+            // 
+            btnGravar.BackColor = Color.FromArgb(25, 135, 84);
+            btnGravar.FlatAppearance.BorderSize = 0;
+            btnGravar.FlatStyle = FlatStyle.Flat;
+            btnGravar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnGravar.ForeColor = Color.White;
+            btnGravar.Location = new Point(20, 15);
+            btnGravar.Name = "btnGravar";
+            btnGravar.Size = new Size(120, 40);
+            btnGravar.TabIndex = 0;
+            btnGravar.Text = "💾 Gravar";
+            btnGravar.UseVisualStyleBackColor = false;
+            
+            // 
+            // btnLimpar
+            // 
+            btnLimpar.BackColor = Color.FromArgb(108, 117, 125);
+            btnLimpar.FlatAppearance.BorderSize = 0;
+            btnLimpar.FlatStyle = FlatStyle.Flat;
+            btnLimpar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnLimpar.ForeColor = Color.White;
+            btnLimpar.Location = new Point(150, 15);
+            btnLimpar.Name = "btnLimpar";
+            btnLimpar.Size = new Size(120, 40);
+            btnLimpar.TabIndex = 1;
+            btnLimpar.Text = "🗑️ Limpar";
+            btnLimpar.UseVisualStyleBackColor = false;
+            
+            // 
+            // cardGrid
+            // 
+            cardGrid.BackColor = Color.White;
+            cardGrid.Controls.Add(lbTituloGrid);
+            cardGrid.Controls.Add(dataGridView1);
+            cardGrid.Location = new Point(20, 420);
+            cardGrid.Name = "cardGrid";
+            cardGrid.Padding = new Padding(20);
+            cardGrid.Size = new Size(1160, 360);
+            cardGrid.TabIndex = 3;
+            
+            // 
+            // lbTituloGrid
+            // 
+            lbTituloGrid.AutoSize = true;
+            lbTituloGrid.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lbTituloGrid.ForeColor = Color.FromArgb(33, 37, 41);
+            lbTituloGrid.Location = new Point(20, 20);
+            lbTituloGrid.Name = "lbTituloGrid";
+            lbTituloGrid.Size = new Size(200, 25);
+            lbTituloGrid.TabIndex = 0;
+            lbTituloGrid.Text = "📊 Histórico de Movimentos";
+            
             // 
             // dataGridView1
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 330);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(768, 300);
-            this.dataGridView1.TabIndex = 2;
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.BackgroundColor = Color.FromArgb(248, 249, 250);
+            dataGridView1.BorderStyle = BorderStyle.None;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Font = new Font("Segoe UI", 9F);
+            dataGridView1.Location = new Point(20, 55);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.ReadOnly = true;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.Size = new Size(1120, 285);
+            dataGridView1.TabIndex = 1;
+            
             // 
             // MovimentoEstoque
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.Name = "MovimentoEstoque";
-            this.Size = new System.Drawing.Size(800, 650);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.ResumeLayout(false);
-
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(248, 249, 250);
+            Controls.Add(mainContainer);
+            Font = new Font("Segoe UI", 9F);
+            Name = "MovimentoEstoque";
+            Size = new Size(1200, 800);
+            mainContainer.ResumeLayout(false);
+            cardMovimento.ResumeLayout(false);
+            cardMovimento.PerformLayout();
+            cardFiltros.ResumeLayout(false);
+            cardFiltros.PerformLayout();
+            cardGrid.ResumeLayout(false);
+            cardGrid.PerformLayout();
+            cardBotoes.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(dataGridView1)).EndInit();
+            ResumeLayout(false);
         }
 
         #endregion
 
-        private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button btnLimpar;
-        private System.Windows.Forms.Button btnGravar;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.ComboBox cbProduto;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.RadioButton rbEntrada;
-        private System.Windows.Forms.RadioButton rbSaida;
-        private System.Windows.Forms.TextBox tbQuantidade;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox tbObservacao;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label lblSaldoAtual;
-        private System.Windows.Forms.DateTimePicker dtDataInicio;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DateTimePicker dtDataFim;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.ComboBox cbProdutoFiltro;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Button btnFiltrar;
-        private System.Windows.Forms.Button btnLimparFiltros;
+        // Controles do movimento
+        private Label lblSaldoAtual;
+        private TextBox tbObservacao;
+        private Label label5;
+        private TextBox tbQuantidade;
+        private Label label4;
+        private RadioButton rbSaida;
+        private RadioButton rbEntrada;
+        private Label label3;
+        private ComboBox cbProduto;
+        private Label label2;
+        
+        // Controles dos filtros
+        private Button btnLimparFiltros;
+        private Button btnFiltrar;
+        private ComboBox cbProdutoFiltro;
+        private Label label7;
+        private DateTimePicker dtDataFim;
+        private Label label6;
+        private DateTimePicker dtDataInicio;
+        private Label label1;
+        
+        // Controles principais
+        private Button btnLimpar;
+        private Button btnGravar;
+        private DataGridView dataGridView1;
+        
+        // Cards modernos
+        private Panel mainContainer;
+        private Panel cardMovimento;
+        private Panel cardFiltros;
+        private Panel cardGrid;
+        private Panel cardBotoes;
+        
+        // Labels de título
+        private Label lbTituloMovimento;
+        private Label lbTituloFiltros;
+        private Label lbTituloGrid;
     }
 } 
