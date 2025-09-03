@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -198,9 +199,9 @@ namespace Salomao.Cadastros
                             {
                                 cmd.Parameters.Clear();
                                 cmd.Parameters.AddWithValue("@AtendimentoID", atendimentoId);
-                                cmd.Parameters.AddWithValue("@ServicoID", servico["ServicoID"]);
+                                cmd.Parameters.AddWithValue("@ServicoID", servico["ID"]);
                                 cmd.Parameters.AddWithValue("@Quantidade", 1); // Quantidade padrão
-                                cmd.Parameters.AddWithValue("@ValorUnitario", CalcularCustoServico(Convert.ToInt32(servico["ServicoID"])));
+                                cmd.Parameters.AddWithValue("@ValorUnitario", CalcularCustoServico(Convert.ToInt32(servico["ID"])));
                                 cmd.ExecuteNonQuery();
                             }
                         }
@@ -254,12 +255,12 @@ namespace Salomao.Cadastros
                 if (drv == null)
                     return;
 
-                if (!servicosSelecionados.Any(r => Convert.ToInt32(r["ServicoID"]) == servicoId))
+                if (!servicosSelecionados.Any(r => Convert.ToInt32(r["ID"]) == servicoId))
                 {
                     servicosSelecionados.Add(drv.Row);
                     AtualizarGridServicos();
                     CalcularValores();
-                    MessageBox.Show("Serviço adicionado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show("Serviço adicionado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -279,9 +280,9 @@ namespace Salomao.Cadastros
             {
                 if (dataGridServicos.SelectedRows.Count > 0)
                 {
-                    var cellValue = dataGridServicos.SelectedRows[0].Cells["ServicoID"].Value;
+                    var cellValue = dataGridServicos.SelectedRows[0].Cells["ID"].Value;
                     int servicoId = Convert.ToInt32(cellValue);
-                    servicosSelecionados.RemoveAll(r => Convert.ToInt32(r["ServicoID"]) == servicoId);
+                    servicosSelecionados.RemoveAll(r => Convert.ToInt32(r["ID"]) == servicoId);
                     AtualizarGridServicos();
                     CalcularValores();
                 }
@@ -322,7 +323,7 @@ namespace Salomao.Cadastros
             foreach (DataRow servico in servicosSelecionados)
             {
                 decimal margemLucro = Convert.ToDecimal(servico["MargemLucro"]);
-                decimal custoServico = CalcularCustoServico(Convert.ToInt32(servico["ServicoID"]));
+                decimal custoServico = CalcularCustoServico(Convert.ToInt32(servico["ID"]));
 
                 custoTotal += custoServico;
                 lucroTotal += custoServico * (margemLucro / 100);
@@ -394,6 +395,8 @@ namespace Salomao.Cadastros
         {
             if (e.RowIndex >= 0)
             {
+                clear();
+
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
                 // Preencher campos do formulário
@@ -407,6 +410,32 @@ namespace Salomao.Cadastros
 
                 cbCliente.SelectedIndex = cbCliente.FindStringExact(row.Cells["NomeCliente"].Value?.ToString());
                 cbVeiculo.SelectedIndex = cbVeiculo.FindString(row.Cells["Placa"].Value?.ToString());
+
+                using (SQLiteConnection con = BancoSQLite.GetConnection())
+                {
+                    string query = @"
+                    SELECT 
+                        asp.ServicoID
+                    FROM AtendimentoServicos asp
+                    WHERE asp.AtendimentoID = @AtendimentoID";
+
+                    using (var cmd = new SQLiteCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@AtendimentoID", row.Cells["AtendimentoId"].Value);
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                int servicoId = reader.GetInt32("ServicoID");
+                                Debug.WriteLine(servicoId);
+                                cbServico.SelectedValue = servicoId;
+                                Debug.WriteLine(cbServico.SelectedItem);
+                                btnAdicionarServico_Click(null, null);
+                            }
+                            cbServico.SelectedValue = -1;
+                        }
+                    }
+                }
             }
         }
 
