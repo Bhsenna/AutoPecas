@@ -206,15 +206,6 @@ namespace Salomao
             MostrarTela(new Cadastros.CadCliente());
         }
 
-        private void ibtn_veiculos_Click(object sender, EventArgs e)
-        {
-            if (sender == currentBtn) return;
-
-            ActivateButton(sender, Color.White);
-
-            MostrarTela(new Cadastros.CadVeiculo());
-        }
-
         //private void ibtn_servicos_Click(object sender, EventArgs e)
         //{
         //    if (sender == currentBtn) return;

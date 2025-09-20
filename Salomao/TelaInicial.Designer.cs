@@ -34,7 +34,6 @@
             ibtn_produtos = new FontAwesome.Sharp.IconButton();
             ibtn_fornecedor = new FontAwesome.Sharp.IconButton();
             ibtn_clientes = new FontAwesome.Sharp.IconButton();
-            ibtn_veiculos = new FontAwesome.Sharp.IconButton();
             ibtn_categorias = new FontAwesome.Sharp.IconButton();
             ibtn_servico = new FontAwesome.Sharp.IconButton();
             ibtn_atendimentos = new FontAwesome.Sharp.IconButton();
@@ -63,7 +62,6 @@
             panel_menu.Controls.Add(ibtn_produtos);
             panel_menu.Controls.Add(ibtn_fornecedor);
             panel_menu.Controls.Add(ibtn_clientes);
-            panel_menu.Controls.Add(ibtn_veiculos);
             panel_menu.Controls.Add(ibtn_categorias);
             panel_menu.Controls.Add(ibtn_servico);
             panel_menu.Controls.Add(ibtn_atendimentos);
@@ -126,7 +124,7 @@
             ibtn_fornecedor.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_fornecedor.IconSize = 32;
             ibtn_fornecedor.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_fornecedor.Location = new Point(3, 361);
+            ibtn_fornecedor.Location = new Point(3, 298);
             ibtn_fornecedor.Name = "ibtn_fornecedor";
             ibtn_fornecedor.Padding = new Padding(10, 0, 20, 0);
             ibtn_fornecedor.Size = new Size(216, 60);
@@ -160,29 +158,6 @@
             ibtn_clientes.UseVisualStyleBackColor = true;
             ibtn_clientes.Click += ibtn_clientes_Click;
             // 
-            // ibtn_veiculos
-            // 
-            ibtn_veiculos.Cursor = Cursors.Hand;
-            ibtn_veiculos.FlatAppearance.BorderSize = 0;
-            ibtn_veiculos.FlatStyle = FlatStyle.Flat;
-            ibtn_veiculos.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ibtn_veiculos.ForeColor = Color.FromArgb(209, 213, 219);
-            ibtn_veiculos.IconChar = FontAwesome.Sharp.IconChar.CarSide;
-            ibtn_veiculos.IconColor = Color.FromArgb(209, 213, 219);
-            ibtn_veiculos.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            ibtn_veiculos.IconSize = 32;
-            ibtn_veiculos.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_veiculos.Location = new Point(3, 235);
-            ibtn_veiculos.Name = "ibtn_veiculos";
-            ibtn_veiculos.Padding = new Padding(10, 0, 20, 0);
-            ibtn_veiculos.Size = new Size(216, 60);
-            ibtn_veiculos.TabIndex = 6;
-            ibtn_veiculos.Text = "Veículos";
-            ibtn_veiculos.TextAlign = ContentAlignment.MiddleLeft;
-            ibtn_veiculos.TextImageRelation = TextImageRelation.ImageBeforeText;
-            ibtn_veiculos.UseVisualStyleBackColor = true;
-            ibtn_veiculos.Click += ibtn_veiculos_Click;
-            // 
             // ibtn_categorias
             // 
             ibtn_categorias.Cursor = Cursors.Hand;
@@ -195,7 +170,7 @@
             ibtn_categorias.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_categorias.IconSize = 32;
             ibtn_categorias.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_categorias.Location = new Point(3, 298);
+            ibtn_categorias.Location = new Point(3, 235);
             ibtn_categorias.Name = "ibtn_categorias";
             ibtn_categorias.Padding = new Padding(10, 0, 20, 0);
             ibtn_categorias.Size = new Size(216, 60);
@@ -218,7 +193,7 @@
             ibtn_servico.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_servico.IconSize = 32;
             ibtn_servico.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_servico.Location = new Point(3, 424);
+            ibtn_servico.Location = new Point(3, 361);
             ibtn_servico.Name = "ibtn_servico";
             ibtn_servico.Padding = new Padding(10, 0, 20, 0);
             ibtn_servico.Size = new Size(216, 60);
@@ -241,7 +216,7 @@
             ibtn_atendimentos.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_atendimentos.IconSize = 32;
             ibtn_atendimentos.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_atendimentos.Location = new Point(3, 487);
+            ibtn_atendimentos.Location = new Point(3, 424);
             ibtn_atendimentos.Name = "ibtn_atendimentos";
             ibtn_atendimentos.Padding = new Padding(10, 0, 20, 0);
             ibtn_atendimentos.Size = new Size(216, 60);
@@ -264,7 +239,7 @@
             ibtn_movEstoque.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_movEstoque.IconSize = 32;
             ibtn_movEstoque.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_movEstoque.Location = new Point(3, 550);
+            ibtn_movEstoque.Location = new Point(3, 487);
             ibtn_movEstoque.Name = "ibtn_movEstoque";
             ibtn_movEstoque.Padding = new Padding(10, 0, 20, 0);
             ibtn_movEstoque.Size = new Size(216, 60);
@@ -287,7 +262,7 @@
             ibtn_saldoEstoque.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_saldoEstoque.IconSize = 32;
             ibtn_saldoEstoque.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_saldoEstoque.Location = new Point(3, 613);
+            ibtn_saldoEstoque.Location = new Point(3, 550);
             ibtn_saldoEstoque.Name = "ibtn_saldoEstoque";
             ibtn_saldoEstoque.Padding = new Padding(10, 0, 20, 0);
             ibtn_saldoEstoque.Size = new Size(216, 60);
@@ -310,7 +285,7 @@
             ibtn_config.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_config.IconSize = 32;
             ibtn_config.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_config.Location = new Point(3, 676);
+            ibtn_config.Location = new Point(3, 613);
             ibtn_config.Name = "ibtn_config";
             ibtn_config.Padding = new Padding(10, 0, 20, 0);
             ibtn_config.Size = new Size(216, 60);
@@ -333,7 +308,7 @@
             ibtn_logout.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_logout.IconSize = 32;
             ibtn_logout.ImageAlign = ContentAlignment.MiddleLeft;
-            ibtn_logout.Location = new Point(3, 739);
+            ibtn_logout.Location = new Point(3, 676);
             ibtn_logout.Name = "ibtn_logout";
             ibtn_logout.Padding = new Padding(10, 0, 20, 0);
             ibtn_logout.Size = new Size(216, 60);
@@ -493,7 +468,6 @@
         private FontAwesome.Sharp.IconButton ibtn_logout;
         private FontAwesome.Sharp.IconButton ibtn_config;
         private FontAwesome.Sharp.IconButton ibtn_categorias;
-        private FontAwesome.Sharp.IconButton ibtn_veiculos;
         private FontAwesome.Sharp.IconButton ibtn_clientes;
         private Label btn_home;
         private FontAwesome.Sharp.IconPictureBox icon_current;
