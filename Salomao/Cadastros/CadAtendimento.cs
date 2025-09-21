@@ -17,6 +17,7 @@ namespace Salomao.Cadastros
             InitializeComponent();
             carregaTabela();
             Styler.GridStyler.Personalizar(dataGridView1);
+            Styler.GridStyler.Personalizar(dataGridServicos);
             Styler.ButtonStyler.PersonalizaGravar(btnGravar);
             Styler.ButtonStyler.PersonalizaLimpar(btnLimpar);
             populaCombo(cbCliente, "Clientes", "NomeCliente", "ClienteID");

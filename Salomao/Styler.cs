@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Salomao
 {
@@ -29,9 +30,11 @@ namespace Salomao
                 grid.RowTemplate.Height = 30;
 
                 grid.GridColor = ColorTranslator.FromHtml("#D1D5DB");
-                grid.CellBorderStyle = DataGridViewCellBorderStyle.SingleHorizontal;
+                grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
                 grid.RowHeadersVisible = false;
-                grid.AllowUserToResizeRows = false;
+                grid.AllowUserToAddRows = false;
+                grid.AllowUserToResizeRows = true;
                 grid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             }
 

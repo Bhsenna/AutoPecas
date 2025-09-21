@@ -18,6 +18,7 @@ namespace Salomao.Cadastros
             InitializeComponent();
             carregaTabela();
             Styler.GridStyler.Personalizar(dataGridView1);
+            Styler.GridStyler.Personalizar(dataGridViewVeiculos);
             Styler.ButtonStyler.PersonalizaGravar(btnGravar);
             Styler.ButtonStyler.PersonalizaLimpar(btnLimpar);
         }

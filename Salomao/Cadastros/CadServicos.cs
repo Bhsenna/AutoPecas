@@ -75,6 +75,7 @@ namespace Salomao.Cadastros
             InitializeComponent();
             carregaTabela();
             Styler.GridStyler.Personalizar(dataGridView1);
+            Styler.GridStyler.Personalizar(dataGridProdutos);
             Styler.ButtonStyler.PersonalizaGravar(btnGravar);
             Styler.ButtonStyler.PersonalizaLimpar(btnLimpar);
             btnAdicionarProduto.Click += btnAdicionarProduto_Click;
