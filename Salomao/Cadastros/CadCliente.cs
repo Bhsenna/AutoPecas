@@ -28,7 +28,8 @@ namespace Salomao.Cadastros
             {
                 string query = @"SELECT Clientes.NomeCliente as Nome,
                                         Clientes.Telefone as Telefone,
-                                        Clientes.Email as Email
+                                        Clientes.Email as Email,
+                                        Clientes.ClienteID as ClienteID
                                  FROM Clientes";
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
@@ -36,6 +37,10 @@ namespace Salomao.Cadastros
                     DataTable dt = new DataTable();
                     da.Fill(dt);
                     dataGridView1.DataSource = dt;
+
+                    // Ocultar a coluna ClienteID
+                    if (dataGridView1.Columns.Contains("ClienteID"))
+                        dataGridView1.Columns["ClienteID"].Visible = false;
                 }
             }
         }
@@ -54,16 +59,30 @@ namespace Salomao.Cadastros
 
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                string query = @"INSERT INTO Clientes
-                                    (NomeCliente, Telefone, Email)
-                                VALUES
-                                    (@NomeCliente,@Telefone,@Email)";
+                string query;
+
+                if (clienteSelecionadoId < 0)
+                {
+                    query = @"INSERT INTO Clientes
+                                        (NomeCliente, Telefone, Email)
+                                    VALUES
+                                        (@NomeCliente,@Telefone,@Email)";
+                }
+                else
+                {
+                    query = @"UPDATE Clientes SET
+                                        NomeCliente = @NomeCliente,
+                                        Telefone    = @Telefone,
+                                        Email       = @Email
+                                  WHERE ClienteID = @ClienteID";
+                }
 
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@NomeCliente", sNome);
                     cmd.Parameters.AddWithValue("@Telefone"   , sTelefone);
                     cmd.Parameters.AddWithValue("@Email"      , sEmail);
+                    cmd.Parameters.AddWithValue("@ClienteID"  , clienteSelecionadoId);
 
                     try
                     {
@@ -93,6 +112,7 @@ namespace Salomao.Cadastros
             tbNomeClient.Clear();
             tbTelefone  .Clear();
             tbEmail     .Clear();
+            clienteSelecionadoId = -1;
         }
 
         private int clienteSelecionadoId = -1;
@@ -101,22 +121,16 @@ namespace Salomao.Cadastros
         {
             if (e.RowIndex >= 0)
             {
+                clear();
+
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+
+                // Preencher campos do formulário
                 tbNomeClient.Text = row.Cells["Nome"].Value?.ToString();
                 tbTelefone.Text = row.Cells["Telefone"].Value?.ToString();
                 tbEmail.Text = row.Cells["Email"].Value?.ToString();
 
-                // Buscar o ID do cliente selecionado
-                using (SQLiteConnection con = BancoSQLite.GetConnection())
-                {
-                    string query = "SELECT ClienteID FROM Clientes WHERE NomeCliente = @NomeCliente";
-                    using (SQLiteCommand cmd = new SQLiteCommand(query, con))
-                    {
-                        cmd.Parameters.AddWithValue("@NomeCliente", tbNomeClient.Text);
-                        var result = cmd.ExecuteScalar();
-                        clienteSelecionadoId = result != null ? Convert.ToInt32(result) : -1;
-                    }
-                }
+                clienteSelecionadoId = Convert.ToInt32(row.Cells["ClienteID"].Value?.ToString());
                 CarregarVeiculosDoCliente(clienteSelecionadoId);
             }
         }

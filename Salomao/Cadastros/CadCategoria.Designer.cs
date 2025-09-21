@@ -28,33 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            // Inicialização dos controles
             mainContainer = new Panel();
-            cardCategoria = new Panel();
             cardGrid = new Panel();
-            cardBotoes = new Panel();
-            
-            btnLimpar = new Button();
-            btnGravar = new Button();
+            lbTituloGrid = new Label();
             dataGridView1 = new DataGridView();
+            cardBotoes = new Panel();
+            btnGravar = new Button();
+            btnLimpar = new Button();
+            cardCategoria = new Panel();
+            lbTituloCategoria = new Label();
             lbNomeCat = new Label();
             tbNomeCat = new TextBox();
-            
-            // Labels de título
-            lbTituloCategoria = new Label();
-            lbTituloGrid = new Label();
-            
-            // Eventos
-            btnLimpar.Click += btnLimpar_Click;
-            btnGravar.Click += btnGravar_Click;
-            
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             mainContainer.SuspendLayout();
-            cardCategoria.SuspendLayout();
             cardGrid.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             cardBotoes.SuspendLayout();
+            cardCategoria.SuspendLayout();
             SuspendLayout();
-            
             // 
             // mainContainer
             // 
@@ -68,55 +58,41 @@
             mainContainer.Padding = new Padding(20);
             mainContainer.Size = new Size(1200, 800);
             mainContainer.TabIndex = 0;
-            
             // 
-            // cardCategoria
+            // cardGrid
             // 
-            cardCategoria.BackColor = Color.White;
-            cardCategoria.Controls.Add(lbTituloCategoria);
-            cardCategoria.Controls.Add(lbNomeCat);
-            cardCategoria.Controls.Add(tbNomeCat);
-            cardCategoria.Location = new Point(20, 20);
-            cardCategoria.Name = "cardCategoria";
-            cardCategoria.Padding = new Padding(20);
-            cardCategoria.Size = new Size(1160, 150);
-            cardCategoria.TabIndex = 0;
-            
+            cardGrid.BackColor = Color.White;
+            cardGrid.Controls.Add(lbTituloGrid);
+            cardGrid.Controls.Add(dataGridView1);
+            cardGrid.Location = new Point(20, 270);
+            cardGrid.Name = "cardGrid";
+            cardGrid.Padding = new Padding(20);
+            cardGrid.Size = new Size(1160, 510);
+            cardGrid.TabIndex = 2;
             // 
-            // lbTituloCategoria
+            // lbTituloGrid
             // 
-            lbTituloCategoria.AutoSize = true;
-            lbTituloCategoria.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            lbTituloCategoria.ForeColor = Color.FromArgb(33, 37, 41);
-            lbTituloCategoria.Location = new Point(20, 20);
-            lbTituloCategoria.Name = "lbTituloCategoria";
-            lbTituloCategoria.Size = new Size(150, 25);
-            lbTituloCategoria.TabIndex = 0;
-            lbTituloCategoria.Text = "🏷️ Dados da Categoria";
-            
+            lbTituloGrid.AutoSize = true;
+            lbTituloGrid.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lbTituloGrid.ForeColor = Color.FromArgb(33, 37, 41);
+            lbTituloGrid.Location = new Point(20, 20);
+            lbTituloGrid.Name = "lbTituloGrid";
+            lbTituloGrid.Size = new Size(201, 25);
+            lbTituloGrid.TabIndex = 0;
+            lbTituloGrid.Text = "📋 Lista de Categorias";
             // 
-            // lbNomeCat
+            // dataGridView1
             // 
-            lbNomeCat.AutoSize = true;
-            lbNomeCat.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
-            lbNomeCat.ForeColor = Color.FromArgb(73, 80, 87);
-            lbNomeCat.Location = new Point(20, 60);
-            lbNomeCat.Name = "lbNomeCat";
-            lbNomeCat.Size = new Size(50, 19);
-            lbNomeCat.TabIndex = 1;
-            lbNomeCat.Text = "Nome:";
-            
-            // 
-            // tbNomeCat
-            // 
-            tbNomeCat.Font = new Font("Segoe UI", 10F);
-            tbNomeCat.ForeColor = Color.FromArgb(55, 65, 81);
-            tbNomeCat.Location = new Point(20, 85);
-            tbNomeCat.MaxLength = 250;
-            tbNomeCat.Name = "tbNomeCat";
-            tbNomeCat.Size = new Size(400, 25);
-            tbNomeCat.TabIndex = 2;
-            
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.BackgroundColor = Color.FromArgb(248, 249, 250);
+            dataGridView1.BorderStyle = BorderStyle.None;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Font = new Font("Segoe UI", 9F);
+            dataGridView1.Location = new Point(20, 55);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(1120, 435);
+            dataGridView1.TabIndex = 1;
+            dataGridView1.CellClick += dataGridView1_CellClick;
             // 
             // cardBotoes
             // 
@@ -127,7 +103,6 @@
             cardBotoes.Name = "cardBotoes";
             cardBotoes.Size = new Size(1160, 60);
             cardBotoes.TabIndex = 1;
-            
             // 
             // btnGravar
             // 
@@ -142,7 +117,7 @@
             btnGravar.TabIndex = 0;
             btnGravar.Text = "💾 Gravar";
             btnGravar.UseVisualStyleBackColor = false;
-            
+            btnGravar.Click += btnGravar_Click;
             // 
             // btnLimpar
             // 
@@ -157,44 +132,51 @@
             btnLimpar.TabIndex = 1;
             btnLimpar.Text = "🗑️ Limpar";
             btnLimpar.UseVisualStyleBackColor = false;
-            
+            btnLimpar.Click += btnLimpar_Click;
             // 
-            // cardGrid
+            // cardCategoria
             // 
-            cardGrid.BackColor = Color.White;
-            cardGrid.Controls.Add(lbTituloGrid);
-            cardGrid.Controls.Add(dataGridView1);
-            cardGrid.Location = new Point(20, 270);
-            cardGrid.Name = "cardGrid";
-            cardGrid.Padding = new Padding(20);
-            cardGrid.Size = new Size(1160, 510);
-            cardGrid.TabIndex = 2;
-            
+            cardCategoria.BackColor = Color.White;
+            cardCategoria.Controls.Add(lbTituloCategoria);
+            cardCategoria.Controls.Add(lbNomeCat);
+            cardCategoria.Controls.Add(tbNomeCat);
+            cardCategoria.Location = new Point(20, 20);
+            cardCategoria.Name = "cardCategoria";
+            cardCategoria.Padding = new Padding(20);
+            cardCategoria.Size = new Size(1160, 150);
+            cardCategoria.TabIndex = 0;
             // 
-            // lbTituloGrid
+            // lbTituloCategoria
             // 
-            lbTituloGrid.AutoSize = true;
-            lbTituloGrid.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            lbTituloGrid.ForeColor = Color.FromArgb(33, 37, 41);
-            lbTituloGrid.Location = new Point(20, 20);
-            lbTituloGrid.Name = "lbTituloGrid";
-            lbTituloGrid.Size = new Size(200, 25);
-            lbTituloGrid.TabIndex = 0;
-            lbTituloGrid.Text = "📋 Lista de Categorias";
-            
+            lbTituloCategoria.AutoSize = true;
+            lbTituloCategoria.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lbTituloCategoria.ForeColor = Color.FromArgb(33, 37, 41);
+            lbTituloCategoria.Location = new Point(20, 20);
+            lbTituloCategoria.Name = "lbTituloCategoria";
+            lbTituloCategoria.Size = new Size(213, 25);
+            lbTituloCategoria.TabIndex = 0;
+            lbTituloCategoria.Text = "🏷️ Dados da Categoria";
             // 
-            // dataGridView1
+            // lbNomeCat
             // 
-            dataGridView1.BackgroundColor = Color.FromArgb(248, 249, 250);
-            dataGridView1.BorderStyle = BorderStyle.None;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Font = new Font("Segoe UI", 9F);
-            dataGridView1.Location = new Point(20, 55);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(1120, 435);
-            dataGridView1.TabIndex = 1;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            
+            lbNomeCat.AutoSize = true;
+            lbNomeCat.Font = new Font("Segoe UI", 10F);
+            lbNomeCat.ForeColor = Color.FromArgb(73, 80, 87);
+            lbNomeCat.Location = new Point(20, 60);
+            lbNomeCat.Name = "lbNomeCat";
+            lbNomeCat.Size = new Size(49, 19);
+            lbNomeCat.TabIndex = 1;
+            lbNomeCat.Text = "Nome:";
+            // 
+            // tbNomeCat
+            // 
+            tbNomeCat.Font = new Font("Segoe UI", 10F);
+            tbNomeCat.ForeColor = Color.FromArgb(55, 65, 81);
+            tbNomeCat.Location = new Point(20, 85);
+            tbNomeCat.MaxLength = 250;
+            tbNomeCat.Name = "tbNomeCat";
+            tbNomeCat.Size = new Size(400, 25);
+            tbNomeCat.TabIndex = 2;
             // 
             // CadCategoria
             // 
@@ -205,13 +187,13 @@
             Font = new Font("Segoe UI", 9F);
             Name = "CadCategoria";
             Size = new Size(1200, 800);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             mainContainer.ResumeLayout(false);
-            cardCategoria.ResumeLayout(false);
-            cardCategoria.PerformLayout();
             cardGrid.ResumeLayout(false);
             cardGrid.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             cardBotoes.ResumeLayout(false);
+            cardCategoria.ResumeLayout(false);
+            cardCategoria.PerformLayout();
             ResumeLayout(false);
         }
 

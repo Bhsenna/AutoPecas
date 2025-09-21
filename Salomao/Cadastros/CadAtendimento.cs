@@ -115,7 +115,18 @@ namespace Salomao.Cadastros
             {
                 using (SQLiteConnection con = BancoSQLite.GetConnection())
                 {
-                    string query = @"SELECT A.AtendimentoID, A.Data, A.DataPrestacao, A.PrevisaoConclusao, C.NomeCliente, V.Placa, A.ValorSugerido, A.ValorPraticado, A.LucroBruto, A.Observacoes
+                    string query = @"SELECT A.Data,
+                                            A.DataPrestacao,
+                                            A.PrevisaoConclusao,
+                                            C.NomeCliente,
+                                            V.Placa,
+                                            A.ValorSugerido,
+                                            A.ValorPraticado,
+                                            A.LucroBruto,
+                                            A.Observacoes,
+                                            A.AtendimentoID,
+                                            A.ClienteID,
+                                            A.VeiculoID
                                      FROM Atendimentos A
                                      LEFT JOIN Clientes C ON C.ClienteID = A.ClienteID
                                      LEFT JOIN Veiculos V ON V.VeiculoID = A.VeiculoID";
@@ -125,6 +136,14 @@ namespace Salomao.Cadastros
                         DataTable dt = new DataTable();
                         da.Fill(dt);
                         dataGridView1.DataSource = dt;
+
+                        // Ocultar colunas de IDs
+                        if (dataGridView1.Columns.Contains("AtendimentoID"))
+                            dataGridView1.Columns["AtendimentoID"].Visible = false;
+                        if (dataGridView1.Columns.Contains("ClienteID"))
+                            dataGridView1.Columns["ClienteID"].Visible = false;
+                        if (dataGridView1.Columns.Contains("VeiculoID"))
+                            dataGridView1.Columns["VeiculoID"].Visible = false;
                     }
                 }
             }
@@ -161,11 +180,32 @@ namespace Salomao.Cadastros
                     try
                     {
                         // Insere o atendimento
-                        string query = @"INSERT INTO Atendimentos
-                                            (Data, DataPrestacao, PrevisaoConclusao, ClienteID, VeiculoID, ValorSugerido, ValorPraticado, LucroBruto, Observacoes)
-                                        VALUES
-                                            (@Data, @DataPrestacao, @PrevisaoConclusao, @ClienteID, @VeiculoID, @ValorSugerido, @ValorPraticado, @LucroBruto, @Observacoes)";
+                        string query;
 
+                        if (atendimentoSelecionadoId < 0)
+                        {
+                            query = @"INSERT INTO Atendimentos
+                                                (Data, DataPrestacao, PrevisaoConclusao, ClienteID, VeiculoID, ValorSugerido, ValorPraticado, LucroBruto, Observacoes)
+                                            VALUES
+                                                (@Data, @DataPrestacao, @PrevisaoConclusao, @ClienteID, @VeiculoID, @ValorSugerido, @ValorPraticado, @LucroBruto, @Observacoes);
+                                    SELECT last_insert_rowid();";
+                        }
+                        else
+                        {
+                            query = @"UPDATE Atendimentos SET
+                                                Data              = @Data,
+                                                DataPrestacao     = @DataPrestacao,
+                                                PrevisaoConclusao = @PrevisaoConclusao,
+                                                ClienteID         = @ClienteID,
+                                                VeiculoID         = @VeiculoID,
+                                                ValorSugerido     = @ValorSugerido,
+                                                ValorPraticado    = @ValorPraticado,
+                                                LucroBruto        = @LucroBruto,
+                                                Observacoes       = @Observacoes
+                                      WHERE AtendimentoID = @AtendimentoID";
+                        }
+
+                        long atendimentoId;
                         using (SQLiteCommand cmd = new SQLiteCommand(query, con, transaction))
                         {
                             cmd.Parameters.AddWithValue("@Data", dtData.Value.Date);
@@ -177,16 +217,18 @@ namespace Salomao.Cadastros
                             cmd.Parameters.AddWithValue("@ValorPraticado", tbValorPraticado.Text);
                             cmd.Parameters.AddWithValue("@LucroBruto", tbLucroBruto.Text);
                             cmd.Parameters.AddWithValue("@Observacoes", tbObservacoes.Text);
+                            cmd.Parameters.AddWithValue("@AtendimentoID", atendimentoSelecionadoId);
+                            var scalar = cmd.ExecuteScalar();
+                            atendimentoId = Convert.ToInt32(scalar ?? atendimentoSelecionadoId);
+                        }
+
+                        // Remover os serviços antigos
+                        string deleteProdutos = "DELETE FROM AtendimentoServicos WHERE AtendimentoID = @AtendimentoID";
+                        using (SQLiteCommand cmd = new SQLiteCommand(deleteProdutos, con, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("@AtendimentoID", atendimentoId);
                             cmd.ExecuteNonQuery();
                         }
-
-                        // Obtém o ID do atendimento inserido
-                        long atendimentoId;
-                        using (var cmd = new SQLiteCommand("SELECT last_insert_rowid()", con, transaction))
-                        {
-                            atendimentoId = Convert.ToInt64(cmd.ExecuteScalar());
-                        }
-
                         // Insere os serviços do atendimento
                         string queryServicos = @"INSERT INTO AtendimentoServicos
                                                     (AtendimentoID, ServicoID, Quantidade, ValorUnitario)
@@ -365,6 +407,8 @@ namespace Salomao.Cadastros
             tbObservacoes.Clear();
             servicosSelecionados.Clear();
             AtualizarGridServicos();
+
+            atendimentoSelecionadoId = -1;
         }
 
         private void ConfigurarComboBoxesSeguro()
@@ -391,6 +435,8 @@ namespace Salomao.Cadastros
             }
         }
 
+        private int atendimentoSelecionadoId = -1;
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -408,32 +454,35 @@ namespace Salomao.Cadastros
                 tbLucroBruto.Text = row.Cells["LucroBruto"].Value?.ToString();
                 tbObservacoes.Text = row.Cells["Observacoes"].Value?.ToString();
 
-                cbCliente.SelectedIndex = cbCliente.FindStringExact(row.Cells["NomeCliente"].Value?.ToString());
-                cbVeiculo.SelectedIndex = cbVeiculo.FindString(row.Cells["Placa"].Value?.ToString());
+                cbCliente.SelectedValue = row.Cells["ClienteID"].Value?.ToString();
+                cbVeiculo.SelectedValue = row.Cells["VeiculoID"].Value?.ToString();
 
-                using (SQLiteConnection con = BancoSQLite.GetConnection())
+                atendimentoSelecionadoId = Convert.ToInt32(row.Cells["AtendimentoID"].Value);
+                CarregarServicosDoAtendimento(atendimentoSelecionadoId);
+            }
+        }
+
+        private void CarregarServicosDoAtendimento(int atendimentoId)
+        {
+            using (SQLiteConnection con = BancoSQLite.GetConnection())
+            {
+                string query = @"
+                        SELECT 
+                            asp.ServicoID
+                        FROM AtendimentoServicos asp
+                        WHERE asp.AtendimentoID = @AtendimentoID";
+
+                using (var cmd = new SQLiteCommand(query, con))
                 {
-                    string query = @"
-                    SELECT 
-                        asp.ServicoID
-                    FROM AtendimentoServicos asp
-                    WHERE asp.AtendimentoID = @AtendimentoID";
-
-                    using (var cmd = new SQLiteCommand(query, con))
+                    cmd.Parameters.AddWithValue("@AtendimentoID", atendimentoId);
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        cmd.Parameters.AddWithValue("@AtendimentoID", row.Cells["AtendimentoId"].Value);
-                        using (var reader = cmd.ExecuteReader())
+                        while (reader.Read())
                         {
-                            while (reader.Read())
-                            {
-                                int servicoId = reader.GetInt32("ServicoID");
-                                Debug.WriteLine(servicoId);
-                                cbServico.SelectedValue = servicoId;
-                                Debug.WriteLine(cbServico.SelectedItem);
-                                btnAdicionarServico_Click(null, null);
-                            }
-                            cbServico.SelectedValue = -1;
+                            cbServico.SelectedValue = reader.GetInt32("ServicoID");
+                            btnAdicionarServico_Click(null, null);
                         }
+                        cbServico.SelectedValue = -1;
                     }
                 }
             }

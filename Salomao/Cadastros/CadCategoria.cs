@@ -27,7 +27,8 @@ namespace Salomao.Cadastros
         {
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                string query = @"SELECT Categorias.NomeCategoria as Nome
+                string query = @"SELECT Categorias.NomeCategoria as Nome,
+                                      Categorias.CategoriaID as CategoriaID
                                  FROM Categorias";
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
@@ -35,6 +36,10 @@ namespace Salomao.Cadastros
                     DataTable dt = new DataTable();
                     da.Fill(dt);
                     dataGridView1.DataSource = dt;
+
+                    // Ocultar coluna ID
+                    if (dataGridView1.Columns.Contains("CategoriaID"))
+                        dataGridView1.Columns["CategoriaID"].Visible = false;
                 }
             }
         }
@@ -51,14 +56,27 @@ namespace Salomao.Cadastros
 
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                string query = @"INSERT INTO Categorias
-                                    (NomeCategoria)
-                                VALUES
-                                    (@NomeCategoria)";
+                string query;
+
+                if (categoriaSelecionadoId < 0)
+                {
+                    query = @"INSERT INTO Categorias
+                                        (NomeCategoria)
+                                    VALUES
+                                        (@NomeCategoria)";
+                }
+                else
+                {
+                    query = @"UPDATE Categorias
+                                 SET NomeCategoria = @NomeCategoria
+                               WHERE CategoriaID = @CategoriaId";
+                }
+
 
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 {
                     cmd.Parameters.AddWithValue("@NomeCategoria", sNomeCat);
+                    cmd.Parameters.AddWithValue("@CategoriaId", categoriaSelecionadoId);
 
                     try
                     {
@@ -84,6 +102,20 @@ namespace Salomao.Cadastros
         private void clear()
         {
             tbNomeCat.Clear();
+            categoriaSelecionadoId = -1;
+        }
+
+        private int categoriaSelecionadoId = -1;
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                tbNomeCat.Text = row.Cells["Nome"].Value?.ToString();
+
+                categoriaSelecionadoId = Convert.ToInt32(row.Cells["CategoriaID"].Value?.ToString());
+            }
         }
     }
 }

@@ -28,39 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            // Inicialização dos controles
             mainContainer = new Panel();
-            cardFornecedor = new Panel();
             cardGrid = new Panel();
+            lbTituloGrid = new Label();
+            dataGridView1 = new DataGridView();
             cardBotoes = new Panel();
-            
+            btnGravar = new Button();
+            btnLimpar = new Button();
+            cardFornecedor = new Panel();
+            lbTituloFornecedor = new Label();
+            lbNomeFor = new Label();
+            tbNomeFor = new TextBox();
             lbEndereco = new Label();
             tbEndereco = new TextBox();
             lbTelefone = new Label();
             tbTelefone = new TextBox();
             lbEmail = new Label();
             tbEmail = new TextBox();
-            lbNomeFor = new Label();
-            tbNomeFor = new TextBox();
-            btnGravar = new Button();
-            btnLimpar = new Button();
-            dataGridView1 = new DataGridView();
-            
-            // Labels de título
-            lbTituloFornecedor = new Label();
-            lbTituloGrid = new Label();
-            
-            // Eventos
-            btnGravar.Click += btnGravar_Click;
-            btnLimpar.Click += btnLimpar_Click;
-            
             mainContainer.SuspendLayout();
-            cardFornecedor.SuspendLayout();
             cardGrid.SuspendLayout();
-            cardBotoes.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            cardBotoes.SuspendLayout();
+            cardFornecedor.SuspendLayout();
             SuspendLayout();
-            
             // 
             // mainContainer
             // 
@@ -74,7 +64,81 @@
             mainContainer.Padding = new Padding(20);
             mainContainer.Size = new Size(1200, 800);
             mainContainer.TabIndex = 0;
-            
+            // 
+            // cardGrid
+            // 
+            cardGrid.BackColor = Color.White;
+            cardGrid.Controls.Add(lbTituloGrid);
+            cardGrid.Controls.Add(dataGridView1);
+            cardGrid.Location = new Point(20, 320);
+            cardGrid.Name = "cardGrid";
+            cardGrid.Padding = new Padding(20);
+            cardGrid.Size = new Size(1160, 460);
+            cardGrid.TabIndex = 2;
+            // 
+            // lbTituloGrid
+            // 
+            lbTituloGrid.AutoSize = true;
+            lbTituloGrid.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lbTituloGrid.ForeColor = Color.FromArgb(33, 37, 41);
+            lbTituloGrid.Location = new Point(20, 20);
+            lbTituloGrid.Name = "lbTituloGrid";
+            lbTituloGrid.Size = new Size(228, 25);
+            lbTituloGrid.TabIndex = 0;
+            lbTituloGrid.Text = "📋 Lista de Fornecedores";
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView1.BackgroundColor = Color.FromArgb(248, 249, 250);
+            dataGridView1.BorderStyle = BorderStyle.None;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Font = new Font("Segoe UI", 9F);
+            dataGridView1.Location = new Point(20, 55);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.Size = new Size(1120, 385);
+            dataGridView1.TabIndex = 1;
+            dataGridView1.CellClick += dataGridView1_CellClick;
+            // 
+            // cardBotoes
+            // 
+            cardBotoes.BackColor = Color.Transparent;
+            cardBotoes.Controls.Add(btnGravar);
+            cardBotoes.Controls.Add(btnLimpar);
+            cardBotoes.Location = new Point(20, 240);
+            cardBotoes.Name = "cardBotoes";
+            cardBotoes.Size = new Size(1160, 60);
+            cardBotoes.TabIndex = 1;
+            // 
+            // btnGravar
+            // 
+            btnGravar.BackColor = Color.FromArgb(25, 135, 84);
+            btnGravar.FlatAppearance.BorderSize = 0;
+            btnGravar.FlatStyle = FlatStyle.Flat;
+            btnGravar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnGravar.ForeColor = Color.White;
+            btnGravar.Location = new Point(1050, 15);
+            btnGravar.Name = "btnGravar";
+            btnGravar.Size = new Size(120, 40);
+            btnGravar.TabIndex = 0;
+            btnGravar.Text = "💾 Gravar";
+            btnGravar.UseVisualStyleBackColor = false;
+            btnGravar.Click += btnGravar_Click;
+            // 
+            // btnLimpar
+            // 
+            btnLimpar.BackColor = Color.FromArgb(108, 117, 125);
+            btnLimpar.FlatAppearance.BorderSize = 0;
+            btnLimpar.FlatStyle = FlatStyle.Flat;
+            btnLimpar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnLimpar.ForeColor = Color.White;
+            btnLimpar.Location = new Point(920, 15);
+            btnLimpar.Name = "btnLimpar";
+            btnLimpar.Size = new Size(120, 40);
+            btnLimpar.TabIndex = 1;
+            btnLimpar.Text = "🗑️ Limpar";
+            btnLimpar.UseVisualStyleBackColor = false;
+            btnLimpar.Click += btnLimpar_Click;
             // 
             // cardFornecedor
             // 
@@ -93,7 +157,6 @@
             cardFornecedor.Padding = new Padding(20);
             cardFornecedor.Size = new Size(1160, 200);
             cardFornecedor.TabIndex = 0;
-            
             // 
             // lbTituloFornecedor
             // 
@@ -102,22 +165,20 @@
             lbTituloFornecedor.ForeColor = Color.FromArgb(33, 37, 41);
             lbTituloFornecedor.Location = new Point(20, 20);
             lbTituloFornecedor.Name = "lbTituloFornecedor";
-            lbTituloFornecedor.Size = new Size(150, 25);
+            lbTituloFornecedor.Size = new Size(232, 25);
             lbTituloFornecedor.TabIndex = 0;
             lbTituloFornecedor.Text = "🏢 Dados do Fornecedor";
-            
             // 
             // lbNomeFor
             // 
             lbNomeFor.AutoSize = true;
-            lbNomeFor.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            lbNomeFor.Font = new Font("Segoe UI", 10F);
             lbNomeFor.ForeColor = Color.FromArgb(73, 80, 87);
             lbNomeFor.Location = new Point(20, 60);
             lbNomeFor.Name = "lbNomeFor";
-            lbNomeFor.Size = new Size(50, 19);
+            lbNomeFor.Size = new Size(49, 19);
             lbNomeFor.TabIndex = 1;
             lbNomeFor.Text = "Nome:";
-            
             // 
             // tbNomeFor
             // 
@@ -128,19 +189,17 @@
             tbNomeFor.Name = "tbNomeFor";
             tbNomeFor.Size = new Size(250, 25);
             tbNomeFor.TabIndex = 2;
-            
             // 
             // lbEndereco
             // 
             lbEndereco.AutoSize = true;
-            lbEndereco.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            lbEndereco.Font = new Font("Segoe UI", 10F);
             lbEndereco.ForeColor = Color.FromArgb(73, 80, 87);
             lbEndereco.Location = new Point(300, 60);
             lbEndereco.Name = "lbEndereco";
-            lbEndereco.Size = new Size(70, 19);
+            lbEndereco.Size = new Size(68, 19);
             lbEndereco.TabIndex = 3;
             lbEndereco.Text = "Endereço:";
-            
             // 
             // tbEndereco
             // 
@@ -151,19 +210,17 @@
             tbEndereco.Name = "tbEndereco";
             tbEndereco.Size = new Size(300, 25);
             tbEndereco.TabIndex = 4;
-            
             // 
             // lbTelefone
             // 
             lbTelefone.AutoSize = true;
-            lbTelefone.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            lbTelefone.Font = new Font("Segoe UI", 10F);
             lbTelefone.ForeColor = Color.FromArgb(73, 80, 87);
             lbTelefone.Location = new Point(20, 130);
             lbTelefone.Name = "lbTelefone";
-            lbTelefone.Size = new Size(65, 19);
+            lbTelefone.Size = new Size(62, 19);
             lbTelefone.TabIndex = 5;
             lbTelefone.Text = "Telefone:";
-            
             // 
             // tbTelefone
             // 
@@ -174,19 +231,17 @@
             tbTelefone.Name = "tbTelefone";
             tbTelefone.Size = new Size(200, 25);
             tbTelefone.TabIndex = 6;
-            
             // 
             // lbEmail
             // 
             lbEmail.AutoSize = true;
-            lbEmail.Font = new Font("Segoe UI", 10F, FontStyle.Regular);
+            lbEmail.Font = new Font("Segoe UI", 10F);
             lbEmail.ForeColor = Color.FromArgb(73, 80, 87);
             lbEmail.Location = new Point(250, 130);
             lbEmail.Name = "lbEmail";
             lbEmail.Size = new Size(50, 19);
             lbEmail.TabIndex = 7;
             lbEmail.Text = "E-mail:";
-            
             // 
             // tbEmail
             // 
@@ -197,85 +252,6 @@
             tbEmail.Name = "tbEmail";
             tbEmail.Size = new Size(350, 25);
             tbEmail.TabIndex = 8;
-            
-            // 
-            // cardBotoes
-            // 
-            cardBotoes.BackColor = Color.Transparent;
-            cardBotoes.Controls.Add(btnGravar);
-            cardBotoes.Controls.Add(btnLimpar);
-            cardBotoes.Location = new Point(20, 240);
-            cardBotoes.Name = "cardBotoes";
-            cardBotoes.Size = new Size(1160, 60);
-            cardBotoes.TabIndex = 1;
-            
-            // 
-            // btnGravar
-            // 
-            btnGravar.BackColor = Color.FromArgb(25, 135, 84);
-            btnGravar.FlatAppearance.BorderSize = 0;
-            btnGravar.FlatStyle = FlatStyle.Flat;
-            btnGravar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            btnGravar.ForeColor = Color.White;
-            btnGravar.Location = new Point(1050, 15);
-            btnGravar.Name = "btnGravar";
-            btnGravar.Size = new Size(120, 40);
-            btnGravar.TabIndex = 0;
-            btnGravar.Text = "💾 Gravar";
-            btnGravar.UseVisualStyleBackColor = false;
-            
-            // 
-            // btnLimpar
-            // 
-            btnLimpar.BackColor = Color.FromArgb(108, 117, 125);
-            btnLimpar.FlatAppearance.BorderSize = 0;
-            btnLimpar.FlatStyle = FlatStyle.Flat;
-            btnLimpar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            btnLimpar.ForeColor = Color.White;
-            btnLimpar.Location = new Point(920, 15);
-            btnLimpar.Name = "btnLimpar";
-            btnLimpar.Size = new Size(120, 40);
-            btnLimpar.TabIndex = 1;
-            btnLimpar.Text = "🗑️ Limpar";
-            btnLimpar.UseVisualStyleBackColor = false;
-            
-            // 
-            // cardGrid
-            // 
-            cardGrid.BackColor = Color.White;
-            cardGrid.Controls.Add(lbTituloGrid);
-            cardGrid.Controls.Add(dataGridView1);
-            cardGrid.Location = new Point(20, 320);
-            cardGrid.Name = "cardGrid";
-            cardGrid.Padding = new Padding(20);
-            cardGrid.Size = new Size(1160, 460);
-            cardGrid.TabIndex = 2;
-            
-            // 
-            // lbTituloGrid
-            // 
-            lbTituloGrid.AutoSize = true;
-            lbTituloGrid.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            lbTituloGrid.ForeColor = Color.FromArgb(33, 37, 41);
-            lbTituloGrid.Location = new Point(20, 20);
-            lbTituloGrid.Name = "lbTituloGrid";
-            lbTituloGrid.Size = new Size(200, 25);
-            lbTituloGrid.TabIndex = 0;
-            lbTituloGrid.Text = "📋 Lista de Fornecedores";
-            
-            // 
-            // dataGridView1
-            // 
-            dataGridView1.BackgroundColor = Color.FromArgb(248, 249, 250);
-            dataGridView1.BorderStyle = BorderStyle.None;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Font = new Font("Segoe UI", 9F);
-            dataGridView1.Location = new Point(20, 55);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(1120, 385);
-            dataGridView1.TabIndex = 1;
-            dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            
             // 
             // CadFornecedor
             // 
@@ -287,12 +263,12 @@
             Name = "CadFornecedor";
             Size = new Size(1200, 800);
             mainContainer.ResumeLayout(false);
-            cardFornecedor.ResumeLayout(false);
-            cardFornecedor.PerformLayout();
             cardGrid.ResumeLayout(false);
             cardGrid.PerformLayout();
-            cardBotoes.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            cardBotoes.ResumeLayout(false);
+            cardFornecedor.ResumeLayout(false);
+            cardFornecedor.PerformLayout();
             ResumeLayout(false);
         }
 

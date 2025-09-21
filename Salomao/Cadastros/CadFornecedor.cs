@@ -29,7 +29,8 @@ namespace Salomao.Cadastros
                 string query = @"SELECT Fornecedores.NomeFornecedor as Nome,
                                         Fornecedores.Endereco as Endereço,
                                         Fornecedores.Telefone as Telefone,
-                                        Fornecedores.Email as Email
+                                        Fornecedores.Email as Email,
+                                        Fornecedores.FornecedorID as FornecedorID
                                  FROM Fornecedores";
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
@@ -37,6 +38,10 @@ namespace Salomao.Cadastros
                     DataTable dt = new DataTable();
                     da.Fill(dt);
                     dataGridView1.DataSource = dt;
+
+                    // Ocultar coluna ID
+                    if (dataGridView1.Columns.Contains("FornecedorID"))
+                        dataGridView1.Columns["FornecedorID"].Visible = false;
                 }
             }
         }
@@ -56,10 +61,24 @@ namespace Salomao.Cadastros
 
             using (SQLiteConnection con = BancoSQLite.GetConnection())
             {
-                string query = @"INSERT INTO Fornecedores
-                                    (NomeFornecedor, Endereco, Telefone, Email)
-                                VALUES
-                                    (@NomeFornecedor,@Endereco,@Telefone,@Email)";
+                string query;
+
+                if (fornecedorSelecionadoId < 0)
+                {
+                    query = @"INSERT INTO Fornecedores
+                                        (NomeFornecedor, Endereco, Telefone, Email)
+                                    VALUES
+                                        (@NomeFornecedor,@Endereco,@Telefone,@Email)";
+                }
+                else
+                {
+                    query = @"UPDATE Fornecedores SET
+                                        NomeFornecedor = @NomeFornecedor,
+                                        Endereco = @Endereco,
+                                        Telefone = @Telefone,
+                                        Email = @Email
+                                  WHERE FornecedorID = @FornecedorID";
+                }
 
                 using (SQLiteCommand cmd = new SQLiteCommand(query, con))
                 {
@@ -67,6 +86,7 @@ namespace Salomao.Cadastros
                     cmd.Parameters.AddWithValue("@Endereco"      , sEndereco);
                     cmd.Parameters.AddWithValue("@Telefone"      , sTelefone);
                     cmd.Parameters.AddWithValue("@Email"         , sEmail);
+                    cmd.Parameters.AddWithValue("@FornecedorID"  , fornecedorSelecionadoId);
 
                     try
                     {
@@ -97,6 +117,23 @@ namespace Salomao.Cadastros
             tbEndereco.Clear();
             tbTelefone.Clear();
             tbEmail   .Clear();
+            fornecedorSelecionadoId = -1;
+        }
+
+        private int fornecedorSelecionadoId = -1;
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                tbNomeFor .Text = row.Cells["Nome"].Value?.ToString();
+                tbEndereco.Text = row.Cells["Endereço"].Value?.ToString();
+                tbTelefone.Text = row.Cells["Telefone"].Value?.ToString();
+                tbEmail   .Text = row.Cells["Email"].Value?.ToString();
+
+                fornecedorSelecionadoId = Convert.ToInt32(row.Cells["FornecedorID"].Value?.ToString());
+            }
         }
     }
 }

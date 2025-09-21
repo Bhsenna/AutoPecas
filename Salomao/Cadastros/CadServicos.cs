@@ -26,21 +26,21 @@ namespace Salomao.Cadastros
                     using (SQLiteDataAdapter da = new SQLiteDataAdapter(query, con))
                     {
                         DataTable dt = new DataTable();
-                        
+
                         // Define explicitamente os tipos das colunas ANTES de preencher
                         dt.Columns.Add("ProdutoID", typeof(int));
                         dt.Columns.Add("NomeProduto", typeof(string));
                         dt.Columns.Add("CustoAquisicao", typeof(decimal));
-                        
+
                         da.Fill(dt);
-                        
+
                         // Adiciona linha vazia no início
                         DataRow emptyRow = dt.NewRow();
                         emptyRow["ProdutoID"] = -1;
                         emptyRow["NomeProduto"] = "Selecione um produto";
                         emptyRow["CustoAquisicao"] = 0;
                         dt.Rows.InsertAt(emptyRow, 0);
-                        
+
                         cbProdutoServico.DataSource = dt;
                         cbProdutoServico.DisplayMember = "NomeProduto";
                         cbProdutoServico.ValueMember = "ProdutoID";
@@ -49,21 +49,21 @@ namespace Salomao.Cadastros
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao carregar produtos: {ex.Message}\n\nVerifique se a migração do banco foi executada.", 
+                MessageBox.Show($"Erro ao carregar produtos: {ex.Message}\n\nVerifique se a migração do banco foi executada.",
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+
                 // Criar DataTable vazio para evitar erros
                 DataTable dt = new DataTable();
                 dt.Columns.Add("ProdutoID", typeof(int));
                 dt.Columns.Add("NomeProduto", typeof(string));
                 dt.Columns.Add("CustoAquisicao", typeof(decimal));
-                
+
                 DataRow emptyRow = dt.NewRow();
                 emptyRow["ProdutoID"] = -1;
                 emptyRow["NomeProduto"] = "Nenhum produto disponível";
                 emptyRow["CustoAquisicao"] = 0;
                 dt.Rows.Add(emptyRow);
-                
+
                 cbProdutoServico.DataSource = dt;
                 cbProdutoServico.DisplayMember = "NomeProduto";
                 cbProdutoServico.ValueMember = "ProdutoID";
@@ -94,11 +94,11 @@ namespace Salomao.Cadastros
                     using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
                     {
                         DataTable dt = new DataTable();
-                        
+
                         // Define explicitamente os tipos das colunas
                         dt.Columns.Add("Nome", typeof(string));
                         dt.Columns.Add("ID", typeof(int));
-                        
+
                         da.Fill(dt);
 
                         // Garantir que a coluna ID tenha o tipo correto
@@ -123,17 +123,17 @@ namespace Salomao.Cadastros
             {
                 MessageBox.Show($"Erro ao carregar dados da tabela {tabela}: {ex.Message}\n\nVerifique se a migração do banco foi executada.",
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+
                 // Criar DataTable vazio para evitar erros
                 DataTable dt = new DataTable();
                 dt.Columns.Add("Nome", typeof(string));
                 dt.Columns.Add("ID", typeof(int));
-                
+
                 DataRow emptyRow = dt.NewRow();
                 emptyRow["Nome"] = "Nenhum registro disponível";
                 emptyRow["ID"] = -1;
                 dt.Rows.Add(emptyRow);
-                
+
                 comboBox.DataSource = dt;
                 comboBox.DisplayMember = "Nome";
                 comboBox.ValueMember = "ID";
@@ -159,6 +159,10 @@ namespace Salomao.Cadastros
                         DataTable dt = new DataTable();
                         da.Fill(dt);
                         dataGridView1.DataSource = dt;
+
+                        // Ocultar colunas de IDs
+                        if (dataGridView1.Columns.Contains("ServicoID"))
+                            dataGridView1.Columns["ServicoID"].Visible = false;
                     }
                 }
             }
@@ -166,7 +170,7 @@ namespace Salomao.Cadastros
             {
                 MessageBox.Show($"Erro ao carregar serviços: {ex.Message}\n\nVerifique se a migração do banco foi executada.",
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
+
                 // Criar DataTable vazio
                 DataTable dt = new DataTable();
                 dataGridView1.DataSource = dt;
@@ -185,18 +189,43 @@ namespace Salomao.Cadastros
                         {
                             try
                             {
-                                // Inserir serviço
-                                string insertServico = @"INSERT INTO Servicos (NomeServico, Descricao, MargemLucro) 
-                                                       VALUES (@NomeServico, @Descricao, @MargemLucro);
-                                                       SELECT last_insert_rowid();";
+                                string query;
+                                if (servicoSelecionadoId < 0)
+                                {
+                                    // Novo serviço
+                                    query = @"INSERT INTO Servicos
+                                                        (NomeServico, Descricao, MargemLucro) 
+                                                    VALUES
+                                                        (@NomeServico, @Descricao, @MargemLucro);
+                                            SELECT last_insert_rowid();";
+                                }
+                                else
+                                {
+                                    // Atualizar serviço existente
+                                    query = @"UPDATE Servicos 
+                                                             SET NomeServico = @NomeServico, 
+                                                                 Descricao = @Descricao, 
+                                                                 MargemLucro = @MargemLucro 
+                                                             WHERE ServicoID = @ServicoID";
+                                }
 
                                 int servicoId;
-                                using (SQLiteCommand cmd = new SQLiteCommand(insertServico, con, transaction))
+                                using (SQLiteCommand cmd = new SQLiteCommand(query, con, transaction))
                                 {
                                     cmd.Parameters.AddWithValue("@NomeServico", tbNomeServico.Text.Trim());
-                                    cmd.Parameters.AddWithValue("@Descricao", tbDescricao.Text.Trim());
+                                    cmd.Parameters.AddWithValue("@Descricao"  , tbDescricao.Text.Trim());
                                     cmd.Parameters.AddWithValue("@MargemLucro", decimal.Parse(tbMargem.Text));
-                                    servicoId = Convert.ToInt32(cmd.ExecuteScalar());
+                                    cmd.Parameters.AddWithValue("@ServicoID"  , servicoSelecionadoId);
+                                    var scalar = cmd.ExecuteScalar();
+                                    servicoId = Convert.ToInt32(scalar ?? servicoSelecionadoId);
+                                }
+
+                                // Remover produtos antigos
+                                string deleteProdutos = "DELETE FROM ServicoParaProduto WHERE ServicoID = @ServicoID";
+                                using (SQLiteCommand cmd = new SQLiteCommand(deleteProdutos, con, transaction))
+                                {
+                                    cmd.Parameters.AddWithValue("@ServicoID", servicoId);
+                                    cmd.ExecuteNonQuery();
                                 }
 
                                 // Inserir produtos do serviço
@@ -218,7 +247,7 @@ namespace Salomao.Cadastros
 
                                 transaction.Commit();
                                 MessageBox.Show("Serviço cadastrado com sucesso!");
-                                LimparCampos();
+                                clear();
                                 carregaTabela();
                             }
                             catch
@@ -258,18 +287,20 @@ namespace Salomao.Cadastros
 
         private void btnLimpar_Click(object sender, EventArgs e)
         {
-            LimparCampos();
+            clear();
         }
 
-        private void LimparCampos()
+        private void clear()
         {
-            tbNomeServico.Clear();
-            tbDescricao.Clear();
-            tbMargem.Clear();
-            tbCustoServico.Clear();
+            tbNomeServico       .Clear();
+            tbDescricao         .Clear();
+            tbMargem            .Clear();
+            tbCustoServico      .Clear();
             produtosSelecionados.Clear();
             AtualizarGridProdutos();
-            
+
+            servicoSelecionadoId = -1;
+
             // Configurar ComboBoxes de forma segura
             ConfigurarComboBoxesSeguro();
         }
@@ -295,7 +326,7 @@ namespace Salomao.Cadastros
             try
             {
                 int produtoId = BancoSQLite.GetComboBoxValue(cbProdutoServico, -1);
-                
+
                 if (produtoId == -1)
                 {
                     MessageBox.Show("Selecione um produto para adicionar.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -319,7 +350,7 @@ namespace Salomao.Cadastros
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao adicionar produto: {ex.Message}", 
+                MessageBox.Show($"Erro ao adicionar produto: {ex.Message}",
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -343,7 +374,7 @@ namespace Salomao.Cadastros
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Erro ao remover produto: {ex.Message}", 
+                MessageBox.Show($"Erro ao remover produto: {ex.Message}",
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -377,6 +408,52 @@ namespace Salomao.Cadastros
             }
 
             tbCustoServico.Text = custoTotal.ToString("N2");
+        }
+
+        private int servicoSelecionadoId = -1;
+
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                clear();
+
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+
+                // Preencher campos do formulário
+                tbNomeServico.Text = row.Cells["NomeServico"].Value?.ToString();
+                tbDescricao   .Text = row.Cells["Descricao"].Value?.ToString();
+                tbMargem      .Text = row.Cells["MargemLucro"].Value?.ToString();
+                CalcularCustoServico();
+
+                servicoSelecionadoId = Convert.ToInt32(row.Cells["ServicoID"].Value?.ToString());
+                CarregarProdutosDoServico(servicoSelecionadoId);
+            }
+        }
+
+        private void CarregarProdutosDoServico(int servicoId)
+        {
+            using (SQLiteConnection con = BancoSQLite.GetConnection())
+            {
+                string query = @"
+                    SELECT
+                        ProdutoID
+                    FROM ServicoParaProduto
+                    WHERE ServicoID = @ServicoID";
+                using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@ServicoID", servicoId);
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            cbProdutoServico.SelectedValue = reader.GetInt32("ProdutoID");
+                            btnAdicionarProduto_Click(null, null);
+                        }
+                        cbProdutoServico.SelectedValue = -1;
+                    }
+                }
+            }
         }
     }
 }

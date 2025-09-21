@@ -142,10 +142,10 @@ namespace Salomao
                     }
 
                     System.Windows.Forms.MessageBox.Show("Banco de dados criado com sucesso!");
-                }
 
-                // Carrega dados de teste apenas em ambiente de desenvolvimento
-                DadosTeste.CarregarDadosTeste(connection);
+                    // Carrega dados de teste apenas em ambiente de desenvolvimento
+                    DadosTeste.CarregarDadosTeste(connection);
+                }
 
                 string query = "SELECT COUNT(*) FROM Usuarios WHERE Login = 'admin'";
                 using (var command = new SQLiteCommand(query, connection))
