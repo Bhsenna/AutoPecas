@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using System.Linq;
 using FontAwesome.Sharp;
 //using Salomao.Forms;
 
@@ -19,6 +20,9 @@ namespace Salomao
             leftBorderBtn = new Panel();
             leftBorderBtn.Size = new Size(7, 60);
             panel_menu.Controls.Add(leftBorderBtn);
+
+            // Verificar se o botão calendário existe, se não, criar
+            VerificarBotaoCalendario();
 
             // Form
             this.Padding = new Padding(borderSize);//Border size
@@ -286,6 +290,52 @@ namespace Salomao
             if (sender == currentBtn) return;
             ActivateButton(sender, Color.White);
             MostrarTela(new Cadastros.SaldoEstoque());
+        }
+
+        private void VerificarBotaoCalendario()
+        {
+            // Verificar se o botão calendário já existe
+            var botaoExistente = panel_menu.Controls.OfType<FontAwesome.Sharp.IconButton>()
+                .FirstOrDefault(b => b.Name == "ibtn_calendario");
+
+            if (botaoExistente == null)
+            {
+                // Criar o botão calendário se não existir
+                var ibtn_calendario = new FontAwesome.Sharp.IconButton
+                {
+                    Name = "ibtn_calendario",
+                    Text = "Calendário",
+                    IconChar = FontAwesome.Sharp.IconChar.Calendar,
+                    IconColor = Color.FromArgb(209, 213, 219),
+                    IconFont = FontAwesome.Sharp.IconFont.Auto,
+                    IconSize = 32,
+                    ForeColor = Color.FromArgb(209, 213, 219),
+                    Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point),
+                    Size = new Size(216, 60),
+                    Location = new Point(3, 673),
+                    FlatStyle = FlatStyle.Flat,
+                    TextAlign = ContentAlignment.MiddleLeft,
+                    TextImageRelation = TextImageRelation.ImageBeforeText,
+                    ImageAlign = ContentAlignment.MiddleLeft,
+                    Padding = new Padding(10, 0, 20, 0),
+                    UseVisualStyleBackColor = true,
+                    TabIndex = 15
+                };
+                
+                ibtn_calendario.FlatAppearance.BorderSize = 0;
+                ibtn_calendario.Click += ibtn_calendario_Click;
+                
+                // Adicionar o botão ao menu
+                panel_menu.Controls.Add(ibtn_calendario);
+                ibtn_calendario.BringToFront();
+            }
+        }
+
+        private void ibtn_calendario_Click(object sender, EventArgs e)
+        {
+            if (sender == currentBtn) return;
+            ActivateButton(sender, Color.White);
+            MostrarTela(new CalendarioForm());
         }
 
         private void TelaInicial_Resize(object sender, EventArgs e)

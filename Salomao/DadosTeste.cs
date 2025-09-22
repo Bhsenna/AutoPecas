@@ -10,14 +10,14 @@ namespace Salomao
         {
             try
             {
-                CarregarCategorias(connection);
-                CarregarFornecedores(connection);
-                CarregarProdutos(connection);
-                CarregarClientes(connection);
-                CarregarVeiculos(connection);
-                CarregarServicos(connection);
-                CarregarServicoProdutos(connection);
-                CarregarAtendimentos(connection);
+                //CarregarCategorias(connection);
+                //CarregarFornecedores(connection);
+                //CarregarProdutos(connection);
+                //CarregarClientes(connection);
+                //CarregarVeiculos(connection);
+                //CarregarServicos(connection);
+                //CarregarServicoProdutos(connection);
+                //CarregarAtendimentos(connection);
                 //CarregarMovimentosEstoque(connection);
 
                 System.Windows.Forms.MessageBox.Show("Dados de teste carregados com sucesso!\n\n" +
@@ -235,17 +235,8 @@ namespace Salomao
         {
             var atendimentos = new[]
             {
-                new { 
-                    Data = DateTime.Now.AddDays(-5), 
-                    DataPrestacao = DateTime.Now.AddDays(-5), 
-                    PrevisaoConclusao = DateTime.Now.AddDays(-3),
-                    Cliente = 1, 
-                    Veiculo = 1, 
-                    ValorSugerido = 150.00m, 
-                    ValorPraticado = 140.00m, 
-                    LucroBruto = 35.00m,
-                    Observacoes = "Troca de óleo realizada com sucesso"
-                },
+
+
                 new { 
                     Data = DateTime.Now.AddDays(-2), 
                     DataPrestacao = DateTime.Now.AddDays(-2), 
@@ -300,36 +291,36 @@ namespace Salomao
             }
         }
 
-        //private static void CarregarMovimentosEstoque(SQLiteConnection connection)
-        //{
-        //    var movimentos = new[]
-        //    {
-        //        new { Produto = 1, Data = DateTime.Now.AddDays(-10), Quantidade = 100.0, Tipo = "E", Origem = "Compra inicial", Observacao = "Estoque inicial", Atendimento = (int?)null },
-        //        new { Produto = 2, Data = DateTime.Now.AddDays(-10), Quantidade = 50.0, Tipo = "E", Origem = "Compra inicial", Observacao = "Estoque inicial", Atendimento = (int?)null },
-        //        new { Produto = 3, Data = DateTime.Now.AddDays(-10), Quantidade = 80.0, Tipo = "E", Origem = "Compra inicial", Observacao = "Estoque inicial", Atendimento = (int?)null },
-        //        new { Produto = 1, Data = DateTime.Now.AddDays(-5), Quantidade = 1.0, Tipo = "S", Origem = "Atendimento", Observacao = "Troca de óleo", Atendimento = 1 },
-        //        new { Produto = 2, Data = DateTime.Now.AddDays(-5), Quantidade = 1.0, Tipo = "S", Origem = "Atendimento", Observacao = "Troca de filtro", Atendimento = 1 },
-        //        new { Produto = 1, Data = DateTime.Now.AddDays(-2), Quantidade = 1.0, Tipo = "S", Origem = "Atendimento", Observacao = "Revisão completa", Atendimento = 2 },
-        //        new { Produto = 2, Data = DateTime.Now.AddDays(-2), Quantidade = 1.0, Tipo = "S", Origem = "Atendimento", Observacao = "Revisão completa", Atendimento = 2 },
-        //        new { Produto = 3, Data = DateTime.Now.AddDays(-2), Quantidade = 4.0, Tipo = "S", Origem = "Atendimento", Observacao = "Revisão completa", Atendimento = 2 }
-        //    };
-        //
-        //    string sql = "INSERT INTO MovimentoEstoque (ProdutoID, DataMovimento, Quantidade, TipoMovimento, Origem, Observacao, AtendimentoID) VALUES (@produto, @data, @quantidade, @tipo, @origem, @observacao, @atendimento)";
-        //    using (var command = new SQLiteCommand(sql, connection))
-        //    {
-        //        foreach (var movimento in movimentos)
-        //        {
-        //            command.Parameters.Clear();
-        //            command.Parameters.AddWithValue("@produto", movimento.Produto);
-        //            command.Parameters.AddWithValue("@data", movimento.Data.ToString("yyyy-MM-dd HH:mm:ss"));
-        //            command.Parameters.AddWithValue("@quantidade", movimento.Quantidade);
-        //            command.Parameters.AddWithValue("@tipo", movimento.Tipo);
-        //            command.Parameters.AddWithValue("@origem", movimento.Origem);
-        //            command.Parameters.AddWithValue("@observacao", movimento.Observacao);
-        //            command.Parameters.AddWithValue("@atendimento", (object)movimento.Atendimento ?? DBNull.Value);
-        //            command.ExecuteNonQuery();
-        //        }
-        //    }
-        //}
+        private static void CarregarMovimentosEstoque(SQLiteConnection connection)
+        {
+            var movimentos = new[]
+            {
+                new { Produto = 1, Data = DateTime.Now.AddDays(-10), Quantidade = 100.0, Tipo = "E", Origem = "Compra inicial", Observacao = "Estoque inicial", Atendimento = 0 },
+                new { Produto = 2, Data = DateTime.Now.AddDays(-10), Quantidade = 50.0, Tipo = "E", Origem = "Compra inicial", Observacao = "Estoque inicial", Atendimento = 0 },
+                new { Produto = 3, Data = DateTime.Now.AddDays(-10), Quantidade = 80.0, Tipo = "E", Origem = "Compra inicial", Observacao = "Estoque inicial", Atendimento = 0 },
+                new { Produto = 1, Data = DateTime.Now.AddDays(-5), Quantidade = 1.0, Tipo = "S", Origem = "Atendimento", Observacao = "Troca de óleo", Atendimento = 1 },
+                new { Produto = 2, Data = DateTime.Now.AddDays(-5), Quantidade = 1.0, Tipo = "S", Origem = "Atendimento", Observacao = "Troca de filtro", Atendimento = 1 },
+                new { Produto = 1, Data = DateTime.Now.AddDays(-2), Quantidade = 1.0, Tipo = "S", Origem = "Atendimento", Observacao = "Revisão completa", Atendimento = 2 },
+                new { Produto = 2, Data = DateTime.Now.AddDays(-2), Quantidade = 1.0, Tipo = "S", Origem = "Atendimento", Observacao = "Revisão completa", Atendimento = 2 },
+                new { Produto = 3, Data = DateTime.Now.AddDays(-2), Quantidade = 4.0, Tipo = "S", Origem = "Atendimento", Observacao = "Revisão completa", Atendimento = 2 }
+            };
+        
+            string sql = "INSERT INTO MovimentoEstoque (ProdutoID, DataMovimento, Quantidade, TipoMovimento, Origem, Observacao, AtendimentoID) VALUES (@produto, @data, @quantidade, @tipo, @origem, @observacao, @atendimento)";
+            using (var command = new SQLiteCommand(sql, connection))
+            {
+                foreach (var movimento in movimentos)
+                {
+                    command.Parameters.Clear();
+                    command.Parameters.AddWithValue("@produto", movimento.Produto);
+                    command.Parameters.AddWithValue("@data", movimento.Data.ToString("yyyy-MM-dd HH:mm:ss"));
+                    command.Parameters.AddWithValue("@quantidade", movimento.Quantidade);
+                    command.Parameters.AddWithValue("@tipo", movimento.Tipo);
+                    command.Parameters.AddWithValue("@origem", movimento.Origem);
+                    command.Parameters.AddWithValue("@observacao", movimento.Observacao);
+                    command.Parameters.AddWithValue("@atendimento", (object)movimento.Atendimento ?? DBNull.Value);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 } 
