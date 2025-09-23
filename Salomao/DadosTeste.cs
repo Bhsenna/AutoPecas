@@ -10,15 +10,15 @@ namespace Salomao
         {
             try
             {
-                //CarregarCategorias(connection);
-                //CarregarFornecedores(connection);
-                //CarregarProdutos(connection);
-                //CarregarClientes(connection);
-                //CarregarVeiculos(connection);
-                //CarregarServicos(connection);
-                //CarregarServicoProdutos(connection);
-                //CarregarAtendimentos(connection);
-                //CarregarMovimentosEstoque(connection);
+                CarregarCategorias(connection);
+                CarregarFornecedores(connection);
+                CarregarProdutos(connection);
+                CarregarClientes(connection);
+                CarregarVeiculos(connection);
+                CarregarServicos(connection);
+                CarregarServicoProdutos(connection);
+                CarregarAtendimentos(connection);
+                CarregarMovimentosEstoque(connection);
 
                 System.Windows.Forms.MessageBox.Show("Dados de teste carregados com sucesso!\n\n" +
                     "Usuário Admin: admin\n" +
@@ -235,8 +235,17 @@ namespace Salomao
         {
             var atendimentos = new[]
             {
-
-
+                new { 
+                    Data = DateTime.Now.AddDays(-5), 
+                    DataPrestacao = DateTime.Now.AddDays(-5), 
+                    PrevisaoConclusao = DateTime.Now.AddDays(-4),
+                    Cliente = 1, 
+                    Veiculo = 1, 
+                    ValorSugerido = 180.00m, 
+                    ValorPraticado = 140.00m, 
+                    LucroBruto = 35.00m,
+                    Observacoes = "Troca de óleo completa"
+                },
                 new { 
                     Data = DateTime.Now.AddDays(-2), 
                     DataPrestacao = DateTime.Now.AddDays(-2), 
@@ -247,6 +256,17 @@ namespace Salomao
                     ValorPraticado = 420.00m, 
                     LucroBruto = 105.00m,
                     Observacoes = "Revisão completa em andamento"
+                },
+                new { 
+                    Data = DateTime.Now.AddDays(1), 
+                    DataPrestacao = DateTime.Now.AddDays(1), 
+                    PrevisaoConclusao = DateTime.Now.AddDays(2),
+                    Cliente = 3, 
+                    Veiculo = 3, 
+                    ValorSugerido = 250.00m, 
+                    ValorPraticado = 250.00m, 
+                    LucroBruto = 62.50m,
+                    Observacoes = "Troca de pastilhas agendada"
                 }
             };
 
@@ -273,7 +293,8 @@ namespace Salomao
             var atendimentoServicos = new[]
             {
                 new { Atendimento = 1, Servico = 1, Quantidade = 1.0, ValorUnitario = 140.00m },
-                new { Atendimento = 2, Servico = 2, Quantidade = 1.0, ValorUnitario = 420.00m }
+                new { Atendimento = 2, Servico = 2, Quantidade = 1.0, ValorUnitario = 420.00m },
+                new { Atendimento = 3, Servico = 3, Quantidade = 1.0, ValorUnitario = 250.00m }
             };
 
             string sqlServicos = "INSERT INTO AtendimentoServicos (AtendimentoID, ServicoID, Quantidade, ValorUnitario) VALUES (@atendimento, @servico, @quantidade, @valor)";
@@ -323,4 +344,4 @@ namespace Salomao
             }
         }
     }
-} 
+}

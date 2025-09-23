@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -24,6 +25,11 @@ namespace Salomao
         public CalendarioForm()
         {
             InitializeComponent();
+            
+            // Configurar propriedades de renderização
+            SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | 
+                    ControlStyles.DoubleBuffer | ControlStyles.ResizeRedraw, true);
+            
             mesAtual = DateTime.Now;
             tipoVisualizacao = TipoVisualizacaoCalendario.Mensal;
             eventosDoMes = new Dictionary<DateTime, EventoCalendario>();
@@ -35,129 +41,132 @@ namespace Salomao
 
         private void ConfigurarInterface()
         {
-            this.Size = new Size(900, 650);
-            this.BackColor = ColorTranslator.FromHtml("#F3F4F6");
+            this.BackColor = Styler.ModernColors.Background;
+            this.Dock = DockStyle.Fill;
+            this.Padding = new Padding(0);
+            this.Margin = new Padding(0);
 
-            // Panel superior com controles
-            var panelSuperior = new Panel
-            {
-                Height = 60,
-                Dock = DockStyle.Top,
-                BackColor = ColorTranslator.FromHtml("#1E3A8A"),
-                Padding = new Padding(10)
-            };
+            // Header moderno com gradiente
+            var panelSuperior = Styler.CalendarStyler.CreateModernHeader(80);
+            panelSuperior.Resize += PanelSuperior_Resize;
 
             // Botão mês anterior
-            btnMesAnterior = new Button
-            {
-                Text = "<",
-                Size = new Size(40, 40),
-                Location = new Point(10, 10),
-                BackColor = ColorTranslator.FromHtml("#2563EB"),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 12, FontStyle.Bold)
-            };
-            btnMesAnterior.FlatAppearance.BorderSize = 0;
+            btnMesAnterior = Styler.CalendarStyler.CreateModernButton("‹", 
+                new Size(50, 45), new Point(25, 17), 
+                Styler.ModernColors.Primary, Styler.ModernColors.PrimaryLight);
+            btnMesAnterior.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             btnMesAnterior.Click += BtnMesAnterior_Click;
 
             // Label do mês/ano
             lblMesAno = new Label
             {
                 Text = mesAtual.ToString("MMMM yyyy", CultureInfo.GetCultureInfo("pt-BR")),
-                Size = new Size(200, 40),
-                Location = new Point(60, 10),
-                TextAlign = ContentAlignment.MiddleLeft,
-                ForeColor = Color.White,
-                Font = new Font("Segoe UI", 16, FontStyle.Bold)
+                Size = new Size(300, 45),
+                Location = new Point(90, 17),
+                TextAlign = ContentAlignment.MiddleCenter,
+                ForeColor = Styler.ModernColors.TextOnPrimary,
+                Font = Styler.ModernFonts.CalendarHeader,
+                BackColor = Color.Transparent,
+                Anchor = AnchorStyles.Top | AnchorStyles.Left
             };
 
             // Botão mês próximo
-            btnMesProximo = new Button
-            {
-                Text = ">",
-                Size = new Size(40, 40),
-                Location = new Point(270, 10),
-                BackColor = ColorTranslator.FromHtml("#2563EB"),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 12, FontStyle.Bold)
-            };
-            btnMesProximo.FlatAppearance.BorderSize = 0;
+            btnMesProximo = Styler.CalendarStyler.CreateModernButton("›", 
+                new Size(50, 45), new Point(405, 17), 
+                Styler.ModernColors.Primary, Styler.ModernColors.PrimaryLight);
+            btnMesProximo.Font = new Font("Segoe UI", 16, FontStyle.Bold);
             btnMesProximo.Click += BtnMesProximo_Click;
 
             // Botão Hoje
-            btnHoje = new Button
-            {
-                Text = "Hoje",
-                Size = new Size(60, 40),
-                Location = new Point(320, 10),
-                BackColor = ColorTranslator.FromHtml("#10B981"),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 10, FontStyle.Bold)
-            };
-            btnHoje.FlatAppearance.BorderSize = 0;
+            btnHoje = Styler.CalendarStyler.CreateModernButton("Hoje", 
+                new Size(85, 45), new Point(470, 17), 
+                Styler.ModernColors.Success, Styler.ModernColors.SuccessLight);
             btnHoje.Click += BtnHoje_Click;
 
-            // Botões de visualização
-            btnVisualizacaoMensal = new Button
+            // Container para botões de visualização
+            var containerVisualizacao = new Panel
             {
-                Text = "Mensal",
-                Size = new Size(80, 40),
-                Location = new Point(700, 10),
-                BackColor = ColorTranslator.FromHtml("#6B7280"),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 10, FontStyle.Bold)
+                Size = new Size(200, 45),
+                BackColor = Color.FromArgb(20, 255, 255, 255),
+                Anchor = AnchorStyles.Top | AnchorStyles.Right
             };
-            btnVisualizacaoMensal.FlatAppearance.BorderSize = 0;
+
+            // Botões de visualização
+            btnVisualizacaoMensal = Styler.CalendarStyler.CreateModernToggleButton("Mensal", 
+                new Size(95, 45), new Point(0, 0), true);
             btnVisualizacaoMensal.Click += BtnVisualizacaoMensal_Click;
 
-            btnVisualizacaoSemanal = new Button
-            {
-                Text = "Semanal",
-                Size = new Size(80, 40),
-                Location = new Point(790, 10),
-                BackColor = ColorTranslator.FromHtml("#374151"),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 10, FontStyle.Bold)
-            };
-            btnVisualizacaoSemanal.FlatAppearance.BorderSize = 0;
+            btnVisualizacaoSemanal = Styler.CalendarStyler.CreateModernToggleButton("Semanal", 
+                new Size(95, 45), new Point(100, 0), false);
             btnVisualizacaoSemanal.Click += BtnVisualizacaoSemanal_Click;
 
-            panelSuperior.Controls.AddRange(new Control[] {
-                btnMesAnterior, lblMesAno, btnMesProximo, btnHoje,
-                btnVisualizacaoMensal, btnVisualizacaoSemanal
+            containerVisualizacao.Controls.AddRange(new Control[] { btnVisualizacaoMensal, btnVisualizacaoSemanal });
+            panelSuperior.Controls.AddRange(new Control[] { 
+                btnMesAnterior, lblMesAno, btnMesProximo, btnHoje, containerVisualizacao 
             });
 
             // Panel do calendário
             panelCalendario = new Panel
             {
                 Dock = DockStyle.Fill,
-                BackColor = Color.White,
-                Padding = new Padding(10)
+                BackColor = Styler.ModernColors.Surface,
+                Padding = new Padding(20),
+                Margin = new Padding(0)
             };
 
             this.Controls.Add(panelCalendario);
             this.Controls.Add(panelSuperior);
 
             AtualizarBotoesVisualizacao();
+            
+            // Adicionar evento de redimensionamento
+            this.Resize += CalendarioForm_Resize;
+        }
+
+        private void PanelSuperior_Resize(object sender, EventArgs e)
+        {
+            var panel = sender as Panel;
+            if (panel != null)
+            {
+                // Reposicionar container de visualização
+                var containerVisualizacao = panel.Controls.OfType<Panel>()
+                    .FirstOrDefault(p => p.Controls.Count == 2);
+                
+                if (containerVisualizacao != null)
+                {
+                    containerVisualizacao.Location = new Point(panel.Width - 225, 17);
+                }
+            }
+        }
+
+        private void CalendarioForm_Resize(object sender, EventArgs e)
+        {
+            // Suspender layout durante redimensionamento
+            this.SuspendLayout();
+            
+            try
+            {
+                // Forçar redesenho completo após redimensionamento
+                this.Invalidate(true);
+                
+                // Atualizar calendário se necessário
+                if (panelCalendario?.Controls.Count > 0)
+                {
+                    Application.DoEvents();
+                }
+            }
+            finally
+            {
+                this.ResumeLayout(true);
+            }
         }
 
         private void AtualizarBotoesVisualizacao()
         {
-            if (tipoVisualizacao == TipoVisualizacaoCalendario.Mensal)
-            {
-                btnVisualizacaoMensal.BackColor = ColorTranslator.FromHtml("#2563EB");
-                btnVisualizacaoSemanal.BackColor = ColorTranslator.FromHtml("#6B7280");
-            }
-            else
-            {
-                btnVisualizacaoMensal.BackColor = ColorTranslator.FromHtml("#6B7280");
-                btnVisualizacaoSemanal.BackColor = ColorTranslator.FromHtml("#2563EB");
-            }
+            Styler.CalendarStyler.UpdateToggleButtonStyle(btnVisualizacaoMensal, 
+                tipoVisualizacao == TipoVisualizacaoCalendario.Mensal);
+            Styler.CalendarStyler.UpdateToggleButtonStyle(btnVisualizacaoSemanal, 
+                tipoVisualizacao == TipoVisualizacaoCalendario.Semanal);
         }
 
         private void CarregarEventosDoMes()
@@ -174,17 +183,30 @@ namespace Salomao
 
         private void AtualizarCalendario()
         {
-            lblMesAno.Text = mesAtual.ToString("MMMM yyyy", CultureInfo.GetCultureInfo("pt-BR"));
+            var cultura = CultureInfo.GetCultureInfo("pt-BR");
+            var mesAno = mesAtual.ToString("MMMM yyyy", cultura);
+            lblMesAno.Text = char.ToUpper(mesAno[0]) + mesAno.Substring(1);
             
-            panelCalendario.Controls.Clear();
+            // Suspender layout durante atualização
+            panelCalendario.SuspendLayout();
+            
+            try
+            {
+                panelCalendario.Controls.Clear();
 
-            if (tipoVisualizacao == TipoVisualizacaoCalendario.Mensal)
-            {
-                CriarVisualizacaoMensal();
+                if (tipoVisualizacao == TipoVisualizacaoCalendario.Mensal)
+                {
+                    CriarVisualizacaoMensal();
+                }
+                else
+                {
+                    CriarVisualizacaoSemanal();
+                }
             }
-            else
+            finally
             {
-                CriarVisualizacaoSemanal();
+                panelCalendario.ResumeLayout(true);
+                panelCalendario.Invalidate();
             }
         }
 
@@ -195,24 +217,27 @@ namespace Salomao
                 Dock = DockStyle.Fill,
                 ColumnCount = 7,
                 RowCount = 7, // 1 linha para cabeçalho + 6 linhas para semanas
-                BackColor = Color.White
+                BackColor = Color.Transparent,
+                Margin = new Padding(0),
+                Padding = new Padding(0),
+                CellBorderStyle = TableLayoutPanelCellBorderStyle.None
             };
 
             // Configurar colunas
             for (int i = 0; i < 7; i++)
             {
-                tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.28f));
+                tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.285714f));
             }
 
             // Configurar linhas
-            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40)); // Cabeçalho
+            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50)); // Cabeçalho
             for (int i = 1; i < 7; i++)
             {
-                tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 16.67f));
+                tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 16.666667f));
             }
 
             // Cabeçalho dos dias da semana
-            string[] diasSemana = { "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb" };
+            string[] diasSemana = { "Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado" };
             for (int i = 0; i < 7; i++)
             {
                 var lblDia = new Label
@@ -220,11 +245,12 @@ namespace Salomao
                     Text = diasSemana[i],
                     Dock = DockStyle.Fill,
                     TextAlign = ContentAlignment.MiddleCenter,
-                    BackColor = ColorTranslator.FromHtml("#E5E7EB"),
-                    ForeColor = ColorTranslator.FromHtml("#374151"),
-                    Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                    BorderStyle = BorderStyle.FixedSingle
+                    BackColor = Styler.ModernColors.SurfaceElevated,
+                    ForeColor = Styler.ModernColors.TextPrimary,
+                    Font = Styler.ModernFonts.SubHeader,
+                    Margin = new Padding(1)
                 };
+
                 tableLayoutPanel.Controls.Add(lblDia, i, 0);
             }
 
@@ -237,7 +263,7 @@ namespace Salomao
                 for (int dia = 0; dia < 7; dia++)
                 {
                     DateTime dataAtual = inicioCalendario.AddDays((semana - 1) * 7 + dia);
-                    var panelDia = CriarPanelDia(dataAtual, dataAtual.Month == mesAtual.Month);
+                    var panelDia = CriarPanelDiaModerno(dataAtual, dataAtual.Month == mesAtual.Month);
                     tableLayoutPanel.Controls.Add(panelDia, dia, semana);
                 }
             }
@@ -255,33 +281,38 @@ namespace Salomao
                 Dock = DockStyle.Fill,
                 ColumnCount = 7,
                 RowCount = 2, // 1 linha para cabeçalho + 1 linha para dias
-                BackColor = Color.White
+                BackColor = Color.Transparent,
+                Margin = new Padding(0),
+                Padding = new Padding(0),
+                CellBorderStyle = TableLayoutPanelCellBorderStyle.None
             };
 
             // Configurar colunas
             for (int i = 0; i < 7; i++)
             {
-                tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.28f));
+                tableLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.285714f));
             }
 
             // Configurar linhas
-            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 40)); // Cabeçalho
+            tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 50)); // Cabeçalho
             tableLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100f)); // Dias
 
             // Cabeçalho dos dias da semana
-            string[] diasSemana = { "Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb" };
+            string[] diasSemana = { "Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado" };
             for (int i = 0; i < 7; i++)
             {
+                var dataAtual = inicioSemana.AddDays(i);
                 var lblDia = new Label
                 {
-                    Text = diasSemana[i],
+                    Text = $"{diasSemana[i]}\n{dataAtual.Day}",
                     Dock = DockStyle.Fill,
                     TextAlign = ContentAlignment.MiddleCenter,
-                    BackColor = ColorTranslator.FromHtml("#E5E7EB"),
-                    ForeColor = ColorTranslator.FromHtml("#374151"),
-                    Font = new Font("Segoe UI", 10, FontStyle.Bold),
-                    BorderStyle = BorderStyle.FixedSingle
+                    BackColor = Styler.ModernColors.SurfaceElevated,
+                    ForeColor = Styler.ModernColors.TextPrimary,
+                    Font = Styler.ModernFonts.Primary,
+                    Margin = new Padding(1)
                 };
+
                 tableLayoutPanel.Controls.Add(lblDia, i, 0);
             }
 
@@ -289,43 +320,19 @@ namespace Salomao
             for (int dia = 0; dia < 7; dia++)
             {
                 DateTime dataAtual = inicioSemana.AddDays(dia);
-                var panelDia = CriarPanelDia(dataAtual, true);
-                panelDia.Height = 400; // Mais altura para visualização semanal
+                var panelDia = CriarPanelDiaModerno(dataAtual, true);
                 tableLayoutPanel.Controls.Add(panelDia, dia, 1);
             }
 
             panelCalendario.Controls.Add(tableLayoutPanel);
         }
 
-        private Panel CriarPanelDia(DateTime data, bool destacar)
+        private Panel CriarPanelDiaModerno(DateTime data, bool destacar)
         {
-            var panel = new Panel
-            {
-                Dock = DockStyle.Fill,
-                BorderStyle = BorderStyle.FixedSingle,
-                BackColor = destacar ? Color.White : ColorTranslator.FromHtml("#F9FAFB"),
-                Padding = new Padding(2),
-                Cursor = Cursors.Hand
-            };
+            var panel = Styler.CalendarStyler.CreateDayPanel(data, destacar);
 
             // Label do número do dia
-            var lblNumero = new Label
-            {
-                Text = data.Day.ToString(),
-                Size = new Size(25, 20),
-                Location = new Point(2, 2),
-                ForeColor = destacar ? ColorTranslator.FromHtml("#374151") : ColorTranslator.FromHtml("#9CA3AF"),
-                Font = new Font("Segoe UI", 10, data.Date == DateTime.Today ? FontStyle.Bold : FontStyle.Regular)
-            };
-
-            // Destacar dia atual
-            if (data.Date == DateTime.Today)
-            {
-                lblNumero.BackColor = ColorTranslator.FromHtml("#2563EB");
-                lblNumero.ForeColor = Color.White;
-                lblNumero.TextAlign = ContentAlignment.MiddleCenter;
-            }
-
+            var lblNumero = Styler.CalendarStyler.CreateDayLabel(data, destacar);
             panel.Controls.Add(lblNumero);
 
             // Adicionar eventos do dia
@@ -333,17 +340,8 @@ namespace Salomao
             {
                 var evento = eventosDoMes[data.Date];
                 
-                var lblEvento = new Label
-                {
-                    Text = $"{evento.QuantidadeAgendamentos} agend.",
-                    Size = new Size(panel.Width - 4, 15),
-                    Location = new Point(2, 25),
-                    ForeColor = ColorTranslator.FromHtml("#DC2626"),
-                    Font = new Font("Segoe UI", 8, FontStyle.Bold),
-                    BackColor = ColorTranslator.FromHtml("#FEE2E2"),
-                    TextAlign = ContentAlignment.MiddleCenter
-                };
-                
+                var lblEvento = Styler.CalendarStyler.CreateEventLabel(
+                    $"{evento.QuantidadeAgendamentos} agend.", 28);
                 panel.Controls.Add(lblEvento);
 
                 // Adicionar descrição resumida se houver espaço
@@ -352,11 +350,13 @@ namespace Salomao
                     var lblDescricao = new Label
                     {
                         Text = evento.DescricaoResumida,
-                        Size = new Size(panel.Width - 4, 30),
-                        Location = new Point(2, 42),
-                        ForeColor = ColorTranslator.FromHtml("#6B7280"),
-                        Font = new Font("Segoe UI", 7),
-                        AutoEllipsis = true
+                        AutoSize = false,
+                        Size = new Size(Math.Max(1, panel.Width - 8), 40),
+                        Location = new Point(4, 48),
+                        ForeColor = Styler.ModernColors.TextSecondary,
+                        Font = Styler.ModernFonts.Small,
+                        AutoEllipsis = true,
+                        BackColor = Color.Transparent
                     };
                     
                     panel.Controls.Add(lblDescricao);
@@ -372,17 +372,28 @@ namespace Salomao
 
         private void AbrirDetalhesAgendamento(DateTime data)
         {
-            var agendamentos = CalendarioService.ObterAgendamentosPorData(data);
-            
-            if (agendamentos.Count == 0)
+            try
             {
-                MessageBox.Show($"Nenhum agendamento encontrado para {data:dd/MM/yyyy}.", 
-                    "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
+                var agendamentos = CalendarioService.ObterAgendamentosPorData(data);
+                
+                if (agendamentos.Count == 0)
+                {
+                    MessageBox.Show($"Nenhum agendamento encontrado para {data:dd/MM/yyyy}.", 
+                        "Informação", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
 
-            var detalhesForm = new DetalhesAgendamentoForm(data, agendamentos);
-            detalhesForm.ShowDialog();
+                // Usar using para garantir que o form seja descartado corretamente
+                using (var detalhesForm = new DetalhesAgendamentoForm(data, agendamentos))
+                {
+                    detalhesForm.ShowDialog(this.FindForm());
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao abrir detalhes do agendamento: {ex.Message}", 
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         #region Event Handlers
@@ -449,6 +460,15 @@ namespace Salomao
         {
             CarregarEventosDoMes();
             AtualizarCalendario();
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            
+            // Melhorar qualidade de renderização
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
         }
     }
 }
