@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaInicial));
             panel_header = new Panel();
-            btn_home = new Label();
+            btn_home = new PictureBox();
             btn_maximize = new Button();
             btn_minimize = new Button();
             lbl_title = new Label();
@@ -52,6 +52,7 @@
             panel_shadow = new Panel();
             panel_desktop = new Panel();
             panel_header.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)btn_home).BeginInit();
             ((System.ComponentModel.ISupportInitialize)icon_current).BeginInit();
             panel_menu.SuspendLayout();
             SuspendLayout();
@@ -73,15 +74,12 @@
             // 
             // btn_home
             // 
-            btn_home.AutoSize = true;
-            btn_home.Cursor = Cursors.Hand;
-            btn_home.Font = new Font("Condiment", 36F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btn_home.ForeColor = Color.FromArgb(209, 213, 219);
-            btn_home.Location = new Point(4, 7);
+            btn_home.Image = (Image)resources.GetObject("btn_home.Image");
+            btn_home.Location = new Point(12, 12);
             btn_home.Name = "btn_home";
-            btn_home.Size = new Size(212, 73);
-            btn_home.TabIndex = 2;
-            btn_home.Text = "Auto Peças";
+            btn_home.Size = new Size(207, 62);
+            btn_home.TabIndex = 7;
+            btn_home.TabStop = false;
             btn_home.Click += btn_home_Click;
             // 
             // btn_maximize
@@ -477,6 +475,7 @@
             Resize += TelaInicial_Resize;
             panel_header.ResumeLayout(false);
             panel_header.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)btn_home).EndInit();
             ((System.ComponentModel.ISupportInitialize)icon_current).EndInit();
             panel_menu.ResumeLayout(false);
             ResumeLayout(false);
@@ -505,6 +504,6 @@
         private FontAwesome.Sharp.IconButton ibtn_movEstoque;
         private FontAwesome.Sharp.IconButton ibtn_saldoEstoque;
         private FontAwesome.Sharp.IconButton ibtn_calendario;
-        private Label btn_home;
+        private PictureBox btn_home;
     }
 }

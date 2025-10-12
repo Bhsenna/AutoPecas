@@ -1,5 +1,7 @@
 using System.Diagnostics;
+using System.Drawing.Text;
 using System.Linq;
+using System.Net.Http;
 using FontAwesome.Sharp;
 //using Salomao.Forms;
 
