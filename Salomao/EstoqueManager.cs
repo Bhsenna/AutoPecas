@@ -174,7 +174,6 @@ namespace Salomao
             {
                 string sql = @"
                     SELECT 
-                        p.ProdutoID,
                         p.NomeProduto,
                         p.CodigoProduto,
                         p.Marca,

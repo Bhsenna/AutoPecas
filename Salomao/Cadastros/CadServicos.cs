@@ -392,6 +392,10 @@ namespace Salomao.Cadastros
             foreach (var row in produtosSelecionados)
                 dt.ImportRow(row);
             dataGridProdutos.DataSource = dt;
+
+            // Ocultar colunas de IDs
+            if (dataGridProdutos.Columns.Contains("ProdutoID"))
+                dataGridProdutos.Columns["ProdutoID"].Visible = false;
         }
 
         private void CalcularCustoServico()

@@ -349,6 +349,10 @@ namespace Salomao.Cadastros
             foreach (var row in servicosSelecionados)
                 dt.ImportRow(row);
             dataGridServicos.DataSource = dt;
+
+            // Ocultar colunas de IDs
+            if (dataGridServicos.Columns.Contains("ID"))
+                dataGridServicos.Columns["ID"].Visible = false;
         }
 
         private void CalcularValores()

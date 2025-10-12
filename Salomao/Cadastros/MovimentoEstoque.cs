@@ -126,6 +126,12 @@ namespace Salomao.Cadastros
                 }
 
                 dataGridView1.DataSource = EstoqueManager.ObterMovimentosEstoque(dataInicio, dataFim, produtoId);
+
+                // Ocultar colunas de IDs
+                if (dataGridView1.Columns.Contains("MovimentoID"))
+                    dataGridView1.Columns["MovimentoID"].Visible = false;
+                if (dataGridView1.Columns.Contains("AtendimentoID"))
+                    dataGridView1.Columns["AtendimentoID"].Visible = false;
             }
             catch (Exception ex)
             {
