@@ -28,33 +28,24 @@ namespace Salomao.Cadastros
         /// </summary>
         private void InitializeComponent()
         {
-            // Inicialização dos controles
             mainContainer = new Panel();
-            cardHeader = new Panel();
             cardGrid = new Panel();
-            
+            lbTituloGrid = new Label();
             dataGridView1 = new DataGridView();
+            cardHeader = new Panel();
+            lbTituloHeader = new Label();
             btnExportar = new Button();
             btnAtualizar = new Button();
             label1 = new Label();
-            
-            // Labels de título
-            lbTituloHeader = new Label();
-            lbTituloGrid = new Label();
-            
-            // Eventos
-            btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
-            btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
-            
-            ((System.ComponentModel.ISupportInitialize)(dataGridView1)).BeginInit();
             mainContainer.SuspendLayout();
-            cardHeader.SuspendLayout();
             cardGrid.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            cardHeader.SuspendLayout();
             SuspendLayout();
-            
             // 
             // mainContainer
             // 
+            mainContainer.AutoScroll = true;
             mainContainer.BackColor = Color.FromArgb(248, 249, 250);
             mainContainer.Controls.Add(cardGrid);
             mainContainer.Controls.Add(cardHeader);
@@ -64,62 +55,6 @@ namespace Salomao.Cadastros
             mainContainer.Padding = new Padding(20);
             mainContainer.Size = new Size(1200, 800);
             mainContainer.TabIndex = 0;
-            
-            // 
-            // cardHeader
-            // 
-            cardHeader.BackColor = Color.White;
-            cardHeader.Controls.Add(lbTituloHeader);
-            cardHeader.Controls.Add(btnExportar);
-            cardHeader.Controls.Add(btnAtualizar);
-            cardHeader.Location = new Point(20, 20);
-            cardHeader.Name = "cardHeader";
-            cardHeader.Padding = new Padding(20);
-            cardHeader.Size = new Size(1160, 100);
-            cardHeader.TabIndex = 0;
-            
-            // 
-            // lbTituloHeader
-            // 
-            lbTituloHeader.AutoSize = true;
-            lbTituloHeader.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            lbTituloHeader.ForeColor = Color.FromArgb(33, 37, 41);
-            lbTituloHeader.Location = new Point(20, 20);
-            lbTituloHeader.Name = "lbTituloHeader";
-            lbTituloHeader.Size = new Size(150, 25);
-            lbTituloHeader.TabIndex = 0;
-            lbTituloHeader.Text = "📊 Saldo de Estoque";
-            
-            // 
-            // btnAtualizar
-            // 
-            btnAtualizar.BackColor = Color.FromArgb(13, 110, 253);
-            btnAtualizar.FlatAppearance.BorderSize = 0;
-            btnAtualizar.FlatStyle = FlatStyle.Flat;
-            btnAtualizar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnAtualizar.ForeColor = Color.White;
-            btnAtualizar.Location = new Point(1000, 20);
-            btnAtualizar.Name = "btnAtualizar";
-            btnAtualizar.Size = new Size(120, 40);
-            btnAtualizar.TabIndex = 1;
-            btnAtualizar.Text = "🔄 Atualizar";
-            btnAtualizar.UseVisualStyleBackColor = false;
-            
-            // 
-            // btnExportar
-            // 
-            btnExportar.BackColor = Color.FromArgb(25, 135, 84);
-            btnExportar.FlatAppearance.BorderSize = 0;
-            btnExportar.FlatStyle = FlatStyle.Flat;
-            btnExportar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnExportar.ForeColor = Color.White;
-            btnExportar.Location = new Point(870, 20);
-            btnExportar.Name = "btnExportar";
-            btnExportar.Size = new Size(120, 40);
-            btnExportar.TabIndex = 2;
-            btnExportar.Text = "📄 Exportar CSV";
-            btnExportar.UseVisualStyleBackColor = false;
-            
             // 
             // cardGrid
             // 
@@ -131,7 +66,6 @@ namespace Salomao.Cadastros
             cardGrid.Padding = new Padding(20);
             cardGrid.Size = new Size(1160, 640);
             cardGrid.TabIndex = 1;
-            
             // 
             // lbTituloGrid
             // 
@@ -140,10 +74,9 @@ namespace Salomao.Cadastros
             lbTituloGrid.ForeColor = Color.FromArgb(33, 37, 41);
             lbTituloGrid.Location = new Point(20, 20);
             lbTituloGrid.Name = "lbTituloGrid";
-            lbTituloGrid.Size = new Size(200, 25);
+            lbTituloGrid.Size = new Size(190, 25);
             lbTituloGrid.TabIndex = 0;
             lbTituloGrid.Text = "📋 Lista de Produtos";
-            
             // 
             // dataGridView1
             // 
@@ -160,7 +93,66 @@ namespace Salomao.Cadastros
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridView1.Size = new Size(1120, 565);
             dataGridView1.TabIndex = 1;
-            
+            // 
+            // cardHeader
+            // 
+            cardHeader.BackColor = Color.White;
+            cardHeader.Controls.Add(lbTituloHeader);
+            cardHeader.Controls.Add(btnExportar);
+            cardHeader.Controls.Add(btnAtualizar);
+            cardHeader.Location = new Point(20, 20);
+            cardHeader.Name = "cardHeader";
+            cardHeader.Padding = new Padding(20);
+            cardHeader.Size = new Size(1160, 100);
+            cardHeader.TabIndex = 0;
+            // 
+            // lbTituloHeader
+            // 
+            lbTituloHeader.AutoSize = true;
+            lbTituloHeader.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lbTituloHeader.ForeColor = Color.FromArgb(33, 37, 41);
+            lbTituloHeader.Location = new Point(20, 20);
+            lbTituloHeader.Name = "lbTituloHeader";
+            lbTituloHeader.Size = new Size(191, 25);
+            lbTituloHeader.TabIndex = 0;
+            lbTituloHeader.Text = "📊 Saldo de Estoque";
+            // 
+            // btnExportar
+            // 
+            btnExportar.BackColor = Color.FromArgb(25, 135, 84);
+            btnExportar.FlatAppearance.BorderSize = 0;
+            btnExportar.FlatStyle = FlatStyle.Flat;
+            btnExportar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnExportar.ForeColor = Color.White;
+            btnExportar.Location = new Point(870, 20);
+            btnExportar.Name = "btnExportar";
+            btnExportar.Size = new Size(120, 40);
+            btnExportar.TabIndex = 2;
+            btnExportar.Text = "📄 Exportar";
+            btnExportar.UseVisualStyleBackColor = false;
+            btnExportar.Click += btnExportar_Click;
+            // 
+            // btnAtualizar
+            // 
+            btnAtualizar.BackColor = Color.FromArgb(13, 110, 253);
+            btnAtualizar.FlatAppearance.BorderSize = 0;
+            btnAtualizar.FlatStyle = FlatStyle.Flat;
+            btnAtualizar.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnAtualizar.ForeColor = Color.White;
+            btnAtualizar.Location = new Point(1000, 20);
+            btnAtualizar.Name = "btnAtualizar";
+            btnAtualizar.Size = new Size(120, 40);
+            btnAtualizar.TabIndex = 1;
+            btnAtualizar.Text = "🔄 Atualizar";
+            btnAtualizar.UseVisualStyleBackColor = false;
+            btnAtualizar.Click += btnAtualizar_Click;
+            // 
+            // label1
+            // 
+            label1.Location = new Point(0, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(100, 23);
+            label1.TabIndex = 0;
             // 
             // SaldoEstoque
             // 
@@ -171,12 +163,12 @@ namespace Salomao.Cadastros
             Font = new Font("Segoe UI", 9F);
             Name = "SaldoEstoque";
             Size = new Size(1200, 800);
-            ((System.ComponentModel.ISupportInitialize)(dataGridView1)).EndInit();
             mainContainer.ResumeLayout(false);
-            cardHeader.ResumeLayout(false);
-            cardHeader.PerformLayout();
             cardGrid.ResumeLayout(false);
             cardGrid.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            cardHeader.ResumeLayout(false);
+            cardHeader.PerformLayout();
             ResumeLayout(false);
         }
 

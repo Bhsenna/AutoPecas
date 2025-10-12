@@ -63,6 +63,7 @@
             // 
             // mainContainer
             // 
+            mainContainer.AutoScroll = true;
             mainContainer.BackColor = Color.FromArgb(248, 249, 250);
             mainContainer.Controls.Add(cardGrid);
             mainContainer.Controls.Add(cardBotoes);
@@ -83,7 +84,7 @@
             cardGrid.Location = new Point(20, 560);
             cardGrid.Name = "cardGrid";
             cardGrid.Padding = new Padding(20);
-            cardGrid.Size = new Size(1160, 220);
+            cardGrid.Size = new Size(1160, 365);
             cardGrid.TabIndex = 3;
             // 
             // lbTituloGrid
@@ -106,7 +107,7 @@
             dataGridView1.Font = new Font("Segoe UI", 9F);
             dataGridView1.Location = new Point(20, 55);
             dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(1120, 145);
+            dataGridView1.Size = new Size(1120, 290);
             dataGridView1.TabIndex = 1;
             dataGridView1.CellClick += dataGridView1_CellClick;
             // 
@@ -127,7 +128,7 @@
             btnGravar.FlatStyle = FlatStyle.Flat;
             btnGravar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnGravar.ForeColor = Color.White;
-            btnGravar.Location = new Point(430, 15);
+            btnGravar.Location = new Point(15, 15);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new Size(120, 40);
             btnGravar.TabIndex = 0;
@@ -142,7 +143,7 @@
             btnLimpar.FlatStyle = FlatStyle.Flat;
             btnLimpar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnLimpar.ForeColor = Color.White;
-            btnLimpar.Location = new Point(300, 15);
+            btnLimpar.Location = new Point(145, 15);
             btnLimpar.Name = "btnLimpar";
             btnLimpar.Size = new Size(120, 40);
             btnLimpar.TabIndex = 1;

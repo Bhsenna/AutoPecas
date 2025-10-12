@@ -54,6 +54,7 @@
             // 
             // mainContainer
             // 
+            mainContainer.AutoScroll = true;
             mainContainer.BackColor = Color.FromArgb(248, 249, 250);
             mainContainer.Controls.Add(cardGrid);
             mainContainer.Controls.Add(cardBotoes);
@@ -117,7 +118,7 @@
             btnGravar.FlatStyle = FlatStyle.Flat;
             btnGravar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnGravar.ForeColor = Color.White;
-            btnGravar.Location = new Point(1050, 15);
+            btnGravar.Location = new Point(20, 15);
             btnGravar.Name = "btnGravar";
             btnGravar.Size = new Size(120, 40);
             btnGravar.TabIndex = 0;
@@ -132,7 +133,7 @@
             btnLimpar.FlatStyle = FlatStyle.Flat;
             btnLimpar.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             btnLimpar.ForeColor = Color.White;
-            btnLimpar.Location = new Point(920, 15);
+            btnLimpar.Location = new Point(150, 15);
             btnLimpar.Name = "btnLimpar";
             btnLimpar.Size = new Size(120, 40);
             btnLimpar.TabIndex = 1;
@@ -257,6 +258,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSize = true;
             BackColor = Color.FromArgb(248, 249, 250);
             Controls.Add(mainContainer);
             Font = new Font("Segoe UI", 9F);

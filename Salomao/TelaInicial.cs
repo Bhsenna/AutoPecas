@@ -321,10 +321,10 @@ namespace Salomao
                     UseVisualStyleBackColor = true,
                     TabIndex = 15
                 };
-                
+
                 ibtn_calendario.FlatAppearance.BorderSize = 0;
                 ibtn_calendario.Click += ibtn_calendario_Click;
-                
+
                 // Adicionar o botão ao menu
                 panel_menu.Controls.Add(ibtn_calendario);
                 ibtn_calendario.BringToFront();
