@@ -10,14 +10,14 @@ namespace Salomao
         {
             try
             {
-                CarregarCategorias       (connection);
-                CarregarFornecedores     (connection);
-                CarregarProdutos         (connection);
-                CarregarClientes         (connection);
-                CarregarVeiculos         (connection);
-                CarregarServicos         (connection);
-                CarregarServicoProdutos  (connection);
-                CarregarAtendimentos     (connection);
+                CarregarCategorias(connection);
+                CarregarFornecedores(connection);
+                CarregarProdutos(connection);
+                CarregarClientes(connection);
+                CarregarVeiculos(connection);
+                CarregarServicos(connection);
+                CarregarServicoProdutos(connection);
+                CarregarAtendimentos(connection);
                 CarregarMovimentosEstoque(connection);
 
                 System.Windows.Forms.MessageBox.Show("Dados de teste carregados com sucesso!\n\n" +
