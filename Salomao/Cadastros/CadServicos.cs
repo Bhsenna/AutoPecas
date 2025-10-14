@@ -214,9 +214,9 @@ namespace Salomao.Cadastros
                                 using (SQLiteCommand cmd = new SQLiteCommand(query, con, transaction))
                                 {
                                     cmd.Parameters.AddWithValue("@NomeServico", tbNomeServico.Text.Trim());
-                                    cmd.Parameters.AddWithValue("@Descricao"  , tbDescricao.Text.Trim());
+                                    cmd.Parameters.AddWithValue("@Descricao", tbDescricao.Text.Trim());
                                     cmd.Parameters.AddWithValue("@MargemLucro", decimal.Parse(tbMargem.Text));
-                                    cmd.Parameters.AddWithValue("@ServicoID"  , servicoSelecionadoId);
+                                    cmd.Parameters.AddWithValue("@ServicoID", servicoSelecionadoId);
                                     var scalar = cmd.ExecuteScalar();
                                     servicoId = Convert.ToInt32(scalar ?? servicoSelecionadoId);
                                 }
@@ -293,10 +293,10 @@ namespace Salomao.Cadastros
 
         private void clear()
         {
-            tbNomeServico       .Clear();
-            tbDescricao         .Clear();
-            tbMargem            .Clear();
-            tbCustoServico      .Clear();
+            tbNomeServico.Clear();
+            tbDescricao.Clear();
+            tbMargem.Clear();
+            tbCustoServico.Clear();
             produtosSelecionados.Clear();
             AtualizarGridProdutos();
 
@@ -427,8 +427,8 @@ namespace Salomao.Cadastros
 
                 // Preencher campos do formulário
                 tbNomeServico.Text = row.Cells["NomeServico"].Value?.ToString();
-                tbDescricao   .Text = row.Cells["Descricao"].Value?.ToString();
-                tbMargem      .Text = row.Cells["MargemLucro"].Value?.ToString();
+                tbDescricao.Text = row.Cells["Descricao"].Value?.ToString();
+                tbMargem.Text = row.Cells["MargemLucro"].Value?.ToString();
                 CalcularCustoServico();
 
                 servicoSelecionadoId = Convert.ToInt32(row.Cells["ServicoID"].Value?.ToString());
@@ -458,6 +458,15 @@ namespace Salomao.Cadastros
                         cbProdutoServico.SelectedValue = -1;
                     }
                 }
+            }
+        }
+
+        private void tbPesquisa_TextChanged(object sender, EventArgs e)
+        {
+            DataView dataView = (dataGridView1.DataSource as DataTable)?.DefaultView;
+            if (dataView != null)
+            {
+                dataView.RowFilter = $"NomeServico LIKE '%{tbPesquisa.Text.Replace("'", "''")}%' OR Descricao LIKE '%{tbPesquisa.Text.Replace("'", "''")}%'"; // Evitar SQL Injection
             }
         }
     }

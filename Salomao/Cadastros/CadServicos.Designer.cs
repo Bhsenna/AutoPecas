@@ -30,6 +30,8 @@
         {
             mainContainer = new Panel();
             cardGrid = new Panel();
+            tbPesquisa = new TextBox();
+            label1 = new Label();
             lbTituloGrid = new Label();
             dataGridView1 = new DataGridView();
             cardBotoes = new Panel();
@@ -79,6 +81,8 @@
             // cardGrid
             // 
             cardGrid.BackColor = Color.White;
+            cardGrid.Controls.Add(tbPesquisa);
+            cardGrid.Controls.Add(label1);
             cardGrid.Controls.Add(lbTituloGrid);
             cardGrid.Controls.Add(dataGridView1);
             cardGrid.Location = new Point(20, 560);
@@ -86,6 +90,24 @@
             cardGrid.Padding = new Padding(20);
             cardGrid.Size = new Size(1160, 365);
             cardGrid.TabIndex = 3;
+            // 
+            // tbPesquisa
+            // 
+            tbPesquisa.Location = new Point(446, 25);
+            tbPesquisa.Name = "tbPesquisa";
+            tbPesquisa.Size = new Size(275, 23);
+            tbPesquisa.TabIndex = 3;
+            tbPesquisa.TextChanged += tbPesquisa_TextChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(368, 24);
+            label1.Name = "label1";
+            label1.Size = new Size(72, 21);
+            label1.TabIndex = 2;
+            label1.Text = "Pesquisa";
             // 
             // lbTituloGrid
             // 
@@ -409,5 +431,7 @@
         private Label lbTituloServico;
         private Label lbTituloProdutos;
         private Label lbTituloGrid;
+        private Label label1;
+        private TextBox tbPesquisa;
     }
 }
