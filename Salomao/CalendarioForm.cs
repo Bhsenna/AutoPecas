@@ -330,6 +330,8 @@ namespace Salomao
         private Panel CriarPanelDiaModerno(DateTime data, bool destacar)
         {
             var panel = Styler.CalendarStyler.CreateDayPanel(data, destacar);
+            panel.AutoScroll = false; // Desabilitar scroll automático
+            panel.Padding = new Padding(4, 4, 4, 4);
 
             // Label do número do dia
             var lblNumero = Styler.CalendarStyler.CreateDayLabel(data, destacar);
@@ -339,28 +341,7 @@ namespace Salomao
             if (eventosDoMes.ContainsKey(data.Date))
             {
                 var evento = eventosDoMes[data.Date];
-                
-                var lblEvento = Styler.CalendarStyler.CreateEventLabel(
-                    $"{evento.QuantidadeAgendamentos} agend.", 28);
-                panel.Controls.Add(lblEvento);
-
-                // Adicionar descrição resumida se houver espaço
-                if (tipoVisualizacao == TipoVisualizacaoCalendario.Semanal || panel.Height > 60)
-                {
-                    var lblDescricao = new Label
-                    {
-                        Text = evento.DescricaoResumida,
-                        AutoSize = false,
-                        Size = new Size(Math.Max(1, panel.Width - 8), 40),
-                        Location = new Point(4, 48),
-                        ForeColor = Styler.ModernColors.TextSecondary,
-                        Font = Styler.ModernFonts.Small,
-                        AutoEllipsis = true,
-                        BackColor = Color.Transparent
-                    };
-                    
-                    panel.Controls.Add(lblDescricao);
-                }
+                CriarListaAgendamentos(panel, evento, data);
             }
 
             // Event handler para clique no dia
@@ -469,6 +450,199 @@ namespace Salomao
             // Melhorar qualidade de renderização
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+        }
+
+        /// <summary>
+        /// Cria a lista de agendamentos dentro do painel do dia
+        /// </summary>
+        private void CriarListaAgendamentos(Panel panelDia, EventoCalendario evento, DateTime data)
+        {
+            if (evento == null || evento.Agendamentos == null || evento.Agendamentos.Count == 0)
+                return;
+
+            try
+            {
+                // Calcular espaço disponível (descontando o espaço do número do dia)
+                int espacoDisponivel = panelDia.Height - 28; // 28 pixels para o número do dia
+                int alturalinha = 14; // Altura de cada linha de agendamento
+                int maxLinhas = Math.Max(1, espacoDisponivel / alturalinha);
+
+                // Posição inicial Y (abaixo do número do dia)
+                int posY = 26;
+
+                // Verificar se é visualização semanal para permitir mais espaço
+                bool isVisualizacaoSemanal = tipoVisualizacao == TipoVisualizacaoCalendario.Semanal;
+                if (isVisualizacaoSemanal)
+                {
+                    maxLinhas = Math.Max(10, maxLinhas); // Permitir mais linhas na visualização semanal
+                }
+
+                // Lista dos agendamentos a exibir
+                var agendamentosParaExibir = evento.Agendamentos.Take(maxLinhas - 1).ToList();
+                bool temMaisAgendamentos = evento.Agendamentos.Count > agendamentosParaExibir.Count;
+
+                // Se há mais agendamentos do que o espaço permite, ajustar a lista
+                if (temMaisAgendamentos && maxLinhas > 1)
+                {
+                    agendamentosParaExibir = evento.Agendamentos.Take(maxLinhas - 1).ToList();
+                }
+
+                // Criar labels para cada agendamento
+                for (int i = 0; i < agendamentosParaExibir.Count; i++)
+                {
+                    var agendamento = agendamentosParaExibir[i];
+                    
+                    // Calcular largura disponível
+                    int larguraDisponivel = Math.Max(50, panelDia.Width - 10);
+                    
+                    var lblAgendamento = new Label
+                    {
+                        Text = TruncarTexto(agendamento.NomeCliente ?? "Cliente", larguraDisponivel, Styler.ModernFonts.Small),
+                        AutoSize = false,
+                        Size = new Size(larguraDisponivel, alturalinha),
+                        Location = new Point(4, posY + (i * alturalinha)),
+                        ForeColor = Styler.ModernColors.TextSecondary,
+                        Font = Styler.ModernFonts.Small,
+                        BackColor = Color.Transparent,
+                        TextAlign = ContentAlignment.MiddleLeft,
+                        Cursor = Cursors.Hand,
+                        Tag = agendamento // Guardar referência do agendamento
+                    };
+
+                    // Adicionar hover effect
+                    lblAgendamento.MouseEnter += (s, e) => {
+                        lblAgendamento.BackColor = Color.FromArgb(30, Styler.ModernColors.Primary.R, 
+                            Styler.ModernColors.Primary.G, Styler.ModernColors.Primary.B);
+                        
+                        // Mostrar tooltip com informações do agendamento
+                        var tooltip = new ToolTip();
+                        tooltip.SetToolTip(lblAgendamento, 
+                            $"Cliente: {agendamento.NomeCliente}\n" +
+                            $"Veículo: {agendamento.PlacaVeiculo} - {agendamento.MarcaVeiculo} {agendamento.ModeloVeiculo}\n" +
+                            $"Valor: {agendamento.ValorPraticado:C2}");
+                    };
+
+                    lblAgendamento.MouseLeave += (s, e) => {
+                        lblAgendamento.BackColor = Color.Transparent;
+                    };
+
+                    // Adicionar clique no agendamento
+                    lblAgendamento.Click += (s, e) => AbrirDetalhesAgendamento(data);
+
+                    panelDia.Controls.Add(lblAgendamento);
+                }
+
+                // Adicionar label "..." se há mais agendamentos
+                if (temMaisAgendamentos)
+                {
+                    var lblMais = new Label
+                    {
+                        Text = $"... (+{evento.Agendamentos.Count - agendamentosParaExibir.Count})",
+                        AutoSize = false,
+                        Size = new Size(Math.Max(50, panelDia.Width - 10), alturalinha),
+                        Location = new Point(4, posY + (agendamentosParaExibir.Count * alturalinha)),
+                        ForeColor = Styler.ModernColors.TextMuted,
+                        Font = new Font(Styler.ModernFonts.Small.FontFamily, 
+                            Styler.ModernFonts.Small.Size, FontStyle.Italic),
+                        BackColor = Color.Transparent,
+                        TextAlign = ContentAlignment.MiddleLeft,
+                        Cursor = Cursors.Hand
+                    };
+
+                    lblMais.Click += (s, e) => AbrirDetalhesAgendamento(data);
+                    panelDia.Controls.Add(lblMais);
+                }
+
+                // Se não há agendamentos visíveis mas há agendamentos, mostrar apenas contador
+                if (agendamentosParaExibir.Count == 0 && evento.Agendamentos.Count > 0)
+                {
+                    var lblContador = new Label
+                    {
+                        Text = $"{evento.Agendamentos.Count} agendamento(s)",
+                        AutoSize = false,
+                        Size = new Size(Math.Max(50, panelDia.Width - 10), alturalinha),
+                        Location = new Point(4, posY),
+                        ForeColor = Styler.ModernColors.CalendarEventText,
+                        Font = Styler.ModernFonts.SmallBold,
+                        BackColor = Styler.ModernColors.CalendarEvent,
+                        TextAlign = ContentAlignment.MiddleCenter,
+                        Cursor = Cursors.Hand
+                    };
+
+                    lblContador.Click += (s, e) => AbrirDetalhesAgendamento(data);
+                    panelDia.Controls.Add(lblContador);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Em caso de erro, mostrar um indicador simples
+                var lblErro = new Label
+                {
+                    Text = $"{evento.Agendamentos.Count} agend.",
+                    AutoSize = false,
+                    Size = new Size(Math.Max(50, panelDia.Width - 10), 14),
+                    Location = new Point(4, 26),
+                    ForeColor = Styler.ModernColors.Error,
+                    Font = Styler.ModernFonts.Small,
+                    BackColor = Color.Transparent,
+                    Cursor = Cursors.Hand
+                };
+                
+                lblErro.Click += (s, e) => AbrirDetalhesAgendamento(data);
+                panelDia.Controls.Add(lblErro);
+                
+                System.Diagnostics.Debug.WriteLine($"Erro ao criar lista de agendamentos: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Trunca o texto se necessário e adiciona reticências
+        /// </summary>
+        private string TruncarTexto(string texto, int larguraDisponivel, Font font)
+        {
+            if (string.IsNullOrEmpty(texto))
+                return "";
+
+            try
+            {
+                // Usar Graphics para medir o texto
+                using (var g = this.CreateGraphics())
+                {
+                    var tamanhoTexto = g.MeasureString(texto, font);
+                    
+                    // Se o texto cabe, retornar como está
+                    if (tamanhoTexto.Width <= larguraDisponivel)
+                        return texto;
+
+                    // Caso contrário, truncar e adicionar reticências
+                    var reticencias = "...";
+                    var tamanhoReticencias = g.MeasureString(reticencias, font);
+                    var larguraParaTexto = larguraDisponivel - tamanhoReticencias.Width;
+
+                    if (larguraParaTexto <= 0)
+                        return reticencias;
+
+                    // Encontrar quantos caracteres cabem
+                    for (int i = texto.Length - 1; i > 0; i--)
+                    {
+                        var textoTruncado = texto.Substring(0, i);
+                        var tamanhoTruncado = g.MeasureString(textoTruncado, font);
+                        
+                        if (tamanhoTruncado.Width <= larguraParaTexto)
+                        {
+                            return textoTruncado + reticencias;
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Em caso de erro, fazer truncamento simples
+                if (texto.Length > 12)
+                    return texto.Substring(0, 9) + "...";
+            }
+
+            return texto;
         }
     }
 }

@@ -267,6 +267,85 @@ namespace Salomao
                     ValorPraticado = 250.00m, 
                     LucroBruto = 62.50m,
                     Observacoes = "Troca de pastilhas agendada"
+                },
+                // Novos agendamentos para testar múltiplos agendamentos por dia
+                new { 
+                    Data = DateTime.Now, 
+                    DataPrestacao = DateTime.Now, 
+                    PrevisaoConclusao = DateTime.Now.AddDays(1),
+                    Cliente = 1, 
+                    Veiculo = 1, 
+                    ValorSugerido = 320.00m, 
+                    ValorPraticado = 300.00m, 
+                    LucroBruto = 75.00m,
+                    Observacoes = "Troca de bateria"
+                },
+                new { 
+                    Data = DateTime.Now, 
+                    DataPrestacao = DateTime.Now, 
+                    PrevisaoConclusao = DateTime.Now.AddDays(1),
+                    Cliente = 2, 
+                    Veiculo = 2, 
+                    ValorSugerido = 200.00m, 
+                    ValorPraticado = 180.00m, 
+                    LucroBruto = 45.00m,
+                    Observacoes = "Alinhamento e balanceamento"
+                },
+                new { 
+                    Data = DateTime.Now, 
+                    DataPrestacao = DateTime.Now, 
+                    PrevisaoConclusao = DateTime.Now.AddDays(1),
+                    Cliente = 3, 
+                    Veiculo = 3, 
+                    ValorSugerido = 150.00m, 
+                    ValorPraticado = 150.00m, 
+                    LucroBruto = 37.50m,
+                    Observacoes = "Troca de farol principal"
+                },
+                // Mais agendamentos para diferentes dias
+                new { 
+                    Data = DateTime.Now.AddDays(2), 
+                    DataPrestacao = DateTime.Now.AddDays(2), 
+                    PrevisaoConclusao = DateTime.Now.AddDays(3),
+                    Cliente = 1, 
+                    Veiculo = 1, 
+                    ValorSugerido = 400.00m, 
+                    ValorPraticado = 380.00m, 
+                    LucroBruto = 95.00m,
+                    Observacoes = "Suspensão completa"
+                },
+                new { 
+                    Data = DateTime.Now.AddDays(2), 
+                    DataPrestacao = DateTime.Now.AddDays(2), 
+                    PrevisaoConclusao = DateTime.Now.AddDays(4),
+                    Cliente = 2, 
+                    Veiculo = 2, 
+                    ValorSugerido = 280.00m, 
+                    ValorPraticado = 260.00m, 
+                    LucroBruto = 65.00m,
+                    Observacoes = "Pintura parcial"
+                },
+                new { 
+                    Data = DateTime.Now.AddDays(3), 
+                    DataPrestacao = DateTime.Now.AddDays(3), 
+                    PrevisaoConclusao = DateTime.Now.AddDays(5),
+                    Cliente = 3, 
+                    Veiculo = 3, 
+                    ValorSugerido = 120.00m, 
+                    ValorPraticado = 100.00m, 
+                    LucroBruto = 25.00m,
+                    Observacoes = "Instalação de som"
+                },
+                new { 
+                    Data = DateTime.Now.AddDays(3), 
+                    DataPrestacao = DateTime.Now.AddDays(3), 
+                    PrevisaoConclusao = DateTime.Now.AddDays(4),
+                    Cliente = 1, 
+                    Veiculo = 1, 
+                    ValorSugerido = 90.00m, 
+                    ValorPraticado = 85.00m, 
+                    LucroBruto = 21.25m,
+                    Observacoes = "Troca de correia"
                 }
             };
 
@@ -294,7 +373,14 @@ namespace Salomao
             {
                 new { Atendimento = 1, Servico = 1, Quantidade = 1.0, ValorUnitario = 140.00m },
                 new { Atendimento = 2, Servico = 2, Quantidade = 1.0, ValorUnitario = 420.00m },
-                new { Atendimento = 3, Servico = 3, Quantidade = 1.0, ValorUnitario = 250.00m }
+                new { Atendimento = 3, Servico = 3, Quantidade = 1.0, ValorUnitario = 250.00m },
+                new { Atendimento = 4, Servico = 5, Quantidade = 1.0, ValorUnitario = 300.00m },
+                new { Atendimento = 5, Servico = 4, Quantidade = 1.0, ValorUnitario = 180.00m },
+                new { Atendimento = 6, Servico = 1, Quantidade = 1.0, ValorUnitario = 150.00m },
+                new { Atendimento = 7, Servico = 2, Quantidade = 1.0, ValorUnitario = 380.00m },
+                new { Atendimento = 8, Servico = 3, Quantidade = 1.0, ValorUnitario = 260.00m },
+                new { Atendimento = 9, Servico = 1, Quantidade = 1.0, ValorUnitario = 100.00m },
+                new { Atendimento = 10, Servico = 2, Quantidade = 1.0, ValorUnitario = 85.00m }
             };
 
             string sqlServicos = "INSERT INTO AtendimentoServicos (AtendimentoID, ServicoID, Quantidade, ValorUnitario) VALUES (@atendimento, @servico, @quantidade, @valor)";
