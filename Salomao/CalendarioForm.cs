@@ -463,9 +463,9 @@ namespace Salomao
             try
             {
                 // Calcular espaço disponível (descontando o espaço do número do dia)
-                int espacoDisponivel = panelDia.Height - 28; // 28 pixels para o número do dia
-                int alturalinha = 14; // Altura de cada linha de agendamento
-                int maxLinhas = Math.Max(1, espacoDisponivel / alturalinha);
+                int espacoDisponivel = panelDia.Height - 28; // Reduzir margem superior
+                int alturaLinha = 20; // Aumentar altura das linhas para não cortar o texto
+                int maxLinhas = Math.Max(1, espacoDisponivel / alturaLinha);
 
                 // Posição inicial Y (abaixo do número do dia)
                 int posY = 26;
@@ -474,7 +474,8 @@ namespace Salomao
                 bool isVisualizacaoSemanal = tipoVisualizacao == TipoVisualizacaoCalendario.Semanal;
                 if (isVisualizacaoSemanal)
                 {
-                    maxLinhas = Math.Max(10, maxLinhas); // Permitir mais linhas na visualização semanal
+                    maxLinhas = Math.Max(15, maxLinhas); // Permitir mais linhas na visualização semanal
+                    alturaLinha = 22; // Mais espaço na visualização semanal
                 }
 
                 // Lista dos agendamentos a exibir
@@ -487,34 +488,36 @@ namespace Salomao
                     agendamentosParaExibir = evento.Agendamentos.Take(maxLinhas - 1).ToList();
                 }
 
-                // Criar labels para cada agendamento
+                // Criar labels para cada agendamento com altura adequada
                 for (int i = 0; i < agendamentosParaExibir.Count; i++)
                 {
                     var agendamento = agendamentosParaExibir[i];
                     
                     // Calcular largura disponível
-                    int larguraDisponivel = Math.Max(50, panelDia.Width - 10);
+                    int larguraDisponivel = Math.Max(60, panelDia.Width - 12);
                     
                     var lblAgendamento = new Label
                     {
-                        Text = TruncarTexto(agendamento.NomeCliente ?? "Cliente", larguraDisponivel, Styler.ModernFonts.Small),
+                        Text = TruncarTexto(agendamento.NomeCliente ?? "Cliente", larguraDisponivel, new Font("Segoe UI", 8.5F)),
                         AutoSize = false,
-                        Size = new Size(larguraDisponivel, alturalinha),
-                        Location = new Point(4, posY + (i * alturalinha)),
+                        Size = new Size(larguraDisponivel, alturaLinha), // Altura completa sem subtração
+                        Location = new Point(6, posY + (i * alturaLinha)),
                         ForeColor = Styler.ModernColors.TextSecondary,
-                        Font = Styler.ModernFonts.Small,
+                        Font = new Font("Segoe UI", 8.5F, FontStyle.Regular),
                         BackColor = Color.Transparent,
-                        TextAlign = ContentAlignment.MiddleLeft,
+                        TextAlign = ContentAlignment.MiddleLeft, // Centralizar verticalmente o texto
                         Cursor = Cursors.Hand,
-                        Tag = agendamento // Guardar referência do agendamento
+                        Tag = agendamento,
+                        Padding = new Padding(0) // Remover padding que pode interferir
                     };
 
                     // Adicionar hover effect
                     lblAgendamento.MouseEnter += (s, e) => {
-                        lblAgendamento.BackColor = Color.FromArgb(30, Styler.ModernColors.Primary.R, 
+                        lblAgendamento.BackColor = Color.FromArgb(40, Styler.ModernColors.Primary.R, 
                             Styler.ModernColors.Primary.G, Styler.ModernColors.Primary.B);
+                        lblAgendamento.ForeColor = Styler.ModernColors.Primary;
                         
-                        // Mostrar tooltip com informações do agendamento
+                        // Mostrar tooltip
                         var tooltip = new ToolTip();
                         tooltip.SetToolTip(lblAgendamento, 
                             $"Cliente: {agendamento.NomeCliente}\n" +
@@ -524,6 +527,7 @@ namespace Salomao
 
                     lblAgendamento.MouseLeave += (s, e) => {
                         lblAgendamento.BackColor = Color.Transparent;
+                        lblAgendamento.ForeColor = Styler.ModernColors.TextSecondary;
                     };
 
                     // Adicionar clique no agendamento
@@ -539,14 +543,25 @@ namespace Salomao
                     {
                         Text = $"... (+{evento.Agendamentos.Count - agendamentosParaExibir.Count})",
                         AutoSize = false,
-                        Size = new Size(Math.Max(50, panelDia.Width - 10), alturalinha),
-                        Location = new Point(4, posY + (agendamentosParaExibir.Count * alturalinha)),
+                        Size = new Size(Math.Max(60, panelDia.Width - 12), alturaLinha),
+                        Location = new Point(6, posY + (agendamentosParaExibir.Count * alturaLinha)),
                         ForeColor = Styler.ModernColors.TextMuted,
-                        Font = new Font(Styler.ModernFonts.Small.FontFamily, 
-                            Styler.ModernFonts.Small.Size, FontStyle.Italic),
+                        Font = new Font("Segoe UI", 8F, FontStyle.Italic),
                         BackColor = Color.Transparent,
                         TextAlign = ContentAlignment.MiddleLeft,
-                        Cursor = Cursors.Hand
+                        Cursor = Cursors.Hand,
+                        Padding = new Padding(0)
+                    };
+
+                    lblMais.MouseEnter += (s, e) => {
+                        lblMais.BackColor = Color.FromArgb(30, Styler.ModernColors.Warning.R, 
+                            Styler.ModernColors.Warning.G, Styler.ModernColors.Warning.B);
+                        lblMais.ForeColor = Styler.ModernColors.Warning;
+                    };
+
+                    lblMais.MouseLeave += (s, e) => {
+                        lblMais.BackColor = Color.Transparent;
+                        lblMais.ForeColor = Styler.ModernColors.TextMuted;
                     };
 
                     lblMais.Click += (s, e) => AbrirDetalhesAgendamento(data);
@@ -560,13 +575,14 @@ namespace Salomao
                     {
                         Text = $"{evento.Agendamentos.Count} agendamento(s)",
                         AutoSize = false,
-                        Size = new Size(Math.Max(50, panelDia.Width - 10), alturalinha),
-                        Location = new Point(4, posY),
+                        Size = new Size(Math.Max(60, panelDia.Width - 12), alturaLinha),
+                        Location = new Point(6, posY),
                         ForeColor = Styler.ModernColors.CalendarEventText,
-                        Font = Styler.ModernFonts.SmallBold,
+                        Font = new Font("Segoe UI", 8F, FontStyle.Bold),
                         BackColor = Styler.ModernColors.CalendarEvent,
                         TextAlign = ContentAlignment.MiddleCenter,
-                        Cursor = Cursors.Hand
+                        Cursor = Cursors.Hand,
+                        Padding = new Padding(0)
                     };
 
                     lblContador.Click += (s, e) => AbrirDetalhesAgendamento(data);
@@ -580,12 +596,14 @@ namespace Salomao
                 {
                     Text = $"{evento.Agendamentos.Count} agend.",
                     AutoSize = false,
-                    Size = new Size(Math.Max(50, panelDia.Width - 10), 14),
-                    Location = new Point(4, 26),
+                    Size = new Size(Math.Max(60, panelDia.Width - 12), 20),
+                    Location = new Point(6, 26),
                     ForeColor = Styler.ModernColors.Error,
-                    Font = Styler.ModernFonts.Small,
+                    Font = new Font("Segoe UI", 8F, FontStyle.Regular),
                     BackColor = Color.Transparent,
-                    Cursor = Cursors.Hand
+                    Cursor = Cursors.Hand,
+                    TextAlign = ContentAlignment.MiddleLeft,
+                    Padding = new Padding(0)
                 };
                 
                 lblErro.Click += (s, e) => AbrirDetalhesAgendamento(data);

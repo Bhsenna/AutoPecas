@@ -52,30 +52,41 @@ namespace Salomao
                 100
             );
 
-            // Footer moderno
-            var panelFooter = Styler.FormStyler.CreateFormFooter(80);
+            // Footer moderno com melhor gerenciamento de layout
+            var panelFooter = Styler.FormStyler.CreateFormFooter(90); // Aumentar altura do footer
 
-            // Botões do footer
-            var btnFechar = Styler.FormStyler.CreateActionButton("Fechar", false, new Size(120, 50));
-            btnFechar.Dock = DockStyle.Right;
+            // Container para os botões com layout responsivo e melhor alinhamento vertical
+            var containerBotoes = new FlowLayoutPanel
+            {
+                FlowDirection = FlowDirection.RightToLeft, // Buttons flow from right to left
+                Dock = DockStyle.Fill,
+                Padding = new Padding(20, 15, 20, 15), // Aumentar padding para melhor espaçamento
+                WrapContents = false,
+                AutoSize = false,
+                BackColor = Color.Transparent,
+                Anchor = AnchorStyles.Top | AnchorStyles.Right | AnchorStyles.Bottom | AnchorStyles.Left
+            };
+
+            // Botão Fechar com melhor espaçamento
+            var btnFechar = Styler.FormStyler.CreateActionButton("✕  Fechar", false, new Size(140, 50));
+            btnFechar.Margin = new Padding(0, 5, 15, 5); // Margem direita para separar os botões
             btnFechar.Click += (s, e) => this.Close();
 
-            var btnEditar = Styler.FormStyler.CreateActionButton("Editar Selecionado", true, new Size(180, 50));
-            btnEditar.Location = new Point(panelFooter.Width - 320, 15);
-            btnEditar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            // Botão Editar com melhor espaçamento
+            var btnEditar = Styler.FormStyler.CreateActionButton("✏  Editar Selecionado", true, new Size(190, 50));
+            btnEditar.Margin = new Padding(0, 5, 0, 5); // Margem vertical para centralizar
             btnEditar.Click += BtnEditar_Click;
 
-            // Adicionar ícone aos botões
-            btnFechar.Text = "✕  Fechar";
-            btnEditar.Text = "✏  Editar";
-
-            panelFooter.Controls.Add(btnFechar);
-            panelFooter.Controls.Add(btnEditar);
+            // Adicionar botões ao container com ordem correta (devido ao RightToLeft)
+            containerBotoes.Controls.Add(btnFechar);
+            containerBotoes.Controls.Add(btnEditar);
+            
+            panelFooter.Controls.Add(containerBotoes);
 
             // Painel de conteúdo moderno
             var panelContent = Styler.FormStyler.CreateContentPanel(25);
 
-            // DataGridView modernizado - Usar versão otimizada
+            // DataGridView modernizado - Usar versão otimizada com melhor espaçamento
             dataGridAgendamentos = new Styler.OptimizedDataGridView
             {
                 Dock = DockStyle.Fill,
@@ -93,7 +104,8 @@ namespace Salomao
                 MultiSelect = false,
                 AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None, // Evitar problemas de redimensionamento automático
                 ScrollBars = ScrollBars.Both,
-                EnableHeadersVisualStyles = false
+                EnableHeadersVisualStyles = false,
+                RowTemplate = { Height = 65 } // Aumentar altura das linhas para melhor espaçamento
             };
 
             // Aplicar estilo moderno ao grid

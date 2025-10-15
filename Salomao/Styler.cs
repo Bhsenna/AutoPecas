@@ -591,10 +591,12 @@ namespace Salomao
                 grid.DefaultCellStyle.Padding = new Padding(8, 4, 8, 4);
                 grid.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
 
-                // Row styling
-                grid.RowTemplate.Height = 55;
+                // Row styling com melhor espaçamento
+                grid.RowTemplate.Height = 65; // Aumentar altura das linhas para melhor legibilidade
                 grid.AlternatingRowsDefaultCellStyle.BackColor = ModernColors.SurfaceElevated;
+                grid.AlternatingRowsDefaultCellStyle.ForeColor = ModernColors.TextPrimary; // Ensure consistent text color
                 grid.AlternatingRowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(40, ModernColors.Primary.R, ModernColors.Primary.G, ModernColors.Primary.B);
+                grid.AlternatingRowsDefaultCellStyle.SelectionForeColor = ModernColors.Primary;
 
                 // Behavior
                 grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
