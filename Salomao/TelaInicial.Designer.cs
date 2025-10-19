@@ -49,7 +49,6 @@
             ibtn_config = new FontAwesome.Sharp.IconButton();
             ibtn_logout = new FontAwesome.Sharp.IconButton();
             dragControl1 = new DragControl();
-            panel_shadow = new Panel();
             panel_desktop = new Panel();
             panel_header.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btn_home).BeginInit();
@@ -440,22 +439,13 @@
             // 
             dragControl1.SelectControl = panel_header;
             // 
-            // panel_shadow
-            // 
-            panel_shadow.BackColor = Color.FromArgb(10, 38, 118);
-            panel_shadow.Dock = DockStyle.Top;
-            panel_shadow.Location = new Point(239, 80);
-            panel_shadow.Name = "panel_shadow";
-            panel_shadow.Size = new Size(945, 9);
-            panel_shadow.TabIndex = 2;
-            // 
             // panel_desktop
             // 
             panel_desktop.BackColor = Color.White;
             panel_desktop.Dock = DockStyle.Fill;
-            panel_desktop.Location = new Point(239, 89);
+            panel_desktop.Location = new Point(239, 80);
             panel_desktop.Name = "panel_desktop";
-            panel_desktop.Size = new Size(945, 592);
+            panel_desktop.Size = new Size(945, 601);
             panel_desktop.TabIndex = 3;
             // 
             // TelaInicial
@@ -464,11 +454,10 @@
             BackColor = Color.White;
             ClientSize = new Size(1184, 681);
             Controls.Add(panel_desktop);
-            Controls.Add(panel_shadow);
             Controls.Add(panel_menu);
             Controls.Add(panel_header);
             Font = new Font("Microsoft Sans Serif", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            MinimumSize = new Size(1200, 720);
+            MinimumSize = new Size(1280, 720);
             Name = "TelaInicial";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
@@ -496,7 +485,6 @@
         private Label lbl_title;
         private Button btn_maximize;
         private Button btn_minimize;
-        private Panel panel_shadow;
         private Panel panel_desktop;
         private FontAwesome.Sharp.IconButton ibtn_fornecedor;
         private FontAwesome.Sharp.IconButton ibtn_servico;

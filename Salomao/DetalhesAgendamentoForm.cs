@@ -49,7 +49,7 @@ namespace Salomao
             var panelHeader = Styler.FormStyler.CreateFormHeader(
                 $"Agendamentos do dia {dataSelecionada:dd/MM/yyyy}",
                 $"{agendamentos.Count} agendamento(s) encontrado(s)",
-                100
+                120
             );
 
             // Footer moderno com melhor gerenciamento de layout
@@ -73,7 +73,7 @@ namespace Salomao
             btnFechar.Click += (s, e) => this.Close();
 
             // Botão Editar com melhor espaçamento
-            var btnEditar = Styler.FormStyler.CreateActionButton("✏  Editar Selecionado", true, new Size(190, 50));
+            var btnEditar = Styler.FormStyler.CreateActionButton("✏  Editar", true, new Size(190, 50));
             btnEditar.Margin = new Padding(0, 5, 0, 5); // Margem vertical para centralizar
             btnEditar.Click += BtnEditar_Click;
 
@@ -207,7 +207,6 @@ namespace Salomao
                     }
                     
                     dataTable.Rows.Add(
-                        agendamento.AtendimentoID,
                         agendamento.NomeCliente ?? "N/A",
                         $"{agendamento.PlacaVeiculo ?? "N/A"} - {agendamento.MarcaVeiculo ?? "N/A"} {agendamento.ModeloVeiculo ?? "N/A"}",
                         agendamento.Data,
@@ -235,7 +234,6 @@ namespace Salomao
 
         private void CriarEstruturaDaTabela(System.Data.DataTable dataTable)
         {
-            dataTable.Columns.Add("ID", typeof(int));
             dataTable.Columns.Add("Cliente", typeof(string));
             dataTable.Columns.Add("Veículo", typeof(string));
             dataTable.Columns.Add("Data Agendamento", typeof(DateTime));
@@ -268,9 +266,9 @@ namespace Salomao
                 dataGridAgendamentos.SuspendLayout();
 
                 // Ocultar coluna ID
-                var colunaId = dataGridAgendamentos.Columns["ID"];
-                if (colunaId != null)
-                    colunaId.Visible = false;
+                //var colunaId = dataGridAgendamentos.Columns["ID"];
+                //if (colunaId != null)
+                //    colunaId.Visible = false;
 
                 // Formatação de datas com verificação segura
                 var colunasDatas = new[] { "Data Agendamento", "Data Prestação", "Previsão Conclusão" };
@@ -386,9 +384,12 @@ namespace Salomao
             }
 
             var selectedRow = dataGridAgendamentos.SelectedRows[0];
-            int atendimentoId = Convert.ToInt32(selectedRow.Cells["ID"].Value);
+            
+            // Como removemos a coluna ID, vamos usar o nome do cliente como identificação
+            string nomeCliente = selectedRow.Cells["Cliente"].Value?.ToString() ?? "Cliente desconhecido";
+            DateTime dataAgendamento = Convert.ToDateTime(selectedRow.Cells["Data Agendamento"].Value);
 
-            ShowModernMessage($"Funcionalidade de edição será implementada para o atendimento ID: {atendimentoId}", 
+            ShowModernMessage($"Funcionalidade de edição será implementada para:\nCliente: {nomeCliente}\nData: {dataAgendamento:dd/MM/yyyy}", 
                 "Informação", MessageBoxIcon.Information);
         }
 
@@ -419,11 +420,11 @@ namespace Salomao
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             e.Graphics.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
             
-            // Desenhar borda sutil no formulário
-            using (var pen = new Pen(Styler.ModernColors.Border, 1))
-            {
-                e.Graphics.DrawRectangle(pen, 0, 0, this.Width - 1, this.Height - 1);
-            }
+            // Remover a borda feia - deixar apenas o fundo limpo
+            // using (var pen = new Pen(Styler.ModernColors.Border, 1))
+            // {
+            //     e.Graphics.DrawRectangle(pen, 0, 0, this.Width - 1, this.Height - 1);
+            // }
         }
     }
 }

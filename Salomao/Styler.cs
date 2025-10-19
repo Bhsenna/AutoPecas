@@ -423,22 +423,12 @@ namespace Salomao
                 {
                     var rect = panel.ClientRectangle;
                     using (var brush = new LinearGradientBrush(rect, 
-                        ModernColors.CalendarHeaderGradient1, 
-                        ModernColors.CalendarHeaderGradient2, 
+                        ModernColors.Primary, 
+                        ModernColors.PrimaryLight, 
                         LinearGradientMode.Horizontal))
                     {
                         e.Graphics.FillRectangle(brush, rect);
-                    }
-                    
-                    // Adicionar sombra sutil na parte inferior
-                    using (var shadowBrush = new LinearGradientBrush(
-                        new Rectangle(0, rect.Height - 6, rect.Width, 6),
-                        Color.FromArgb(40, 0, 0, 0),
-                        Color.Transparent,
-                        LinearGradientMode.Vertical))
-                    {
-                        e.Graphics.FillRectangle(shadowBrush, 0, rect.Height - 6, rect.Width, 6);
-                    }
+                    }                 
                 };
 
                 // Título principal
@@ -488,10 +478,10 @@ namespace Salomao
                     Padding = new Padding(30, 15, 30, 15)
                 };
 
-                // Adicionar borda superior sutil
+                // Borda superior mais sutil
                 panel.Paint += (s, e) =>
                 {
-                    using (var pen = new Pen(ModernColors.Border, 1))
+                    using (var pen = new Pen(Color.FromArgb(30, ModernColors.Border.R, ModernColors.Border.G, ModernColors.Border.B), 1))
                     {
                         e.Graphics.DrawLine(pen, 0, 0, panel.Width, 0);
                     }

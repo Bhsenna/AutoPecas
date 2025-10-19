@@ -16,6 +16,16 @@ namespace Salomao
         private int borderSize = 2;
         private Size formSize;
 
+        // 720p HD minimum size constants
+        private const int MIN_WIDTH = 1280;
+        private const int MIN_HEIGHT = 720;
+
+        // Campos para barra lateral retrátil
+        private bool sidebarCollapsed = false;
+        private const int SIDEBAR_WIDTH_EXPANDED = 239;
+        private const int SIDEBAR_WIDTH_COLLAPSED = 60;
+        private Button btnToggleSidebar;
+
         public TelaInicial()
         {
             InitializeComponent();
@@ -26,9 +36,201 @@ namespace Salomao
             // Verificar se o botão calendário existe, se não, criar
             VerificarBotaoCalendario();
 
-            // Form
+            // Adicionar botão toggle para sidebar
+            AdicionarBotaoToggleSidebar();
+
+            // Form - Set proper minimum size for 720p HD resolution
+            this.MinimumSize = new Size(MIN_WIDTH, MIN_HEIGHT);
             this.Padding = new Padding(borderSize);//Border size
             this.BackColor = Color.FromArgb(30, 58, 138);//Border color
+            
+            // Ensure initial size is at least 720p
+            if (this.Size.Width < MIN_WIDTH || this.Size.Height < MIN_HEIGHT)
+            {
+                this.Size = new Size(Math.Max(MIN_WIDTH, this.Size.Width), 
+                                   Math.Max(MIN_HEIGHT, this.Size.Height));
+            }
+
+            // Start in center with proper size
+            this.StartPosition = FormStartPosition.CenterScreen;
+
+            // Remover o panel_shadow feio
+            RemoverPanelShadow();
+        }
+
+        private void RemoverPanelShadow()
+        {
+            // O panel_shadow já foi removido do Designer, então apenas precisamos
+            // ajustar o panel_desktop para ocupar todo o espaço
+            if (panel_desktop != null)
+            {
+                panel_desktop.Location = new Point(panel_menu.Width, panel_header.Height);
+                panel_desktop.Size = new Size(this.Width - panel_menu.Width - borderSize * 2, 
+                                             this.Height - panel_header.Height - borderSize * 2);
+            }
+        }
+
+        private void AdicionarBotaoToggleSidebar()
+        {
+            // Remover o botão antigo do header se existir
+            if (btnToggleSidebar != null)
+            {
+                panel_header.Controls.Remove(btnToggleSidebar);
+            }
+
+            // Criar botão toggle moderno na borda da sidebar
+            btnToggleSidebar = new Button
+            {
+                Size = new Size(20, 80), // Botão vertical mais elegante
+                FlatStyle = FlatStyle.Flat,
+                BackColor = Color.FromArgb(40, 70, 150), // Cor sutilmente diferente da sidebar
+                ForeColor = Color.FromArgb(220, 220, 220),
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                Text = "◀", // Seta apontando para a esquerda (colapsar)
+                Cursor = Cursors.Hand,
+                TextAlign = ContentAlignment.MiddleCenter,
+                UseVisualStyleBackColor = false
+            };
+
+            // Posicionar na borda direita da sidebar, verticalmente centralizado
+            PositionarBotaoToggle();
+
+            // Estilo moderno sem bordas
+            btnToggleSidebar.FlatAppearance.BorderSize = 0;
+            btnToggleSidebar.FlatAppearance.MouseOverBackColor = Color.FromArgb(60, 100, 180);
+
+            // Adicionar efeitos hover suaves
+            btnToggleSidebar.MouseEnter += (s, e) => {
+                btnToggleSidebar.BackColor = Color.FromArgb(60, 100, 180);
+                btnToggleSidebar.ForeColor = Color.White;
+            };
+            
+            btnToggleSidebar.MouseLeave += (s, e) => {
+                btnToggleSidebar.BackColor = Color.FromArgb(40, 70, 150);
+                btnToggleSidebar.ForeColor = Color.FromArgb(220, 220, 220);
+            };
+
+            // Adicionar cantos arredondados visuais
+            btnToggleSidebar.Paint += (s, e) => {
+                var btn = s as Button;
+                var rect = btn.ClientRectangle;
+                
+                // Desenhar fundo com cantos arredondados apenas do lado direito
+                using (var path = new System.Drawing.Drawing2D.GraphicsPath())
+                {
+                    int radius = 8;
+                    path.AddLine(0, 0, rect.Width - radius, 0);
+                    path.AddArc(rect.Width - radius, 0, radius, radius, 270, 90);
+                    path.AddArc(rect.Width - radius, rect.Height - radius, radius, radius, 0, 90);
+                    path.AddLine(rect.Width - radius, rect.Height, 0, rect.Height);
+                    path.AddLine(0, rect.Height, 0, 0);
+                    
+                    btn.Region = new Region(path);
+                }
+            };
+
+            btnToggleSidebar.Click += BtnToggleSidebar_Click;
+            
+            // Adicionar ao form principal, não ao panel_header
+            this.Controls.Add(btnToggleSidebar);
+            btnToggleSidebar.BringToFront();
+        }
+
+        private void PositionarBotaoToggle()
+        {
+            if (btnToggleSidebar == null) return;
+
+            // Calcular posição: na borda direita da sidebar, centralizado verticalmente
+            int sidebarWidth = sidebarCollapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_EXPANDED;
+            int centroVertical = panel_header.Height + (this.Height - panel_header.Height) / 2;
+            
+            btnToggleSidebar.Location = new Point(
+                sidebarWidth - 1, // Posição na borda direita da sidebar
+                centroVertical - btnToggleSidebar.Height / 2 // Centralizado verticalmente
+            );
+        }
+
+        private void BtnToggleSidebar_Click(object sender, EventArgs e)
+        {
+            AnimateSidebar();
+        }
+
+        private void AnimateSidebar()
+        {
+            // Toggle estado
+            sidebarCollapsed = !sidebarCollapsed;
+            
+            int targetWidth = sidebarCollapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_EXPANDED;
+            
+            // Suspender layout durante animação
+            this.SuspendLayout();
+            
+            try
+            {
+                // Animar o painel do menu
+                panel_menu.Width = targetWidth;
+                
+                // Ajustar posição do botão toggle
+                PositionarBotaoToggle();
+                
+                // Esconder/mostrar texto dos botões
+                foreach (Control control in panel_menu.Controls)
+                {
+                    if (control is IconButton iconBtn)
+                    {
+                        if (sidebarCollapsed)
+                        {
+                            // Modo colapsado - apenas ícones
+                            iconBtn.Text = "";
+                            iconBtn.ImageAlign = ContentAlignment.MiddleCenter;
+                            iconBtn.TextAlign = ContentAlignment.MiddleCenter;
+                            iconBtn.TextImageRelation = TextImageRelation.Overlay;
+                            iconBtn.Size = new Size(targetWidth - 8, 60);
+                        }
+                        else
+                        {
+                            // Modo expandido - ícones + texto
+                            RestaurarTextoOriginalBotao(iconBtn);
+                            iconBtn.ImageAlign = ContentAlignment.MiddleLeft;
+                            iconBtn.TextAlign = ContentAlignment.MiddleLeft;
+                            iconBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
+                            iconBtn.Size = new Size(targetWidth - 8, 60);
+                        }
+                    }
+                }
+                
+                // Ajustar panel_desktop
+                panel_desktop.Location = new Point(targetWidth, panel_header.Height);
+                panel_desktop.Size = new Size(this.Width - targetWidth - borderSize * 2, 
+                                             this.Height - panel_header.Height - borderSize * 2);
+                
+                // Atualizar ícone do botão toggle
+                btnToggleSidebar.Text = sidebarCollapsed ? "▶" : "◀";
+            }
+            finally
+            {
+                this.ResumeLayout(true);
+                this.Invalidate();
+            }
+        }
+
+        private void RestaurarTextoOriginalBotao(IconButton iconBtn)
+        {
+            // Restaurar texto original baseado no nome do botão
+            switch (iconBtn.Name)
+            {
+                case "ibtn_produtos": iconBtn.Text = "Produtos"; break;
+                case "ibtn_clientes": iconBtn.Text = "Clientes"; break;
+                case "ibtn_categorias": iconBtn.Text = "Categorias"; break;
+                case "ibtn_fornecedor": iconBtn.Text = "Fornecedores"; break;
+                case "ibtn_servico": iconBtn.Text = "Serviços"; break;
+                case "ibtn_atendimentos": iconBtn.Text = "Atendimentos"; break;
+                case "ibtn_movEstoque": iconBtn.Text = "Mov. Estoque"; break;
+                case "ibtn_saldoEstoque": iconBtn.Text = "Saldo Estoque"; break;
+                case "ibtn_calendario": iconBtn.Text = "Calendário"; break;
+                case "ibtn_config": iconBtn.Text = "Configurações"; break;
+                case "ibtn_logout": iconBtn.Text = "Log Out"; break;
+            }
         }
 
         protected override void WndProc(ref Message m)
@@ -342,7 +544,37 @@ namespace Salomao
 
         private void TelaInicial_Resize(object sender, EventArgs e)
         {
+            // Ensure minimum size during resize
+            if (this.WindowState == FormWindowState.Normal)
+            {
+                if (this.Width < MIN_WIDTH || this.Height < MIN_HEIGHT)
+                {
+                    this.Size = new Size(Math.Max(MIN_WIDTH, this.Width), 
+                                       Math.Max(MIN_HEIGHT, this.Height));
+                }
+            }
+            
             AdjustForm();
+            AjustarLayoutSemSombra();
+        }
+
+        private void AjustarLayoutSemSombra()
+        {
+            // Ajustar o panel_desktop para funcionar sem o panel_shadow
+            if (panel_desktop != null && panel_menu != null && panel_header != null)
+            {
+                int menuWidth = sidebarCollapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_EXPANDED;
+                
+                panel_desktop.Location = new Point(menuWidth, panel_header.Height);
+                panel_desktop.Size = new Size(this.Width - menuWidth - borderSize * 2, 
+                                             this.Height - panel_header.Height - borderSize * 2);
+            }
+
+            // Ajustar posição do botão toggle se existir
+            if (btnToggleSidebar != null)
+            {
+                PositionarBotaoToggle();
+            }
         }
 
         private void AdjustForm()
@@ -357,6 +589,15 @@ namespace Salomao
                         this.Padding = new Padding(borderSize);
                     break;
             }
+        }
+
+        protected override void SetBoundsCore(int x, int y, int width, int height, BoundsSpecified specified)
+        {
+            // Enforce minimum size constraints
+            if (width < MIN_WIDTH) width = MIN_WIDTH;
+            if (height < MIN_HEIGHT) height = MIN_HEIGHT;
+            
+            base.SetBoundsCore(x, y, width, height, specified);
         }
     }
 }

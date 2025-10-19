@@ -120,23 +120,4 @@
   <metadata name="dragControl1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="btn_minimize.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DAAACwwBP0AiyAAAAChJREFUSEtjGAWjYBSMAhLAfyoDqLEIABWnGoAaOwpGwSgYBYQBAwMA3ASfYbJY
-        BjcAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="btn_close.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DAAACwwBP0AiyAAAASRJREFUWEftllkKwkAQRHMFwYC38MfbqzfwwwX0OOOr0C3jEpJZYn7yoEF6uqvK
-        REOahYVPQghb6kitrVUMWitqT+2s1Q9DB0qcqeIQ0jAtcbB2Pwwp7akbD+FCZYdgN9Ya/4UYLA7BTp65
-        w0IscKc2djQIsy2l4CL/KrKYHIKZOuYOAqNDcCbzqwah3NxBaDAEvWnMHQRjgwf1CsHn+Czp95IEwl8h
-        qP+YOxjEhjcroV5rY9MiIzN03m7J5GA2XwCM5rsFMjAj0f3gqLg33ZVA+Mvcjj7P6odAsNfcoacZfwTX
-        +zsiNGjucFY3BALxI3jU45WZ5J2fsJgtxGxZCBZigaxXM3byQjBYbO6wmx6CodlfSvVarhDF5o60THNr
-        rYUFo2mefMj/6elzqn0AAAAASUVORK5CYII=
-</value>
-  </data>
 </root>
