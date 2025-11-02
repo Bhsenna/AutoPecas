@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Data.SQLite;
+using System.Globalization;
 using System.IO;
+using System.Text;
 using Salomao.Security;
 
 namespace Salomao
@@ -248,6 +250,23 @@ namespace Salomao
             }
 
             return connection;
+        }
+
+        public static string RemoveAccents(string text)
+        {
+            if (string.IsNullOrWhiteSpace(text))
+                return text;
+
+            text = text.Normalize(NormalizationForm.FormD);
+            var sb = new StringBuilder();
+            foreach (char c in text)
+            {
+                if (CharUnicodeInfo.GetUnicodeCategory(c) != UnicodeCategory.NonSpacingMark)
+                {
+                    sb.Append(c);
+                }
+            }
+            return sb.ToString().Normalize(NormalizationForm.FormC);
         }
     }
 }

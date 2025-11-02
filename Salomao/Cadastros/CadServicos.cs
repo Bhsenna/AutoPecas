@@ -158,12 +158,26 @@ namespace Salomao.Cadastros
                     using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
                     {
                         DataTable dt = new DataTable();
+                        dt.Columns.Add("NomeServico_SemAcento", typeof(string));
+                        dt.Columns.Add("Descricao_SemAcento", typeof(string));
+
                         da.Fill(dt);
+
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            row["NomeServico_SemAcento"] = BancoSQLite.RemoveAccents(row["NomeServico"].ToString());
+                            row["Descricao_SemAcento"] = BancoSQLite.RemoveAccents(row["Descricao"].ToString());
+                        }
+
                         dataGridView1.DataSource = dt;
 
                         // Ocultar colunas de IDs
                         if (dataGridView1.Columns.Contains("ServicoID"))
                             dataGridView1.Columns["ServicoID"].Visible = false;
+                        if (dataGridView1.Columns.Contains("NomeServico_SemAcento"))
+                            dataGridView1.Columns["NomeServico_SemAcento"].Visible = false;
+                        if (dataGridView1.Columns.Contains("Descricao_SemAcento"))
+                            dataGridView1.Columns["Descricao_SemAcento"].Visible = false;
                     }
                 }
             }
@@ -466,7 +480,8 @@ namespace Salomao.Cadastros
             DataView dataView = (dataGridView1.DataSource as DataTable)?.DefaultView;
             if (dataView != null)
             {
-                dataView.RowFilter = $"NomeServico LIKE '%{tbPesquisa.Text.Replace("'", "''")}%' OR Descricao LIKE '%{tbPesquisa.Text.Replace("'", "''")}%'"; // Evitar SQL Injection
+                string texto = BancoSQLite.RemoveAccents(tbPesquisa.Text.Replace("'", "''"));
+                dataView.RowFilter = $"NomeServico_SemAcento LIKE '%{texto}%' OR Descricao_SemAcento LIKE '%{texto}%'";
             }
         }
     }
