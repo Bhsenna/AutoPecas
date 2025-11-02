@@ -209,9 +209,9 @@ namespace Salomao.Cadastros
                         long atendimentoId;
                         using (SQLiteCommand cmd = new SQLiteCommand(query, con, transaction))
                         {
-                            cmd.Parameters.AddWithValue("@Data", dtData.Value.Date);
-                            cmd.Parameters.AddWithValue("@DataPrestacao", dtDataPrestacao.Value.Date);
-                            cmd.Parameters.AddWithValue("@PrevisaoConclusao", dtPrevisaoConclusao.Value.Date);
+                            cmd.Parameters.AddWithValue("@Data", dtData.Value.ToString("yyyy-MM-dd"));
+                            cmd.Parameters.AddWithValue("@DataPrestacao", dtDataPrestacao.Value.ToString("yyyy-MM-dd"));
+                            cmd.Parameters.AddWithValue("@PrevisaoConclusao", dtPrevisaoConclusao.Value.ToString("yyyy-MM-dd"));
                             cmd.Parameters.AddWithValue("@ClienteID", clienteId);
                             cmd.Parameters.AddWithValue("@VeiculoID", veiculoId);
                             cmd.Parameters.AddWithValue("@ValorSugerido", tbValorSugerido.Text);
