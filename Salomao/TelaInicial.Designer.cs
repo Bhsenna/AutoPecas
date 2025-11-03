@@ -50,6 +50,7 @@
             ibtn_logout = new FontAwesome.Sharp.IconButton();
             dragControl1 = new DragControl();
             panel_desktop = new Panel();
+            button1 = new Button();
             panel_header.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btn_home).BeginInit();
             ((System.ComponentModel.ISupportInitialize)icon_current).BeginInit();
@@ -59,6 +60,7 @@
             // panel_header
             // 
             panel_header.BackColor = Color.FromArgb(30, 58, 138);
+            panel_header.Controls.Add(button1);
             panel_header.Controls.Add(btn_home);
             panel_header.Controls.Add(btn_maximize);
             panel_header.Controls.Add(btn_minimize);
@@ -68,7 +70,7 @@
             panel_header.Dock = DockStyle.Top;
             panel_header.Location = new Point(0, 0);
             panel_header.Name = "panel_header";
-            panel_header.Size = new Size(1184, 80);
+            panel_header.Size = new Size(1264, 80);
             panel_header.TabIndex = 1;
             // 
             // btn_home
@@ -93,7 +95,7 @@
             btn_maximize.FlatAppearance.MouseOverBackColor = Color.FromArgb(37, 99, 235);
             btn_maximize.FlatStyle = FlatStyle.Flat;
             btn_maximize.ForeColor = Color.Transparent;
-            btn_maximize.Location = new Point(1127, 3);
+            btn_maximize.Location = new Point(1207, 3);
             btn_maximize.Name = "btn_maximize";
             btn_maximize.Size = new Size(24, 24);
             btn_maximize.TabIndex = 6;
@@ -112,7 +114,7 @@
             btn_minimize.FlatAppearance.MouseOverBackColor = Color.FromArgb(37, 99, 235);
             btn_minimize.FlatStyle = FlatStyle.Flat;
             btn_minimize.ForeColor = Color.Transparent;
-            btn_minimize.Location = new Point(1097, 3);
+            btn_minimize.Location = new Point(1177, 3);
             btn_minimize.Name = "btn_minimize";
             btn_minimize.Size = new Size(24, 24);
             btn_minimize.TabIndex = 5;
@@ -154,7 +156,7 @@
             btn_close.FlatAppearance.MouseOverBackColor = Color.FromArgb(37, 99, 235);
             btn_close.FlatStyle = FlatStyle.Flat;
             btn_close.ForeColor = Color.Transparent;
-            btn_close.Location = new Point(1157, 3);
+            btn_close.Location = new Point(1237, 3);
             btn_close.Name = "btn_close";
             btn_close.Size = new Size(24, 24);
             btn_close.TabIndex = 2;
@@ -445,14 +447,24 @@
             panel_desktop.Dock = DockStyle.Fill;
             panel_desktop.Location = new Point(239, 80);
             panel_desktop.Name = "panel_desktop";
-            panel_desktop.Size = new Size(945, 601);
+            panel_desktop.Size = new Size(1025, 601);
             panel_desktop.TabIndex = 3;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(540, 28);
+            button1.Name = "button1";
+            button1.Size = new Size(158, 23);
+            button1.TabIndex = 8;
+            button1.Text = "Gerar Relatório";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += btnGerarRelatorio_Click;
             // 
             // TelaInicial
             // 
             AutoScaleMode = AutoScaleMode.None;
             BackColor = Color.White;
-            ClientSize = new Size(1184, 681);
+            ClientSize = new Size(1264, 681);
             Controls.Add(panel_desktop);
             Controls.Add(panel_menu);
             Controls.Add(panel_header);
@@ -493,5 +505,6 @@
         private FontAwesome.Sharp.IconButton ibtn_saldoEstoque;
         private FontAwesome.Sharp.IconButton ibtn_calendario;
         private PictureBox btn_home;
+        private Button button1;
     }
 }

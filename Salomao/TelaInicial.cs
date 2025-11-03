@@ -1,7 +1,11 @@
+using System.Data;
+using System.Data.SQLite;
 using System.Diagnostics;
 using System.Drawing.Text;
 using System.Linq;
 using System.Net.Http;
+using System.Windows.Forms;
+using ClosedXML.Excel;
 using FontAwesome.Sharp;
 //using Salomao.Forms;
 
@@ -43,11 +47,11 @@ namespace Salomao
             this.MinimumSize = new Size(MIN_WIDTH, MIN_HEIGHT);
             this.Padding = new Padding(borderSize);//Border size
             this.BackColor = Color.FromArgb(30, 58, 138);//Border color
-            
+
             // Ensure initial size is at least 720p
             if (this.Size.Width < MIN_WIDTH || this.Size.Height < MIN_HEIGHT)
             {
-                this.Size = new Size(Math.Max(MIN_WIDTH, this.Size.Width), 
+                this.Size = new Size(Math.Max(MIN_WIDTH, this.Size.Width),
                                    Math.Max(MIN_HEIGHT, this.Size.Height));
             }
 
@@ -65,7 +69,7 @@ namespace Salomao
             if (panel_desktop != null)
             {
                 panel_desktop.Location = new Point(panel_menu.Width, panel_header.Height);
-                panel_desktop.Size = new Size(this.Width - panel_menu.Width - borderSize * 2, 
+                panel_desktop.Size = new Size(this.Width - panel_menu.Width - borderSize * 2,
                                              this.Height - panel_header.Height - borderSize * 2);
             }
         }
@@ -100,21 +104,24 @@ namespace Salomao
             btnToggleSidebar.FlatAppearance.MouseOverBackColor = Color.FromArgb(60, 100, 180);
 
             // Adicionar efeitos hover suaves
-            btnToggleSidebar.MouseEnter += (s, e) => {
+            btnToggleSidebar.MouseEnter += (s, e) =>
+            {
                 btnToggleSidebar.BackColor = Color.FromArgb(60, 100, 180);
                 btnToggleSidebar.ForeColor = Color.White;
             };
-            
-            btnToggleSidebar.MouseLeave += (s, e) => {
+
+            btnToggleSidebar.MouseLeave += (s, e) =>
+            {
                 btnToggleSidebar.BackColor = Color.FromArgb(40, 70, 150);
                 btnToggleSidebar.ForeColor = Color.FromArgb(220, 220, 220);
             };
 
             // Adicionar cantos arredondados visuais
-            btnToggleSidebar.Paint += (s, e) => {
+            btnToggleSidebar.Paint += (s, e) =>
+            {
                 var btn = s as Button;
                 var rect = btn.ClientRectangle;
-                
+
                 // Desenhar fundo com cantos arredondados apenas do lado direito
                 using (var path = new System.Drawing.Drawing2D.GraphicsPath())
                 {
@@ -124,13 +131,13 @@ namespace Salomao
                     path.AddArc(rect.Width - radius, rect.Height - radius, radius, radius, 0, 90);
                     path.AddLine(rect.Width - radius, rect.Height, 0, rect.Height);
                     path.AddLine(0, rect.Height, 0, 0);
-                    
+
                     btn.Region = new Region(path);
                 }
             };
 
             btnToggleSidebar.Click += BtnToggleSidebar_Click;
-            
+
             // Adicionar ao form principal, não ao panel_header
             this.Controls.Add(btnToggleSidebar);
             btnToggleSidebar.BringToFront();
@@ -143,7 +150,7 @@ namespace Salomao
             // Calcular posição: na borda direita da sidebar, centralizado verticalmente
             int sidebarWidth = sidebarCollapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_EXPANDED;
             int centroVertical = panel_header.Height + (this.Height - panel_header.Height) / 2;
-            
+
             btnToggleSidebar.Location = new Point(
                 sidebarWidth - 1, // Posição na borda direita da sidebar
                 centroVertical - btnToggleSidebar.Height / 2 // Centralizado verticalmente
@@ -159,20 +166,20 @@ namespace Salomao
         {
             // Toggle estado
             sidebarCollapsed = !sidebarCollapsed;
-            
+
             int targetWidth = sidebarCollapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_EXPANDED;
-            
+
             // Suspender layout durante animação
             this.SuspendLayout();
-            
+
             try
             {
                 // Animar o painel do menu
                 panel_menu.Width = targetWidth;
-                
+
                 // Ajustar posição do botão toggle
                 PositionarBotaoToggle();
-                
+
                 // Esconder/mostrar texto dos botões
                 foreach (Control control in panel_menu.Controls)
                 {
@@ -198,12 +205,12 @@ namespace Salomao
                         }
                     }
                 }
-                
+
                 // Ajustar panel_desktop
                 panel_desktop.Location = new Point(targetWidth, panel_header.Height);
-                panel_desktop.Size = new Size(this.Width - targetWidth - borderSize * 2, 
+                panel_desktop.Size = new Size(this.Width - targetWidth - borderSize * 2,
                                              this.Height - panel_header.Height - borderSize * 2);
-                
+
                 // Atualizar ícone do botão toggle
                 btnToggleSidebar.Text = sidebarCollapsed ? "▶" : "◀";
             }
@@ -549,11 +556,11 @@ namespace Salomao
             {
                 if (this.Width < MIN_WIDTH || this.Height < MIN_HEIGHT)
                 {
-                    this.Size = new Size(Math.Max(MIN_WIDTH, this.Width), 
+                    this.Size = new Size(Math.Max(MIN_WIDTH, this.Width),
                                        Math.Max(MIN_HEIGHT, this.Height));
                 }
             }
-            
+
             AdjustForm();
             AjustarLayoutSemSombra();
         }
@@ -564,9 +571,9 @@ namespace Salomao
             if (panel_desktop != null && panel_menu != null && panel_header != null)
             {
                 int menuWidth = sidebarCollapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH_EXPANDED;
-                
+
                 panel_desktop.Location = new Point(menuWidth, panel_header.Height);
-                panel_desktop.Size = new Size(this.Width - menuWidth - borderSize * 2, 
+                panel_desktop.Size = new Size(this.Width - menuWidth - borderSize * 2,
                                              this.Height - panel_header.Height - borderSize * 2);
             }
 
@@ -596,8 +603,89 @@ namespace Salomao
             // Enforce minimum size constraints
             if (width < MIN_WIDTH) width = MIN_WIDTH;
             if (height < MIN_HEIGHT) height = MIN_HEIGHT;
-            
+
             base.SetBoundsCore(x, y, width, height, specified);
+        }
+
+        private void btnGerarRelatorio_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Simulação de dados — pode vir do seu banco de dados
+                DataTable dt = new DataTable();
+                dt.Columns.Add("Data", typeof(DateTime));
+                dt.Columns.Add("Cliente", typeof(string));
+                //dt.Columns.Add("Servico", typeof(string));
+                dt.Columns.Add("Valor", typeof(decimal));
+                //dt.Columns.Add("FormaPagamento", typeof(string));
+                dt.Columns.Add("Observações", typeof(string));
+
+                using (SQLiteConnection con = BancoSQLite.GetConnection())
+                {
+                    string query = @"SELECT A.Data as Data,
+                                            C.NomeCliente as Cliente,
+                                            A.ValorPraticado,
+                                            A.LucroBruto as Valor,
+                                            A.Observacoes as Observações
+                                     FROM Atendimentos A
+                                     LEFT JOIN Clientes C ON C.ClienteID = A.ClienteID
+                                     LEFT JOIN Veiculos V ON V.VeiculoID = A.VeiculoID";
+                    using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                    using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
+
+                //dt.Rows.Add(DateTime.Now.AddDays(-5), "João da Silva", "Troca de óleo", 150.00m, "Cartão");
+                //dt.Rows.Add(DateTime.Now.AddDays(-3), "Maria Souza", "Alinhamento", 100.00m, "Dinheiro");
+                //dt.Rows.Add(DateTime.Now.AddDays(-1), "Carlos Santos", "Revisão completa", 400.00m, "Pix");
+
+                // Caminho do arquivo (pode abrir um SaveFileDialog também)
+                string caminho = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop),
+                                              $"Relatorio_Faturamento_{DateTime.Now:yyyy_MM}.xlsx");
+
+                // Criação da planilha
+                using (var wb = new XLWorkbook())
+                {
+                    var ws = wb.Worksheets.Add("Faturamento");
+
+                    // Cabeçalho
+                    ws.Cell("A1").Value = "Relatório de Faturamento Mensal";
+                    ws.Cell("A2").Value = $"Gerado em: {DateTime.Now:dd/MM/yyyy}";
+                    ws.Cell("A1").Style.Font.Bold = true;
+                    ws.Cell("A1").Style.Font.FontSize = 16;
+                    ws.Range("A1:E1").Merge().Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    // Inserindo os dados a partir da linha 4
+                    ws.Cell(4, 1).InsertTable(dt, "TabelaFaturamento", true);
+
+                    // Estilizando cabeçalhos
+                    var headerRange = ws.Range("A4:E4");
+                    headerRange.Style.Font.Bold = true;
+                    headerRange.Style.Fill.BackgroundColor = XLColor.LightGray;
+                    headerRange.Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+
+                    // Ajusta largura automática
+                    ws.Columns().AdjustToContents();
+
+                    // Totalizador
+                    int ultimaLinha = 4 + dt.Rows.Count;
+                    ws.Cell(ultimaLinha + 1, 4).Value = "Total:";
+                    ws.Cell(ultimaLinha + 1, 5).FormulaA1 = $"=SUM(E5:E{ultimaLinha})";
+                    ws.Cell(ultimaLinha + 1, 4).Style.Font.Bold = true;
+                    ws.Cell(ultimaLinha + 1, 5).Style.Font.Bold = true;
+
+                    // Salvar arquivo
+                    wb.SaveAs(caminho);
+                }
+
+                MessageBox.Show($"Relatório gerado com sucesso!\n{caminho}", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar relatório:\n{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
