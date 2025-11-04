@@ -28,11 +28,45 @@ namespace Salomao
             // Estilizar botão de login
             CustomizeLoginButton();
 
+            // Estilizar botões do header (apenas hover, sem Paint)
+            CustomizeHeaderButtons();
+
+            // Garantir que a mensagem esteja no topo
+            lbl_mensagem.BringToFront();
+
             // Efeitos de foco nos campos de texto
             txt_usuario.Enter += (s, e) => AnimateInputFocus(panel_UsernameInput, true);
             txt_usuario.Leave += (s, e) => AnimateInputFocus(panel_UsernameInput, false);
             txt_senha.Enter += (s, e) => AnimateInputFocus(panel_PasswordInput, true);
             txt_senha.Leave += (s, e) => AnimateInputFocus(panel_PasswordInput, false);
+        }
+
+        private void CustomizeHeaderButtons()
+        {
+            // Hover do botão fechar - SEM Paint customizado
+            btn_close.MouseEnter += (s, e) =>
+            {
+                btn_close.BackColor = Styler.ModernColors.Error;
+                btn_close.ForeColor = Color.White;
+            };
+
+            btn_close.MouseLeave += (s, e) =>
+            {
+                btn_close.BackColor = Color.Transparent;
+                btn_close.ForeColor = Color.FromArgb(71, 85, 105);
+            };
+
+            // Hover do botão minimizar - SEM Paint customizado
+            btn_minimize.MouseEnter += (s, e) =>
+            {
+                btn_minimize.BackColor = Color.FromArgb(30, Styler.ModernColors.Primary.R, 
+                    Styler.ModernColors.Primary.G, Styler.ModernColors.Primary.B);
+            };
+
+            btn_minimize.MouseLeave += (s, e) =>
+            {
+                btn_minimize.BackColor = Color.Transparent;
+            };
         }
 
         private void Panel_LeftSide_Paint(object sender, PaintEventArgs e)
@@ -185,31 +219,41 @@ namespace Salomao
 
         private async void btn_login_Click(object sender, EventArgs e)
         {
+            // Limpar mensagem anterior
+            lbl_mensagem.Text = "";
             lbl_mensagem.Visible = false;
+            lbl_mensagem.BringToFront();
+            
             btn_login.Enabled = false;
             var originalText = btn_login.Text;
+            var originalColor = btn_login.BackColor;
             btn_login.Text = "Autenticando...";
+            btn_login.Invalidate();
 
             await Task.Delay(300);
 
             string usuario = txt_usuario.Text.Trim();
             string senha = txt_senha.Text;
 
+            // Validação de campos vazios
             if (string.IsNullOrEmpty(usuario) || string.IsNullOrEmpty(senha))
             {
-                lbl_mensagem.Text = "? Por favor, preencha usuário e senha.";
-                lbl_mensagem.Visible = true;
+                MostrarMensagemErro("Por favor, preencha usuário e senha.");
                 btn_login.Enabled = true;
                 btn_login.Text = originalText;
+                btn_login.BackColor = originalColor;
+                btn_login.Invalidate();
                 return;
             }
 
+            // Tentativa de login
             bool primeiroLogin;
             if (LoginService.TentarLogin(usuario, senha, out string msgErro, out primeiroLogin))
             {
-                // Animação de sucesso
-                btn_login.Text = "? Acesso concedido!";
+                // Sucesso no login
+                btn_login.Text = "Acesso concedido!";
                 btn_login.BackColor = Styler.ModernColors.Success;
+                btn_login.Invalidate();
                 await Task.Delay(500);
 
                 if (primeiroLogin)
@@ -231,17 +275,34 @@ namespace Salomao
             }
             else
             {
-                lbl_mensagem.Text = "? " + msgErro;
-                lbl_mensagem.Visible = true;
+                // Erro no login
+                MostrarMensagemErro(msgErro);
                 
-                // Animação de erro
+                // Animação de erro no botão
                 btn_login.BackColor = Styler.ModernColors.Error;
-                await Task.Delay(300);
-                btn_login.BackColor = Styler.ModernColors.Primary;
+                btn_login.Invalidate();
+                await Task.Delay(400);
+                btn_login.BackColor = originalColor;
+                btn_login.Invalidate();
             }
 
             btn_login.Enabled = true;
             btn_login.Text = originalText;
+            btn_login.Invalidate();
+        }
+
+        private void MostrarMensagemErro(string mensagem)
+        {
+            lbl_mensagem.Text = mensagem;
+            lbl_mensagem.ForeColor = Styler.ModernColors.Error;
+            lbl_mensagem.Visible = true;
+            lbl_mensagem.BringToFront();
+            lbl_mensagem.Refresh(); // Força atualização imediata
+            
+            // Debug
+            System.Diagnostics.Debug.WriteLine($"Mensagem exibida: {mensagem}");
+            System.Diagnostics.Debug.WriteLine($"Label visível: {lbl_mensagem.Visible}");
+            System.Diagnostics.Debug.WriteLine($"Label posição: {lbl_mensagem.Location}");
         }
 
         private void txt_usuario_KeyDown(object sender, KeyEventArgs e)

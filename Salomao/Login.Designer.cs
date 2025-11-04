@@ -108,13 +108,13 @@
             // 
             // lbl_mensagem
             // 
-            lbl_mensagem.Font = new Font("Segoe UI", 9F);
+            lbl_mensagem.Font = new Font("Segoe UI", 9.5F);
             lbl_mensagem.ForeColor = Color.FromArgb(239, 68, 68);
-            lbl_mensagem.Location = new Point(46, 353);
+            lbl_mensagem.Location = new Point(46, 385);
             lbl_mensagem.Name = "lbl_mensagem";
-            lbl_mensagem.Size = new Size(389, 53);
+            lbl_mensagem.Size = new Size(389, 30);
             lbl_mensagem.TabIndex = 6;
-            lbl_mensagem.TextAlign = ContentAlignment.TopCenter;
+            lbl_mensagem.TextAlign = ContentAlignment.MiddleCenter;
             lbl_mensagem.Visible = false;
             // 
             // dragControl1
@@ -139,11 +139,10 @@
             btn_minimize.BackColor = Color.Transparent;
             btn_minimize.Cursor = Cursors.Hand;
             btn_minimize.FlatAppearance.BorderSize = 0;
-            btn_minimize.FlatAppearance.MouseOverBackColor = Color.FromArgb(96, 165, 250);
             btn_minimize.FlatStyle = FlatStyle.Flat;
             btn_minimize.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             btn_minimize.ForeColor = Color.FromArgb(71, 85, 105);
-            btn_minimize.Location = new Point(933, 0);
+            btn_minimize.Location = new Point(927, 0);
             btn_minimize.Margin = new Padding(3, 4, 3, 4);
             btn_minimize.Name = "btn_minimize";
             btn_minimize.Size = new Size(46, 47);
@@ -158,14 +157,13 @@
             btn_close.BackColor = Color.Transparent;
             btn_close.Cursor = Cursors.Hand;
             btn_close.FlatAppearance.BorderSize = 0;
-            btn_close.FlatAppearance.MouseOverBackColor = Color.FromArgb(239, 68, 68);
             btn_close.FlatStyle = FlatStyle.Flat;
             btn_close.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btn_close.ForeColor = Color.FromArgb(71, 85, 105);
-            btn_close.Location = new Point(978, 0);
+            btn_close.Location = new Point(979, 0);
             btn_close.Margin = new Padding(3, 4, 3, 4);
             btn_close.Name = "btn_close";
-            btn_close.Size = new Size(46, 47);
+            btn_close.Size = new Size(50, 47);
             btn_close.TabIndex = 9;
             btn_close.Text = "✕";
             btn_close.UseVisualStyleBackColor = false;
