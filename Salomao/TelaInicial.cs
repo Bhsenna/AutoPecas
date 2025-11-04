@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Windows.Forms;
 using ClosedXML.Excel;
 using FontAwesome.Sharp;
+using Salomao.Dashboard;
 //using Salomao.Forms;
 
 namespace Salomao
@@ -60,6 +61,9 @@ namespace Salomao
 
             // Remover o panel_shadow feio
             RemoverPanelShadow();
+            
+            // Mostrar dashboard na inicialização
+            MostrarDashboard();
         }
 
         private void RemoverPanelShadow()
@@ -466,13 +470,22 @@ namespace Salomao
 
         private void btn_home_Click(object sender, EventArgs e)
         {
+            MostrarDashboard();
+            Reset();
+        }
+
+        private void MostrarDashboard()
+        {
             // Remove controle anterior
             if (telaAtiva != null)
             {
                 panel_desktop.Controls.Remove(telaAtiva);
                 telaAtiva.Dispose();
             }
-            Reset();
+
+            // Cria e mostra o dashboard
+            var dashboard = new DashboardControl();
+            MostrarTela(dashboard);
         }
 
         private void Reset()
