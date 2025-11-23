@@ -1,0 +1,1013 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment>
+    <ComponentGroup Id="SalomaoComponents" Directory="INSTALLFOLDER">
+		<Component Id="MainExe">
+			<File Source="Salomao.exe" />
+		</Component>
+		
+		<Component Id="CreateDump">
+			<File Source="createdump.exe" />
+		</Component>
+
+		<Component Id="DepsJson">
+			<File Source="Salomao.deps.json" />
+		</Component>
+		<Component Id="RuntimeConfig">
+			<File Source="Salomao.runtimeconfig.json" />
+		</Component>
+		
+		<Component Id="Accessibility">
+			<File Source="Accessibility.dll" />
+		</Component>
+
+		<Component Id="AsposeCells">
+			<File Source="Aspose.Cells.dll" />
+		</Component>
+
+		<Component Id="clretwrc">
+			<File Source="clretwrc.dll" />
+		</Component>
+
+		<Component Id="clrgc">
+			<File Source="clrgc.dll" />
+		</Component>
+
+		<Component Id="clrjit">
+			<File Source="clrjit.dll" />
+		</Component>
+
+		<Component Id="coreclr">
+			<File Source="coreclr.dll" />
+		</Component>
+
+		<Component Id="D3DCompiler_47_cor3">
+			<File Source="D3DCompiler_47_cor3.dll" />
+		</Component>
+
+		<Component Id="DirectWriteForwarder">
+			<File Source="DirectWriteForwarder.dll" />
+		</Component>
+
+		<Component Id="EntityFramework">
+			<File Source="EntityFramework.dll" />
+		</Component>
+
+		<Component Id="EntityFrameworkSql">
+			<File Source="EntityFramework.SqlServer.dll" />
+		</Component>
+
+		<Component Id="FontAwesome">
+			<File Source="FontAwesome.Sharp.dll" />
+		</Component>
+
+		<Component Id="hostfxr">
+			<File Source="hostfxr.dll" />
+		</Component>
+
+		<Component Id="hostpolicy">
+			<File Source="hostpolicy.dll" />
+		</Component>
+
+		<Component Id="MicrosoftCSharp">
+			<File Source="Microsoft.CSharp.dll" />
+		</Component>
+
+		<Component Id="MicrosoftDiaSymReader">
+			<File Source="Microsoft.DiaSymReader.Native.amd64.dll" />
+		</Component>
+
+		<Component Id="MicrosoftVisualBasicCore">
+			<File Source="Microsoft.VisualBasic.Core.dll" />
+		</Component>
+
+		<Component Id="MicrosoftVisualBasic">
+			<File Source="Microsoft.VisualBasic.dll" />
+		</Component>
+
+		<Component Id="MicrosoftVisualBasicForms">
+			<File Source="Microsoft.VisualBasic.Forms.dll" />
+		</Component>
+
+		<Component Id="MicrosoftWin32Primitives">
+			<File Source="Microsoft.Win32.Primitives.dll" />
+		</Component>
+
+		<Component Id="MicrosoftWin32RegistryAccessControl">
+			<File Source="Microsoft.Win32.Registry.AccessControl.dll" />
+		</Component>
+
+		<Component Id="MicrosoftWin32Registry">
+			<File Source="Microsoft.Win32.Registry.dll" />
+		</Component>
+
+		<Component Id="MicrosoftWin32SystemEvents">
+			<File Source="Microsoft.Win32.SystemEvents.dll" />
+		</Component>
+
+		<Component Id="mscordaccore">
+			<File Source="mscordaccore.dll" />
+		</Component>
+
+		<Component Id="mscordaccore_amd64">
+			<File Source="mscordaccore_amd64_amd64_8.0.1425.11118.dll" />
+		</Component>
+
+		<Component Id="mscordbi">
+			<File Source="mscordbi.dll" />
+		</Component>
+
+		<Component Id="mscorlib">
+			<File Source="mscorlib.dll" />
+		</Component>
+
+		<Component Id="mscorrc">
+			<File Source="mscorrc.dll" />
+		</Component>
+
+		<Component Id="msquic">
+			<File Source="msquic.dll" />
+		</Component>
+
+		<Component Id="netstandard">
+			<File Source="netstandard.dll" />
+		</Component>
+
+		<Component Id="PenImc_cor3">
+			<File Source="PenImc_cor3.dll" />
+		</Component>
+
+		<Component Id="PresentationCore">
+			<File Source="PresentationCore.dll" />
+		</Component>
+
+		<Component Id="PresentationFrameworkAero">
+			<File Source="PresentationFramework.Aero.dll" />
+		</Component>
+
+		<Component Id="PresentationFrameworkAero2">
+			<File Source="PresentationFramework.Aero2.dll" />
+		</Component>
+
+		<Component Id="PresentationFrameworkAeroLite">
+			<File Source="PresentationFramework.AeroLite.dll" />
+		</Component>
+
+		<Component Id="PresentationFrameworkClassic">
+			<File Source="PresentationFramework.Classic.dll" />
+		</Component>
+
+		<Component Id="PresentationFramework">
+			<File Source="PresentationFramework.dll" />
+		</Component>
+
+		<Component Id="PresentationFrameworkLuna">
+			<File Source="PresentationFramework.Luna.dll" />
+		</Component>
+
+		<Component Id="PresentationFrameworkRoyale">
+			<File Source="PresentationFramework.Royale.dll" />
+		</Component>
+
+		<Component Id="PresentationFrameworkSystemCore">
+			<File Source="PresentationFramework-SystemCore.dll" />
+		</Component>
+
+		<Component Id="PresentationFrameworkSystemData">
+			<File Source="PresentationFramework-SystemData.dll" />
+		</Component>
+
+		<Component Id="PresentationFrameworkSystemDrawing">
+			<File Source="PresentationFramework-SystemDrawing.dll" />
+		</Component>
+
+		<Component Id="PresentationFrameworkSystemXml">
+			<File Source="PresentationFramework-SystemXml.dll" />
+		</Component>
+
+		<Component Id="PresentationFrameworkSystemXmlLinq">
+			<File Source="PresentationFramework-SystemXmlLinq.dll" />
+		</Component>
+
+		<Component Id="PresentationNative_cor3">
+			<File Source="PresentationNative_cor3.dll" />
+		</Component>
+
+		<Component Id="PresentationUI">
+			<File Source="PresentationUI.dll" />
+		</Component>
+
+		<Component Id="ReachFramework">
+			<File Source="ReachFramework.dll" />
+		</Component>
+
+		<Component Id="Salomao">
+			<File Source="Salomao.dll" />
+		</Component>
+
+		<Component Id="SNINative">
+			<File Source="sni.dll" />
+		</Component>
+
+		<Component Id="SQLiteInterop">
+			<File Source="SQLite.Interop.dll" />
+		</Component>
+
+		<Component Id="SystemAppContext">
+			<File Source="System.AppContext.dll" />
+		</Component>
+
+		<Component Id="SystemBuffers">
+			<File Source="System.Buffers.dll" />
+		</Component>
+
+		<Component Id="SystemCodeDom">
+			<File Source="System.CodeDom.dll" />
+		</Component>
+
+		<Component Id="SystemCollectionsConcurrent">
+			<File Source="System.Collections.Concurrent.dll" />
+		</Component>
+
+		<Component Id="SystemCollections">
+			<File Source="System.Collections.dll" />
+		</Component>
+
+		<Component Id="SystemCollectionsImmutable">
+			<File Source="System.Collections.Immutable.dll" />
+		</Component>
+
+		<Component Id="SystemCollectionsNonGeneric">
+			<File Source="System.Collections.NonGeneric.dll" />
+		</Component>
+
+		<Component Id="SystemCollectionsSpecialized">
+			<File Source="System.Collections.Specialized.dll" />
+		</Component>
+
+		<Component Id="SystemComponentModelAnnotations">
+			<File Source="System.ComponentModel.Annotations.dll" />
+		</Component>
+
+		<Component Id="SystemComponentModelDataAnnotations">
+			<File Source="System.ComponentModel.DataAnnotations.dll" />
+		</Component>
+
+		<Component Id="SystemComponentModel">
+			<File Source="System.ComponentModel.dll" />
+		</Component>
+
+		<Component Id="SystemComponentModelEventBasedAsync">
+			<File Source="System.ComponentModel.EventBasedAsync.dll" />
+		</Component>
+
+		<Component Id="SystemComponentModelPrimitives">
+			<File Source="System.ComponentModel.Primitives.dll" />
+		</Component>
+
+		<Component Id="SystemComponentModelTypeConverter">
+			<File Source="System.ComponentModel.TypeConverter.dll" />
+		</Component>
+
+		<Component Id="SystemConfigurationConfigurationManager">
+			<File Source="System.Configuration.ConfigurationManager.dll" />
+		</Component>
+
+		<Component Id="SystemConfiguration">
+			<File Source="System.Configuration.dll" />
+		</Component>
+
+		<Component Id="SystemConsole">
+			<File Source="System.Console.dll" />
+		</Component>
+
+		<Component Id="SystemCore">
+			<File Source="System.Core.dll" />
+		</Component>
+
+		<Component Id="SystemDataCommon">
+			<File Source="System.Data.Common.dll" />
+		</Component>
+
+		<Component Id="SystemDataDataSetExtensions">
+			<File Source="System.Data.DataSetExtensions.dll" />
+		</Component>
+
+		<Component Id="SystemData">
+			<File Source="System.Data.dll" />
+		</Component>
+
+		<Component Id="SqlClient">
+			<File Source="System.Data.SqlClient.dll" />
+		</Component>
+
+		<Component Id="SQLite">
+			<File Source="System.Data.SQLite.dll" />
+		</Component>
+
+		<Component Id="SQLiteEF6">
+			<File Source="System.Data.SQLite.EF6.dll" />
+		</Component>
+
+		<Component Id="SystemDesign">
+			<File Source="System.Design.dll" />
+		</Component>
+
+		<Component Id="SystemDiagnosticsContracts">
+			<File Source="System.Diagnostics.Contracts.dll" />
+		</Component>
+
+		<Component Id="SystemDiagnosticsDebug">
+			<File Source="System.Diagnostics.Debug.dll" />
+		</Component>
+
+		<Component Id="SystemDiagnosticsDiagnosticSource">
+			<File Source="System.Diagnostics.DiagnosticSource.dll" />
+		</Component>
+
+		<Component Id="SystemDiagnosticsEventLog">
+			<File Source="System.Diagnostics.EventLog.dll" />
+		</Component>
+
+		<Component Id="SystemDiagnosticsEventLogMessages">
+			<File Source="System.Diagnostics.EventLog.Messages.dll" />
+		</Component>
+
+		<Component Id="SystemDiagnosticsFileVersionInfo">
+			<File Source="System.Diagnostics.FileVersionInfo.dll" />
+		</Component>
+
+		<Component Id="SystemDiagnosticsPerformanceCounter">
+			<File Source="System.Diagnostics.PerformanceCounter.dll" />
+		</Component>
+
+		<Component Id="SystemDiagnosticsProcess">
+			<File Source="System.Diagnostics.Process.dll" />
+		</Component>
+
+		<Component Id="SystemDiagnosticsStackTrace">
+			<File Source="System.Diagnostics.StackTrace.dll" />
+		</Component>
+
+		<Component Id="SystemDiagnosticsTextWriterTraceListener">
+			<File Source="System.Diagnostics.TextWriterTraceListener.dll" />
+		</Component>
+
+		<Component Id="SystemDiagnosticsTools">
+			<File Source="System.Diagnostics.Tools.dll" />
+		</Component>
+
+		<Component Id="SystemDiagnosticsTraceSource">
+			<File Source="System.Diagnostics.TraceSource.dll" />
+		</Component>
+
+		<Component Id="SystemDiagnosticsTracing">
+			<File Source="System.Diagnostics.Tracing.dll" />
+		</Component>
+
+		<Component Id="SystemDirectoryServices">
+			<File Source="System.DirectoryServices.dll" />
+		</Component>
+
+		<Component Id="System">
+			<File Source="System.dll" />
+		</Component>
+
+		<Component Id="SystemDrawingCommon">
+			<File Source="System.Drawing.Common.dll" />
+		</Component>
+
+		<Component Id="SystemDrawingDesign">
+			<File Source="System.Drawing.Design.dll" />
+		</Component>
+
+		<Component Id="SystemDrawing">
+			<File Source="System.Drawing.dll" />
+		</Component>
+
+		<Component Id="SystemDrawingPrimitives">
+			<File Source="System.Drawing.Primitives.dll" />
+		</Component>
+
+		<Component Id="SystemDynamicRuntime">
+			<File Source="System.Dynamic.Runtime.dll" />
+		</Component>
+
+		<Component Id="SystemFormatsAsn1">
+			<File Source="System.Formats.Asn1.dll" />
+		</Component>
+
+		<Component Id="SystemFormatsTar">
+			<File Source="System.Formats.Tar.dll" />
+		</Component>
+
+		<Component Id="SystemGlobalizationCalendars">
+			<File Source="System.Globalization.Calendars.dll" />
+		</Component>
+
+		<Component Id="SystemGlobalization">
+			<File Source="System.Globalization.dll" />
+		</Component>
+
+		<Component Id="SystemGlobalizationExtensions">
+			<File Source="System.Globalization.Extensions.dll" />
+		</Component>
+
+		<Component Id="SystemIOCompressionBrotli">
+			<File Source="System.IO.Compression.Brotli.dll" />
+		</Component>
+
+		<Component Id="SystemIOCompression">
+			<File Source="System.IO.Compression.dll" />
+		</Component>
+
+		<Component Id="SystemIOCompressionFileSystem">
+			<File Source="System.IO.Compression.FileSystem.dll" />
+		</Component>
+
+		<Component Id="SystemIOCompressionNative">
+			<File Source="System.IO.Compression.Native.dll" />
+		</Component>
+
+		<Component Id="SystemIOCompressionZipFile">
+			<File Source="System.IO.Compression.ZipFile.dll" />
+		</Component>
+
+		<Component Id="SystemIO">
+			<File Source="System.IO.dll" />
+		</Component>
+
+		<Component Id="SystemIOFileSystemAccessControl">
+			<File Source="System.IO.FileSystem.AccessControl.dll" />
+		</Component>
+
+		<Component Id="SystemIOFileSystem">
+			<File Source="System.IO.FileSystem.dll" />
+		</Component>
+
+		<Component Id="SystemIOFileSystemDriveInfo">
+			<File Source="System.IO.FileSystem.DriveInfo.dll" />
+		</Component>
+
+		<Component Id="SystemIOFileSystemPrimitives">
+			<File Source="System.IO.FileSystem.Primitives.dll" />
+		</Component>
+
+		<Component Id="SystemIOFileSystemWatcher">
+			<File Source="System.IO.FileSystem.Watcher.dll" />
+		</Component>
+
+		<Component Id="SystemIOIsolatedStorage">
+			<File Source="System.IO.IsolatedStorage.dll" />
+		</Component>
+
+		<Component Id="SystemIOMemoryMappedFiles">
+			<File Source="System.IO.MemoryMappedFiles.dll" />
+		</Component>
+
+		<Component Id="SystemIOPackaging">
+			<File Source="System.IO.Packaging.dll" />
+		</Component>
+
+		<Component Id="SystemIOPipesAccessControl">
+			<File Source="System.IO.Pipes.AccessControl.dll" />
+		</Component>
+
+		<Component Id="SystemIOPipes">
+			<File Source="System.IO.Pipes.dll" />
+		</Component>
+
+		<Component Id="SystemIOUnmanagedMemoryStream">
+			<File Source="System.IO.UnmanagedMemoryStream.dll" />
+		</Component>
+
+		<Component Id="SystemLinq">
+			<File Source="System.Linq.dll" />
+		</Component>
+
+		<Component Id="SystemLinqExpressions">
+			<File Source="System.Linq.Expressions.dll" />
+		</Component>
+
+		<Component Id="SystemLinqParallel">
+			<File Source="System.Linq.Parallel.dll" />
+		</Component>
+
+		<Component Id="SystemLinqQueryable">
+			<File Source="System.Linq.Queryable.dll" />
+		</Component>
+
+		<Component Id="SystemMemory">
+			<File Source="System.Memory.dll" />
+		</Component>
+
+		<Component Id="SystemNet">
+			<File Source="System.Net.dll" />
+		</Component>
+
+		<Component Id="SystemNetHttp">
+			<File Source="System.Net.Http.dll" />
+		</Component>
+
+		<Component Id="SystemNetHttpJson">
+			<File Source="System.Net.Http.Json.dll" />
+		</Component>
+
+		<Component Id="SystemNetHttpListener">
+			<File Source="System.Net.HttpListener.dll" />
+		</Component>
+
+		<Component Id="SystemNetMail">
+			<File Source="System.Net.Mail.dll" />
+		</Component>
+
+		<Component Id="SystemNetNameResolution">
+			<File Source="System.Net.NameResolution.dll" />
+		</Component>
+
+		<Component Id="SystemNetNetworkInformation">
+			<File Source="System.Net.NetworkInformation.dll" />
+		</Component>
+
+		<Component Id="SystemNetPing">
+			<File Source="System.Net.Ping.dll" />
+		</Component>
+
+		<Component Id="SystemNetPrimitives">
+			<File Source="System.Net.Primitives.dll" />
+		</Component>
+
+		<Component Id="SystemNetQuic">
+			<File Source="System.Net.Quic.dll" />
+		</Component>
+
+		<Component Id="SystemNetRequests">
+			<File Source="System.Net.Requests.dll" />
+		</Component>
+
+		<Component Id="SystemNetSecurity">
+			<File Source="System.Net.Security.dll" />
+		</Component>
+
+		<Component Id="SystemNetServicePoint">
+			<File Source="System.Net.ServicePoint.dll" />
+		</Component>
+
+		<Component Id="SystemNetSockets">
+			<File Source="System.Net.Sockets.dll" />
+		</Component>
+
+		<Component Id="SystemNetWebClient">
+			<File Source="System.Net.WebClient.dll" />
+		</Component>
+
+		<Component Id="SystemNetWebHeaderCollection">
+			<File Source="System.Net.WebHeaderCollection.dll" />
+		</Component>
+
+		<Component Id="SystemNetWebProxy">
+			<File Source="System.Net.WebProxy.dll" />
+		</Component>
+
+		<Component Id="SystemNetWebSocketsClient">
+			<File Source="System.Net.WebSockets.Client.dll" />
+		</Component>
+
+		<Component Id="SystemNetWebSockets">
+			<File Source="System.Net.WebSockets.dll" />
+		</Component>
+
+		<Component Id="SystemNumerics">
+			<File Source="System.Numerics.dll" />
+		</Component>
+
+		<Component Id="SystemNumericsVectors">
+			<File Source="System.Numerics.Vectors.dll" />
+		</Component>
+
+		<Component Id="SystemObjectModel">
+			<File Source="System.ObjectModel.dll" />
+		</Component>
+
+		<Component Id="SystemPrinting">
+			<File Source="System.Printing.dll" />
+		</Component>
+
+		<Component Id="SystemPrivateCoreLib">
+			<File Source="System.Private.CoreLib.dll" />
+		</Component>
+
+		<Component Id="SystemPrivateDataContractSerialization">
+			<File Source="System.Private.DataContractSerialization.dll" />
+		</Component>
+
+		<Component Id="SystemPrivateUri">
+			<File Source="System.Private.Uri.dll" />
+		</Component>
+
+		<Component Id="SystemPrivateXml">
+			<File Source="System.Private.Xml.dll" />
+		</Component>
+
+		<Component Id="SystemPrivateXmlLinq">
+			<File Source="System.Private.Xml.Linq.dll" />
+		</Component>
+
+		<Component Id="SystemReflectionDispatchProxy">
+			<File Source="System.Reflection.DispatchProxy.dll" />
+		</Component>
+
+		<Component Id="SystemReflection">
+			<File Source="System.Reflection.dll" />
+		</Component>
+
+		<Component Id="SystemReflectionEmit">
+			<File Source="System.Reflection.Emit.dll" />
+		</Component>
+
+		<Component Id="SystemReflectionEmitILGeneration">
+			<File Source="System.Reflection.Emit.ILGeneration.dll" />
+		</Component>
+
+		<Component Id="SystemReflectionEmitLightweight">
+			<File Source="System.Reflection.Emit.Lightweight.dll" />
+		</Component>
+
+		<Component Id="SystemReflectionExtensions">
+			<File Source="System.Reflection.Extensions.dll" />
+		</Component>
+
+		<Component Id="SystemReflectionMetadata">
+			<File Source="System.Reflection.Metadata.dll" />
+		</Component>
+
+		<Component Id="SystemReflectionPrimitives">
+			<File Source="System.Reflection.Primitives.dll" />
+		</Component>
+
+		<Component Id="SystemReflectionTypeExtensions">
+			<File Source="System.Reflection.TypeExtensions.dll" />
+		</Component>
+
+		<Component Id="SystemResourcesExtensions">
+			<File Source="System.Resources.Extensions.dll" />
+		</Component>
+
+		<Component Id="SystemResourcesReader">
+			<File Source="System.Resources.Reader.dll" />
+		</Component>
+
+		<Component Id="SystemResourcesResourceManager">
+			<File Source="System.Resources.ResourceManager.dll" />
+		</Component>
+
+		<Component Id="SystemResourcesWriter">
+			<File Source="System.Resources.Writer.dll" />
+		</Component>
+
+		<Component Id="SystemRuntimeCompilerServicesUnsafe">
+			<File Source="System.Runtime.CompilerServices.Unsafe.dll" />
+		</Component>
+
+		<Component Id="SystemRuntimeCompilerServicesVisualC">
+			<File Source="System.Runtime.CompilerServices.VisualC.dll" />
+		</Component>
+
+		<Component Id="SystemRuntime">
+			<File Source="System.Runtime.dll" />
+		</Component>
+
+		<Component Id="SystemRuntimeExtensions">
+			<File Source="System.Runtime.Extensions.dll" />
+		</Component>
+
+		<Component Id="SystemRuntimeHandles">
+			<File Source="System.Runtime.Handles.dll" />
+		</Component>
+
+		<Component Id="SystemRuntimeInteropServices">
+			<File Source="System.Runtime.InteropServices.dll" />
+		</Component>
+
+		<Component Id="SystemRuntimeInteropServicesJavaScript">
+			<File Source="System.Runtime.InteropServices.JavaScript.dll" />
+		</Component>
+
+		<Component Id="SystemRuntimeInteropServicesRuntimeInformation">
+			<File Source="System.Runtime.InteropServices.RuntimeInformation.dll" />
+		</Component>
+
+		<Component Id="SystemRuntimeIntrinsics">
+			<File Source="System.Runtime.Intrinsics.dll" />
+		</Component>
+
+		<Component Id="SystemRuntimeLoader">
+			<File Source="System.Runtime.Loader.dll" />
+		</Component>
+
+		<Component Id="SystemRuntimeNumerics">
+			<File Source="System.Runtime.Numerics.dll" />
+		</Component>
+
+		<Component Id="SystemRuntimeSerialization">
+			<File Source="System.Runtime.Serialization.dll" />
+		</Component>
+
+		<Component Id="SystemRuntimeSerializationFormatters">
+			<File Source="System.Runtime.Serialization.Formatters.dll" />
+		</Component>
+
+		<Component Id="SystemRuntimeSerializationJson">
+			<File Source="System.Runtime.Serialization.Json.dll" />
+		</Component>
+
+		<Component Id="SystemRuntimeSerializationPrimitives">
+			<File Source="System.Runtime.Serialization.Primitives.dll" />
+		</Component>
+
+		<Component Id="SystemRuntimeSerializationXml">
+			<File Source="System.Runtime.Serialization.Xml.dll" />
+		</Component>
+
+		<Component Id="SystemSecurityAccessControl">
+			<File Source="System.Security.AccessControl.dll" />
+		</Component>
+
+		<Component Id="SystemSecurityClaims">
+			<File Source="System.Security.Claims.dll" />
+		</Component>
+
+		<Component Id="SystemSecurityCryptographyAlgorithms">
+			<File Source="System.Security.Cryptography.Algorithms.dll" />
+		</Component>
+
+		<Component Id="SystemSecurityCryptographyCng">
+			<File Source="System.Security.Cryptography.Cng.dll" />
+		</Component>
+
+		<Component Id="SystemSecurityCryptographyCsp">
+			<File Source="System.Security.Cryptography.Csp.dll" />
+		</Component>
+
+		<Component Id="SystemSecurityCryptography">
+			<File Source="System.Security.Cryptography.dll" />
+		</Component>
+
+		<Component Id="SystemSecurityCryptographyEncoding">
+			<File Source="System.Security.Cryptography.Encoding.dll" />
+		</Component>
+
+		<Component Id="SystemSecurityCryptographyOpenSsl">
+			<File Source="System.Security.Cryptography.OpenSsl.dll" />
+		</Component>
+
+		<Component Id="SystemSecurityCryptographyPkcs">
+			<File Source="System.Security.Cryptography.Pkcs.dll" />
+		</Component>
+
+		<Component Id="SystemSecurityCryptographyPrimitives">
+			<File Source="System.Security.Cryptography.Primitives.dll" />
+		</Component>
+
+		<Component Id="SystemSecurityCryptographyProtectedData">
+			<File Source="System.Security.Cryptography.ProtectedData.dll" />
+		</Component>
+
+		<Component Id="SystemSecurityCryptographyX509Certificates">
+			<File Source="System.Security.Cryptography.X509Certificates.dll" />
+		</Component>
+
+		<Component Id="SystemSecurityCryptographyXml">
+			<File Source="System.Security.Cryptography.Xml.dll" />
+		</Component>
+
+		<Component Id="SystemSecurity">
+			<File Source="System.Security.dll" />
+		</Component>
+
+		<Component Id="SystemSecurityPermissions">
+			<File Source="System.Security.Permissions.dll" />
+		</Component>
+
+		<Component Id="SystemSecurityPrincipal">
+			<File Source="System.Security.Principal.dll" />
+		</Component>
+
+		<Component Id="SystemSecurityPrincipalWindows">
+			<File Source="System.Security.Principal.Windows.dll" />
+		</Component>
+
+		<Component Id="SystemSecuritySecureString">
+			<File Source="System.Security.SecureString.dll" />
+		</Component>
+
+		<Component Id="SystemServiceModelWeb">
+			<File Source="System.ServiceModel.Web.dll" />
+		</Component>
+
+		<Component Id="SystemServiceProcess">
+			<File Source="System.ServiceProcess.dll" />
+		</Component>
+
+		<Component Id="SystemTextEncodingCodePages">
+			<File Source="System.Text.Encoding.CodePages.dll" />
+		</Component>
+
+		<Component Id="SystemTextEncoding">
+			<File Source="System.Text.Encoding.dll" />
+		</Component>
+
+		<Component Id="SystemTextEncodingExtensions">
+			<File Source="System.Text.Encoding.Extensions.dll" />
+		</Component>
+
+		<Component Id="SystemTextEncodingsWeb">
+			<File Source="System.Text.Encodings.Web.dll" />
+		</Component>
+
+		<Component Id="SystemTextJson">
+			<File Source="System.Text.Json.dll" />
+		</Component>
+
+		<Component Id="SystemTextRegularExpressions">
+			<File Source="System.Text.RegularExpressions.dll" />
+		</Component>
+
+		<Component Id="SystemThreadingAccessControl">
+			<File Source="System.Threading.AccessControl.dll" />
+		</Component>
+
+		<Component Id="SystemThreadingChannels">
+			<File Source="System.Threading.Channels.dll" />
+		</Component>
+
+		<Component Id="SystemThreading">
+			<File Source="System.Threading.dll" />
+		</Component>
+
+		<Component Id="SystemThreadingOverlapped">
+			<File Source="System.Threading.Overlapped.dll" />
+		</Component>
+
+		<Component Id="SystemThreadingTasksDataflow">
+			<File Source="System.Threading.Tasks.Dataflow.dll" />
+		</Component>
+
+		<Component Id="SystemThreadingTasks">
+			<File Source="System.Threading.Tasks.dll" />
+		</Component>
+
+		<Component Id="SystemThreadingTasksExtensions">
+			<File Source="System.Threading.Tasks.Extensions.dll" />
+		</Component>
+
+		<Component Id="SystemThreadingTasksParallel">
+			<File Source="System.Threading.Tasks.Parallel.dll" />
+		</Component>
+
+		<Component Id="SystemThreadingThread">
+			<File Source="System.Threading.Thread.dll" />
+		</Component>
+
+		<Component Id="SystemThreadingThreadPool">
+			<File Source="System.Threading.ThreadPool.dll" />
+		</Component>
+
+		<Component Id="SystemThreadingTimer">
+			<File Source="System.Threading.Timer.dll" />
+		</Component>
+
+		<Component Id="SystemTransactions">
+			<File Source="System.Transactions.dll" />
+		</Component>
+
+		<Component Id="SystemTransactionsLocal">
+			<File Source="System.Transactions.Local.dll" />
+		</Component>
+
+		<Component Id="SystemValueTuple">
+			<File Source="System.ValueTuple.dll" />
+		</Component>
+
+		<Component Id="SystemWeb">
+			<File Source="System.Web.dll" />
+		</Component>
+
+		<Component Id="SystemWebHttpUtility">
+			<File Source="System.Web.HttpUtility.dll" />
+		</Component>
+
+		<Component Id="SystemWindowsControlsRibbon">
+			<File Source="System.Windows.Controls.Ribbon.dll" />
+		</Component>
+
+		<Component Id="SystemWindows">
+			<File Source="System.Windows.dll" />
+		</Component>
+
+		<Component Id="SystemWindowsExtensions">
+			<File Source="System.Windows.Extensions.dll" />
+		</Component>
+
+		<Component Id="SystemWindowsFormsDataVisualization">
+			<File Source="System.Windows.Forms.DataVisualization.dll" />
+		</Component>
+
+		<Component Id="SystemWindowsFormsDesign">
+			<File Source="System.Windows.Forms.Design.dll" />
+		</Component>
+
+		<Component Id="SystemWindowsFormsDesignEditors">
+			<File Source="System.Windows.Forms.Design.Editors.dll" />
+		</Component>
+
+		<Component Id="SystemWindowsForms">
+			<File Source="System.Windows.Forms.dll" />
+		</Component>
+
+		<Component Id="SystemWindowsFormsPrimitives">
+			<File Source="System.Windows.Forms.Primitives.dll" />
+		</Component>
+
+		<Component Id="SystemWindowsInputManipulations">
+			<File Source="System.Windows.Input.Manipulations.dll" />
+		</Component>
+
+		<Component Id="SystemWindowsPresentation">
+			<File Source="System.Windows.Presentation.dll" />
+		</Component>
+
+		<Component Id="SystemXaml">
+			<File Source="System.Xaml.dll" />
+		</Component>
+
+		<Component Id="SystemXml">
+			<File Source="System.Xml.dll" />
+		</Component>
+
+		<Component Id="SystemXmlLinq">
+			<File Source="System.Xml.Linq.dll" />
+		</Component>
+
+		<Component Id="SystemXmlReaderWriter">
+			<File Source="System.Xml.ReaderWriter.dll" />
+		</Component>
+
+		<Component Id="SystemXmlSerialization">
+			<File Source="System.Xml.Serialization.dll" />
+		</Component>
+
+		<Component Id="SystemXmlXDocument">
+			<File Source="System.Xml.XDocument.dll" />
+		</Component>
+
+		<Component Id="SystemXmlXmlDocument">
+			<File Source="System.Xml.XmlDocument.dll" />
+		</Component>
+
+		<Component Id="SystemXmlXmlSerializer">
+			<File Source="System.Xml.XmlSerializer.dll" />
+		</Component>
+
+		<Component Id="SystemXmlXPath">
+			<File Source="System.Xml.XPath.dll" />
+		</Component>
+
+		<Component Id="SystemXmlXPathXDocument">
+			<File Source="System.Xml.XPath.XDocument.dll" />
+		</Component>
+
+		<Component Id="UIAutomationClient">
+			<File Source="UIAutomationClient.dll" />
+		</Component>
+
+		<Component Id="UIAutomationClientSideProviders">
+			<File Source="UIAutomationClientSideProviders.dll" />
+		</Component>
+
+		<Component Id="UIAutomationProvider">
+			<File Source="UIAutomationProvider.dll" />
+		</Component>
+
+		<Component Id="UIAutomationTypes">
+			<File Source="UIAutomationTypes.dll" />
+		</Component>
+
+		<Component Id="vcruntime140_cor3">
+			<File Source="vcruntime140_cor3.dll" />
+		</Component>
+
+		<Component Id="WindowsBase">
+			<File Source="WindowsBase.dll" />
+		</Component>
+
+		<Component Id="WindowsFormsIntegration">
+			<File Source="WindowsFormsIntegration.dll" />
+		</Component>
+
+		<Component Id="wpfgfx_cor3">
+			<File Source="wpfgfx_cor3.dll" />
+		</Component>
+
+	</ComponentGroup>
+  </Fragment>
+</Wix>

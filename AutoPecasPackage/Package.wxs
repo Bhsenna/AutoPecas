@@ -1,0 +1,16 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <Package
+		Id="TODO_Manufacturer.AutoPecasPackage"
+		Name="AutoPecasPackage"
+		Manufacturer="AutoPecas"
+		Version="1.0.0.0">
+		
+        <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+
+	    <MediaTemplate EmbedCab="yes" />
+	  
+        <Feature Id="Main">
+            <ComponentGroupRef Id="SalomaoComponents" />
+        </Feature>
+    </Package>
+</Wix>
