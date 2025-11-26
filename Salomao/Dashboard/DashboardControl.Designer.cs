@@ -133,7 +133,7 @@ namespace Salomao.Dashboard
             // 
             // lblFaturamentoMes
             // 
-            this.lblFaturamentoMes.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
+            this.lblFaturamentoMes.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.lblFaturamentoMes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(58)))), ((int)(((byte)(138)))));
             this.lblFaturamentoMes.Location = new System.Drawing.Point(15, 50);
             this.lblFaturamentoMes.Name = "lblFaturamentoMes";
@@ -183,7 +183,7 @@ namespace Salomao.Dashboard
             // 
             // lblLucroMes
             // 
-            this.lblLucroMes.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
+            this.lblLucroMes.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.lblLucroMes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(197)))), ((int)(((byte)(94)))));
             this.lblLucroMes.Location = new System.Drawing.Point(15, 50);
             this.lblLucroMes.Name = "lblLucroMes";
@@ -233,11 +233,11 @@ namespace Salomao.Dashboard
             // 
             // lblAtendimentosMes
             // 
-            this.lblAtendimentosMes.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold);
+            this.lblAtendimentosMes.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.lblAtendimentosMes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(115)))), ((int)(((byte)(22)))));
-            this.lblAtendimentosMes.Location = new System.Drawing.Point(15, 45);
+            this.lblAtendimentosMes.Location = new System.Drawing.Point(15, 50);
             this.lblAtendimentosMes.Name = "lblAtendimentosMes";
-            this.lblAtendimentosMes.Size = new System.Drawing.Size(180, 60);
+            this.lblAtendimentosMes.Size = new System.Drawing.Size(180, 45);
             this.lblAtendimentosMes.TabIndex = 2;
             this.lblAtendimentosMes.Text = "0";
             // 
@@ -283,13 +283,13 @@ namespace Salomao.Dashboard
             // 
             // lblClientesAtivos
             // 
-            this.lblClientesAtivos.Font = new System.Drawing.Font("Segoe UI", 36F, System.Drawing.FontStyle.Bold);
+            this.lblClientesAtivos.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Bold);
             this.lblClientesAtivos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(168)))), ((int)(((byte)(85)))), ((int)(((byte)(247)))));
-            this.lblClientesAtivos.Location = new System.Drawing.Point(15, 45);
+            this.lblClientesAtivos.Location = new System.Drawing.Point(15, 50);
             this.lblClientesAtivos.Name = "lblClientesAtivos";
-            this.lblClientesAtivos.Size = new System.Drawing.Size(180, 60);
+            this.lblClientesAtivos.Size = new System.Drawing.Size(180, 45);
             this.lblClientesAtivos.TabIndex = 2;
-            this.lblClientesAtivos.Text = "0";
+            this.lblClientesAtivos.Text = "R$ 0,00";
             // 
             // label8
             // 
