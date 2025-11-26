@@ -571,5 +571,220 @@ namespace Salomao.Dashboard
         {
             CarregarDados();
         }
+
+        private void btnGerarRelatorio_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "Arquivo Excel|*.ods",
+                    Title = "Salvar Relatório de Faturamento",
+                    FileName = $"Relatorio_Faturamento_{DateTime.Now:yyyy_MM_dd_HHmmss}.ods",
+                    InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+                })
+                {
+                    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        GerarRelatorioExcel(saveFileDialog.FileName);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar relatório: {ex.Message}", 
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void GerarRelatorioExcel(string caminho)
+        {
+            try
+            {
+                // Criação da planilha
+                using (var wb = new Aspose.Cells.Workbook())
+                {
+                    wb.Worksheets.Clear();
+
+                    // Estilo padrão
+                    var defaultStyle = wb.CreateStyle();
+                    defaultStyle.Font.Name = "Calibri";
+                    defaultStyle.Font.Size = 11;
+                    wb.DefaultStyle = defaultStyle;
+
+                    var style = wb.CreateStyle();
+                    style.Font.IsBold = true;
+                    style.Font.Size = 16;
+                    style.HorizontalAlignment = Aspose.Cells.TextAlignmentType.Center;
+
+                    var headerStyle = wb.CreateStyle();
+                    headerStyle.Font.IsBold = true;
+                    headerStyle.ForegroundColor = System.Drawing.Color.LightGray;
+                    headerStyle.Pattern = Aspose.Cells.BackgroundType.Solid;
+                    headerStyle.HorizontalAlignment = Aspose.Cells.TextAlignmentType.Center;
+
+                    var boldStyle = wb.CreateStyle();
+                    boldStyle.Font.IsBold = true;
+
+                    // Planilha de Faturamento
+                    var wsF = wb.Worksheets.Add("Faturamento");
+                    wsF.Cells["A1"].Value = "Relatório de Faturamento Mensal";
+                    wsF.Cells["A2"].Value = $"Gerado em: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+                    wsF.Cells["A1"].SetStyle(style);
+                    wsF.Cells.Merge(0, 0, 1, 6);
+
+                    // Dados Faturamento
+                    DataTable dtFaturamento = new DataTable();
+                    dtFaturamento.Columns.Add("Data", typeof(DateTime));
+                    dtFaturamento.Columns.Add("Cliente", typeof(string));
+                    dtFaturamento.Columns.Add("Veículo", typeof(string));
+                    dtFaturamento.Columns.Add("Valor", typeof(decimal));
+                    dtFaturamento.Columns.Add("Lucro", typeof(decimal));
+                    dtFaturamento.Columns.Add("Observações", typeof(string));
+
+                    using (SQLiteConnection con = BancoSQLite.GetConnection())
+                    {
+                        string query = @"SELECT A.Data as Data,
+                                            C.NomeCliente as Cliente,
+                                            V.Placa as Veículo,
+                                            A.ValorPraticado as Valor,
+                                            A.LucroBruto as Lucro,
+                                            A.Observacoes as Observações
+                                     FROM Atendimentos A
+                                     LEFT JOIN Clientes C ON C.ClienteID = A.ClienteID
+                                     LEFT JOIN Veiculos V ON V.VeiculoID = A.VeiculoID
+                                     ORDER BY Data, Cliente";
+                        using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                        using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
+                        {
+                            da.Fill(dtFaturamento);
+                        }
+                    }
+
+                    wsF.Cells.ImportData(dtFaturamento, 3, 0, new Aspose.Cells.ImportTableOptions {});
+                    var headerRange = wsF.Cells.CreateRange("A4:F4");
+                    headerRange.SetStyle(headerStyle);
+                    wsF.AutoFitColumns();
+
+                    int ultimaLinha = 4 + dtFaturamento.Rows.Count;
+                    wsF.Cells[ultimaLinha, 0].Value = "Total:";
+                    wsF.Cells[ultimaLinha, 3].Formula = $"=SUM(D5:D{ultimaLinha})";
+                    wsF.Cells[ultimaLinha, 4].Formula = $"=SUM(E5:E{ultimaLinha})";
+                    wsF.Cells[ultimaLinha, 0].SetStyle(boldStyle);
+                    wsF.Cells[ultimaLinha, 3].SetStyle(boldStyle);
+                    wsF.Cells[ultimaLinha, 4].SetStyle(boldStyle);
+
+                    // Planilha de Serviços
+                    var wsS = wb.Worksheets.Add("Serviços");
+                    wsS.Cells["A1"].Value = "Relatório de Serviços Mensal";
+                    wsS.Cells["A2"].Value = $"Gerado em: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+                    wsS.Cells["A1"].SetStyle(style);
+                    wsS.Cells.Merge(0, 0, 1, 7);
+
+                    DataTable dtServicos = new DataTable();
+                    dtServicos.Columns.Add("Serviço", typeof(string));
+                    dtServicos.Columns.Add("Descrição", typeof(string));
+                    dtServicos.Columns.Add("Qtd", typeof(decimal));
+                    dtServicos.Columns.Add("Valor", typeof(decimal));
+                    dtServicos.Columns.Add("Data", typeof(DateTime));
+                    dtServicos.Columns.Add("Cliente", typeof(string));
+                    dtServicos.Columns.Add("Veículo", typeof(string));
+
+                    using (SQLiteConnection con = BancoSQLite.GetConnection())
+                    {
+                        string query = @"SELECT A.Data as Data,
+                                            C.NomeCliente as Cliente,
+                                            V.Placa as Veículo,
+                                            S.NomeServico as Serviço,
+                                            S.Descricao as Descrição,
+                                            SA.Quantidade as Qtd,
+                                            SA.ValorUnitario as Valor
+                                     FROM Atendimentos A
+                                     INNER JOIN AtendimentoServicos SA ON SA.AtendimentoID = A.AtendimentoID
+                                     LEFT JOIN Servicos S ON S.ServicoID = SA.ServicoID
+                                     LEFT JOIN Clientes C ON C.ClienteID = A.ClienteID
+                                     LEFT JOIN Veiculos V ON V.VeiculoID = A.VeiculoID
+                                     ORDER BY Serviço, Data, Cliente";
+                        using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                        using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
+                        {
+                            da.Fill(dtServicos);
+                        }
+                    }
+
+                    wsS.Cells.ImportData(dtServicos, 3, 0, new Aspose.Cells.ImportTableOptions { });
+                    headerRange = wsS.Cells.CreateRange("A4:G4");
+                    headerRange.SetStyle(headerStyle);
+                    wsS.AutoFitColumns();
+
+                    // Planilha de Produtos
+                    var wsP = wb.Worksheets.Add("Produtos");
+                    wsP.Cells["A1"].Value = "Relatório de Produtos Mensal";
+                    wsP.Cells["A2"].Value = $"Gerado em: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+                    wsP.Cells["A1"].SetStyle(style);
+                    wsP.Cells.Merge(0, 0, 1, 6);
+
+                    DataTable dtProdutos = new DataTable();
+                    dtProdutos.Columns.Add("Produto", typeof(string));
+                    dtProdutos.Columns.Add("Qtd Produto", typeof(decimal));
+                    dtProdutos.Columns.Add("Data", typeof(DateTime));
+                    dtProdutos.Columns.Add("Cliente", typeof(string));
+                    dtProdutos.Columns.Add("Veículo", typeof(string));
+                    dtProdutos.Columns.Add("Serviço", typeof(string));
+
+                    using (SQLiteConnection con = BancoSQLite.GetConnection())
+                    {
+                        string query = @"SELECT A.Data as Data,
+                                            C.NomeCliente as Cliente,
+                                            V.Placa as Veículo,
+                                            S.NomeServico as Serviço,
+                                            P.NomeProduto as 'Produto',
+                                            (SA.Quantidade * SP.Quantidade) as 'Qtd Produto'
+                                     FROM Atendimentos A
+                                     INNER JOIN AtendimentoServicos SA ON SA.AtendimentoID = A.AtendimentoID
+                                     LEFT JOIN Servicos S ON S.ServicoID = SA.ServicoID
+                                     LEFT JOIN ServicoParaProduto SP ON SP.ServicoID = S.ServicoID
+                                     LEFT JOIN Produtos P ON P.ProdutoID = SP.ProdutoID
+                                     LEFT JOIN Clientes C ON C.ClienteID = A.ClienteID
+                                     LEFT JOIN Veiculos V ON V.VeiculoID = A.VeiculoID
+                                     ORDER BY Produto, Data, Cliente, Serviço";
+                        using (SQLiteCommand cmd = new SQLiteCommand(query, con))
+                        using (SQLiteDataAdapter da = new SQLiteDataAdapter(cmd))
+                        {
+                            da.Fill(dtProdutos);
+                        }
+                    }
+
+                    wsP.Cells.ImportData(dtProdutos, 3, 0, new Aspose.Cells.ImportTableOptions { });
+                    headerRange = wsP.Cells.CreateRange("A4:F4");
+                    headerRange.SetStyle(headerStyle);
+                    wsP.AutoFitColumns();
+
+                    // Salvar arquivo
+                    wb.Save(caminho);
+                }
+
+                MessageBox.Show($"Relatório gerado com sucesso!\n\n{caminho}", 
+                    "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                // Perguntar se deseja abrir o arquivo
+                var result = MessageBox.Show("Deseja abrir o relatório agora?", 
+                    "Abrir Relatório", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    
+                if (result == DialogResult.Yes)
+                {
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = caminho,
+                        UseShellExecute = true
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erro ao gerar relatório:\n{ex.Message}", 
+                    "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

@@ -58,6 +58,7 @@ namespace Salomao.Dashboard
             this.colObs = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label7 = new System.Windows.Forms.Label();
             this.panelHeader = new System.Windows.Forms.Panel();
+            this.btnGerarRelatorio = new FontAwesome.Sharp.IconButton();
             this.btnRefresh = new FontAwesome.Sharp.IconButton();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
@@ -555,6 +556,7 @@ namespace Salomao.Dashboard
             // 
             // panelHeader
             // 
+            this.panelHeader.Controls.Add(this.btnGerarRelatorio);
             this.panelHeader.Controls.Add(this.btnRefresh);
             this.panelHeader.Controls.Add(this.lblTitulo);
             this.panelHeader.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -563,11 +565,39 @@ namespace Salomao.Dashboard
             this.panelHeader.Size = new System.Drawing.Size(1174, 54);
             this.panelHeader.TabIndex = 3;
             // 
+            // btnGerarRelatorio
+            // 
+            this.btnGerarRelatorio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnGerarRelatorio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(197)))), ((int)(((byte)(94)))));
+            this.btnGerarRelatorio.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGerarRelatorio.FlatAppearance.BorderSize = 0;
+            this.btnGerarRelatorio.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(22)))), ((int)(((byte)(163)))), ((int)(((byte)(74)))));
+            this.btnGerarRelatorio.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(39)))), ((int)(((byte)(174)))), ((int)(((byte)(96)))));
+            this.btnGerarRelatorio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGerarRelatorio.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.btnGerarRelatorio.ForeColor = System.Drawing.Color.White;
+            this.btnGerarRelatorio.IconChar = FontAwesome.Sharp.IconChar.FileExcel;
+            this.btnGerarRelatorio.IconColor = System.Drawing.Color.White;
+            this.btnGerarRelatorio.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnGerarRelatorio.IconSize = 24;
+            this.btnGerarRelatorio.Location = new System.Drawing.Point(855, 10);
+            this.btnGerarRelatorio.Name = "btnGerarRelatorio";
+            this.btnGerarRelatorio.Size = new System.Drawing.Size(168, 35);
+            this.btnGerarRelatorio.TabIndex = 2;
+            this.btnGerarRelatorio.Text = "Gerar Relatório";
+            this.btnGerarRelatorio.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnGerarRelatorio.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnGerarRelatorio.UseVisualStyleBackColor = false;
+            this.btnGerarRelatorio.Click += new System.EventHandler(this.btnGerarRelatorio_Click);
+            // 
             // btnRefresh
             // 
             this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRefresh.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(58)))), ((int)(((byte)(138)))));
+            this.btnRefresh.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnRefresh.FlatAppearance.BorderSize = 0;
+            this.btnRefresh.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(29)))), ((int)(((byte)(78)))), ((int)(((byte)(216)))));
+            this.btnRefresh.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(99)))), ((int)(((byte)(235)))));
             this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRefresh.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnRefresh.ForeColor = System.Drawing.Color.White;
@@ -671,6 +701,7 @@ namespace Salomao.Dashboard
         private System.Windows.Forms.Panel panelHeader;
         private System.Windows.Forms.Label lblTitulo;
         private FontAwesome.Sharp.IconButton btnRefresh;
+        private FontAwesome.Sharp.IconButton btnGerarRelatorio;
         private System.Windows.Forms.DataGridViewTextBoxColumn colData;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCliente;
         private System.Windows.Forms.DataGridViewTextBoxColumn colVeiculo;

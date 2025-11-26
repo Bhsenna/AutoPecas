@@ -50,7 +50,6 @@
             ibtn_logout = new FontAwesome.Sharp.IconButton();
             dragControl1 = new DragControl();
             panel_desktop = new Panel();
-            button1 = new Button();
             panel_header.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btn_home).BeginInit();
             ((System.ComponentModel.ISupportInitialize)icon_current).BeginInit();
@@ -60,7 +59,6 @@
             // panel_header
             // 
             panel_header.BackColor = Color.FromArgb(30, 58, 138);
-            panel_header.Controls.Add(button1);
             panel_header.Controls.Add(btn_home);
             panel_header.Controls.Add(btn_maximize);
             panel_header.Controls.Add(btn_minimize);
@@ -450,16 +448,6 @@
             panel_desktop.Size = new Size(1025, 601);
             panel_desktop.TabIndex = 3;
             // 
-            // button1
-            // 
-            button1.Location = new Point(540, 28);
-            button1.Name = "button1";
-            button1.Size = new Size(158, 23);
-            button1.TabIndex = 8;
-            button1.Text = "Gerar Relatório";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += btnGerarRelatorio_Click;
-            // 
             // TelaInicial
             // 
             AutoScaleMode = AutoScaleMode.None;
@@ -505,6 +493,5 @@
         private FontAwesome.Sharp.IconButton ibtn_saldoEstoque;
         private FontAwesome.Sharp.IconButton ibtn_calendario;
         private PictureBox btn_home;
-        private Button button1;
     }
 }
