@@ -17,10 +17,21 @@ namespace Salomao.Cadastros
         public CadProduto()
         {
             InitializeComponent();
+            
+            // Background moderno
+            this.BackColor = Styler.ModernColors.Background;
+            this.Padding = new Padding(Styler.Spacing.MD);
+            
             carregaTabela();
-            Styler.GridStyler.Personalizar(dataGridView1);
+            
+            // Grid moderno
+            Styler.EnhancedGridStyler.ApplyModernStyle(dataGridView1);
+            
+            // Botões modernos
             Styler.ButtonStyler.PersonalizaGravar(btnGravar);
             Styler.ButtonStyler.PersonalizaLimpar(btnLimpar);
+            Styler.InteractionStyler.ApplyButtonStates(btnGravar, Styler.InteractionStyler.ButtonStyle.Success);
+            Styler.InteractionStyler.ApplyButtonStates(btnLimpar, Styler.InteractionStyler.ButtonStyle.Danger);
 
             populaCombo(cbCategoria, "Categorias", "NomeCategoria", "CategoriaID");
             populaCombo(cbFornecedor, "Fornecedores", "NomeFornecedor", "FornecedorID");
@@ -38,13 +49,11 @@ namespace Salomao.Cadastros
                     {
                         DataTable dt = new DataTable();
 
-                        // Define explicitamente os tipos das colunas ANTES de preencher
                         dt.Columns.Add("Nome", typeof(string));
                         dt.Columns.Add("ID", typeof(int));
 
                         da.Fill(dt);
 
-                        // Adiciona linha vazia no início
                         DataRow emptyRow = dt.NewRow();
                         emptyRow["Nome"] = "Selecione...";
                         emptyRow["ID"] = -1;
@@ -61,7 +70,6 @@ namespace Salomao.Cadastros
                 MessageBox.Show($"Erro ao carregar dados da tabela {tabela}: {ex.Message}\n\nVerifique se a migração do banco foi executada.",
                     "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                // Criar DataTable vazio para evitar erros
                 DataTable dt = new DataTable();
                 dt.Columns.Add("Nome", typeof(string));
                 dt.Columns.Add("ID", typeof(int));
@@ -102,13 +110,23 @@ namespace Salomao.Cadastros
                     da.Fill(dt);
                     dataGridView1.DataSource = dt;
 
-                    // Ocultar colunas de IDs
                     if (dataGridView1.Columns.Contains("ProdutoID"))
                         dataGridView1.Columns["ProdutoID"].Visible = false;
                     if (dataGridView1.Columns.Contains("CategoriaID"))
                         dataGridView1.Columns["CategoriaID"].Visible = false;
                     if (dataGridView1.Columns.Contains("FornecedorID"))
                         dataGridView1.Columns["FornecedorID"].Visible = false;
+                        
+                    // Aplicar cores e fontes modernas
+                    if (dataGridView1.Columns.Contains("Nome"))
+                        dataGridView1.Columns["Nome"].DefaultCellStyle.Font = Styler.ModernFonts.BodyMedium;
+                    
+                    if (dataGridView1.Columns.Contains("Custo"))
+                    {
+                        dataGridView1.Columns["Custo"].DefaultCellStyle.Format = "C2";
+                        dataGridView1.Columns["Custo"].DefaultCellStyle.ForeColor = Styler.ModernColors.Success;
+                        dataGridView1.Columns["Custo"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    }
                 }
             }
         }
@@ -124,7 +142,7 @@ namespace Salomao.Cadastros
 
             if (sNome == "" || sCodigo == "" || sFornecedor == "" || sCategoria == "" || sCustoAquisicao == "" || sMarca == "" || sDescricao == "")
             {
-                MessageBox.Show("Preencha todos os campos obrigatórios.");
+                MessageBox.Show("Preencha todos os campos obrigatórios.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -166,12 +184,12 @@ namespace Salomao.Cadastros
                     try
                     {
                         cmd.ExecuteNonQuery();
-
+                        MessageBox.Show("Produto salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         clear();
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Erro ao cadastrar produto: " + ex.Message);
+                        MessageBox.Show("Erro ao cadastrar produto: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     finally
                     {

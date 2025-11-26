@@ -16,10 +16,21 @@ namespace Salomao.Cadastros
         public CadFornecedor()
         {
             InitializeComponent();
+            
+            // Background moderno
+            this.BackColor = Styler.ModernColors.Background;
+            this.Padding = new Padding(Styler.Spacing.MD);
+            
             carregaTabela();
-            Styler.GridStyler.Personalizar(dataGridView1);
+            
+            // Grid moderno
+            Styler.EnhancedGridStyler.ApplyModernStyle(dataGridView1);
+            
+            // Botões modernos
             Styler.ButtonStyler.PersonalizaGravar(btnGravar);
             Styler.ButtonStyler.PersonalizaLimpar(btnLimpar);
+            Styler.InteractionStyler.ApplyButtonStates(btnGravar, Styler.InteractionStyler.ButtonStyle.Success);
+            Styler.InteractionStyler.ApplyButtonStates(btnLimpar, Styler.InteractionStyler.ButtonStyle.Danger);
         }
 
         private void carregaTabela()
@@ -39,9 +50,11 @@ namespace Salomao.Cadastros
                     da.Fill(dt);
                     dataGridView1.DataSource = dt;
 
-                    // Ocultar coluna ID
                     if (dataGridView1.Columns.Contains("FornecedorID"))
                         dataGridView1.Columns["FornecedorID"].Visible = false;
+                        
+                    if (dataGridView1.Columns.Contains("Nome"))
+                        dataGridView1.Columns["Nome"].DefaultCellStyle.Font = Styler.ModernFonts.BodyMedium;
                 }
             }
         }
@@ -55,7 +68,7 @@ namespace Salomao.Cadastros
 
             if (sNome == "" || sEndereco == "" || sTelefone == "" || sEmail == "")
             {
-                MessageBox.Show("Preencha todos os campos obrigatórios.");
+                MessageBox.Show("Preencha todos os campos obrigatórios.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -91,12 +104,12 @@ namespace Salomao.Cadastros
                     try
                     {
                         cmd.ExecuteNonQuery();
-
+                        MessageBox.Show("Fornecedor salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         clear();
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Erro ao cadastrar fornecedor: " + ex.Message);
+                        MessageBox.Show("Erro ao cadastrar fornecedor: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     finally
                     {

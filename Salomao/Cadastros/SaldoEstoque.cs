@@ -9,8 +9,16 @@ namespace Salomao.Cadastros
         public SaldoEstoque()
         {
             InitializeComponent();
+            
+            // Background moderno
+            this.BackColor = Styler.ModernColors.Background;
+            this.Padding = new Padding(Styler.Spacing.MD);
+            
             CarregarTabela();
-            Styler.GridStyler.Personalizar(dataGridView1);
+            
+            // Grid moderno com destaque para estoque baixo
+            Styler.EnhancedGridStyler.ApplyModernStyle(dataGridView1);
+            Styler.GridStyler.PersonalizarSaldoEstoque(dataGridView1, 5.0);
         }
 
         private void CarregarTabela()
@@ -18,10 +26,26 @@ namespace Salomao.Cadastros
             try
             {
                 dataGridView1.DataSource = EstoqueManager.ObterSaldosEstoque();
+                
+                // Aplicar formatação específica
+                if (dataGridView1.Columns.Contains("QuantidadeAtual"))
+                {
+                    var colQtd = dataGridView1.Columns["QuantidadeAtual"];
+                    colQtd.DefaultCellStyle.Font = Styler.ModernFonts.PrimaryBold;
+                    colQtd.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
+                
+                if (dataGridView1.Columns.Contains("CustoAquisicao"))
+                {
+                    var colCusto = dataGridView1.Columns["CustoAquisicao"];
+                    colCusto.DefaultCellStyle.Format = "C2";
+                    colCusto.DefaultCellStyle.ForeColor = Styler.ModernColors.Success;
+                    colCusto.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao carregar saldos de estoque: " + ex.Message);
+                MessageBox.Show("Erro ao carregar saldos de estoque: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -41,12 +65,12 @@ namespace Salomao.Cadastros
                 if (saveDialog.ShowDialog() == DialogResult.OK)
                 {
                     ExportarParaCSV(saveDialog.FileName);
-                    MessageBox.Show("Arquivo exportado com sucesso!");
+                    MessageBox.Show("Arquivo exportado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Erro ao exportar arquivo: " + ex.Message);
+                MessageBox.Show("Erro ao exportar arquivo: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

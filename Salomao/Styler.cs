@@ -11,34 +11,41 @@ namespace Salomao
 {
     internal class Styler
     {
-        #region Paleta de Cores Moderna
+        #region Paleta de Cores Moderna Refinada
         public static class ModernColors
         {
-            // Cores principais
-            public static Color Primary = ColorTranslator.FromHtml("#3B82F6");
-            public static Color PrimaryLight = ColorTranslator.FromHtml("#60A5FA");
-            public static Color PrimaryDark = ColorTranslator.FromHtml("#2563EB");
+            // Cores principais (azul mais vibrante)
+            public static Color Primary = ColorTranslator.FromHtml("#3B82F6");        // Blue-500
+            public static Color PrimaryLight = ColorTranslator.FromHtml("#60A5FA");   // Blue-400
+            public static Color PrimaryDark = ColorTranslator.FromHtml("#2563EB");    // Blue-600
+            public static Color PrimaryDeep = ColorTranslator.FromHtml("#1E3A8A");    // Blue-900 - Sidebar
 
-            // Cores de fundo
-            public static Color Background = ColorTranslator.FromHtml("#F8FAFC");
-            public static Color Surface = ColorTranslator.FromHtml("#FFFFFF");
-            public static Color SurfaceElevated = ColorTranslator.FromHtml("#F1F5F9");
+            // Cores de fundo (mais suaves)
+            public static Color Background = ColorTranslator.FromHtml("#F8FAFC");     // Slate-50
+            public static Color Surface = ColorTranslator.FromHtml("#FFFFFF");        // Branco puro
+            public static Color SurfaceElevated = ColorTranslator.FromHtml("#F1F5F9"); // Slate-100
 
-            // Cores de texto
-            public static Color TextPrimary = ColorTranslator.FromHtml("#1E293B");
-            public static Color TextSecondary = ColorTranslator.FromHtml("#475569");
-            public static Color TextMuted = ColorTranslator.FromHtml("#64748B");
+            // Cores de texto (melhor contraste)
+            public static Color TextPrimary = ColorTranslator.FromHtml("#1E293B");    // Slate-800
+            public static Color TextSecondary = ColorTranslator.FromHtml("#475569");  // Slate-600
+            public static Color TextMuted = ColorTranslator.FromHtml("#64748B");      // Slate-500
             public static Color TextOnPrimary = Color.White;
 
             // Cores de estado
-            public static Color Success = ColorTranslator.FromHtml("#10B981");
-            public static Color SuccessLight = ColorTranslator.FromHtml("#34D399");
-            public static Color Warning = ColorTranslator.FromHtml("#F59E0B");
-            public static Color Error = ColorTranslator.FromHtml("#EF4444");
+            public static Color Success = ColorTranslator.FromHtml("#10B981");        // Green-500
+            public static Color SuccessLight = ColorTranslator.FromHtml("#34D399");   // Green-400
+            public static Color SuccessGreen = ColorTranslator.FromHtml("#10B981");   // Alias
+            public static Color Warning = ColorTranslator.FromHtml("#F59E0B");        // Amber-500
+            public static Color WarningLight = ColorTranslator.FromHtml("#FCD34D");   // Amber-300
+            public static Color WarningAmber = ColorTranslator.FromHtml("#F59E0B");   // Alias
+            public static Color Error = ColorTranslator.FromHtml("#EF4444");          // Red-500
+            public static Color ErrorLight = ColorTranslator.FromHtml("#F87171");     // Red-400
+            public static Color ErrorRed = ColorTranslator.FromHtml("#EF4444");       // Alias
+            public static Color Info = ColorTranslator.FromHtml("#3B82F6");           // Mesmo que Primary
 
-            // Cores de bordas
-            public static Color Border = ColorTranslator.FromHtml("#E2E8F0");
-            public static Color BorderLight = ColorTranslator.FromHtml("#F1F5F9");
+            // Cores de bordas (mais sutis)
+            public static Color Border = ColorTranslator.FromHtml("#E2E8F0");         // Slate-200
+            public static Color BorderLight = ColorTranslator.FromHtml("#F1F5F9");    // Slate-100
 
             // Cores de gradiente
             public static Color GradientStart = ColorTranslator.FromHtml("#667EEA");
@@ -56,19 +63,88 @@ namespace Salomao
         }
         #endregion
 
-        #region Tipografia Moderna
+        #region Sistema de Espaçamento Consistente
+        public static class Spacing
+        {
+            public const int XS = 4;    // Margem mínima
+            public const int SM = 8;    // Espaçamento pequeno
+            public const int MD = 16;   // Espaçamento padrão
+            public const int LG = 24;   // Espaçamento grande
+            public const int XL = 32;   // Espaçamento extra grande
+            public const int XXL = 48;  // Espaçamento máximo
+        }
+        #endregion
+
+        #region Tipografia Moderna Expandida
         public static class ModernFonts
         {
-            public static Font Primary = new Font("Segoe UI", 10F, FontStyle.Regular);
-            public static Font PrimaryBold = new Font("Segoe UI", 10F, FontStyle.Bold);
-            public static Font Header = new Font("Segoe UI", 16F, FontStyle.Bold);
-            public static Font SubHeader = new Font("Segoe UI", 14F, FontStyle.Bold);
-            public static Font Small = new Font("Segoe UI", 8F, FontStyle.Regular);
-            public static Font SmallBold = new Font("Segoe UI", 8F, FontStyle.Bold);
-            public static Font Button = new Font("Segoe UI", 10F, FontStyle.Bold);
-            public static Font CalendarDay = new Font("Segoe UI", 10F, FontStyle.Regular);
-            public static Font CalendarHeader = new Font("Segoe UI", 20F, FontStyle.Bold);
-            public static Font CalendarEvent = new Font("Segoe UI", 8F, FontStyle.Bold);
+            private const string FontFamily = "Segoe UI";
+
+            // Hierarquia de tamanhos
+            public static Font DisplayLarge = new Font(FontFamily, 32F, FontStyle.Bold);
+            public static Font DisplayMedium = new Font(FontFamily, 28F, FontStyle.Bold);
+            public static Font HeadlineLarge = new Font(FontFamily, 24F, FontStyle.Bold);
+            public static Font HeadlineMedium = new Font(FontFamily, 20F, FontStyle.Bold);
+            public static Font TitleLarge = new Font(FontFamily, 16F, FontStyle.Bold);
+            public static Font TitleMedium = new Font(FontFamily, 14F, FontStyle.Bold);
+            public static Font BodyLarge = new Font(FontFamily, 14F, FontStyle.Regular);
+            public static Font BodyMedium = new Font(FontFamily, 12F, FontStyle.Regular);
+            public static Font BodySmall = new Font(FontFamily, 10F, FontStyle.Regular);
+            public static Font Caption = new Font(FontFamily, 9F, FontStyle.Regular);
+
+            // Variações existentes (compatibilidade)
+            public static Font Primary = new Font(FontFamily, 10F, FontStyle.Regular);
+            public static Font PrimaryBold = new Font(FontFamily, 10F, FontStyle.Bold);
+            public static Font Header = new Font(FontFamily, 16F, FontStyle.Bold);
+            public static Font SubHeader = new Font(FontFamily, 14F, FontStyle.Bold);
+            public static Font Small = new Font(FontFamily, 8F, FontStyle.Regular);
+            public static Font SmallBold = new Font(FontFamily, 8F, FontStyle.Bold);
+            public static Font Button = new Font(FontFamily, 10F, FontStyle.Bold);
+            public static Font CalendarDay = new Font(FontFamily, 10F, FontStyle.Regular);
+            public static Font CalendarHeader = new Font(FontFamily, 20F, FontStyle.Bold);
+            public static Font CalendarEvent = new Font(FontFamily, 8F, FontStyle.Bold);
+
+            // Contextos específicos
+            public static Font ButtonText = new Font(FontFamily, 12F, FontStyle.Bold);
+            public static Font TableHeader = new Font(FontFamily, 11F, FontStyle.Bold);
+            public static Font TableCell = new Font(FontFamily, 11F, FontStyle.Regular);
+            public static Font MoneyLarge = new Font(FontFamily, 32F, FontStyle.Bold);
+            public static Font MoneyMedium = new Font(FontFamily, 20F, FontStyle.Bold);
+        }
+        #endregion
+
+        #region Paleta de Cores para Gráficos
+        public static class ChartColors
+        {
+            // Cores principais para diferentes categorias (acessibilidade considerada)
+            public static Color[] CategoryColors = new[]
+            {
+                ColorTranslator.FromHtml("#3B82F6"),  // Blue-500
+                ColorTranslator.FromHtml("#10B981"),  // Green-500
+                ColorTranslator.FromHtml("#F59E0B"),  // Amber-500
+                ColorTranslator.FromHtml("#EF4444"),  // Red-500
+                ColorTranslator.FromHtml("#8B5CF6"),  // Violet-500
+                ColorTranslator.FromHtml("#EC4899"),  // Pink-500
+                ColorTranslator.FromHtml("#14B8A6"),  // Teal-500
+                ColorTranslator.FromHtml("#F97316")   // Orange-500
+            };
+
+            // Gradientes para áreas e barras
+            public static LinearGradientBrush CreateFaturamentoGradient(Rectangle rect)
+            {
+                return new LinearGradientBrush(rect,
+                    ColorTranslator.FromHtml("#3B82F6"),  // Primary
+                    ColorTranslator.FromHtml("#60A5FA"),  // PrimaryLight
+                    LinearGradientMode.Vertical);
+            }
+
+            public static LinearGradientBrush CreateLucroGradient(Rectangle rect)
+            {
+                return new LinearGradientBrush(rect,
+                    ColorTranslator.FromHtml("#10B981"),  // Success
+                    ColorTranslator.FromHtml("#34D399"),  // SuccessLight
+                    LinearGradientMode.Vertical);
+            }
         }
         #endregion
 
@@ -312,27 +388,28 @@ namespace Salomao
         }
         #endregion
 
+        #region Grid Styler
         public static class GridStyler
         {
             public static void Personalizar(DataGridView grid)
             {
                 grid.BorderStyle = BorderStyle.None;
-                grid.BackgroundColor = ColorTranslator.FromHtml("#D1D5DB");
+                grid.BackgroundColor = ModernColors.Background;
                 grid.EnableHeadersVisualStyles = false;
 
-                grid.ColumnHeadersDefaultCellStyle.BackColor = ColorTranslator.FromHtml("#1E3A8A");
+                grid.ColumnHeadersDefaultCellStyle.BackColor = ModernColors.PrimaryDeep;
                 grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-                grid.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                grid.ColumnHeadersDefaultCellStyle.Font = ModernFonts.TableHeader;
                 grid.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
-                grid.DefaultCellStyle.BackColor = ColorTranslator.FromHtml("#F3F4F6");
-                grid.DefaultCellStyle.ForeColor = ColorTranslator.FromHtml("#374151");
-                grid.DefaultCellStyle.SelectionBackColor = ColorTranslator.FromHtml("#2563EB");
+                grid.DefaultCellStyle.BackColor = ModernColors.Surface;
+                grid.DefaultCellStyle.ForeColor = ModernColors.TextPrimary;
+                grid.DefaultCellStyle.SelectionBackColor = ModernColors.Primary;
                 grid.DefaultCellStyle.SelectionForeColor = Color.White;
-                grid.DefaultCellStyle.Font = new Font("Segoe UI", 10);
+                grid.DefaultCellStyle.Font = ModernFonts.TableCell;
                 grid.RowTemplate.Height = 30;
 
-                grid.GridColor = ColorTranslator.FromHtml("#D1D5DB");
+                grid.GridColor = ModernColors.Border;
                 grid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 grid.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
                 grid.RowHeadersVisible = false;
@@ -365,26 +442,28 @@ namespace Salomao
                 };
             }
         }
+        #endregion
 
+        #region Button Styler
         public static class ButtonStyler
         {
             public static void PersonalizaGravar(Button button)
             {
-                button.BackColor = ColorTranslator.FromHtml("#10B981");
+                button.BackColor = ModernColors.Success;
                 button.ForeColor = Color.White;
                 button.FlatStyle = FlatStyle.Flat;
                 button.FlatAppearance.BorderSize = 0;
-                button.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                button.Font = ModernFonts.ButtonText;
                 button.Height = 36;
                 button.Width = 100;
             }
             public static void PersonalizaLimpar(Button button)
             {
-                button.BackColor = ColorTranslator.FromHtml("#EF4444");
+                button.BackColor = ModernColors.Error;
                 button.ForeColor = Color.White;
                 button.FlatStyle = FlatStyle.Flat;
                 button.FlatAppearance.BorderSize = 0;
-                button.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                button.Font = ModernFonts.ButtonText;
                 button.Height = 36;
                 button.Width = 100;
             }
@@ -394,6 +473,7 @@ namespace Salomao
                 int nLeftRect, int nTopRect, int nRightRect, int nBottomRect,
                 int nWidthEllipse, int nHeightEllipse);
         }
+        #endregion
 
         #region Form Styler
         public static class FormStyler
@@ -582,9 +662,9 @@ namespace Salomao
                 grid.DefaultCellStyle.WrapMode = DataGridViewTriState.False;
 
                 // Row styling com melhor espaçamento
-                grid.RowTemplate.Height = 65; // Aumentar altura das linhas para melhor legibilidade
+                grid.RowTemplate.Height = 65;
                 grid.AlternatingRowsDefaultCellStyle.BackColor = ModernColors.SurfaceElevated;
-                grid.AlternatingRowsDefaultCellStyle.ForeColor = ModernColors.TextPrimary; // Ensure consistent text color
+                grid.AlternatingRowsDefaultCellStyle.ForeColor = ModernColors.TextPrimary;
                 grid.AlternatingRowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(40, ModernColors.Primary.R, ModernColors.Primary.G, ModernColors.Primary.B);
                 grid.AlternatingRowsDefaultCellStyle.SelectionForeColor = ModernColors.Primary;
 
@@ -655,6 +735,82 @@ namespace Salomao
         }
         #endregion
 
+        #region Card Styler
+        public static class CardStyler
+        {
+            public enum Elevation
+            {
+                None = 0,
+                Low = 1,
+                Medium = 2,
+                High = 3
+            }
+
+            public static Panel CreateModernCard(Size size, Elevation elevation = Elevation.Low)
+            {
+                var card = new Panel
+                {
+                    Size = size,
+                    BackColor = ModernColors.Surface,
+                    Padding = new Padding(Spacing.LG),
+                    BorderStyle = BorderStyle.None
+                };
+
+                card.Paint += (s, e) =>
+                {
+                    var rect = card.ClientRectangle;
+                    e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+
+                    using (var pen = new Pen(ModernColors.Border, 1))
+                    {
+                        e.Graphics.DrawRectangle(pen, 0, 0, rect.Width - 1, rect.Height - 1);
+                    }
+
+                    if (elevation != Elevation.None)
+                    {
+                        DrawElevationShadow(e.Graphics, rect, elevation);
+                    }
+                };
+
+                card.MouseEnter += (s, e) =>
+                {
+                    card.BackColor = ModernColors.SurfaceElevated;
+                    card.Cursor = Cursors.Hand;
+                    card.Invalidate();
+                };
+
+                card.MouseLeave += (s, e) =>
+                {
+                    card.BackColor = ModernColors.Surface;
+                    card.Invalidate();
+                };
+
+                return card;
+            }
+
+            private static void DrawElevationShadow(Graphics g, Rectangle rect, Elevation elevation)
+            {
+                int depth = elevation switch
+                {
+                    Elevation.Low => 4,
+                    Elevation.Medium => 8,
+                    Elevation.High => 12,
+                    _ => 0
+                };
+
+                for (int i = 0; i < depth; i++)
+                {
+                    int alpha = (int)(15 * (1 - (float)i / depth));
+                    using (var brush = new SolidBrush(Color.FromArgb(alpha, 0, 0, 0)))
+                    {
+                        g.FillRectangle(brush, rect.X + i + 1, rect.Y + depth, rect.Width - 1, 1);
+                        g.FillRectangle(brush, rect.X + depth, rect.Y + i + 1, 1, rect.Height - 1);
+                    }
+                }
+            }
+        }
+        #endregion
+
         #region Custom Controls
         /// <summary>
         /// DataGridView personalizado com renderização otimizada
@@ -663,17 +819,14 @@ namespace Salomao
         {
             public OptimizedDataGridView()
             {
-                // Configurar renderização otimizada
                 this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | 
                              ControlStyles.DoubleBuffer | ControlStyles.ResizeRedraw, true);
                 
-                // Outras otimizações
                 this.UpdateStyles();
             }
 
             protected override void OnPaint(PaintEventArgs e)
             {
-                // Melhorar qualidade de renderização
                 e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
                 e.Graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
@@ -689,21 +842,97 @@ namespace Salomao
         {
             public OptimizedPanel()
             {
-                // Configurar renderização otimizada
                 this.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.UserPaint | 
                              ControlStyles.DoubleBuffer | ControlStyles.ResizeRedraw, true);
                 
-                // Outras otimizações
                 this.UpdateStyles();
             }
 
             protected override void OnPaint(PaintEventArgs e)
             {
-                // Melhorar qualidade de renderização
                 e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
                 
                 base.OnPaint(e);
+            }
+        }
+        #endregion
+
+        #region Sistema de Feedback Visual
+        public static class InteractionStyler
+        {
+            public enum ButtonStyle
+            {
+                Primary,
+                Success,
+                Danger,
+                Secondary
+            }
+
+            public static void ApplyButtonStates(Button button, ButtonStyle style)
+            {
+                var (normal, hover, active, disabled) = GetButtonColors(style);
+
+                button.BackColor = normal;
+                button.FlatAppearance.MouseOverBackColor = hover;
+                button.FlatAppearance.MouseDownBackColor = active;
+
+                button.MouseEnter += (s, e) =>
+                {
+                    button.BackColor = hover;
+                    button.Cursor = Cursors.Hand;
+                };
+
+                button.MouseLeave += (s, e) =>
+                {
+                    button.BackColor = button.Enabled ? normal : disabled;
+                };
+
+                button.MouseDown += (s, e) =>
+                {
+                    button.BackColor = active;
+                };
+
+                button.MouseUp += (s, e) =>
+                {
+                    button.BackColor = hover;
+                };
+
+                button.EnabledChanged += (s, e) =>
+                {
+                    button.BackColor = button.Enabled ? normal : disabled;
+                    button.ForeColor = button.Enabled 
+                        ? ModernColors.TextOnPrimary 
+                        : ModernColors.TextMuted;
+                };
+            }
+
+            private static (Color normal, Color hover, Color active, Color disabled) 
+                GetButtonColors(ButtonStyle style)
+            {
+                return style switch
+                {
+                    ButtonStyle.Primary => (
+                        ModernColors.Primary,
+                        ModernColors.PrimaryLight,
+                        ModernColors.PrimaryDark,
+                        ModernColors.Border
+                    ),
+                    ButtonStyle.Success => (
+                        ModernColors.SuccessGreen,
+                        ColorTranslator.FromHtml("#34D399"),
+                        ColorTranslator.FromHtml("#059669"),
+                        ModernColors.Border
+                    ),
+                    ButtonStyle.Danger => (
+                        ModernColors.ErrorRed,
+                        ColorTranslator.FromHtml("#F87171"),
+                        ColorTranslator.FromHtml("#DC2626"),
+                        ModernColors.Border
+                    ),
+                    _ => (ModernColors.TextSecondary, ModernColors.TextPrimary, 
+                          ModernColors.TextMuted, ModernColors.Border)
+                };
             }
         }
         #endregion

@@ -256,20 +256,29 @@ namespace Salomao
                 btn_login.Invalidate();
                 await Task.Delay(500);
 
+                // Inicializar sessão do usuário
+                int usuarioId = ObterUsuarioId(usuario);
+                SessionManager.IniciarSessao(usuario, usuarioId, "Usuário");
+
                 if (primeiroLogin)
                 {
                     var cadastroUsuario = new CadUsuarioForcado();
                     cadastroUsuario.Show();
 
+                    // Abrir tela principal
                     var telaInicial = new TelaInicial();
+                    telaInicial.FormClosed += (s, args) => Application.Exit();
                     telaInicial.Show();
 
                     this.Hide();
                 }
                 else
                 {
+                    // Abrir tela principal
                     var telaInicial = new TelaInicial();
+                    telaInicial.FormClosed += (s, args) => Application.Exit();
                     telaInicial.Show();
+                    
                     this.Hide();
                 }
             }
@@ -289,6 +298,30 @@ namespace Salomao
             btn_login.Enabled = true;
             btn_login.Text = originalText;
             btn_login.Invalidate();
+        }
+
+        /// <summary>
+        /// Obtém o ID do usuário a partir do nome de usuário
+        /// </summary>
+        private int ObterUsuarioId(string usuario)
+        {
+            try
+            {
+                using (var connection = BancoSQLite.GetConnection())
+                {
+                    string query = "SELECT Id FROM Usuarios WHERE Login = @login";
+                    using (var cmd = new SQLiteCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@login", usuario);
+                        var result = cmd.ExecuteScalar();
+                        return result != null ? Convert.ToInt32(result) : 1;
+                    }
+                }
+            }
+            catch
+            {
+                return 1; // Retorna 1 como padrão em caso de erro
+            }
         }
 
         private void MostrarMensagemErro(string mensagem)

@@ -215,7 +215,7 @@
             ibtn_fornecedor.FlatStyle = FlatStyle.Flat;
             ibtn_fornecedor.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ibtn_fornecedor.ForeColor = Color.FromArgb(209, 213, 219);
-            ibtn_fornecedor.IconChar = FontAwesome.Sharp.IconChar.ListSquares;
+            ibtn_fornecedor.IconChar = FontAwesome.Sharp.IconChar.TruckFast;
             ibtn_fornecedor.IconColor = Color.FromArgb(209, 213, 219);
             ibtn_fornecedor.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_fornecedor.IconSize = 32;
@@ -261,7 +261,7 @@
             ibtn_categorias.FlatStyle = FlatStyle.Flat;
             ibtn_categorias.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ibtn_categorias.ForeColor = Color.FromArgb(209, 213, 219);
-            ibtn_categorias.IconChar = FontAwesome.Sharp.IconChar.ListSquares;
+            ibtn_categorias.IconChar = FontAwesome.Sharp.IconChar.Tags;
             ibtn_categorias.IconColor = Color.FromArgb(209, 213, 219);
             ibtn_categorias.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_categorias.IconSize = 32;
@@ -284,7 +284,7 @@
             ibtn_servico.FlatStyle = FlatStyle.Flat;
             ibtn_servico.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             ibtn_servico.ForeColor = Color.FromArgb(209, 213, 219);
-            ibtn_servico.IconChar = FontAwesome.Sharp.IconChar.ListSquares;
+            ibtn_servico.IconChar = FontAwesome.Sharp.IconChar.Screwdriver;
             ibtn_servico.IconColor = Color.FromArgb(209, 213, 219);
             ibtn_servico.IconFont = FontAwesome.Sharp.IconFont.Auto;
             ibtn_servico.IconSize = 32;

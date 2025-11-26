@@ -17,10 +17,22 @@ namespace Salomao.Cadastros
         public CadCategoria()
         {
             InitializeComponent();
+            
+            // Background moderno
+            this.BackColor = Styler.ModernColors.Background;
+            this.Padding = new Padding(Styler.Spacing.MD);
+            
             carregaTabela();
-            Styler.GridStyler.Personalizar(dataGridView1);
+            
+            // Grid moderno com hover effects
+            Styler.EnhancedGridStyler.ApplyModernStyle(dataGridView1);
+            
+            // Botões com estados visuais
             Styler.ButtonStyler.PersonalizaGravar(btnGravar);
             Styler.ButtonStyler.PersonalizaLimpar(btnLimpar);
+            
+            Styler.InteractionStyler.ApplyButtonStates(btnGravar, Styler.InteractionStyler.ButtonStyle.Success);
+            Styler.InteractionStyler.ApplyButtonStates(btnLimpar, Styler.InteractionStyler.ButtonStyle.Danger);
         }
 
         private void carregaTabela()
@@ -40,6 +52,12 @@ namespace Salomao.Cadastros
                     // Ocultar coluna ID
                     if (dataGridView1.Columns.Contains("CategoriaID"))
                         dataGridView1.Columns["CategoriaID"].Visible = false;
+                        
+                    // Aplicar fonte moderna na coluna Nome
+                    if (dataGridView1.Columns.Contains("Nome"))
+                    {
+                        dataGridView1.Columns["Nome"].DefaultCellStyle.Font = Styler.ModernFonts.BodyMedium;
+                    }
                 }
             }
         }
@@ -50,7 +68,7 @@ namespace Salomao.Cadastros
 
             if (sNomeCat == "")
             {
-                MessageBox.Show("Preencha todos os campos obrigatórios.");
+                MessageBox.Show("Preencha todos os campos obrigatórios.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -81,11 +99,12 @@ namespace Salomao.Cadastros
                     try
                     {
                         cmd.ExecuteNonQuery();
+                        MessageBox.Show("Categoria salva com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         clear();
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Erro ao cadastrar categoria: " + ex.Message);
+                        MessageBox.Show("Erro ao cadastrar categoria: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     finally
                     {

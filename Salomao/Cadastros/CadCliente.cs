@@ -16,11 +16,22 @@ namespace Salomao.Cadastros
         public CadCliente()
         {
             InitializeComponent();
+            
+            // Background moderno
+            this.BackColor = Styler.ModernColors.Background;
+            this.Padding = new Padding(Styler.Spacing.MD);
+            
             carregaTabela();
-            Styler.GridStyler.Personalizar(dataGridView1);
-            Styler.GridStyler.Personalizar(dataGridViewVeiculos);
+            
+            // Grids modernos
+            Styler.EnhancedGridStyler.ApplyModernStyle(dataGridView1);
+            Styler.EnhancedGridStyler.ApplyModernStyle(dataGridViewVeiculos);
+            
+            // Botões modernos
             Styler.ButtonStyler.PersonalizaGravar(btnGravar);
             Styler.ButtonStyler.PersonalizaLimpar(btnLimpar);
+            Styler.InteractionStyler.ApplyButtonStates(btnGravar, Styler.InteractionStyler.ButtonStyle.Success);
+            Styler.InteractionStyler.ApplyButtonStates(btnLimpar, Styler.InteractionStyler.ButtonStyle.Danger);
         }
 
         private void carregaTabela()
@@ -39,9 +50,11 @@ namespace Salomao.Cadastros
                     da.Fill(dt);
                     dataGridView1.DataSource = dt;
 
-                    // Ocultar a coluna ClienteID
                     if (dataGridView1.Columns.Contains("ClienteID"))
                         dataGridView1.Columns["ClienteID"].Visible = false;
+                        
+                    if (dataGridView1.Columns.Contains("Nome"))
+                        dataGridView1.Columns["Nome"].DefaultCellStyle.Font = Styler.ModernFonts.BodyMedium;
                 }
             }
         }
@@ -54,7 +67,7 @@ namespace Salomao.Cadastros
 
             if (sNome == "" || sTelefone == "" || sEmail == "")
             {
-                MessageBox.Show("Preencha todos os campos obrigatórios.");
+                MessageBox.Show("Preencha todos os campos obrigatórios.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -88,12 +101,12 @@ namespace Salomao.Cadastros
                     try
                     {
                         cmd.ExecuteNonQuery();
-
+                        MessageBox.Show("Cliente salvo com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         clear();
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Erro ao cadastrar cliente: " + ex.Message);
+                        MessageBox.Show("Erro ao cadastrar cliente: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                     finally
                     {
@@ -126,7 +139,6 @@ namespace Salomao.Cadastros
 
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
 
-                // Preencher campos do formulário
                 tbNomeClient.Text = row.Cells["Nome"].Value?.ToString();
                 tbTelefone.Text = row.Cells["Telefone"].Value?.ToString();
                 tbEmail.Text = row.Cells["Email"].Value?.ToString();
@@ -158,12 +170,12 @@ namespace Salomao.Cadastros
         {
             if (clienteSelecionadoId == -1)
             {
-                MessageBox.Show("Selecione um cliente antes de cadastrar um veículo.");
+                MessageBox.Show("Selecione um cliente antes de cadastrar um veículo.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             if (string.IsNullOrWhiteSpace(tbPlaca.Text) || string.IsNullOrWhiteSpace(tbMarca.Text) || string.IsNullOrWhiteSpace(tbModelo.Text))
             {
-                MessageBox.Show("Preencha todos os campos do veículo.");
+                MessageBox.Show("Preencha todos os campos do veículo.", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             using (SQLiteConnection con = BancoSQLite.GetConnection())
@@ -178,12 +190,13 @@ namespace Salomao.Cadastros
                     try
                     {
                         cmd.ExecuteNonQuery();
+                        MessageBox.Show("Veículo cadastrado com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         LimparVeiculo();
                         CarregarVeiculosDoCliente(clienteSelecionadoId);
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show("Erro ao cadastrar veículo: " + ex.Message);
+                        MessageBox.Show("Erro ao cadastrar veículo: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
             }
