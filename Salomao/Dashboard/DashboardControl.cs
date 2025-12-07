@@ -626,10 +626,18 @@ namespace Salomao.Dashboard
                     var boldStyle = wb.CreateStyle();
                     boldStyle.Font.IsBold = true;
 
-                    // Planilha de Faturamento
+                    /*
+                     =========================================================================================
+                                                            FATURAMENTO
+                     =========================================================================================
+                     */
+                    // Define a planilha ativa
                     var wsF = wb.Worksheets.Add("Faturamento");
+
+                    // Cabeçalho
                     wsF.Cells["A1"].Value = "Relatório de Faturamento Mensal";
                     wsF.Cells["A2"].Value = $"Gerado em: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+                    // Estilizando o título
                     wsF.Cells["A1"].SetStyle(style);
                     wsF.Cells.Merge(0, 0, 1, 6);
 
@@ -646,7 +654,7 @@ namespace Salomao.Dashboard
                     {
                         string query = @"SELECT A.Data as Data,
                                             C.NomeCliente as Cliente,
-                                            V.Placa as Veículo,
+                                            (V.Marca || ' ' || V.Modelo || ' - ' || V.Placa) as Veículo,
                                             A.ValorPraticado as Valor,
                                             A.LucroBruto as Lucro,
                                             A.Observacoes as Observações
@@ -661,11 +669,15 @@ namespace Salomao.Dashboard
                         }
                     }
 
+                    // Inserindo os dados a partir da linha 4
                     wsF.Cells.ImportData(dtFaturamento, 3, 0, new Aspose.Cells.ImportTableOptions {});
+                    // Estilizando cabeçalhos
                     var headerRange = wsF.Cells.CreateRange("A4:F4");
                     headerRange.SetStyle(headerStyle);
+                    // Ajusta largura automática
                     wsF.AutoFitColumns();
 
+                    // Totalizador
                     int ultimaLinha = 4 + dtFaturamento.Rows.Count;
                     wsF.Cells[ultimaLinha, 0].Value = "Total:";
                     wsF.Cells[ultimaLinha, 3].Formula = $"=SUM(D5:D{ultimaLinha})";
@@ -674,13 +686,22 @@ namespace Salomao.Dashboard
                     wsF.Cells[ultimaLinha, 3].SetStyle(boldStyle);
                     wsF.Cells[ultimaLinha, 4].SetStyle(boldStyle);
 
-                    // Planilha de Serviços
+                    /*
+                     =========================================================================================
+                                                             SERVIÇOS
+                     =========================================================================================
+                     */
+                    // Define a planilha ativa
                     var wsS = wb.Worksheets.Add("Serviços");
+
+                    // Cabeçalho
                     wsS.Cells["A1"].Value = "Relatório de Serviços Mensal";
                     wsS.Cells["A2"].Value = $"Gerado em: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+                    // Estilizando o título
                     wsS.Cells["A1"].SetStyle(style);
                     wsS.Cells.Merge(0, 0, 1, 7);
 
+                    // Dados Serviços
                     DataTable dtServicos = new DataTable();
                     dtServicos.Columns.Add("Serviço", typeof(string));
                     dtServicos.Columns.Add("Descrição", typeof(string));
@@ -694,7 +715,7 @@ namespace Salomao.Dashboard
                     {
                         string query = @"SELECT A.Data as Data,
                                             C.NomeCliente as Cliente,
-                                            V.Placa as Veículo,
+                                            (V.Marca || ' ' || V.Modelo || ' - ' || V.Placa) as Veículo,
                                             S.NomeServico as Serviço,
                                             S.Descricao as Descrição,
                                             SA.Quantidade as Qtd,
@@ -712,18 +733,30 @@ namespace Salomao.Dashboard
                         }
                     }
 
+                    // Inserindo os dados a partir da linha 4
                     wsS.Cells.ImportData(dtServicos, 3, 0, new Aspose.Cells.ImportTableOptions { });
+                    // Estilizando cabeçalhos
                     headerRange = wsS.Cells.CreateRange("A4:G4");
                     headerRange.SetStyle(headerStyle);
+                    // Ajusta largura automática
                     wsS.AutoFitColumns();
 
-                    // Planilha de Produtos
+                    /*
+                     =========================================================================================
+                                                             PRODUTOS
+                     =========================================================================================
+                     */
+                    // Define a planilha ativa
                     var wsP = wb.Worksheets.Add("Produtos");
+
+                    // Cabeçalho
                     wsP.Cells["A1"].Value = "Relatório de Produtos Mensal";
                     wsP.Cells["A2"].Value = $"Gerado em: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+                    // Estilizando o título
                     wsP.Cells["A1"].SetStyle(style);
                     wsP.Cells.Merge(0, 0, 1, 6);
 
+                    // Dados Serviços
                     DataTable dtProdutos = new DataTable();
                     dtProdutos.Columns.Add("Produto", typeof(string));
                     dtProdutos.Columns.Add("Qtd Produto", typeof(decimal));
@@ -736,7 +769,7 @@ namespace Salomao.Dashboard
                     {
                         string query = @"SELECT A.Data as Data,
                                             C.NomeCliente as Cliente,
-                                            V.Placa as Veículo,
+                                            (V.Marca || ' ' || V.Modelo || ' - ' || V.Placa) as Veículo,
                                             S.NomeServico as Serviço,
                                             P.NomeProduto as 'Produto',
                                             (SA.Quantidade * SP.Quantidade) as 'Qtd Produto'
@@ -755,9 +788,12 @@ namespace Salomao.Dashboard
                         }
                     }
 
+                    // Inserindo os dados a partir da linha 4
                     wsP.Cells.ImportData(dtProdutos, 3, 0, new Aspose.Cells.ImportTableOptions { });
+                    // Estilizando cabeçalhos
                     headerRange = wsP.Cells.CreateRange("A4:F4");
                     headerRange.SetStyle(headerStyle);
+                    // Ajusta largura automática
                     wsP.AutoFitColumns();
 
                     // Salvar arquivo
