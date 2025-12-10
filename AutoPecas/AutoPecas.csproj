@@ -8,7 +8,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
 	<SelfContained>true</SelfContained>
 	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+	<ApplicationIcon>mechanic_car_icon_214777.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="mechanic_car_icon_214777.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Aspose.Cells" Version="25.11.0" />
