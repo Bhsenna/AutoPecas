@@ -1,5 +1,5 @@
 ﻿<Project Sdk="WixToolset.Sdk/6.0.2">
   <ItemGroup>
-    <ProjectReference Include="..\Salomao\Salomao.csproj" />
+    <ProjectReference Include="..\AutoPecas\AutoPecas.csproj" />
   </ItemGroup>
 </Project>

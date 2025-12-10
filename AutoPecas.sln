@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35919.96
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Salomao", "Salomao\Salomao.csproj", "{F3CA7AB3-D90A-CB04-7738-153E06C6CF5C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPecas", "AutoPecas\AutoPecas.csproj", "{F3CA7AB3-D90A-CB04-7738-153E06C6CF5C}"
 EndProject
 Project("{B7DD6F7E-DEF8-4E67-B5B7-07EF123DB6F0}") = "AutoPecasPackage", "AutoPecasPackage\AutoPecasPackage.wixproj", "{FD234A19-6985-4409-A4D2-CE0BA149064C}"
 EndProject

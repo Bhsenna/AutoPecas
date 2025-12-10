@@ -10,7 +10,7 @@
 	    <MediaTemplate EmbedCab="yes" />
 	  
         <Feature Id="Main">
-            <ComponentGroupRef Id="SalomaoComponents" />
+            <ComponentGroupRef Id="AutoPecasComponents" />
         </Feature>
     </Package>
 </Wix>

@@ -1,6 +1,6 @@
 import os, re
 
-folder_path = "C:/Users/bhsen/source/repos/AutoPecas/Salomao/bin/Debug/net8.0-windows/win-x64"  # Replace with the actual path to your folder
+folder_path = "C:/Users/bhsen/source/repos/AutoPecas/AutoPecas/bin/Debug/net8.0-windows/win-x64"  # Replace with the actual path to your folder
 
 # Get a list of all files and directories within the specified folder
 all_items = os.listdir(folder_path)
@@ -17,10 +17,10 @@ for item in all_items:
 print(f"Files found in '{folder_path}': {dependencias}")
 
 # Now 'dependencias' contains the list of .dll and .exe files in the specified folder
-with open("C:/Users/bhsen/source/repos/AutoPecas/AutoPecasPackage/SalomaoComponents.wxs", "w") as f:
+with open("C:/Users/bhsen/source/repos/AutoPecas/AutoPecasPackage/AutoPecasComponents.wxs", "w") as f:
     f.write('<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">\n')
     f.write('  <Fragment>\n')
-    f.write('    <ComponentGroup Id="SalomaoComponents" Directory="INSTALLFOLDER">\n')
+    f.write('    <ComponentGroup Id="AutoPecasComponents" Directory="INSTALLFOLDER">\n')
     for dependencia in dependencias:
         componentId = re.sub(r"[.-]", "", "_".join(os.path.splitext(dependencia)))
         f.write('		<Component Id="' +  componentId + '">\n')
