@@ -155,7 +155,7 @@ namespace AutoPecas
                     int count = Convert.ToInt32(command.ExecuteScalar());
                     if (count == 0)
                     {
-                        string senha = "Auto@Admin";
+                        string senha = "admin123";
                         string hash = PasswordManager.HashPassword(senha, out string salt);
 
                         string insert = "INSERT INTO Usuarios (Login, SenhaHash, Salt) VALUES (@u, @h, @s)";

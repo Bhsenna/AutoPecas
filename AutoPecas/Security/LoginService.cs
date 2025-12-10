@@ -78,7 +78,7 @@ namespace AutoPecas.Security
                 return false;
             }
 
-            if (usuario.ToLower() == "admin" && senha == "Auto@Admin")
+            if (usuario.ToLower() == "admin" && senha == "admin123")
             {
                 isFirstLogin = true;
             }
