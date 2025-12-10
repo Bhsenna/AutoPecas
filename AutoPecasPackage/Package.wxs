@@ -1,6 +1,6 @@
 ﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
     <Package
-		Id="TODO_Manufacturer.AutoPecasPackage"
+		Id="AutoPecas.AutoPecasPackage"
 		Name="AutoPecasPackage"
 		Manufacturer="AutoPecas"
 		Version="1.0.0.0">

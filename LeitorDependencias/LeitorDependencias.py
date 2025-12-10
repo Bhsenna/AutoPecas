@@ -20,11 +20,15 @@ print(f"Files found in '{folder_path}': {dependencias}")
 with open("C:/Users/bhsen/source/repos/AutoPecas/AutoPecasPackage/AutoPecasComponents.wxs", "w") as f:
     f.write('<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">\n')
     f.write('  <Fragment>\n')
+    f.write('    <Icon Id="icone.exe" SourceFile="icone.ico" />\n')
     f.write('    <ComponentGroup Id="AutoPecasComponents" Directory="INSTALLFOLDER">\n')
     for dependencia in dependencias:
         componentId = re.sub(r"[.-]", "", "_".join(os.path.splitext(dependencia)))
         f.write('		<Component Id="' +  componentId + '">\n')
         f.write('			<File Source="' + dependencia + '" /> \n')
+        if dependencia == "AutoPecas.exe":
+            f.write('			<Shortcut Name="AutoPecas" Directory="DesktopFolder" Advertise="yes" Icon="icone.exe" />\n')
+            f.write('			<Shortcut Name="AutoPecas" Directory="ProgramMenuFolder" Advertise="yes" Icon="icone.exe" />\n')
         f.write('		</Component>\n')
         f.write('       \n')
     f.write('	</ComponentGroup>\n')

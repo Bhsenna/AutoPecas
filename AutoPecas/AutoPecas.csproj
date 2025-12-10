@@ -8,11 +8,11 @@
     <ImplicitUsings>enable</ImplicitUsings>
 	<SelfContained>true</SelfContained>
 	<RuntimeIdentifier>win-x64</RuntimeIdentifier>
-	<ApplicationIcon>mechanic_car_icon_214777.ico</ApplicationIcon>
+	<ApplicationIcon>icone.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="mechanic_car_icon_214777.ico" />
+    <Content Include="icone.ico" />
   </ItemGroup>
 
   <ItemGroup>

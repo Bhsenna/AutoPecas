@@ -10,7 +10,7 @@ namespace AutoPecas
 {
     internal class BancoSQLite
     {
-        private static string dbFile = "AutoPecasDB.db";
+        private static string dbFile = "C:\\Program Files\\AutoPecas\\AutoPecasDB.db";
         private static string connectionString = $"Data Source={dbFile};Version=3;";
 
         public static void CheckAndCreateDB()

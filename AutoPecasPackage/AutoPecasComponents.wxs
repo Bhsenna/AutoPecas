@@ -1,5 +1,6 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <Fragment>
+    <Icon Id="icone.exe" SourceFile="icone.ico" />
     <ComponentGroup Id="AutoPecasComponents" Directory="INSTALLFOLDER">
 		<Component Id="Accessibility_dll">
 			<File Source="Accessibility.dll" /> 
@@ -19,6 +20,8 @@
        
 		<Component Id="AutoPecas_exe">
 			<File Source="AutoPecas.exe" /> 
+			<Shortcut Name="AutoPecas" Directory="DesktopFolder" Advertise="yes" Icon="icone.exe" />
+			<Shortcut Name="AutoPecas" Directory="ProgramMenuFolder" Advertise="yes" Icon="icone.exe" />
 		</Component>
        
 		<Component Id="AutoPecasruntimeconfig_json">
